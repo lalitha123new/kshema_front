@@ -1,0 +1,62 @@
+
+<ion-row class="ion-padding-top ion-padding-bottom custom_row">
+  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+    <ion-row ion-text-left>
+    <ion-title  ion-text-left class="font_family_class name_class">{{name}}({{age}}/{{gender}})</ion-title>
+  </ion-row>
+  <ion-row ion-text-left>
+    <ion-title size="small" class="custom_text_class_header1 font_family_class label_class1"><mat-icon style="color:green;">call</mat-icon>{{mobile}}</ion-title>
+  </ion-row>
+  <ion-row ion-text-left class="ion-padding-top">
+    <ion-title size="small" class="custom_text_class_header1 font_family_class label_class2"><mat-icon style="color:red;font-size:15px;">location_on</mat-icon>{{address}}</ion-title>
+  </ion-row>
+  </ion-col>
+
+  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
+    <ion-row>
+      <ion-title class="font_family_class label_class1">KSHEMA ID</ion-title>
+    </ion-row>
+    <ion-row>
+      <ion-title  class="custom_text_class_header1 font_family_class label_class3">{{kshema_id}}</ion-title>
+    </ion-row>
+
+    <ion-row ion-text-left class="ion-padding-top">
+      <ion-title  ion-text-left class="font_family_class label_class2">Care Giver</ion-title>
+    </ion-row>
+    <ion-row ion-text-left>
+      <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3">{{care_giver}}</ion-title>
+    </ion-row>
+    <ion-row ion-text-left>
+      <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3"><mat-icon style="color:green;font-size:15px;">call</mat-icon>{{care_giver_mobile}}</ion-title>
+    </ion-row>
+  </ion-col>
+
+
+  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+    <ion-row ion-text-left>
+      <ion-title  ion-text-left class="font_family_class label_class1">ASHA/ANM</ion-title>
+    </ion-row>
+    <ion-row ion-text-left>
+      <ion-title class="font_family_class label_class3">{{asha}}</ion-title>
+    </ion-row>
+    <ion-row ion-text-left class="ion-padding-top">
+      <ion-title class="font_family_class label_class1">Taluka level PSW In charge</ion-title>
+    </ion-row>
+    <ion-row ion-text-left>
+      <ion-title class="font_family_class label_class3">{{psw_incharge}}</ion-title>
+    </ion-row>
+    <ion-row>
+      <ion-title class="ion-padding-top">
+        <a  class="pointer-class" (click)="redirectTo(2)" [hidden]="!psw"><span class="text_color1 font_family_class label_class4">Edit Patient | </span></a>
+        <a  class="pointer-class" (click)="redirectTo(1)"><span class="text_color1 font_family_class label_class4">History</span></a>
+   
+     
+    </ion-title>
+  </ion-row>
+  </ion-col>
+
+</ion-row>
+
+
+
+

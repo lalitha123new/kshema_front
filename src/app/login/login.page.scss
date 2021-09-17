@@ -1,0 +1,96 @@
+
+  @media only screen and (min-width:992px) {
+
+    .custom_size1{
+    
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 25px;
+    }
+
+    .custom_size2{
+      font-size: 16px;
+      
+    }
+  }
+
+.header_font{
+font-family: 'Righteous',cursive;
+font-style: normal;
+font-weight: bold;
+text-align: center;
+color: #262343;
+}
+.sub_header_font{
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
+}
+
+.sub_header_font2{
+font-style: normal;
+font-weight: bold;
+font-size: 32px;
+line-height: 44px;
+text-align: center;
+}
+  .sub_header_font3{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: center;
+  }
+.text_purple{
+  color:#813D7E;
+  }
+  
+.input_text{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px; 
+}
+.input_text_color{
+  color: #8D8D8D;
+}
+.buttons_text{
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 19px;
+text-align: center;
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: 10px 0px;
+}
+.common_font{
+  font-family: 'Open Sans', sans-serif;
+}
+.full_width{
+  width:100%;
+}
+
+.background{
+  background-color:#813D7E;
+  color:white;
+  border-radius: 4px;
+  margin-left:10px;
+}
+.toggleWhite{
+  background-color:#fff;
+  color:black;
+  border: 1px solid #242424;
+  border-radius: 4px;
+  padding:1px;
+  margin-left:10px;
+ 
+ }
+ .button_size{
+   padding:5px 22px;
+ }
+   
+
+   

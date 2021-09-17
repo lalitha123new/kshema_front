@@ -1,0 +1,430 @@
+<ion-app >
+
+ 
+  <ion-content >
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;" class="container3">
+
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+              <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+              <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+           </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
+          <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="7" size-lg="7" size-md="7" size-xs="7"><ion-searchbar class="custom_background_color2" placeholder="Search Patient" style="width:100%;" (ionInput)="applyFilter($event.target.value)"></ion-searchbar></ion-col>
+           <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons pointer-class" style="font-size:30px;vertical-align: middle;"  [matBadge]="notes_count" matBadgePosition="after" matBadgeColor="warn" (click)="displayNotes()">
+            speaker_notes </span></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" >
+                cached
+                </span>
+            </ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+              <mat-icon class=" pointer-class" style="font-size:30px;">home</mat-icon>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-bottom: 0px;">
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-bottom: 0px;">
+          <mat-form-field appearance="outline">
+            <mat-label class="place_holder_text ">Taluk</mat-label>
+            <mat-select (selectionChange)="selectedTaluka($event.value)">
+              <mat-option value="">All Taluks</mat-option>
+              <mat-option *ngFor="let taluk1 of taluk_array" [value]="taluk1.taluka_name">
+                {{taluk1.taluka_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+
+        <ion-row>
+       
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  text-center style="height:100%;">
+         
+
+        <ion-row style="padding:0px;">
+          <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class1 pointer-class" (click)="toggleButton(1)">
+
+              <ion-row class="no-padding">
+                <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title size="small" class="dashboard_action cell_color">PSWs actions for the day</ion-title>
+                  </ion-row>
+                </ion-col>
+                <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-right no-padding">
+                  <ion-row class="no-padding">
+                    <ion-title size="small"  class="text_second_column">{{dateToday}}</ion-title>
+                  </ion-row>
+                  <ion-row class="no-padding">
+                      <ion-title size="small" class="no-padding text_second_column">{{day}}</ion-title>
+                  </ion-row>
+                
+                </ion-col>
+              </ion-row>
+
+
+
+              <ion-row>
+                  <ion-title size="small" class="text_first_column">Consultations</ion-title>
+              </ion-row>
+
+              <ion-row>
+              
+                  <!-- <mat-slider
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  [(ngModel)]="showCompleted" style="width:100%;height:5px;"></mat-slider> -->
+                  <mat-progress-bar mode="determinate" value="{{today_visit_completed1}}"></mat-progress-bar>
+                
+              </ion-row>
+
+              <ion-row class="ion-text-right" >
+                    <ion-title size="small" class="text_second_column">Completed<span class="default_color text_second_column" style="padding-left:5px;">{{today_visit_completed}}/{{today_visit_total}}</span></ion-title>
+              </ion-row>
+          <ion-row>
+                    <ion-title size="small" class="text_first_column">Tasks</ion-title>
+              </ion-row>
+              <ion-row>
+                <!-- <mat-slider
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  [(ngModel)]="showCompletedTask" style="width:100%;height:5px;"></mat-slider> -->
+                  <mat-progress-bar mode="determinate" value="{{today_task_completed1}}"></mat-progress-bar>
+              </ion-row>
+
+              <ion-row class="ion-text-right ion-padding-bottom">
+                    <ion-title size="small" class="text_second_column">Completed<span class="default_color text_second_column" style="padding-left:5px;">{{today_task_completed}}/{{today_task_total}}</span></ion-title>
+              </ion-row>
+
+            </ion-card>
+          </ion-col>
+
+
+          <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class2 pointer-class" (click)="toggleButton(3)">
+
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title size="small" class="text_status">Overdue<span style="padding-left:5px;"><ion-icon name="time"></ion-icon></span></ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="number_class">{{overdue_total}}</ion-title>
+                  </ion-row>
+                  
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12"></ion-col>
+              </ion-row>
+
+              <ion-row class="ion-padding-bottom">
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title><span class="number_first">{{overdue_task}} </span><span  class="font_weight_class1">Tasks</span> </ion-title>
+                  </ion-row>
+                
+                  
+                </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-right">
+                  <ion-row>
+                    <ion-title><span class="number_first">{{overdue_visit}} </span><span class="font_weight_class1">Consultations</span> </ion-title>
+
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+            </ion-card>
+          </ion-col> 
+          <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class3">
+              <ion-row  class="ion-padding-top ">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-row>
+                    <ion-title size="small" class="text_status">Social workers<span style="padding-left:5px;"></span></ion-title>
+                  </ion-row>
+                  <ion-row class="ion-padding-bottom">
+                    <ion-title class="number_class">{{sw_total}}</ion-title>
+                  </ion-row>
+                  
+                </ion-col>
+              
+              </ion-row>
+
+              <ion-row class="ion-padding-bottom">
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title class="number_first"><span size="small" class="font_weight_class1"></span> </ion-title>
+                  </ion-row>
+                
+                  
+                </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-right">
+                  <ion-row>
+                    <ion-title class="number_first"><span size="small" class="font_weight_class1"></span> </ion-title>
+
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+            </ion-card>
+          </ion-col> 
+          <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class4 pointer-class">
+              <ion-row  (click)="toggleButton(6)">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-row class="ion-padding-top">
+                    <ion-title class="text_status" size="small">Total Patients</ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="number_class">{{total_patients}}</ion-title>
+                  </ion-row>
+                  
+                </ion-col>
+              
+              </ion-row>
+
+              <ion-row class="ion-padding-bottom">
+              
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-right">
+                  <ion-row>
+                    <ion-title class="number_first">0 <span class="font_weight_class1"  size="small" (click)="toggleButton(5)">Incomplete profiles</span></ion-title>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+            </ion-card>
+          </ion-col> 
+        </ion-row>
+
+        <ion-row style="padding:0px;">
+          <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" style="padding-bottom:0px;">
+            <ion-row style="padding:0px;">
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left" style="padding-bottom:0px;">
+              <ion-button style="margin-top:0px;margin-bottom:0px;" class="button_text_normal dashboard_action dashboard_button_size"  [ngClass]="{'toggleSelected1': buttonNumber == 1, 'toggleDefault1': buttonNumber != 1 }" (click)="toggleButton(1)" [hidden]="incomplete">PSWs Action for the day</ion-button>
+              <ion-button style="margin-top:0px;margin-bottom:0px;" class="button_text_normal dashboard_action dashboard_button_size"  [ngClass]="{'toggleSelected1': buttonNumber == 2, 'toggleDefault1': buttonNumber != 2 }" (click)="toggleButton(2)" [hidden]="incomplete">Upcoming</ion-button>
+              <ion-button style="margin-top:0px;margin-bottom:0px;" class="button_text_normal dashboard_action dashboard_button_size"  [ngClass]="{'toggleSelected1': buttonNumber == 3, 'toggleDefault1': buttonNumber != 3 }" (click)="toggleButton(3)"  [hidden]="incomplete">Overdue</ion-button>
+              <ion-button style="margin-top:0px;margin-bottom:0px;" class="button_text_normal dashboard_action dashboard_button_size"  [ngClass]="{'toggleSelected1': buttonNumber == 4, 'toggleDefault1': buttonNumber != 4 }" (click)="toggleButton(4)"  [hidden]="incomplete">Completed</ion-button>
+              <ion-button style="margin-top:0px;margin-bottom:0px;" class="button_text_normal dashboard_action dashboard_button_size"  [ngClass]="{'toggleSelected1': buttonNumber == 5, 'toggleDefault1': buttonNumber != 5 }" (click)="toggleButton(5)" [hidden]="!incomplete">Incomplete Profiles</ion-button>
+          
+            </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+            <ion-row>
+              <ion-col size-xl="3" size-lg="4" size-md="4" size-xs="4" class="right_align">
+                <ion-title size="small" class="dashboard_checkbox">Show: </ion-title>
+              </ion-col>
+              <ion-col size-xl="9" size-lg="8" size-md="8" size-xs="8" class="right_align">
+                <div>
+                  <!-- <div *ngFor="let arr of showArray; let i = index" style="display:inline-block" > -->
+                  <mat-checkbox [value]="1"  class="dashboard_checkbox" [ngClass]="{'toggleSelected1': isValueCheck == 1 , 'toggleDefault1': isValueCheck != 1 }"  [checked]="checkModel1" (change)="visitClicked($event)">Consultations</mat-checkbox>
+                  <mat-checkbox [value]="2"  class="dashboard_checkbox" [ngClass]="{'toggleSelected1': isValueCheck == 2 , 'toggleDefault1': isValueCheck != 2 }" [checked]="checkModel2" (change)="taskClicked($event)">Tasks</mat-checkbox>
+                <!-- </div> -->
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
+
+        <ion-row style="padding-top:0px;">
+              
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;">
+          <div class="mat-elevation-z8" class="ion-text-left" style="padding-top:0px;">
+            <table mat-table [dataSource]="dataSource_dashboard1" matSort [hidden]="!today_action">
+          
+            
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action cell_color"> {{element.name}}({{element.age}}/{{element.gender}}) </td>
+              </ng-container>
+
+            
+              <ng-container matColumnDef="sw">
+                <th mat-header-cell *matHeaderCellDef> PSW</th>
+                <td mat-cell *matCellDef="let element" class="cell_normal">{{element.sw}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="task">
+                <th mat-header-cell *matHeaderCellDef>Tasks/Visits </th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action cell_color">
+                  <span [ngStyle]="{ 'display' : (element.task == 'Phone') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phone.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'Home') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/home.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'PHC') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phc.png" style="vertical-align:middle;" /></span>
+                  <span  [hidden]="(element.task == 'PHC' || element.task == 'Home' || element.task == 'Phone')" [matBadge]="element.rem_no" matBadgePosition="after" matBadgeColor="warn"></span>
+                   {{element.task}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="due_date">
+                <th mat-header-cell *matHeaderCellDef>Due date </th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span> {{element.due_date}} </td>
+              </ng-container>
+            
+            
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class hhh"></tr>
+            </table>
+
+            <table mat-table [dataSource]="dataSource_dashboard2" matSort [hidden]="!upcoming">
+          
+             
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action"> {{element.name}}({{element.age}}/{{element.gender}}) </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sw">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>PSW</th>
+                <td mat-cell *matCellDef="let element">{{element.sw}} </td>
+              </ng-container>
+          
+             
+
+              <ng-container matColumnDef="task">
+                <th mat-header-cell *matHeaderCellDef>Tasks/Visits</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action cell_color">
+                  <span [ngStyle]="{ 'display' : (element.task == 'Phone') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phone.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'Home') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/home.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'PHC') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phc.png" style="vertical-align:middle;" /></span>
+                  <span  [hidden]="(element.task == 'PHC' || element.task == 'Home' || element.task == 'Phone')" [matBadge]="element.rem_no" matBadgePosition="after" matBadgeColor="warn"></span>
+                  {{element.task}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="due_date">
+                <th mat-header-cell *matHeaderCellDef>Due date</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              </ng-container>
+            
+              <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+            </table>
+
+            <table mat-table [dataSource]="dataSource_dashboard3" matSort [hidden]="!overdue">
+          
+            
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+                <td mat-cell *matCellDef="let element"  class="dashboard_action">{{element.name}}({{element.age}}/{{element.gender}}) </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sw">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>PSW</th>
+                <td mat-cell *matCellDef="let element">{{element.sw}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="task">
+                <th mat-header-cell *matHeaderCellDef>Tasks/Visits</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action cell_color">
+                  <span [ngStyle]="{ 'display' : (element.task == 'Phone') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phone.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'Home') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/home.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'PHC') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phc.png" style="vertical-align:middle;" /></span>
+                  <span  [hidden]="(element.task == 'PHC' || element.task == 'Home' || element.task == 'Phone')" [matBadge]="element.rem_no" matBadgePosition="after" matBadgeColor="warn"></span>
+                  {{element.task}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="due_date">
+                <th mat-header-cell *matHeaderCellDef>Due date </th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              </ng-container>
+            
+             
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+            </table>
+            <table mat-table [dataSource]="dataSource_dashboard4" matSort [hidden]="!complete">
+          
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+                <td mat-cell *matCellDef="let element" class=" dashboard_action"> {{element.name}}({{element.age}}/{{element.gender}}) </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sw">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>PSW</th>
+                <td mat-cell *matCellDef="let element">{{element.sw}} </td>
+              </ng-container>
+          
+
+              <ng-container matColumnDef="task">
+                <th mat-header-cell *matHeaderCellDef>Tasks/Visits</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action cell_color">
+                  <span [ngStyle]="{ 'display' : (element.task == 'Phone') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phone.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'Home') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/home.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'PHC') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phc.png" style="vertical-align:middle;" /></span>
+                  <span  [hidden]="(element.task == 'PHC' || element.task == 'Home' || element.task == 'Phone')" [matBadge]="element.rem_no" matBadgePosition="after" matBadgeColor="warn"></span>
+                  {{element.task}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="due_date">
+                <th mat-header-cell *matHeaderCellDef>Due date</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              </ng-container>
+            
+              <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+            </table>
+          
+            <table mat-table [dataSource]="dataSource_dashboard1" matSort [hidden]="!incomplete">
+          
+           
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+                <td mat-cell *matCellDef="let element" class="label_red dashboard_action"> {{element.name}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sw">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>PSW</th>
+                <td mat-cell *matCellDef="let element">{{element.sw}} </td>
+              </ng-container>
+          
+
+              <ng-container matColumnDef="task">
+                <th mat-header-cell *matHeaderCellDef>Tasks/Visits</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action cell_color">
+                  <span [ngStyle]="{ 'display' : (element.task == 'Phone') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phone.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'Home') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/home.png" style="vertical-align:middle;"  /></span>
+                  <span [ngStyle]="{ 'display' : (element.task == 'PHC') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phc.png" style="vertical-align:middle;" /></span>
+                  <span  [hidden]="(element.task == 'PHC' || element.task == 'Home' || element.task == 'Phone')" [matBadge]="element.rem_no" matBadgePosition="after" matBadgeColor="warn"></span>
+                  {{element.task}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="due_date">
+                <th mat-header-cell *matHeaderCellDef>Due date</th>
+                <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              </ng-container>
+            
+              
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" [routerLink]="'/send-message'" class="pointer-class"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20,100]"></mat-paginator>
+        </div>    
+            
+          </ion-col>
+
+        </ion-row>
+
+      </ion-col>
+    
+    </ion-row>
+   
+    </ion-grid>
+  </ion-content>
+ 
+</ion-app>

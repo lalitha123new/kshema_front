@@ -1,0 +1,775 @@
+<ion-app >
+
+ 
+  <ion-content>
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-bottom:0px;" class="container2">
+
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+              <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+              <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+           </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
+          <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+                cached
+                </span>
+            </ion-col>
+           
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+      
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      </ion-row>
+     
+
+        <ion-row class="ion-padding-top">
+
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+          <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  text-center style="height:100%;" class="equal_height">
+        
+         
+          
+          <ion-row class="ion-padding-top ion-padding-bottom custom_row">
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+              <ion-title  ion-text-left class="font_family_class name_class">{{name}}({{age}}/{{gender}})</ion-title>
+            </ion-row>
+            <ion-row ion-text-left>
+              <ion-title size="small" class="custom_text_class_header1 font_family_class label_class1"><mat-icon style="color:green;">call</mat-icon>{{mobile}}</ion-title>
+            </ion-row>
+            <ion-row ion-text-left class="ion-padding-top">
+              <ion-title size="small" class="custom_text_class_header1 font_family_class label_class2"><mat-icon style="color:red;font-size:15px;">location_on</mat-icon>{{address}}</ion-title>
+            </ion-row>
+            </ion-col>
+
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
+              <ion-row>
+                <ion-title class="font_family_class label_class1">KSHEMA ID</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title  class="custom_text_class_header1 font_family_class label_class3">{{kshema_id}}</ion-title>
+              </ion-row>
+
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title  ion-text-left class="font_family_class label_class2">Care Giver</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3">{{care_giver}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3"><mat-icon style="color:green;font-size:15px;">call</mat-icon>{{care_giver_mobile}}</ion-title>
+              </ion-row>
+            </ion-col>
+
+
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+                <ion-title  ion-text-left class="font_family_class label_class1">ASHA/ANM</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class label_class3">{{asha}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title class="font_family_class label_class1">Taluka level PSW In charge</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class label_class3">{{psw_incharge}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="ion-padding-top">
+                  <a  class="pointer-class" (click)="redirectTo(2)"><span class="text_color1 font_family_class label_class4a">Edit Patient | </span></a>
+                  <a  class="pointer-class" (click)="redirectTo(1)"><span class="text_color1 font_family_class label_class4a">History</span></a>
+            
+              
+              </ion-title>
+            </ion-row>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-row class="ion-padding-top ">
+              <ion-title class="text_color1 ion-padding-top">Welfare Module</ion-title> 
+          </ion-row>
+     
+          
+        <form [formGroup]="firstFormGroup">
+
+         <ion-card class="ion-card">
+
+           <ion-row class="ion-padding-top">
+             <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+                <ion-title class="label_class6">Welfare inputs required by family at this time</ion-title>
+             </ion-col>
+           </ion-row>
+          <div formGroupName="welfaresubForm1">
+           <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              
+              <mat-radio-group name="form1" formControlName="form1">
+           
+                <div *ngFor="let arr1 of yesNoArray1" style="display:inline-block">
+                  <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue_yesno"  (change)="checkWel1($event)"  [name]="arr1.viewValue_yesno" class="label_class6">{{arr1.viewValue_yesno}}</mat-radio-button>
+                </div>
+                  </mat-radio-group>
+          </ion-col>
+         </ion-row>
+<ion-row>
+  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+  <ion-title class="label_class3" [(hidden)]="!check1">Details:{{det1}}</ion-title>
+</ion-col>
+</ion-row>
+         <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <mat-form-field style="display: block;" appearance="outline">
+            <input matInput  placeholder="Details" maxlength="75" name="form1_details" formControlName="form1_details" class="place_holder_text">
+          </mat-form-field>
+        </ion-col>
+        </ion-row>
+      </div>
+        </ion-col>
+           </ion-row>
+
+         <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+                <ion-title class="label_class6">Is disability re-certification needed?</ion-title>
+              </ion-col>
+            </ion-row>
+            <div formGroupName="welfaresubForm2">
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <mat-radio-group name="form2" formControlName="form2">
+         
+              <div *ngFor="let arr1 of yesNoArray2" style="display:inline-block">
+                <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue_yesno"  (change)="checkWel2($event)" [name]="arr1.viewValue_yesno" class="label_class6">{{arr1.viewValue_yesno}}</mat-radio-button>
+              </div>
+                </mat-radio-group>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check2">Details:{{det2}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check2">Details:{{date2}}</ion-title>
+              </ion-row>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form2_details" formControlName="form2_details">
+                  </mat-form-field>
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <mat-label class="place_holder_text">Follow-up By</mat-label>
+                    <input matInput [matDatepicker]="picker400" readonly  name="form2_date" formControlName="form2_date">
+                    <mat-datepicker-toggle matSuffix [for]="picker400"></mat-datepicker-toggle>
+                    <mat-datepicker #picker400></mat-datepicker>
+                  </mat-form-field>
+                </ion-col>
+              </ion-row>
+</div>
+        </ion-col>
+
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title class="label_class6">Is application for disability pensions required?</ion-title>
+            </ion-col>
+          </ion-row>
+          <div formGroupName="welfaresubForm3">
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <mat-radio-group name="form3" formControlName="form3">
+       
+            <div *ngFor="let arr1 of tobaccooptionsArray1new" style="display:inline-block">
+              <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue" (change)="checkWel3($event)" [name]="arr1.viewValue" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+            </div>
+              </mat-radio-group>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check3">Details:{{det3}}</ion-title>
+            </ion-row>
+            <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check3">Details:{{date3}}</ion-title>
+            </ion-row>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form3_details" formControlName="form3_details">
+                </mat-form-field>
+              </ion-col>
+              <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <mat-label class="place_holder_text">Follow-up By</mat-label>
+                  <input matInput [matDatepicker]="picker401" readonly name="form3_date" formControlName="form3_date">
+                  <mat-datepicker-toggle matSuffix [for]="picker401"></mat-datepicker-toggle>
+                  <mat-datepicker #picker401></mat-datepicker>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+</div>
+      </ion-col>
+       </ion-row>
+
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+                <ion-title class="label_class6">Does the person need help with pension transfer?</ion-title>
+              </ion-col>
+            </ion-row>
+            <div formGroupName="welfaresubForm4">
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <mat-radio-group name="form4" formControlName="form4">
+        
+              <div *ngFor="let arr1 of tobaccooptionsArray2new" style="display:inline-block">
+                <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  (change)="checkWel4($event)" [name]="arr1.viewValue" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+              </div>
+                </mat-radio-group>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check4">Details:{{det4}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check4">Details:{{date4}}</ion-title>
+              </ion-row>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form4_details" formControlName="form4_details">
+                  </mat-form-field>
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <mat-label class="place_holder_text">Follow-up By</mat-label>
+                    <input matInput [matDatepicker]="picker402" readonly name="form4_date" formControlName="form4_date">
+                    <mat-datepicker-toggle matSuffix [for]="picker402"></mat-datepicker-toggle>
+                    <mat-datepicker #picker402></mat-datepicker>
+                  </mat-form-field>
+                </ion-col>
+              </ion-row>
+              </div>
+
+        </ion-col>
+
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title class="label_class6">Does the person want or need income tax benefits?</ion-title>
+            </ion-col>
+          </ion-row>
+          <div formGroupName="welfaresubForm5">
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <mat-radio-group name="form5" formControlName="form5">
+      
+            <div *ngFor="let arr1 of YesNoOtherOptions" style="display:inline-block">
+              <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue_yesno_other" (change)="checkWel5($event)" [name]="arr1.viewValue_yesno_other" class="label_class6">{{arr1.viewValue_yesno_other}}</mat-radio-button>
+            </div>
+              </mat-radio-group>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check5">Details:{{det5}}</ion-title>
+            </ion-row>
+            <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check5">Details:{{date5}}</ion-title>
+            </ion-row>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form5_details" formControlName="form5_details">
+                </mat-form-field>
+              </ion-col>
+              <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <mat-label class="place_holder_text">Follow-up By</mat-label>
+                  <input matInput [matDatepicker]="picker403" readonly name="form5_date" formControlName="form5_date">
+                  <mat-datepicker-toggle matSuffix [for]="picker403"></mat-datepicker-toggle>
+                  <mat-datepicker #picker403></mat-datepicker>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+</div>
+      </ion-col>
+      </ion-row>
+      
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+                <ion-title class="label_class6">Do they need Travel concessions?</ion-title>
+              </ion-col>
+            </ion-row>
+            <div formGroupName="welfaresubForm6">
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <mat-radio-group name="form6" formControlName="form6">
+        
+              <div *ngFor="let arr1 of tobaccooptionsArray3" style="display:inline-block">
+                <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkWel6($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+              </div>
+                </mat-radio-group>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check6">Details:{{det6}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check6">Details:{{date6}}</ion-title>
+              </ion-row>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form6_details" formControlName="form6_details">
+                  </mat-form-field>
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <mat-label class="place_holder_text">Follow-up By</mat-label>
+                    <input matInput [matDatepicker]="picker404" readonly name="form6_date" formControlName="form6_date">
+                    <mat-datepicker-toggle matSuffix [for]="picker404"></mat-datepicker-toggle>
+                    <mat-datepicker #picker404></mat-datepicker>
+                  </mat-form-field>
+                </ion-col>
+              </ion-row>
+              </div>
+
+        </ion-col>
+
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title size="small" class="label_class6">Do they need help with Support and reservation for education?</ion-title>
+            </ion-col>
+          </ion-row>
+          <div formGroupName="welfaresubForm7">
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <mat-radio-group name="form7" formControlName="form7">
+      
+            <div *ngFor="let arr1 of yesNoArray3" style="display:inline-block">
+              <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue_yesno"  [name]="arr1.viewValue_yesno" (change)="checkWel7($event)" class="label_class6">{{arr1.viewValue_yesno}}</mat-radio-button>
+            </div>
+              </mat-radio-group>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check7">Details:{{det7}}</ion-title>
+            </ion-row>
+            <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check7">Details:{{date7}}</ion-title>
+            </ion-row>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form7_details" formControlName="form7_details">
+                </mat-form-field>
+              </ion-col>
+              <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <mat-label class="place_holder_text">Follow-up By</mat-label>
+                  <input matInput [matDatepicker]="picker405" readonly name="form7_date" formControlName="form7_date">
+                  <mat-datepicker-toggle matSuffix [for]="picker405"></mat-datepicker-toggle>
+                  <mat-datepicker #picker405></mat-datepicker>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+</div>
+      </ion-col>
+      </ion-row>
+           
+      <ion-row>
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <ion-title class="label_class6">Do they need support and reservation in jobs and unemployment allowance as appropriate?</ion-title>
+        </ion-col>
+      </ion-row>
+      <div formGroupName="welfaresubForm8">
+
+      <ion-row>
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+      <mat-radio-group name="form8" formControlName="form8">
+   
+        <div *ngFor="let arr1 of tobaccooptionsArray4" style="display:inline-block">
+          <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  (change)="checkWel8($event)"  [name]="arr1.viewValue" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+        </div>
+          </mat-radio-group>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            <ion-row>
+          <ion-title class="label_class3" [(hidden)]="!check8">Details:{{det8}}</ion-title>
+        </ion-row>
+        <ion-row>
+          <ion-title class="label_class3" [(hidden)]="!check8">Details:{{date8}}</ion-title>
+        </ion-row>
+        </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+            <mat-form-field appearance="outline" style="width:100%;">
+              <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form8_details" formControlName="form8_details">
+            </mat-form-field>
+          </ion-col>
+          <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label class="place_holder_text">Follow-up By</mat-label>
+              <input matInput [matDatepicker]="picker406" readonly name="form8_date" formControlName="form8_date">
+              <mat-datepicker-toggle matSuffix [for]="picker406"></mat-datepicker-toggle>
+              <mat-datepicker #picker406></mat-datepicker>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+</div>
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+                <ion-title class="label_class6">Do they need support for housing particularly for the homeless PMI?</ion-title>
+              </ion-col>
+            </ion-row>
+            <div formGroupName="welfaresubForm9">
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <mat-radio-group name="form9" formControlName="form9">
+         
+              <div *ngFor="let arr1 of tobaccooptionsArray4" style="display:inline-block">
+                <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkWel9($event)" class='label_class6'>{{arr1.viewValue}}</mat-radio-button>
+              </div>
+                </mat-radio-group>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check9">Details:{{det9}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="label_class3" [(hidden)]="!check9">Details:{{date9}}</ion-title>
+              </ion-row>
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form9_details" formControlName="form9_details">
+                  </mat-form-field>
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                  <mat-form-field appearance="outline" style="width:100%;">
+                    <mat-label class="place_holder_text">Follow-up By</mat-label>
+                    <input matInput [matDatepicker]="picker407" readonly name="form9_date" formControlName="form9_date">
+                    <mat-datepicker-toggle matSuffix [for]="picker407"></mat-datepicker-toggle>
+                    <mat-datepicker #picker407></mat-datepicker>
+                  </mat-form-field>
+                </ion-col>
+              </ion-row>
+              </div>
+
+        </ion-col>
+
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title size="small" class="label_class6">Do they need special schemes for women PWD with or without children?</ion-title>
+            </ion-col>
+          </ion-row>
+          <div formGroupName="welfaresubForm10">
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <mat-radio-group name="form10" formControlName="form10">
+       
+            <div *ngFor="let arr1 of tobaccooptionsArray5" style="display:inline-block">
+              <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkWel10($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+            </div>
+              </mat-radio-group>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check10">Details:{{det10}}</ion-title>
+            </ion-row>
+            <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check10">Details:{{date10}}</ion-title>
+            </ion-row>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form10_details" formControlName="form10_details">
+                </mat-form-field>
+              </ion-col>
+              <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <mat-label class="place_holder_text">Follow-up By</mat-label>
+                  <input matInput [matDatepicker]="picker408" readonly name="form10_date" formControlName="form10_date">
+                  <mat-datepicker-toggle matSuffix [for]="picker408"></mat-datepicker-toggle>
+                  <mat-datepicker #picker408></mat-datepicker>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+            </div>
+
+      </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title class='label_class6'>Do they need  allowances for families having PWD with high support needs</ion-title>
+            </ion-col>
+          </ion-row>
+          <div formGroupName="welfaresubForm11">
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+          <mat-radio-group name="form11" formControlName="form11">
+       
+            <div *ngFor="let arr1 of tobaccooptionsArray6" style="display:inline-block">
+              <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkWel11($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+            </div>
+              </mat-radio-group>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check11">Details:{{det11}}</ion-title>
+            </ion-row>
+            <ion-row>
+              <ion-title class="label_class3" [(hidden)]="!check11">Details:{{date11}}</ion-title>
+            </ion-row>
+            </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form11_details" formControlName="form11_details">
+                </mat-form-field>
+              </ion-col>
+              <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+                <mat-form-field appearance="outline" style="width:100%;">
+                  <mat-label class="place_holder_text">Follow-up By</mat-label>
+                  <input matInput [matDatepicker]="picker409" readonly name="form11_date" formControlName="form11_date">
+                  <mat-datepicker-toggle matSuffix [for]="picker409"></mat-datepicker-toggle>
+                  <mat-datepicker #picker409></mat-datepicker>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+</div>
+      </ion-col>
+
+      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <ion-title class="label_class6">Do they need special insurance schemes for PWD?</ion-title>
+          </ion-col>
+        </ion-row>
+        <div formGroupName="welfaresubForm12">
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+        <mat-radio-group name="form12" formControlName="form12">
+     
+          <div *ngFor="let arr1 of tobaccooptionsArray7" style="display:inline-block">
+            <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkWel12($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+          </div>
+            </mat-radio-group>
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+              <ion-row>
+            <ion-title class="label_class3" [(hidden)]="!check12">Details:{{det12}}</ion-title>
+          </ion-row>
+          <ion-row>
+            <ion-title class="label_class3" [(hidden)]="!check12">Details:{{date12}}</ion-title>
+          </ion-row>
+          </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+              <mat-form-field appearance="outline" style="width:100%;">
+                <input matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form12_details" formControlName="form12_details">
+              </mat-form-field>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+              <mat-form-field appearance="outline" style="width:100%;">
+                <mat-label class="place_holder_text">Follow-up By</mat-label>
+                <input matInput [matDatepicker]="picker410" readonly name="form12_date" formControlName="form12_date">
+                <mat-datepicker-toggle matSuffix [for]="picker410"></mat-datepicker-toggle>
+                <mat-datepicker #picker410></mat-datepicker>
+              </mat-form-field>
+            </ion-col>
+          </ion-row>
+          </div>
+
+    </ion-col>
+     </ion-row>
+     <div formGroupName="welfaresubForm13">
+      <ion-row>
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" >
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title class="label_class6">Any other schemes proposed by the governments </ion-title>
+            </ion-col>
+          </ion-row>
+        
+
+      </ion-col>
+
+      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" >
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+            <mat-radio-group name="form13" formControlName="form13">
+      
+              <div *ngFor="let arr1 of tobaccooptionsArray8" style="display:inline-block">
+                <mat-radio-button [checked]="arr1.checked" [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkWel13($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+              </div>
+                </mat-radio-group>
+          </ion-col>
+        </ion-row>
+
+    </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+        <ion-row>
+      <ion-title class="label_class3" [(hidden)]="!check13">Details:{{det13}}</ion-title>
+    </ion-row>
+    <ion-row>
+      <ion-title class="label_class3" [(hidden)]="!check13">Details:{{date13}}</ion-title>
+    </ion-row>
+    </ion-col>
+    </ion-row>
+
+      <ion-row>
+        <ion-col size-xl="9" size-lg="9" size-md="9" size-xs="9" style="padding-right:0px;">
+          <mat-form-field appearance="outline" style="width:100%;">
+            <textarea matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form13_details" formControlName="form13_details">
+            
+            </textarea>
+          </mat-form-field>
+        </ion-col>
+        <ion-col size-xl="3" size-lg="3" size-md="3" size-xs="3" style="padding-left:0px;" >
+          <mat-form-field appearance="outline" >
+            <mat-label class="place_holder_text">Follow-up By</mat-label>
+            <input matInput [matDatepicker]="picker411" readonly name="form13_date" formControlName="form13_date">
+            <mat-datepicker-toggle matSuffix [for]="picker411"></mat-datepicker-toggle>
+            <mat-datepicker #picker411></mat-datepicker>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+      </div>
+         </ion-card>
+         <ion-card class="ion-card">
+           
+          <ion-row class="ion-padding-top">
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" >
+              <ion-title class="label_class10">Details of referral required to receive this benefit</ion-title>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+              <ion-row>
+            <ion-title class="label_class3" [(hidden)]="!check14">Details:{{det14}}</ion-title>
+          </ion-row>
+          <ion-row>
+            <ion-title class="label_class3" [(hidden)]="!check14">Details:{{date14}}</ion-title>
+          </ion-row>
+          </ion-col>
+          </ion-row>
+          <div formGroupName="welfaresubForm14">
+          <ion-row>
+            <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" style="padding-right:0px;">
+              <mat-form-field appearance="outline" style="width:100%;">
+                <textarea matInput  placeholder="Details" maxlength="75" class="place_holder_text" name="form14_details" formControlName="form14_details">
+                
+                </textarea>
+              </mat-form-field>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding-left:0px;" >
+              <mat-form-field appearance="outline" style="width:100%;">
+                <mat-label class="place_holder_text">Follow-up By</mat-label>
+                <input matInput [matDatepicker]="picker412" readonly name="form14_date" formControlName="form14_date">
+                <mat-datepicker-toggle matSuffix [for]="picker412"></mat-datepicker-toggle>
+                <mat-datepicker #picker412></mat-datepicker>
+              </mat-form-field>
+            </ion-col>
+          </ion-row>
+          </div>
+        </ion-card>
+                 
+        <div class="button_align_class">
+          <ion-button  class="button_text_normal" class="default_bg" (click)="previous1()"><span style="text-transform: none !important">Previous</span></ion-button>
+          <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!secondFormGroup.valid">Save & Next</ion-button> -->
+          <ion-button  class="button_text_normal" class="background" (click)="submitStep1(firstFormGroup)" [disabled]="!firstFormGroup.valid"><span style="text-transform: none !important">Submit</span></ion-button>
+        </div>
+                 
+
+        </form>
+     
+    
+
+          </ion-col>
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+    </ion-row>
+  
+    </ion-grid>
+  </ion-content>
+
+ 
+</ion-app>

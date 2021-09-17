@@ -1,0 +1,2222 @@
+<ion-app >
+
+ 
+  <ion-content>
+
+    <ion-grid  style="height: 100%;padding:0px;" class="container2">
+
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+              <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+              <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+           </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
+          <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle">
+                cached
+                </span>
+            </ion-col>
+           
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+      
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      </ion-row>
+   
+      <ion-row>
+
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" ></ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" style="height:100%;" class="equal_height"  >
+         
+      <ion-row>
+
+      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" text-center>
+
+      <mat-horizontal-stepper labelPosition="bottom" #stepper class="patient_step">
+        <mat-step [stepControl]="firstFormGroup">
+
+          <form [formGroup]="firstFormGroup">
+
+            <ng-template matStepLabel><span class="wrap-mat-check-label">Patient Details</span></ng-template>
+
+            <ion-card class="ion-card">
+             
+
+            <ion-row class="ion-padding-top" style="padding-bottom:0px;padding-bottom:0px;">
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <div class='ion-text-left'>
+                <ion-title class="font_family_class emans_text normal bold">Get Details with e-Manas ID</ion-title>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row >
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-xs="6" style="padding-top:0px;padding-bottom:0px;">
+                <mat-form-field style="width:100%;" appearance="outline">
+                  <input matInput placeholder="Enter e-Manas ID" class="place_holder_text">
+                 
+                </mat-form-field>
+              </ion-col>
+
+              <ion-col size-xl="2" size-lg="2" size-md="6" size-xs="6">
+                <ion-button  class="button_text_normal incharge_class font_family_class button_size" class="background"><span style="text-transform:none!important;">Get Details</span></ion-button>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+              <ion-row>
+                <ion-title class="label_class font_family_class">Basic Details</ion-title>
+              </ion-row>
+
+                <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                <mat-form-field style="display: block;" appearance="outline">
+                  <input matInput nameOnly name="name" formControlName="name" placeholder="Patient Name"  maxlength="75" class="place_holder_text">
+                </mat-form-field>
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                  <mat-form-field  appearance="outline" class="mat_custom_block_class">
+                    <mat-label class="place_holder_text">
+                      Gender</mat-label>
+                    <mat-select name="gender" formControlName="gender">
+                    
+                      <mat-option *ngFor="let gender1 of gender" [value]="gender1.value">
+                        {{gender1.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                <mat-form-field appearance="outline" class="mat_custom_block_class">
+                  <mat-label class="place_holder_text">Date of Birth</mat-label>
+                  <input matInput name="dob" formControlName="dob" [max]="patDob" (focus)="picker.open()" [matDatepicker]="picker" readonly>
+                  <mat-datepicker-toggle matSuffix  [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                <mat-form-field style="display: block;" appearance="outline">
+                  <input matInput  minlength="10" maxlength="10" name="phone" formControlName="phone" placeholder="Patient Phone Number" class="place_holder_text">
+                </mat-form-field>
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                <mat-form-field style="display: block;" appearance="outline">
+                  <input matInput   name="caregiver_name" formControlName="caregiver_name" placeholder="Care Giver Name" maxlength="75" class="place_holder_text">
+                </mat-form-field>
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                <mat-form-field style="display: block;" appearance="outline">
+                  <input matInput   minlength="10" maxlength="10" name="caregiver_phone" formControlName="caregiver_phone" placeholder="Care Giver Phone Number"  class="place_holder_text">
+                </mat-form-field>
+              </ion-col>
+              </ion-row>
+
+               
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+             
+              <ion-row>
+                <ion-title class="label_class font_family_class">Address</ion-title>
+              
+              </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   maxlength="75" name="address1" formControlName="address1" placeholder="Address Line 1"  class="place_holder_text">
+                  </mat-form-field>
+                </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput  maxlength="75" name="method_reach" formControlName="method_reach" placeholder="Method of Reaching House"  class="place_holder_text">
+                  </mat-form-field>
+                </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                    <mat-form-field appearance="outline" class="mat_custom_block_class">
+                      <mat-label  class="place_holder_text">
+                        District</mat-label>
+                      <mat-select name="district_selected" formControlName="district_selected" (selectionChange)="selectedDistrict($event)">
+                        <mat-option *ngFor="let district1 of district" [value]="district1.value">
+                          {{district1.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </ion-col>
+
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
+                  <mat-form-field  appearance="outline" class="mat_custom_block_class">
+                    <mat-label  class="place_holder_text">
+                      Taluk</mat-label>
+                    <mat-select name="taluk_selected" formControlName="taluk_selected" (selectionChange)="selectedTaluk($event)">
+                      <mat-option *ngFor="let taluk1 of taluk" [value]="taluk1.value_taluk">
+                        {{taluk1.viewValue_taluk}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding:0px;padding-bottom:0px;">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput maxlength="75" name="contact_patient" formControlName="contact_patient" placeholder="ASHA / ANM who can be a contact Patient"  class="place_holder_text">
+                  </mat-form-field>
+                </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <ion-title  class="place_holder_text">Taluk level PSW in-charge: <span class="incharge_class font_family_class">Ankita K M</span></ion-title>
+                  <!-- <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput maxlength="75"  name="psw_incharge" formControlName="psw_incharge" placeholder="Taluk level PSW in-charge" >
+                  </mat-form-field> -->
+                </ion-col>
+                </ion-row>
+
+                
+              </ion-col>
+            </ion-row>
+
+          
+          </ion-card>
+
+            <div class="button_align_class">
+                <ion-button class="default_bg" (click)="backClick()"><span style="text-transform:none!important;">Cancel</span></ion-button>
+               
+                <ion-button class="background" (click)="submitStep1(firstFormGroup)" [disabled]="!firstFormGroup.valid"><span style="text-transform:none!important;">Save & Next</span></ion-button> 
+                <!-- <ion-button class="background" (click)="submitStep1(firstFormGroup)" ><span style="text-transform:none!important;">Save & Next</span></ion-button>-->
+            </div>
+
+          </form>
+        </mat-step>
+
+        <!-- <mat-step [stepControl]="secondFormGroup" label="Manochaithanya Programme"> -->
+        <mat-step [stepControl]="secondFormGroup" label="Manochaithanya Programme">
+
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel><span class="wrap-mat-check-label">Manochaithanya Programme</span></ng-template>
+            <ion-card class="ion-card">
+            <ion-row class="ion-padding-top">
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                <ion-title class="label_class2 font_family_class">Who has come with him/her</ion-title>
+                      <mat-form-field style="display: block;" appearance="outline">
+                        <input matInput   name="diagnosis" formControlName="diagnosis" placeholder="Name" maxlength="75" class="font_family_class place_holder_text">
+                      </mat-form-field>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-padding-top">
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-title class="label_class2">How symptomatic is the patient?</ion-title>
+              </ion-col>
+              <ion-col size-xl="3" size-lg="3" size-md="8" size-xs="8">
+                <mat-slider 
+                thumbLabel
+                [displayWith]=""
+                tickInterval="10"
+                min="0"
+                max="100" (input)="pat_symptom_rate($event)" name="phc_symptom_rate" formControlName="phc_symptom_rate"></mat-slider>
+              </ion-col>
+              <ion-col size-xl="3" size-lg="3" size-md="" size-xs="4">
+                <ion-text class="label_class8" text-left><b>{{rate2}}</b></ion-text>
+              </ion-col>
+          
+          
+         
+       
+    </ion-row>
+
+    <!-- <ion-row class="ion-padding-top">
+      <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left"></ion-col>
+      <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+       
+          <mat-radio-group name="rate_option" formControlName="rate_option">
+            <div *ngFor="let rateOption1 of rateOptionsArray" style="display:inline-block">
+              <mat-radio-button [value]="rateOption1.value"  [name]="rateOption1.value" (change)="checkRateChange1($event)" class="font_family_class label_class3">{{rateOption1.viewValue_rateoption}}</mat-radio-button>
+          </div>
+          </mat-radio-group>
+          
+      
+      </ion-col>
+
+    </ion-row> -->
+   
+
+            
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="label_class2 font_family_class">Rate important symptoms on a scale of 1 - 5</ion-title>
+                      </ion-col>
+                  </ion-row>
+                
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="option_text font_family_class">1- No symptoms 3- Occur frequently/mildly affects behaviour 5- Occurs almost always or significantly affects behaviour</ion-title>
+                    </ion-col>
+                  </ion-row>
+               
+
+                     <ion-row>
+
+                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                        <ion-row>
+                          <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Suspiciousness</ion-title>
+                            </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                          <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-button-toggle-group #group1="matButtonToggleGroup" aria-label="Font Style" name="suspicious" formControlName="suspicious">
+                                    
+                              <mat-button-toggle value="1" (click)="suspiciousClicked()">1</mat-button-toggle>
+                              <mat-button-toggle value="2" (click)="suspiciousClicked()">2</mat-button-toggle>
+                              <mat-button-toggle value="3" (click)="suspiciousClicked()">3</mat-button-toggle>
+                              <mat-button-toggle value="4" (click)="suspiciousClicked()">4</mat-button-toggle>
+                              <mat-button-toggle value="5" (click)="suspiciousClicked()">5</mat-button-toggle>
+                            
+                            </mat-button-toggle-group>
+                            </ion-col>
+                        </ion-row>
+
+                       </ion-col>
+
+                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                        <ion-row>
+                          <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Hallucinatory behaviour(reported hallucination / talking or laughing to self)</ion-title>
+                          </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                          <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-button-toggle-group #group2="matButtonToggleGroup" aria-label="Font Style" name="hallucinatory" formControlName="hallucinatory">
+                                    
+                              <mat-button-toggle value="1" (click)="hallucinatoryClicked()">1</mat-button-toggle>
+                              <mat-button-toggle value="2" (click)="hallucinatoryClicked()">2</mat-button-toggle>
+                              <mat-button-toggle value="3" (click)="hallucinatoryClicked()">3</mat-button-toggle>
+                              <mat-button-toggle value="4" (click)="hallucinatoryClicked()">4</mat-button-toggle>
+                              <mat-button-toggle value="5" (click)="hallucinatoryClicked()">5</mat-button-toggle>
+                            
+                            </mat-button-toggle-group>
+                            </ion-col>
+                        </ion-row>
+
+                       </ion-col>
+                          
+                    </ion-row>
+
+                    <ion-row>
+
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Verbal or physical aggression </ion-title>
+                        </ion-col>
+                       </ion-row>
+
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-button-toggle-group #group3="matButtonToggleGroup" aria-label="Font Style" name="verbal" formControlName="verbal">
+                                    
+                            <mat-button-toggle value="1" (click)="verbalClicked()">1</mat-button-toggle>
+                            <mat-button-toggle value="2" (click)="verbalClicked()">2</mat-button-toggle>
+                            <mat-button-toggle value="3" (click)="verbalClicked()">3</mat-button-toggle>
+                            <mat-button-toggle value="4" (click)="verbalClicked()">4</mat-button-toggle>
+                            <mat-button-toggle value="5" (click)="verbalClicked()">5</mat-button-toggle>
+                          
+                          </mat-button-toggle-group>
+                           </ion-col>
+                       </ion-row>
+
+                      </ion-col>
+
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Social isolation</ion-title>
+                        </ion-col>
+                       </ion-row>
+
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" name="social_isolation" formControlName="social_isolation">
+                                    
+                            <mat-button-toggle value="1" (click)="socialClicked()">1</mat-button-toggle>
+                            <mat-button-toggle value="2" (click)="socialClicked()">2</mat-button-toggle>
+                            <mat-button-toggle value="3" (click)="socialClicked()">3</mat-button-toggle>
+                            <mat-button-toggle value="4" (click)="socialClicked()">4</mat-button-toggle>
+                            <mat-button-toggle value="5" (click)="socialClicked()">5</mat-button-toggle>
+                          
+                          </mat-button-toggle-group>
+                           </ion-col>
+                       </ion-row>
+
+                      </ion-col>
+                         
+                   </ion-row>
+
+                   <ion-row>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Poor selfcare</ion-title>
+                      </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" name="poor_selfcare" formControlName="poor_selfcare">
+                                    
+                          <mat-button-toggle value="1" (click)="selfcareClicked()">1</mat-button-toggle>
+                          <mat-button-toggle value="2" (click)="selfcareClicked()">2</mat-button-toggle>
+                          <mat-button-toggle value="3" (click)="selfcareClicked()">3</mat-button-toggle>
+                          <mat-button-toggle value="4" (click)="selfcareClicked()">4</mat-button-toggle>
+                          <mat-button-toggle value="5" (click)="selfcareClicked()">5</mat-button-toggle>
+                        
+                        </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Sleep disturbance </ion-title>
+                      </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" name="sleep" formControlName="sleep">
+                                    
+                          <mat-button-toggle value="1" (click)="sleepClicked()">1</mat-button-toggle>
+                          <mat-button-toggle value="2" (click)="sleepClicked()">2</mat-button-toggle>
+                          <mat-button-toggle value="3" (click)="sleepClicked()">3</mat-button-toggle>
+                          <mat-button-toggle value="4" (click)="sleepClicked()">4</mat-button-toggle>
+                          <mat-button-toggle value="5" (click)="sleepClicked()">5</mat-button-toggle>
+                        
+                        </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+                       
+                 </ion-row>
+
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <h6 class="font_family_class incharge_class rate_label ion-padding-right ion-padding-left" style="margin-right:15px;margin-left:15px;">Include any other symptom, such as suicidal thoughts, wandering away from home, etc that you think is due to the illness, and rate as per the scale based on how often it occurs and how much it affects the person and the people (s)he is living with.</h6>
+                      </ion-col>
+                    </ion-row>
+
+
+                    <ion-row *ngFor="let presc of symptomArray; let i = index">
+
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+  
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-form-field style="display: block;" appearance="outline">    
+                            <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="presc.symptom1" name="symptom1" [ngModelOptions]="{standalone: true}" class="place_holder_text">
+                          </mat-form-field>
+                        </ion-col>
+                       </ion-row>
+  
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="presc.symptom1_rate" name="symptom1_rate" [ngModelOptions]="{standalone: true}">
+                                      
+                            <mat-button-toggle value="1">1</mat-button-toggle>
+                            <mat-button-toggle value="2">2</mat-button-toggle>
+                            <mat-button-toggle value="3">3</mat-button-toggle>
+                            <mat-button-toggle value="4">4</mat-button-toggle>
+                            <mat-button-toggle value="5">5</mat-button-toggle>
+                          
+                          </mat-button-toggle-group>
+                           </ion-col>
+                       </ion-row>
+  
+                      </ion-col>
+  
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                        
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-form-field style="display: block;" appearance="outline">       
+                            <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="presc.symptom2" name="symptom2" [ngModelOptions]="{standalone: true}"  class="place_holder_text">
+                          </mat-form-field>
+                        </ion-col>
+                       </ion-row>
+  
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="presc.symptom2_rate" name="symptom2_rate" [ngModelOptions]="{standalone: true}">
+                                      
+                            <mat-button-toggle value="1">1</mat-button-toggle>
+                            <mat-button-toggle value="2">2</mat-button-toggle>
+                            <mat-button-toggle value="3">3</mat-button-toggle>
+                            <mat-button-toggle value="4">4</mat-button-toggle>
+                            <mat-button-toggle value="5">5</mat-button-toggle>
+                          
+                          </mat-button-toggle-group>
+                           </ion-col>
+                       </ion-row>
+  
+                      </ion-col>
+                         
+                   </ion-row>
+
+                   <ion-row>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-form-field style="display: block;" appearance="outline">    
+                          <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="newSymptom.symptom1" name="symptom1" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                      </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="newSymptom.symptom1_rate" name="symptom1_rate" [ngModelOptions]="{standalone: true}">
+                                    
+                          <mat-button-toggle value="1">1</mat-button-toggle>
+                          <mat-button-toggle value="2">2</mat-button-toggle>
+                          <mat-button-toggle value="3">3</mat-button-toggle>
+                          <mat-button-toggle value="4">4</mat-button-toggle>
+                          <mat-button-toggle value="5">5</mat-button-toggle>
+                        
+                        </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-form-field style="display: block;" appearance="outline">       
+                          <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="newSymptom.symptom2" name="symptom2" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                      </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="newSymptom.symptom2_rate" name="symptom2_rate" [ngModelOptions]="{standalone: true}">
+                                    
+                          <mat-button-toggle value="1">1</mat-button-toggle>
+                          <mat-button-toggle value="2">2</mat-button-toggle>
+                          <mat-button-toggle value="3">3</mat-button-toggle>
+                          <mat-button-toggle value="4">4</mat-button-toggle>
+                          <mat-button-toggle value="5">5</mat-button-toggle>
+                        
+                        </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+                       
+                  </ion-row>
+
+
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <div style="margin:16px;">
+                    <ion-button   class="button_text_normal" class="background" (click)="addmanoProgramme()"><ion-icon name="add-circle-outline"></ion-icon><span style="text-transform: none !important">Add More</span></ion-button>
+                  </div>
+                  </ion-col>
+                  </ion-row>
+
+                  <ion-row class="ion-padding-top" >
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="label_class3"> 
+                        <mat-form-field style="display: block;" appearance="outline" [hidden]=!symp_reason_visible>    
+                          <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="test_reason" formControlName="test_reason" class="place_holder_text" (keyup)="onKey2($event)">
+                        </mat-form-field>
+                      </ion-title>
+                    </ion-col>
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      </ion-col>
+                      </ion-row>
+               
+      </ion-card>
+      <ion-card class="ion-card">
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">     
+                    <ion-title class="font_family_class label_class2 rate_label">Substance Use</ion-title>
+                </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <div formGroupName="tobaccoFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-label class="font_family_class label_class3" style="margin-left:16px;">Tobacco</mat-label>
+                        <mat-radio-group  name="tobacco" formControlName="tobacco" >
+                          <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkTobChange1($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                          </ion-col>
+
+                       
+                      </ion-row>
+
+                  <!-- <ion-row *ngIf="tobaccoYesSelected">  -->
+                    <ion-row> 
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <mat-form-field appearance="outline" class="mat_custom_block_class">
+                      
+                        <input matInput  placeholder="Amount of use" maxlength="75" name="tobocco_amount" formControlName="tobocco_amount" class="place_holder_text">
+                      </mat-form-field>
+                </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput  placeholder="Remarks" maxlength="75" formControlName="tobacco_yes"  class="place_holder_text">
+                  </mat-form-field>
+            </ion-col>
+                </ion-row>
+              </div>
+
+            
+                
+                  </ion-col>
+                  </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <div formGroupName="alcoholFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-label class="font_family_class label_class3" style="margin-left: 16px;;">Alcohol</mat-label>
+                        <mat-radio-group  name="alcohol" formControlName="alcohol">
+                    
+                          <div *ngFor="let arr1 of alcoholoptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr1.viewValue_alcohol"  [name]="arr1.viewValue_alcohol" (change)="checkTobChange2($event)" class="font_family_class label_class3">{{arr1.viewValue_alcohol}}</mat-radio-button>
+                          </div>
+                            </mat-radio-group>
+                        </ion-col>
+
+                       
+                        </ion-row>
+
+                      <!-- <ion-row *ngIf="alcoholYesSelected"> -->
+                        <ion-row> 
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                            <mat-form-field appearance="outline" class="mat_custom_block_class">
+                             
+                              <input matInput  placeholder="Amount of use" maxlength="75" name="alcohol_amount" formControlName="alcohol_amount"  class="place_holder_text">
+                      
+                            </mat-form-field>
+                      </ion-col>
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                        <mat-form-field style="display: block;" appearance="outline">
+                          <input matInput  placeholder="Remarks" maxlength="75" formControlName="alcohol_yes"  class="place_holder_text">
+                        </mat-form-field>
+                  </ion-col>
+                      </ion-row>
+                    </div>
+
+                  
+                  </ion-col>
+                  
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <div formGroupName="otherFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-label class="font_family_class label_class3" style="margin-left: 16px;;">Other</mat-label>
+                        <mat-radio-group  name="other" formControlName="other">
+                    
+                          <div *ngFor="let arr1 of alcoholoptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr1.viewValue_alcohol"  [name]="arr1.viewValue_alcohol" (change)="checkTobChange3($event)" class="font_family_class label_class3">{{arr1.viewValue_alcohol}}</mat-radio-button>
+                          </div>
+                            </mat-radio-group>
+                        </ion-col>
+
+                      
+                        </ion-row>
+
+                    
+                        <ion-row> 
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                            <mat-form-field appearance="outline" class="mat_custom_block_class">
+                            
+                          
+                            <input matInput  placeholder="Amount of use" maxlength="75" name="other_amount" formControlName="other_amount"  class="place_holder_text">
+                      
+                            </mat-form-field>
+                      </ion-col>
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                        <mat-form-field style="display: block;" appearance="outline">
+                          <input matInput  placeholder="Other Substance Used" maxlength="75" name="other_yes" formControlName="other_yes"  class="place_holder_text">
+                        </mat-form-field>
+                  </ion-col>
+                      </ion-row>
+                    </div>
+
+                  
+                  </ion-col>
+                  
+                </ion-row>
+                  
+                  </ion-card>
+                   
+                      <div class="button_align_class">
+                        <ion-button  class="button_text_normal font_family_class" class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Previous</span></ion-button>
+                        
+                        <ion-button  class="button_text_normal font_family_class" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!(secondFormGroup.valid && (rateSymptom || domainValid))"><span style="text-transform:none!important;">Save & Next</span></ion-button> 
+                        <!-- <ion-button  class="button_text_normal font_family_class" class="background" (click)="submitStep2(secondFormGroup)" ><span style="text-transform:none!important;">Save & Next</span></ion-button>-->
+                     
+                      </div>
+                   
+
+          </form>
+        </mat-step>
+
+
+        <!-- <mat-step [stepControl]="thirdFormGroup" label="Assessment of Needs"> -->
+          <mat-step [stepControl]="thirdFormGroup" label="Assessment of Needs">
+          <form [formGroup]="thirdFormGroup">
+
+      <ng-template matStepLabel><span class="wrap-mat-check-label">Assessment of Needs</span></ng-template>
+            <ion-card class="ion-card">
+              
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left" class="ion-padding-bottom">
+                  <ion-title class="label_class4a font_family_class">Please ask the follwoing questions to the patients and their families so that you can plan interventions on the next page.</ion-title>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <ion-title class="font_family_class label_class5">"What additional help-other than medicines or counselling - Do you require?"</ion-title>
+                  </ion-col>
+              </ion-row>
+
+              <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-form-field appearance="outline" style="display:block">
+                    <input matInput  placeholder="Enter Description" maxlength="75" name="description" formControlName="description" class="place_holder_text">
+                  </mat-form-field>
+               
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  class="ion-text-left">
+                   <div formGroupName="skillFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                        <ion-title class="font_family_class label_class5">"Do you require help completing your education or learning a skill?"</ion-title>
+                      </ion-col>
+                   
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                        <mat-radio-group  name="skill" formControlName="skill" >
+                          <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkSkillChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                  
+                      </ion-col>
+                    </ion-row>
+
+                    
+                      <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="skill_yes" formControlName="skill_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+
+              </div>
+
+                  </ion-col>
+              </ion-row>
+                  
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <div formGroupName="jobFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                        <ion-title class="font_family_class label_class5">"Do you require help getting or keeping work or a job?"</ion-title>
+                      </ion-col>
+                   
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                        <mat-radio-group name="job" formControlName="job" >
+                          <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkJobChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                      </ion-col>
+                    </ion-row>
+
+                    
+                      <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="job_yes" formControlName="job_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+              </div>
+                 
+                  </ion-col>
+
+                </ion-row>
+
+                  <div formGroupName="interestActFormGroup">
+                <ion-row>
+                  <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="font_family_class label_class5">"Do you require help to take part in some interesting activities or spend your day better?"</ion-title>
+                  </ion-col>
+               
+                  <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                    <mat-radio-group name="interest_act" formControlName="interest_act" >
+                      <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                        <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkInterestActChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                    </div>
+                    </mat-radio-group>
+                  </ion-col>
+                </ion-row>
+
+              
+                  <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="interest_act_yes" formControlName="interest_act_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                  </ion-row>
+                  </div>
+
+                  <div formGroupName="communityFormGroup">
+                <ion-row>
+                  <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                    <ion-title class="font_family_class label_class5">"Would you like to participate more in community events or social activities?"</ion-title>
+                  </ion-col>
+                   
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-radio-group name="community" formControlName="community" >
+                          <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkCommunityChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                      </ion-col>
+                    </ion-row>
+
+                       
+                          <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <mat-form-field appearance="outline" style="display:block">
+                              <input matInput  placeholder="If yes, Remarks" maxlength="75" name="community_yes" formControlName="community_yes" class="place_holder_text">
+                            </mat-form-field>
+                          </ion-col>
+                            </ion-row>
+
+                  </div>
+
+                    <div formGroupName="dailyFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                          <ion-title class="font_family_class label_class5">"Do you need help completing your daily activities such as bathing, eating, or dressing?"</ion-title>
+                        </ion-col>
+                         
+                            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                              <mat-radio-group name="daily" formControlName="daily" >
+                                <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                                  <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkDailyChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                              </div>
+                              </mat-radio-group>
+                            </ion-col>
+                          </ion-row>
+      
+                             
+                                <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                  <mat-form-field appearance="outline" style="display:block">
+                                    <input matInput  placeholder="If yes, Remarks" maxlength="75" name="daily_yes" formControlName="daily_yes" class="place_holder_text">
+                                  </mat-form-field>
+                                </ion-col>
+                                  </ion-row>
+      
+                    </div>
+
+                    <div formGroupName="houseFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                          <ion-title class="font_family_class label_class5">"Do you need help in finding a house or a place to live?"</ion-title>
+                        </ion-col>
+                         
+                            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                              <mat-radio-group name="house" formControlName="house" >
+                                <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                                  <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkHouseChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                              </div>
+                              </mat-radio-group>
+                            </ion-col>
+                          </ion-row>
+      
+                             
+                                <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                  <mat-form-field appearance="outline" style="display:block">
+                                    <input matInput  placeholder="If yes, Remarks" maxlength="75" name="house_yes" formControlName="house_yes" class="place_holder_text">
+                                  </mat-form-field>
+                                </ion-col>
+                                  </ion-row>
+      
+                    </div>
+
+                    <div formGroupName="financeFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                          <ion-title class="font_family_class label_class5">"Do you need to apply for financial help or loans?"</ion-title>
+                        </ion-col>
+                         
+                            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                              <mat-radio-group name="finance" formControlName="finance" >
+                                <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                                  <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkFinanceChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                              </div>
+                              </mat-radio-group>
+                            </ion-col>
+                          </ion-row>
+      
+                             
+                                <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                  <mat-form-field appearance="outline" style="display:block">
+                                    <input matInput  placeholder="If yes, Remarks" maxlength="75" name="finance_yes" formControlName="finance_yes" class="place_holder_text">
+                                  </mat-form-field>
+                                </ion-col>
+                                  </ion-row>
+      
+                    </div>
+                    <div formGroupName="otherHelpFormGroup">            
+                      <ion-row>
+                        <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                          <ion-title class="font_family_class label_class5">"Do you need any other help?"</ion-title>
+                        </ion-col>
+                         
+                            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                              <mat-radio-group name="other_help" formControlName="other_help">
+                                <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                                  <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkOtherHelpChange($event)" class="font_family_class label_class3">{{arr.viewValue}}</mat-radio-button>
+                              </div>
+                              </mat-radio-group>
+                            </ion-col>
+                      </ion-row>                               
+                                                                                <!-- <ion-row *ngIf="communityYesSelected"> -->
+                      <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-form-field appearance="outline" style="display:block">
+                          <input matInput  placeholder="If yes, Remarks" maxlength="75" name="other_help_yes" formControlName="other_help_yes" class="place_holder_text">
+                        </mat-form-field>
+                      </ion-col>
+                      </ion-row>
+                      </div>
+                                                        
+                  </ion-card>
+
+                  <div class="button_align_class">
+                    <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Previous</span></ion-button>
+                     <ion-button  class="button_text_normal" class="background" (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid"><span style="text-transform:none!important;">Save & Next</span></ion-button> 
+                     <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep3(thirdFormGroup)" ><span style="text-transform:none!important;">Save & Next</span></ion-button>  -->
+                 
+                    </div>
+          </form>
+        </mat-step>
+
+        <!-- <mat-step [stepControl]="fourthFormGroup" label="Rehabilitation Measures"> -->
+          <mat-step [stepControl]="fourthFormGroup">
+        
+          <form [formGroup]="fourthFormGroup">
+            <ng-template matStepLabel><span class="wrap-mat-check-label">Rehabilitation Measures</span></ng-template>
+          <ion-card class="ion-card">
+            
+
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="font_family_class label_class2">To meet the needs the person reported, you should, </ion-title>
+                </ion-col>
+              </ion-row>
+
+              <div formGroupName="localResourceFormGroup">
+                  <ion-row>
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    
+                      <mat-checkbox  name="check1" formControlName="check1"  class="font_family_class label_class3" (change)="taskCheck1($event)">Contact local people or resources?</mat-checkbox>
+                    </ion-col>
+                 
+                        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                          <ion-row>
+                            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                              <mat-form-field appearance="outline" style="width:100%;">
+                                <input matInput  placeholder="Remarks" maxlength="75" name="local_resource_yes" formControlName="local_resource_yes" class="place_holder_text">
+                              </mat-form-field>
+                            </ion-col>
+                            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;" >
+                              <mat-form-field appearance="outline" style="width:100%;">
+                                <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                <input matInput [matDatepicker]="picker51" readonly name="local_resource_date" formControlName="local_resource_date">
+                                <mat-datepicker-toggle matSuffix [for]="picker51"></mat-datepicker-toggle>
+                                <mat-datepicker #picker51></mat-datepicker>
+                              </mat-form-field>
+                            </ion-col>
+                          </ion-row>
+
+                          
+                        </ion-col>
+                          </ion-row>
+
+                          
+                                </div>
+
+                          <div formGroupName="differentNeedsFormGroup">
+                          <ion-row>
+                            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left ion-padding-top">
+                                <!-- <ion-title size="small">Coordinate with NGO's / self-help groups/ local authorities for different needs?</ion-title> -->
+                                <mat-checkbox name="check2" formControlName="check2"  class="font_family_class label_class3" (change)="taskCheck2($event)"><span class="wrap-mat-check-label">Coordinate with NGO's / self-help groups/ local authorities for different needs?</span></mat-checkbox>
+                            </ion-col>
+                         
+                           
+                             
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks"  maxlength="75" name="different_needs_yes" formControlName="different_needs_yes" class="place_holder_text">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                    <mat-form-field appearance="outline"  style="width:100%;">
+                                      <mat-label>Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker80" readonly name="different_needs_date" formControlName="different_needs_date" class="place_holder_text">
+                                      <mat-datepicker-toggle matSuffix [for]="picker80"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker80></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+
+                          </ion-row>
+
+                       
+                        </div>
+
+                         
+
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                                <ion-title class="font_family_class label_class2">Search for income generation activities including</ion-title>
+                            </ion-col>
+                          </ion-row>
+
+                         
+
+                          
+                              <div formGroupName="localFormGroup">
+                              <ion-row>
+                               
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left ion-padding-top">
+                                 
+                                  <mat-checkbox name="check3" formControlName="check3"  class="font_family_class label_class3" (change)="taskCheck3($event)">Look for jobs in local industries?</mat-checkbox>
+                                </ion-col>
+
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                  <ion-row>
+                                    <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                      <mat-form-field style="width:100%;" appearance="outline">
+                                        <input matInput placeholder=" Remarks" maxlength="75" name="local_industries_yes" formControlName="local_industries_yes" class="place_holder_text">
+                                      </mat-form-field>
+                                    </ion-col>
+                                    <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style=padding-left:0px;>
+                                      <mat-form-field appearance="outline" style="width:100%;">
+                                        <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                        <input matInput [matDatepicker]="picker52" readonly name="local_industries_date" formControlName="local_industries_date">
+                                        <mat-datepicker-toggle matSuffix [for]="picker52"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker52></mat-datepicker>
+                                      </mat-form-field>
+                                    </ion-col>
+                                  </ion-row>
+                                </ion-col>
+                             
+                              </ion-row>
+                             
+                               
+                            </div>
+
+                            <div formGroupName="skillDevFormGroup">
+                            <ion-row>
+                                   
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox name="check4" formControlName="check4"   class="font_family_class label_class3" (change)="taskCheck4($event)">Refer for skill-development?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder=" Remarks" maxlength="75"  name="skill_dev_yes" formControlName="skill_dev_yes" class="place_holder_text">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker59" readonly name="skill_dev_date" formControlName="skill_dev_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker59"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker59></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                           
+                            </ion-row>
+                           
+                            </div>
+
+                            <div formGroupName="selfEmployFormGroup">
+                              <ion-row>
+                               
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left ion-padding-top">
+                                  <!-- <ion-title size="small">Help them apply for self-employment schemes?</ion-title> -->
+                                  <mat-checkbox name="check5" formControlName="check5"   class="font_family_class label_class3" (change)="taskCheck5($event)">Help them apply for self-employment schemes?</mat-checkbox>
+                                </ion-col>
+
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                  <ion-row>
+                                    <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                      <mat-form-field style="width:100%;" appearance="outline">
+                                        <input matInput placeholder="Remarks" maxlength="75" name="self_employ_yes" formControlName="self_employ_yes" class="place_holder_text">
+                                      </mat-form-field>
+                                    </ion-col>
+                                    <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                      <mat-form-field appearance="outline" style="width:100%;">
+                                        <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                        <input matInput [matDatepicker]="picker53" readonly name="self_employ_date" formControlName="self_employ_date">
+                                        <mat-datepicker-toggle matSuffix [for]="picker53"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker53></mat-datepicker>
+                                      </mat-form-field>
+                                    </ion-col>
+                                  </ion-row>
+                                </ion-col>
+                              </ion-row>
+
+                             
+                              
+                            </div>
+
+                            
+                            <div formGroupName="incomeGroup">
+                            <ion-row>
+                                   
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                                
+                                <mat-checkbox name="check6" formControlName="check6"  class="font_family_class label_class3" (change)="taskCheck6($event)">Help them apply for any other income generating activities?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width: 100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75" name="income_generation_yes" formControlName="income_generation_yes" class="place_holder_text">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" class="padding-left:0px;">
+                                    <mat-form-field appearance="outline"  style="width: 100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker58"  readonly name="income_generation_date" formControlName="income_generation_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker58"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker58></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                           
+                            </div>
+
+                            <div formGroupName="minergaGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox name="check7" formControlName="check7"  class="font_family_class label_class3" (change)="taskCheck7($event)">Help them to participate in the MINREGA scheme?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  name="minerga_yes" formControlName="minerga_yes" class="place_holder_text">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker56"  readonly name="minerga_date" formControlName="minerga_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker56"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker56></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+
+                           
+                            </div>
+
+                            <div formGroupName="daycareFormGroup">
+                              <ion-row>
+                               
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left ion-padding-top">
+                                 
+                                  <mat-checkbox name="check8" formControlName="check8"  class="font_family_class label_class3" (change)="taskCheck8($event)">Refer for daycare?</mat-checkbox>
+                                </ion-col>
+
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                  <ion-row>
+                                    <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                      <mat-form-field style="width:100%;" appearance="outline">
+                                        <input matInput placeholder="Remarks" maxlength="75" name="daycare" formControlName="daycare" class="place_holder_text">
+                                      </mat-form-field>
+                                    </ion-col>
+                                    <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                      <mat-form-field appearance="outline" style="width:100%;">
+                                        <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                        <input matInput [matDatepicker]="picker54"  readonly name="daycare_yes" formControlName="daycare_yes">
+                                        <mat-datepicker-toggle matSuffix [for]="picker54"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker54></mat-datepicker>
+                                      </mat-form-field>
+                                    </ion-col>
+                                  </ion-row>
+                                </ion-col>
+                                </ion-row>
+                             
+                             
+                               
+                              
+                              </div>
+
+                              <div formGroupName="cultutalEventFormGroup">
+                              <ion-row>
+                               
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left ion-padding-top">
+                                  <!-- <ion-title size="small">Help them participate in local social/ cultural events?</ion-title> -->
+                                  <mat-checkbox name="check9" formControlName="check9"   class="font_family_class label_class3"  (change)="taskCheck9($event)">Help them participate in local social/ cultural events?</mat-checkbox>
+                                </ion-col>
+
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                  <ion-row>
+                                    <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                      <mat-form-field style="width:100%;" appearance="outline">
+                                        <input matInput placeholder="Remarks" maxlength="75" name="cultural_event" formControlName="cultural_event" class="place_holder_text">
+                                      </mat-form-field>
+                                    </ion-col>
+                                    <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                      <mat-form-field appearance="outline" style="width:100%;">
+                                        <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                        <input matInput [matDatepicker]="picker55"  readonly name="cultural_event_yes" formControlName="cultural_event_yes">
+                                        <mat-datepicker-toggle matSuffix [for]="picker55"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker55></mat-datepicker>
+                                      </mat-form-field>
+                                    </ion-col>
+                                  </ion-row>
+                                </ion-col>
+                             
+                             
+                             
+                              </ion-row>
+                            </div>
+
+                            <div formGroupName="educationFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                                <!-- <ion-title size="small">Support them to join, continue or go back to any educational course?</ion-title> -->
+                                <mat-checkbox name="check10" formControlName="check10"  class="font_family_class label_class3" (change)="taskCheck10($event)"><span class="wrap-mat-check-label">Support them to join, continue or go back to any educational course?</span></mat-checkbox>
+                              </ion-col>
+
+                             
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  name="education_yes" formControlName="education_yes" class="place_holder_text">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker57"  readonly name="education_date" formControlName="education_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker57"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker57></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                           
+                           
+
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                              <ion-title class="font_family_class label_class2">Others</ion-title>
+                            </ion-col>
+                          </ion-row>
+
+                          
+                            <div formGroupName="idProofFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                                <!-- <ion-title size="small">Help them obtain ID proof?</ion-title> -->
+                                <mat-checkbox name="check11" formControlName="check11"  class="font_family_class label_class3" (change)="taskCheck11($event)">Help them obtain ID proof?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"   name="id_proof_yes" formControlName="id_proof_yes" class="place_holder_text">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker60"  readonly name="id_proof_date" formControlName="id_proof_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker60"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker60></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+
+                            
+
+                            
+                          <div formGroupName="insClaimFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top"> 
+                                <!-- <ion-title size="small">Help in applying for insurance or claiming insurance benefits?</ion-title> -->
+                                <mat-checkbox name="check12" formControlName="check12"  class="font_family_class label_class3" (change)="taskCheck12($event)">Help in applying for insurance or claiming insurance benefits?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="ins_claim_yes" formControlName="ins_claim_yes">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker61"  readonly name="ins_claim_date" formControlName="ins_claim_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker61"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker61></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                           
+                          <div formGroupName="physicianFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                              
+                                <mat-checkbox name="check13" formControlName="check13"   class="font_family_class label_class3" (change)="taskCheck13($event)">Refer to a physician?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="physician_yes" formControlName="physician_yes" >
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker63"  readonly name="physician_date" formControlName="physician_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker63"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker63></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                       
+                           
+                            <div formGroupName="legalFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox name="check14" formControlName="check14"   class="font_family_class label_class3" (change)="taskCheck14($event)">Help apply for legal services including guardianship</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="legal_yes" formControlName="legal_yes">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker64"  readonly name="legal_date" formControlName="legal_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker64"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker64></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                          <div formGroupName="liaiseFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox name="check15" formControlName="check15"  class="font_family_class label_class3" (change)="taskCheck15($event)">Liaise wiith authorities?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="liase_yes" formControlName="liase_yes">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker65"  readonly name="liase_date" formControlName="liase_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker65"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker65></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+
+                          </div>
+                          <div formGroupName="consultLegalFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox name="check16" formControlName="check16"   class="font_family_class label_class3" (change)="taskCheck16($event)">Help apply for financial aid such as loan?</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="consult_legal_yes" formControlName="consult_legal_yes">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker66"  readonly name="consult_legal_date" formControlName="consult_legal_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker66"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker66></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                           
+                          <div formGroupName="bankAccountFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                              
+                                <mat-checkbox name="check17" formControlName="check17"   class="font_family_class label_class3" (change)="taskCheck17($event)">Help them open bank accounts?</mat-checkbox>
+                              </ion-col>
+
+                              
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="bank_account_yes" formControlName="bank_account_yes">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker67"  readonly name="bank_account_date" formControlName="bank_account_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker67"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker67></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                           
+                          <div formGroupName="offerHelpFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox name="check18" formControlName="check18"   class="font_family_class label_class3" (change)="taskCheck18($event)"><span class="wrap-mat-check-label">Offer them any other help(such as enrolment in Special Employment exchange, etc.)?</span></mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline">
+                                      <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="offer_help_yes" formControlName="offer_help_yes">
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                    <mat-form-field appearance="outline" style="width:100%;">
+                                      <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                      <input matInput [matDatepicker]="picker68"  readonly name="offer_help_date" formControlName="offer_help_date">
+                                      <mat-datepicker-toggle matSuffix [for]="picker68"></mat-datepicker-toggle>
+                                      <mat-datepicker #picker68></mat-datepicker>
+                                    </mat-form-field>
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+
+                          <div formGroupName="noneAboveFormGroup">
+                            <ion-row>
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
+                               
+                                <mat-checkbox    class="font_family_class label_class3" [disabled]="!none_visible" name="check19" formControlName="check19" (change)="taskCheck19($event)" matTooltip="Please say why no measures are needed at this point?">None of the above</mat-checkbox>
+                              </ion-col>
+
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                                <ion-row>
+                                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-right:0px;">
+                                    <mat-form-field style="width:100%;" appearance="outline" [hidden]="!none_visible" >
+                                      <input matInput placeholder="Reason"  name="none_reason" formControlName="none_reason" maxlength="75"  class="place_holder_text" >
+                                    </mat-form-field>
+                                  </ion-col>
+                                  <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                                   
+                                  </ion-col>
+                                </ion-row>
+                              </ion-col>
+                           
+                            </ion-row>
+                          </div>
+                          <ion-row>
+                        
+                            <ion-col  size-xl="6" size-lg="6" size-md="6" size-xs="6" style="padding-left: 0px;">
+                            <ion-title class="label_class3">Next review of rehab measures</ion-title></ion-col>
+                            <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6" style="padding-left: 0px;">
+                              <mat-form-field appearance="outline" style="width:100%;">
+                                <mat-label class="place_holder_text">Date</mat-label>
+                                <input matInput [matDatepicker]="picker668"  readonly name="review_date" formControlName="review_date">
+                                <mat-datepicker-toggle matSuffix [for]="picker668"></mat-datepicker-toggle>
+                                <mat-datepicker #picker668></mat-datepicker>
+                              </mat-form-field>
+                           
+                          </ion-col>
+                        </ion-row>   
+          </ion-card>
+            <ion-card class="ion-padding-top ion-padding-bottom ion-card">
+                            <ion-row class="ion-padding-top ion-padding-bottom">
+                               
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                              
+                                <mat-checkbox name="notebook" formControlName="notebook"   class="font_family_class label_class3" >Notes added to patient's book</mat-checkbox>
+                              </ion-col>
+
+                            
+                           
+                            </ion-row>
+                    </ion-card>
+                    <ion-card class="ion-card">
+                      
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-title class="font_family_class label_class2">UDID information</ion-title>
+                      </ion-col>
+                    </ion-row>
+
+                    <div formGroupName="UUIDFormGroup">
+                    <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left"> 
+                        <ion-row>
+                          
+                          
+                              <ion-title  class="font_family_class label_class3">Does the person have a UDID?</ion-title>
+                            
+                          </ion-row>
+                            <ion-row> 
+                              
+                              <mat-radio-group aria-label="Select an option" class="font_family_class label_class3" name="uuid" formControlName="uuid">
+                                
+                              
+                              <div *ngFor="let arr of uuidptionsArray" style="display:inline-block">
+                                <mat-radio-button [value]="arr.viewValue_uuid"  (change)="uuidChange($event)" [name]="arr.value">{{arr.viewValue_uuid}}</mat-radio-button>
+                            </div>
+                          </mat-radio-group> 
+                            
+                          </ion-row>
+                          </ion-col>
+                        
+                      
+                    </ion-row>
+                  </div>
+
+                    
+
+                    
+                  <div formGroupName="validUUIDFormGroup" [hidden]="!isYes">
+                    <ion-row [hidden]="!isYes">
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-title  class="font_family_class label_class3">Is the UDID valid?</ion-title>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row [hidden]="!isYes">
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-row>
+                          
+                        <mat-radio-group aria-label="Select an option" class="font_family_class label_class3" name="uuid_valid" formControlName="uuid_valid">
+                          
+                            
+                          <div *ngFor="let arr of uuidValidptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr.viewValue_valid"  [name]="arr.value">{{arr.viewValue_valid}}</mat-radio-button>
+                        </div>
+                        
+                        </mat-radio-group>
+                      
+                        </ion-row>
+
+                        
+                      </ion-col>
+                      
+                    </ion-row>
+                    </div>
+                    
+
+                    
+                    <div formGroupName="renewUUIdFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-title  class="font_family_class label_class3">Do they want help to get or renew a UDID?</ion-title>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-radio-group aria-label="Select an option" class="font_family_class label_class3" name="uuid_renew" formControlName="uuid_renew">
+                              <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                                <mat-radio-button [value]="arr.viewValue" [name]="arr.value" (change)="reniewUUID($event)">{{arr.viewValue}}</mat-radio-button>
+                            </div>
+                            
+                            </mat-radio-group>
+                          </ion-col>
+                        </ion-row>
+
+                        
+                      </ion-col>
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                        <ion-row>
+                          <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                            <mat-form-field style="width:100%;" appearance="outline">
+                              <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text"  name="uuid_renew_remark" formControlName="uuid_renew_remark">
+                            </mat-form-field>
+                          </ion-col>
+                          <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                            <mat-form-field appearance="outline" style="width:100%;">
+                              <mat-label class="place_holder_text">Follow-up By</mat-label>
+                              <input matInput [matDatepicker]="picker72"  readonly name="uuid_renew_follow_up" formControlName="uuid_renew_follow_up">
+                              <mat-datepicker-toggle matSuffix [for]="picker72"></mat-datepicker-toggle>
+                              <mat-datepicker #picker72></mat-datepicker>
+                            </mat-form-field>
+                          </ion-col>
+                        </ion-row>
+                        
+                      </ion-col>
+                    </ion-row>
+                  </div>
+
+                    
+                  <div formGroupName="benefitFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-title  class="font_family_class label_class3">Does the family need any disability related benefits?</ion-title>
+                          </ion-col>
+                        </ion-row>
+
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-radio-group aria-label="Select an option" class="font_family_class label_class3" name="dis_benefit" formControlName="dis_benefit">
+                              <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                                <mat-radio-button [value]="arr.viewValue" [name]="arr.value" (change)="needBenefit($event)">{{arr.viewValue}}</mat-radio-button>
+                            </div>
+                              
+                            </mat-radio-group>
+                          </ion-col>
+                        </ion-row>
+                      
+                      </ion-col>
+
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
+                        <ion-row>
+                          <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
+                            <mat-form-field style="width:100%;" appearance="outline">
+                              <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="dis_benefit_remark" formControlName="dis_benefit_remark">
+                            </mat-form-field>
+                          </ion-col>
+                          <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
+                            <mat-form-field appearance="outline" style="width:100%;">
+                              <mat-label class="place_holder_text">Follow-up By</mat-label>
+                              <input matInput [matDatepicker]="picker73"  readonly name="dis_benefit_follow_up" formControlName="dis_benefit_follow_up">
+                              <mat-datepicker-toggle matSuffix [for]="picker73"></mat-datepicker-toggle>
+                              <mat-datepicker #picker73></mat-datepicker>
+                            </mat-form-field>
+                          </ion-col>
+                        </ion-row>
+                        
+                      </ion-col>
+                      
+                    </ion-row>
+                  </div>
+                    
+
+                  
+                  </ion-card>
+
+                          <div class="button_align_class">
+                            <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Previous</span></ion-button>
+                            <ion-button  class="button_text_normal" class="background"  (click)="submitStep4(fourthFormGroup)" [disabled]="!(fourthFormGroup.valid && ((taskValidationArray.length > 0) || noneChecked))"><span style="text-transform:none!important;">Save & Next</span></ion-button>
+                            <!-- <ion-button  class="button_text_normal" class="background"  (click)="submitStep4(fourthFormGroup)" ><span style="text-transform:none!important;">Save & Next</span></ion-button> -->
+
+                          </div>
+          </form>
+        </mat-step>
+
+        <!-- <mat-step [stepControl]="fifthFormGroup" label="Treatment and Follow-up"> -->
+          <mat-step [stepControl]="fifthFormGroup">
+          
+        
+          <form [formGroup]="fifthFormGroup">
+            <ng-template matStepLabel><span class="wrap-mat-check-label">Treatment and Follow-up</span></ng-template>
+            <ion-card class="ion-card">
+              
+             
+              <ion-row  class="ion-padding-top">
+
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <ion-title class="font_family_class label_class2"><span class="wrap-mat-check-label">Diagnosis</span></ion-title>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   formControlName="diagnosis_step5" name="diagnosis_step5" placeholder="Details" maxlength="75" class="place_holder_text">
+                   
+                  </mat-form-field>
+                </ion-col>
+
+              </ion-row>
+
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12">
+                  <ion-title class="label_class3"><span class="wrap-mat-check-label">Compliance Rate from 0 to 100% (based on most credible report)</span></ion-title>
+                </ion-col>
+                <ion-col size-xl="3" size-lg="3" size-md="8" size-xs="8">
+                 <mat-slider
+                 thumbLabel
+                 [displayWith]=""
+                 tickInterval="10"
+                 min="0"
+                 max="100" (input)="pat_pitch_comp($event)" name="pat_compliance_rate" formControlName="pat_compliance_rate"></mat-slider>
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="4" size-xs="4">
+                  <ion-text class="label_class8"><b>{{rate1}}</b></ion-text>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="ion-padding-top">
+                <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title class="label_class3"> 
+                    <mat-form-field style="display: block;" appearance="outline" [hidden]=!comp_reason_visible>    
+                      <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="comp_reason" formControlName="comp_reason" class="place_holder_text" (keyup)="onKey5($event)">
+                    </mat-form-field>
+                  </ion-title>
+                </ion-col>
+                <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                  </ion-col>
+                  </ion-row>
+              
+
+            <div formGroupName="meditationFormGroup">
+            <ion-row class="ion-padding-top">
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+               
+                <ion-row>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                      <ion-title class="font_family_class label_class2">Medication</ion-title>
+                  </ion-col>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                    <mat-radio-group aria-label="Select an option"  name="meditation" formControlName="meditation" class="font_family_class label_class3">
+                      <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                        <mat-radio-button [value]="arr.viewValue"  (change)="meditationChange($event)" [name]="arr.value">{{arr.viewValue}}</mat-radio-button>
+                    </div>
+                    </mat-radio-group>
+                  </ion-col>
+
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+           
+              <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  class="ion-text-left">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   formControlName="meditation_yes" name="meditation_yes" placeholder="If yes, Prescription Details with Dosage" maxlength="75" class="place_holder_text">
+                   
+                  </mat-form-field>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div formGroupName="medicationHelpFormGroup">
+            <ion-row class="ion-padding-top">
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+               
+                <ion-row>
+
+                  <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6">
+                      <ion-title class="font_family_class label_class2">Is someone helping the person taking medicine?</ion-title>
+                  </ion-col>
+
+                  <ion-col size-xl="4" size-lg="4" size-md="6" size-xs="6">
+                    <mat-radio-group aria-label="Select an option"  name="medication_help" formControlName="medication_help" class="font_family_class label_class3">
+                     
+                    <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                      <mat-radio-button [value]="arr.viewValue"  (change)="medicationHelpChange($event)" [name]="arr.value">{{arr.viewValue}}</mat-radio-button>
+                  </div>
+                  </mat-radio-group>
+                  </ion-col>
+
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+           
+              <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  class="ion-text-left">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   formControlName="medication_help_yes" name="medication_help_yes" placeholder="If yes, Remarks" maxlength="75" class="place_holder_text">
+                   
+                  </mat-form-field>
+              </ion-col>
+            </ion-row>
+          </div>
+          
+          <ion-row>
+            <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
+               <ion-title class="font_family_class label_class2" style="vertical-align: bottom;">Medicine Refill Date</ion-title>
+             </ion-col>
+            
+            
+           <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+            <mat-form-field appearance="outline" class="mat_custom_block_class">
+              <mat-label class="place_holder_text">Medicine refill date</mat-label>
+              <input matInput [matDatepicker]="picker1234" name="med_refill_date" formControlName="med_refill_date"   readonly>
+              <mat-datepicker-toggle matSuffix [for]="picker1234"></mat-datepicker-toggle>
+              <mat-datepicker #picker1234></mat-datepicker>
+            </mat-form-field>
+      </ion-col>
+           </ion-row>
+          
+          <div formGroupName="counsellingFormGroup">
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  class="ion-text-left">   
+                <ion-row>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                    <ion-title class="font_family_class label_class2">Counselling</ion-title>
+                  </ion-col>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                    <mat-radio-group aria-label="Select an option"  name="counselling" formControlName="counselling" class="font_family_class label_class3">
+                      <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                        <mat-radio-button [value]="arr.viewValue" (change)="counsellingChange($event)" [name]="arr.value">{{arr.viewValue}}</mat-radio-button>
+                    </div>
+                    </mat-radio-group>
+                  </ion-col>
+
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+            <!-- <ion-row *ngIf="counsellingYesSelected"> -->
+              <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <div class='ion-text-left'>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   placeholder="If yes, Remarks" maxlength="75" name="counselling_yes" formControlName="counselling_yes" class="place_holder_text">
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div formGroupName="referralFormGroup">
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                <ion-row>
+                  <ion-col size-xl="2" size-lg="2" size-md="6" size-xs="6">
+              <ion-title class="font_family_class label_class2">Referral</ion-title>
+            </ion-col>
+
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+              <mat-radio-group aria-label="Select an option"  name="referral" formControlName="referral" class="font_family_class label_class3">
+                <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                  <mat-radio-button [value]="arr.viewValue"  (change)="referralChange($event)" [name]="arr.value">{{arr.viewValue}}</mat-radio-button>
+              </div>
+              </mat-radio-group>
+            </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+
+            <!-- <ion-row *ngIf="referralYesSelected">  -->
+              <ion-row> 
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <div class='ion-text-left'>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   placeholder="If yes, Remarks" maxlength="75"  name="referral_yes" formControlName="referral_yes" class="place_holder_text">
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title class="font_family_class label_class2">Follow-up</ion-title>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" class="mat_custom_block_class">
+                      <mat-label class="place_holder_text">Date of Follow up</mat-label>
+                      <input matInput [matDatepicker]="picker1" formControlName="follow_up_date" name="follow_up_date"  (focus)="picker1.open()"  readonly>
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                <mat-form-field appearance="outline" class="mat_custom_block_class">
+                  <mat-label class="place_holder_text">Place of Follow-up</mat-label>
+                  <mat-select  formControlName="phc" name="phc">
+                    <mat-option *ngFor="let visit1 of visit_placenew" [value]="visit1.value_visit" (click)="selectedPlace(visit1.value_visit)">
+                      {{visit1.viewValue_visit}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+               
+                  <mat-form-field *ngIf="follow_place_other" style="display: block;" appearance="outline">
+                    <input matInput   placeholder="Remarks" formControlName="phc_other" name="phc_other" maxlength="75"  class="place_holder_text">
+                  </mat-form-field>
+                  
+               
+              </ion-col>
+
+              </ion-row>
+              </ion-col>
+            </ion-row>
+ 
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput   placeholder="Any notes that are important for follow-up, e.g. who someone should see or where they should follow-up" maxlength="75" name="notes" formControlName="notes" class="place_holder_text">
+                  </mat-form-field>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+              <ion-title class="font_family_class label_class2">Psychoeducation Session</ion-title>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-left">
+                
+                <div formGroupName="psychoFormGroup">
+                <ion-row>
+                  <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8">
+                    <ion-title text-wrap class="font_family_class label_class3a"><span class="wrap-mat-check-label">Psychoeducation Session(including any printed material, online information, or videos)</span></ion-title>
+                  </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
+                  <mat-radio-group aria-label="Select an option" name="psychoeducation" formControlName="psychoeducation" class="font_family_class label_class3">
+                    <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                      <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="psychoEducationChange($event)">{{arr.viewValue}}</mat-radio-button>
+                  </div>
+                  </mat-radio-group>
+                </ion-col>
+                </ion-row>
+                 
+                <!-- <ion-row *ngIf="psychoYesSelected"> -->
+                  <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field style="display: block;" appearance="outline">
+                      <input matInput   placeholder="If yes, Remarks" maxlength="75" name="psychoeducation_yes" formControlName="psychoeducation_yes" class="place_holder_text">
+                    </mat-form-field>
+              </ion-col> 
+              </ion-row>
+              </div>
+
+
+              <ion-row>
+              
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                 
+                  <ion-row>
+                   
+                        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                          <ion-title class="font_family_class label_class3">Participants</ion-title>
+                          </ion-col>
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                            <div formGroupName="participantFormGroup">
+                              <div *ngFor="let arr of participantArray; let i = index" style="display:inline-block" >
+                              <mat-checkbox [value]="arr.value"  [name]="arr.value" [formControlName]="arr.value" class="font_family_class label_class3">{{arr.viewValue_participant}}</mat-checkbox>
+                            </div>
+                          </div>
+                            
+                    </ion-col>
+
+           
+            </ion-row>
+       
+             </ion-col>
+           
+          </ion-row>
+
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+              <mat-form-field style="display: block;" appearance="outline">
+                <input matInput   placeholder="Details of Participants" maxlength="75" name="participant_details" formControlName="participant_details" class="place_holder_text">
+              </mat-form-field>
+            </ion-col>
+          </ion-row>
+          </ion-col>
+
+
+              <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12" class="ion-text-left">
+                <div formGroupName="psychoInterFormGroup">
+                  <ion-row>
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                    <ion-title class="font_family_class label_class3a"><span class="wrap-mat-check-label">Psychological Intervensions</span></ion-title>
+                  </ion-col>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                    <mat-radio-group aria-label="Select an option" name="psychointervension" formControlName="psychointervension" class="font_family_class label_class3">
+                      <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                        <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="psychoInterChange($event)">{{arr.viewValue}}</mat-radio-button>
+                    </div>
+                    </mat-radio-group>
+                  </ion-col>
+                </ion-row>
+
+                <!-- <ion-row *ngIf="psychoInterYesSelected"> -->
+                  <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field style="display: block;" appearance="outline">
+                      <input matInput   placeholder="If yes, Remarks" name="psychointervension_yes" formControlName="psychointervension_yes" class="place_holder_text">
+                    </mat-form-field>
+              </ion-col> 
+              </ion-row>
+            </div>
+               
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+             
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+               <ion-row>
+                
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-title class="font_family_class label_class2">Obtained consent for follow-up</ion-title>
+              </ion-col>
+            
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <!-- <div formGroupName="consentFormGroup">
+                  <div *ngFor="let arr of consentArray; let i = index" style="display:inline-block" >
+                  <mat-checkbox [value]="arr.value"  [name]="arr.value" [formControlName]="arr.value" class="font_family_class label_class3">{{arr.viewValue_consent}}</mat-checkbox>
+                   
+                </div>
+                </div> -->
+                <mat-checkbox (change)="consentCheck1($event)" class="font_family_class label_class3">Phone call</mat-checkbox>
+                <mat-checkbox (change)="consentCheck2($event)" class="font_family_class label_class3">Text Message</mat-checkbox>
+                <mat-checkbox (change)="consentCheck3($event)" class="font_family_class label_class3">Home Visit</mat-checkbox>
+                </ion-col>
+
+            </ion-row>
+              
+              </ion-col>
+              
+            </ion-row>
+          </ion-card>
+          <ion-card class="ion-card">
+            <ion-row class="ion-padding-top">
+              
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                <ion-title class="font_family_class label_class2">Upload Images/Notes</ion-title>
+              </ion-col>
+             
+            </ion-row>
+
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                <ion-row>
+                  <ion-col size-xl="6" size-lg="6" size-md="11" size-xs="11" class="ion-text-left">
+                    <div class="input-group custom_col">
+                      
+                      <div class="custom-file">
+                        <input type="file" formControlName="file_upload" name="file_upload" class="custom-file-input" id="inputGroupFile01"
+                          aria-describedby="inputGroupFileAddon01" (change)="onFileChange1($event)">
+                        <label class="custom-file-label" for="inputGroupFile01" class="place_holder_text">Choose file </label>
+                      </div>
+                    </div>
+              </ion-col>
+              <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1">
+                <ion-button   class="button_text_normal" class="background"><mat-icon>add</mat-icon></ion-button>
+
+              </ion-col>
+             
+            </ion-row>
+                
+              </ion-col>
+             
+            </ion-row>
+          
+          </ion-card>
+
+        
+            <div class="button_align_class">
+              <ion-button  class="button_text_normal" class="default_bg" (click)="previous4()"><span style="text-transform:none!important;">Previous</span></ion-button>
+              <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep3(thirdFormGroup)" [disabled]="!fifthFormGroup.valid">Save & Next</ion-button>  
+             -->
+              <ion-button  class="button_text_normal" class="background" (click)="submitStep5(fifthFormGroup)" [disabled]="!(fifthFormGroup.valid && consent_array.length > 0 && compRate)"><span style="text-transform:none!important;">Submit</span></ion-button>  
+            </div>
+
+          </form>
+        </mat-step>
+       
+      </mat-horizontal-stepper>
+      </ion-col>
+        </ion-row>
+        </ion-col>
+
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" ></ion-col>
+        </ion-row>
+   
+    </ion-grid>
+  </ion-content>
+
+ 
+</ion-app>

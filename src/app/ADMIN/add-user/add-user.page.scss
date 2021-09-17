@@ -1,0 +1,22 @@
+
+    ::ng-deep .mat-select-arrow {
+        color: white;
+      }
+      ::ng-deep .arrow_class .mat-select-arrow {
+        color: black;
+      }
+  
+      .auto-width{
+        ::ng-deep .mat-select-arrow {
+          color: black;
+        }
+      }
+  
+      .mat-select {
+        width:75%;
+      }
+  
+      ::ng-deep .mat-form-field-wrapper{
+        padding-bottom: 0px;
+      }
+  

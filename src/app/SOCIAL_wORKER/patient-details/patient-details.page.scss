@@ -1,0 +1,180 @@
+
+  ::ng-deep .mat-input-wrapper{
+    border: 2px solid black;
+  }
+  .equal_height{
+  padding-bottom: 1%;
+  margin-bottom: -1%;
+  }
+    
+  ::ng-deep .arrow_class .mat-select-arrow {
+    color: white;
+  }
+
+  .mat-select {
+    width:75%;
+  }
+ .supervisor_notes_button{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  color: #FFFFFF;
+  background: #813D7E;
+  border: 1px solid #813D7E;
+  box-sizing: border-box;
+  border-radius: 12px;
+ }
+ .font_family_class{
+ font-family: 'Open sans',sans-serif;
+ }
+ .custom_button_display1{
+  font-family: 'Open sans',sans-serif;
+  background: #FFFFFF;
+  border: 1px solid #813D7E;
+  box-sizing: border-box;
+  border-radius: 40px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #813D7E;
+  margin-right:20px;
+
+ }
+ .back_button{
+  width: 65px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #813D7E;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: 'Open sans',sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #813D7E;
+ }
+
+@media only screen and (min-width:991px) {
+  .custom_button_size{
+    width:200px;
+    height:40px;
+  }
+}
+
+@media only screen and (max-width:990px) {
+ 
+.custom_button_size{
+  width:150px;
+  height:40px;
+}
+}
+
+::ng-deep .mat-input-wrapper{
+  border: 2px solid black;
+}
+.equal_height{
+padding-bottom: 1%;
+margin-bottom: -1%;
+}
+  
+::ng-deep .arrow_class .mat-select-arrow {
+  color: white;
+}
+
+.mat-select {
+  width:75%;
+}
+.custom_row{
+  background-color:rgba(252, 228, 251, 1);
+  border-radius:12px ;
+}
+.custom_blue{
+  color:rgba(66, 133, 244, 1) !important;
+}
+.font_family_class{
+font-family: 'Open Sans',sans-serif;
+}
+.name_class{
+
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 27px;
+color: #242424;
+}
+.label_class1{
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 19px;
+color: rgba(0, 0, 0, 0.53);
+opacity: 0.89;
+}
+.label_class2{
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 21px;
+color: rgba(0, 0, 0, 0.53);
+opacity: 0.89;
+}
+.label_class3{
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 16px;
+color: rgba(36, 36, 36, 0.85);
+}
+.label_class4{
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 19px;
+color: #813D7E;
+}
+.center{
+text-align:center;
+} 
+.notes_box{
+background: #F4F4F4;
+box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+}
+.notes_box1{
+  background: #F4F4F4;
+}
+.cell1{
+font-family: 'Open Sans',sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 19px;
+color: rgba(0, 0, 0, 0.38);
+}
+.cell2{
+font-family: 'Open Sans',sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 19px;
+
+color: #000000;
+}
+.mat-cell, .mat-header-cell .mat-table{
+  border: none !important;
+}
+.white{
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+
+.purple{
+  color: #813D7E;
+}

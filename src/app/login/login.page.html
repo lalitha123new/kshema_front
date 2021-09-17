@@ -1,0 +1,82 @@
+<ion-app>
+
+ 
+  <ion-content>
+
+    <ion-grid  style="height: 100%" class=" login_forgot_container">
+
+      <ion-row class="no-padding"  style="height: 100%;">
+   
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class=" ion-text-center no-padding">
+          <div class="centered"> 
+            <img src="assets/icon/govt_logo.svg" class="custom_img_class ion-padding-bottom">
+            <h1 class="custom_color_heading custom_size1 header_font">KSHEMA</h1>
+            <h6 class="custom_color_heading custom_size2 sub_header_font">Taluka Mental Health Program</h6>
+          </div>
+         
+        </ion-col>
+
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12"   class="part2" >
+         
+          <ion-row >
+            
+            <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col> 
+            <ion-col  size-xl="10" size-lg="10" size-md="12" size-xs="12">
+              <ion-row>
+                <h1 class="text_purple sub_header_font2 common_font"><b>Welcome,</b></h1>
+              </ion-row>
+              <ion-row>
+                <h1 color=black class="sub_header_font3 common_font">Log in to Portal</h1>
+              </ion-row>
+              <ion-row >
+                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': isValue == 1, 'toggleWhite': isValue != 1 }" (click)="toggle1(1)">Admin</button>
+                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': isValue == 2, 'toggleWhite': isValue != 2 }" (click)="toggle1(2)">Supervisor</button>
+                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': isValue == 3, 'toggleWhite': isValue != 3 }" (click)="toggle1(3)">Social Worker</button>
+                  
+              </ion-row>
+              <ion-row class="ion-padding-top">
+                <form [formGroup]="form"  novalidate (ngSubmit)="logForm()"  style="width:100%;">
+         
+                  <mat-form-field style="width:90%;margin-left:0px;" appearance="outline">
+                    <input matInput type="text" formControlName="u_name"   placeholder="Username"  required class="common_font input_text input_text_color">
+                  </mat-form-field>
+                 
+                  <mat-form-field style="width:90%;margin-left:0px;" appearance="outline">
+                    <input matInput type="password" formControlName="psw"   placeholder="Password"  required class="common_font input_text input_text_color">
+                  </mat-form-field>
+                 
+                
+              <div style="text-align: right;">
+                  <a  style="text-decoration: none;" class="pointer-class" (click)="forgot_password()">
+                  <span style="color:blue;"> Forgot Username / Password?</span>
+                  </a>
+              </div>
+
+              <div>
+                  <!-- <ion-button class="background button_text_normal" size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button> -->
+                  <ion-button class="background button_text_normal custom_border_radius" size="large" type="submit"  expand="block">Login</ion-button>
+              </div>
+
+      </form>
+              </ion-row>
+            </ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col> 
+        </ion-row>
+        <ion-row>
+          <ion-col  size-xl="4" size-lg="4" size-md="4" size-xs="4"></ion-col>
+          <ion-col  size-xl="4" size-lg="4" size-md="4" size-xs="4">
+            <div style="display:flex;">
+              <img src="assets/icon/nhm_logo.svg" class="custom_img_class">
+              <img src="assets/icon/nimhans_logo.svg" class="custom_img_class">
+              <img src="assets/icon/iiitb_logo.svg" class="custom_img_class">
+            </div>
+          </ion-col>
+          <ion-col  size-xl="4" size-lg="4" size-md="4" size-xs="4"></ion-col>
+         
+        </ion-row>
+
+      </ion-col>
+    </ion-row >
+    </ion-grid>
+  </ion-content>
+</ion-app>

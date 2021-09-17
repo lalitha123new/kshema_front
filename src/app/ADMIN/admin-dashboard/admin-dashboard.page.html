@@ -1,0 +1,129 @@
+<ion-app >
+
+ 
+  <ion-content >
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;" class="container2">
+
+ <app-admin-header></app-admin-header>
+      
+        <ion-row class="ion-padding-top" >
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  text-center style="height:100%;">
+          <ion-row style="margin-top: 15%;">
+            <ion-title class="label_class_summary">Summary</ion-title>
+          </ion-row>
+
+        <ion-row style="padding:0px;">
+        
+         
+
+        
+          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class2 pointer-class" (click)="toggleButton(1)">
+
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title size="small" class="text_status">Social Workers</ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="number_class">{{sw_no}}</ion-title>
+                  </ion-row>
+                  
+                </ion-col>
+                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12"></ion-col>
+              </ion-row>
+
+              <ion-row class="ion-padding-bottom">
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                 
+                  </ion-row>
+                
+                  
+                </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-right">
+                  <ion-row>
+                   
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+            </ion-card>
+          </ion-col> 
+          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class3 pointer-class" (click)="toggleButton(2)">
+              <ion-row  class="ion-padding-top">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-row>
+                    <ion-title size="small" class="text_status">Supervisor</ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="number_class">{{supervisor}}</ion-title>
+                  </ion-row>
+                  
+                </ion-col>
+              
+              </ion-row>
+
+              <ion-row class="ion-padding-bottom">
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                   
+                  </ion-row>
+                
+                  
+                </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-right">
+                  <ion-row>
+                    
+
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+            </ion-card>
+          </ion-col> 
+          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+            <ion-card class="custom_card_class color_class4 pointer-class" (click)="toggleButton(3)">
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-row class="ion-padding-top">
+                    <ion-title class="text_status" size="small">Taluks</ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="number_class">{{taluk_count}}</ion-title>
+                  </ion-row>
+                  
+                </ion-col>
+              
+              </ion-row>
+
+              <ion-row class="ion-padding-bottom">
+              
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-right">
+                  <ion-row>
+                   
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+
+            </ion-card>
+          </ion-col>
+        
+
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+        </ion-row>
+
+        
+
+      </ion-col>
+      <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+    
+    </ion-row>
+   
+    </ion-grid>
+  </ion-content>
+ 
+</ion-app>

@@ -1,0 +1,399 @@
+<ion-app >
+
+ 
+  <ion-content>
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right:0px;" class="container2">
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+              <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+              <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+           </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
+          <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle">
+                cached
+                </span>
+            </ion-col>
+           
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+      
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      </ion-row>
+    
+      <ion-row>
+
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" ></ion-col>
+
+        <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" style="height:100%;" class="equal_height"  >
+          
+         
+          <ion-row class="ion-padding-top ion-padding-bottom custom_row">
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+              <ion-title  ion-text-left class="font_family_class name_class">{{name}}({{age}}/{{gender}})</ion-title>
+            </ion-row>
+            <ion-row ion-text-left>
+              <ion-title size="small" class="custom_text_class_header1 font_family_class label_class1a"><mat-icon style="color:green;">call</mat-icon>{{mobile}}</ion-title>
+            </ion-row>
+            <ion-row ion-text-left class="ion-padding-top">
+              <ion-title size="small" class="custom_text_class_header1 font_family_class label_class2a"><mat-icon style="color:red;font-size:15px;">location_on</mat-icon>{{address}}</ion-title>
+            </ion-row>
+            </ion-col>
+          
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
+              <ion-row>
+                <ion-title class="font_family_class label_class1a">KSHEMA ID</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title  class="custom_text_class_header1 font_family_class label_class3a">{{kshema_id}}</ion-title>
+              </ion-row>
+          
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title  ion-text-left class="font_family_class label_class2a">Care Giver</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3a">{{care_giver}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3a"><mat-icon style="color:green;font-size:15px;">call</mat-icon>{{care_giver_mobile}}</ion-title>
+              </ion-row>
+            </ion-col>
+          
+          
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+                <ion-title  ion-text-left class="font_family_class label_class1a">ASHA/ANM</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class label_class3a">{{asha}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title class="font_family_class label_class1a">Taluka level PSW In charge</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class label_class3a">{{psw_incharge}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="ion-padding-top">
+                  <a  class="pointer-class" (click)="redirectTo(2)"><span class="text_color1 font_family_class label_class4a">Edit Patient | </span></a>
+                  <a  class="pointer-class" (click)="redirectTo(1)"><span class="text_color1 font_family_class label_class4a">History</span></a>
+             
+               
+              </ion-title>
+            </ion-row>
+            </ion-col>
+          
+          </ion-row>
+
+          <ion-row class="ion-padding-top ion-padding-bottom">
+            <ion-title class="label_class1">Assessment of needs</ion-title>
+          </ion-row>
+      <ion-row>
+
+      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" text-center>
+
+     
+      
+          <form [formGroup]="assessmentFormGroup">
+
+            <ion-card>
+              
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left" class="ion-padding-bottom">
+                  <ion-title class="label_class2"><span class="wrap-mat-check-label">Please ask the follwoing questions to the patients and their families so that you can plan interventions.</span></ion-title>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <ion-title class="label_class3">"What additional help-other than medicines or counselling - Do you require?"</ion-title>
+                  </ion-col>
+              </ion-row>
+
+              <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-form-field appearance="outline" style="display:block">
+                    <input matInput  placeholder="Enter Description" maxlength="75" name="description" formControlName="description" class="place_holder_text">
+                  </mat-form-field>
+               
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  class="ion-text-left">
+                   <div formGroupName="skillFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                        <ion-title class="label_class3">"Do you require help completing your education or learning a skill?"</ion-title>
+                      </ion-col>
+                    <!-- </ion-row>
+
+                    <ion-row> -->
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                        <mat-radio-group  name="skill" formControlName="skill" >
+                          <div *ngFor="let arr of tobaccooptionsArray1" style="display:inline-block">
+                            <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkSkillChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                  
+                      </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-row *ngIf="skillYesSelected"> -->
+                      <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="skill_yes" formControlName="skill_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+
+              </div>
+
+                  </ion-col>
+              </ion-row>
+                  
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <div formGroupName="jobFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                        <ion-title class="label_class3">"Do you require help getting or keeping a job?"</ion-title>
+                      </ion-col>
+                    <!-- </ion-row>
+
+                    <ion-row> -->
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                        <mat-radio-group name="job" formControlName="job" >
+                          <div *ngFor="let arr of tobaccooptionsArray2" style="display:inline-block">
+                            <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkJobChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                      </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-row *ngIf="jobYesSelected"> -->
+                      <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="job_yes" formControlName="job_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+              </div>
+                 
+                  </ion-col>
+
+                </ion-row>
+
+              <div formGroupName="interestActFormGroup">
+                <ion-row>
+                  <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="label_class3"><span class="wrap-mat-check-label">"Do you require help to take part in some interesting activities or spend your day better?"</span></ion-title>
+                    <ion-title size="small" class="text_class ion-padding-bottom">Discuss options such as daycare, hobbies, or activity scheduling. This is meant for people who are not yet ready for work.</ion-title>
+                  </ion-col>
+                <!-- </ion-row>
+
+                <ion-row> -->
+                  <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                    <mat-radio-group name="interest_act" formControlName="interest_act" >
+                      <div *ngFor="let arr of tobaccooptionsArray3" style="display:inline-block">
+                        <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkInterestActChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                    </div>
+                    </mat-radio-group>
+                  </ion-col>
+                </ion-row>
+
+                <!-- <ion-row *ngIf="interestActYesSelected"> -->
+                  <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="interest_act_yes" formControlName="interest_act_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                  </ion-row>
+              </div>
+
+                  <div formGroupName="communityFormGroup" >
+                <ion-row>
+                  <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                    <ion-title class="label_class3"><span class="wrap-mat-check-label">"Would you like to participate more in community events or social activities?"</span></ion-title>
+                  </ion-col>
+                    <!-- </ion-row>
+    
+                    <ion-row> -->
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-radio-group name="community" formControlName="community" >
+                          <div *ngFor="let arr of tobaccooptionsArray4" style="display:inline-block">
+                            <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkCommunityChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                        </div>
+                        </mat-radio-group>
+                      </ion-col>
+                    </ion-row>
+
+                        <!-- <ion-row *ngIf="communityYesSelected"> -->
+                          <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <mat-form-field appearance="outline" style="display:block">
+                              <input matInput  placeholder="If yes, Remarks" maxlength="75" name="community_yes" formControlName="community_yes" class="place_holder_text">
+                            </mat-form-field>
+                          </ion-col>
+                            </ion-row>
+
+                  </div>
+
+                  <div formGroupName="dailyFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                        <ion-title class="label_class3"><span class="wrap-mat-check-label">"Do you need help completing your daily activities such as bathing, eating, or dressing?"</span></ion-title>
+                      </ion-col>
+                        <!-- </ion-row>
+        
+                        <ion-row> -->
+                          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-radio-group name="daily" formControlName="daily" >
+                              <div *ngFor="let arr of tobaccooptionsArray5" style="display:inline-block">
+                                <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkDailyChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                            </div>
+                            </mat-radio-group>
+                          </ion-col>
+                        </ion-row>
+    
+                            <!-- <ion-row *ngIf="communityYesSelected"> -->
+                              <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-form-field appearance="outline" style="display:block">
+                                  <input matInput  placeholder="If yes, Remarks" maxlength="75" name="daily_yes" formControlName="daily_yes" class="place_holder_text">
+                                </mat-form-field>
+                              </ion-col>
+                                </ion-row>
+    
+                  </div>
+
+                  <div formGroupName="houseFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                        <ion-title class="label_class3">"Do you need help in finding a house or a place to live?"</ion-title>
+                      </ion-col>
+                        <!-- </ion-row>
+        
+                        <ion-row> -->
+                          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-radio-group name="house" formControlName="house" >
+                              <div *ngFor="let arr of tobaccooptionsArray6" style="display:inline-block">
+                                <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkHouseChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                            </div>
+                            </mat-radio-group>
+                          </ion-col>
+                        </ion-row>
+    
+                            <!-- <ion-row *ngIf="communityYesSelected"> -->
+                              <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-form-field appearance="outline" style="display:block">
+                                  <input matInput  placeholder="If yes, Remarks" maxlength="75" name="house_yes" formControlName="house_yes" class="place_holder_text">
+                                </mat-form-field>
+                              </ion-col>
+                                </ion-row>
+    
+                  </div>
+
+                  <div formGroupName="financeFormGroup">
+                    <ion-row>
+                      <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                        <ion-title class="label_class3">"Do you need to apply for financial help or loans?"</ion-title>
+                      </ion-col>
+                        <!-- </ion-row>
+        
+                        <ion-row> -->
+                          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-radio-group name="finance" formControlName="finance" >
+                              <div *ngFor="let arr of tobaccooptionsArray7" style="display:inline-block">
+                                <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkFinanceChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                            </div>
+                            </mat-radio-group>
+                          </ion-col>
+                        </ion-row>
+    
+                            <!-- <ion-row *ngIf="communityYesSelected"> -->
+                              <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-form-field appearance="outline" style="display:block">
+                                  <input matInput  placeholder="If yes, Remarks" maxlength="75" name="finance_yes" formControlName="finance_yes" class="place_holder_text">
+                                </mat-form-field>
+                              </ion-col>
+                                </ion-row>
+    
+                  </div>
+
+                  <div formGroupName="otherHelpFormGroup">                                               
+                  <ion-row>
+                    <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-text-left">   
+                      <ion-title class="label_class3">"Do you need any other help?"</ion-title>
+                      <ion-title size="small" class="text_class">Enter any other needs the person and family brings up which were not covered by the previous questions.</ion-title>
+                 
+                    </ion-col>
+                      <!-- </ion-row>
+      
+                      <ion-row> -->
+                        <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-radio-group name="other_help" formControlName="other_help">
+                            <div *ngFor="let arr of tobaccooptionsArray8" style="display:inline-block">
+                              <mat-radio-button [checked]="arr.checked" [value]="arr.viewValue"  [name]="arr.value" (change)="checkOtherChange($event)" class="label_class4">{{arr.viewValue}}</mat-radio-button>
+                          </div>
+                          </mat-radio-group>
+                        </ion-col>
+                  </ion-row>
+                                                        
+                                                                                <!-- <ion-row *ngIf="communityYesSelected"> -->
+                  <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-form-field appearance="outline" style="display:block">
+                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="other_help_yes" formControlName="other_help_yes" class="place_holder_text">
+                    </mat-form-field>
+                  </ion-col>
+                  </ion-row>
+                  </div>
+                                                         
+                  </ion-card>
+
+                <div class="button_align_class">
+                  <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Previous</span></ion-button>
+                  <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep4(fourthFormGroup)" [disabled]="!fourthFormGroup.valid">Save & Next</ion-button>     -->
+                  <ion-button  class="button_text_normal" class="background" (click)="submitAssessment(assessmentFormGroup)" [disabled]="!assessmentFormGroup.valid"><span style="text-transform:none!important;">Submit</span></ion-button> 
+                </div>
+          </form>
+       
+  </ion-col>
+
+        </ion-row>
+        </ion-col>
+
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" ></ion-col>
+    </ion-row>
+   
+    </ion-grid>
+  </ion-content>
+
+ 
+</ion-app>

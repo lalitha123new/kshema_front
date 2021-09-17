@@ -1,0 +1,106 @@
+<ion-app >
+
+ 
+  <ion-content >
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;" class="container3">
+
+     
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" >
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+                <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+                <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+             </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1" >
+         <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"></ion-col>
+            <ion-col  size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding:0px;"><ion-searchbar class="custom_background_color2" placeholder="Search Patient" style="width:100%;" (ionInput)="applyFilter($event.target.value)" (ionCancel)="onCancel($event)"></ion-searchbar></ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;text-align: center;"><ion-button style="vertical-align:bottom;" class="button_text_normal background custom_border_radius" (click)="add_patient()" [hidden]="!add_pat"><mat-icon>add</mat-icon><span class="button_text_normal">Add Patient</span></ion-button></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons" style="font-size:30px;vertical-align: middle;">
+              speaker_notes </span></ion-col>
+              <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+                <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;">
+                  cached
+                  </span>
+              </ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"><mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon></ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+            
+          </ion-row>
+      </ion-col>
+      </ion-row>  
+
+        <ion-row class="ion-padding-top">
+       
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  text-center style="height:100%;">
+         <ion-row class="ion-padding-bottom">
+           <ion-title class='label_class_all'>All patients</ion-title>
+         </ion-row>
+        <ion-row style="padding-top:0px;">
+              
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;">
+         
+        <div class="mat-elevation-z8" class="ion-text-left" style="padding-top:0px;">
+          <table mat-table [dataSource]="dataSource_dashboard1" matSort>
+        
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+              <td mat-cell *matCellDef="let element" class="dashboard_action cell_color"> {{element.name}}({{element.age}}/{{element.gender}}) </td>
+            </ng-container>
+            <ng-container matColumnDef="mobile">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No </th>
+              <td mat-cell *matCellDef="let element"><mat-icon style="color:green;font-size:15px;"  *ngIf="hide_col">call</mat-icon>{{element.mobile}} </td>
+            </ng-container>
+        
+         
+            <ng-container matColumnDef="address" >
+              <th mat-header-cell *matHeaderCellDef  [hidden]="!hide_col"> Taluk </th>
+              <td mat-cell *matCellDef="let element" [hidden]="!hide_col"><mat-icon style="color:red;font-size:15px;">location_on</mat-icon>{{element.address}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="task">
+              <th mat-header-cell *matHeaderCellDef> Last visit date </th>
+              <td mat-cell *matCellDef="let element" class="dashboard_action" style="color: #813D7E;">
+                <span [ngStyle]="{ 'display' : (element.task == 'Phone') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phone.png" style="vertical-align:middle;"  /></span>
+                <span [ngStyle]="{ 'display' : (element.task == 'Home') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/home.png" style="vertical-align:middle;"  /></span>
+                <span [ngStyle]="{ 'display' : (element.task == 'PHC') ? 'block' : 'none' }"><img class="title-image" src="assets/icon/phc.png" style="vertical-align:middle;" /></span>
+                 {{element.task}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="due_date">
+              <th mat-header-cell *matHeaderCellDef> Next visit date </th>
+              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_id,row.patient_uuid)" class="pointer-class hhh"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 20,100]"></mat-paginator>
+      </div> 
+      
+          </ion-col>
+
+        </ion-row>
+
+      </ion-col>
+    
+    </ion-row>
+   
+    </ion-grid>
+  </ion-content>
+ 
+</ion-app>

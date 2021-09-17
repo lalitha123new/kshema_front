@@ -1,0 +1,156 @@
+
+
+<ion-app >
+
+ 
+  <ion-content>
+
+    <ion-grid style="height: 100%;padding-top:0px;padding-right: 0px;" class="container2">
+
+     
+      <app-admin-header></app-admin-header>
+      <ion-row>
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"  style="height:100%;">
+          
+      </ion-col>
+
+      <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" text-center>
+    
+      <div style=" margin: auto;width:50%;">
+
+        <ion-row>
+        <ion-col>
+
+              <ion-title>Edit <span>{{user1}}</span></ion-title>
+
+        <ion-card>
+        <ion-card-content>
+
+              <form [formGroup]="editUserForm"  novalidate>
+      
+              <ion-row>
+
+                <ion-col>
+                   <!-- <ion-item> -->
+                  <!-- <ion-input type="text" name="first_name"   placeholder="First Name" ></ion-input> -->
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput nameOnly name="first_name" formControlName="first_name" placeholder="First Name"  maxlength="75">
+                  </mat-form-field>
+                <!-- </ion-item> -->
+              </ion-col>
+
+                <ion-col>
+                  <!-- <ion-item> -->
+                    <mat-form-field style="display: block;" appearance="outline">
+                      <input matInput nameOnly name="last_name" formControlName="last_name" placeholder="Last Name"  maxlength="75">
+                    </mat-form-field>
+                  <!-- </ion-item> -->
+                </ion-col>
+
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput name="phone" formControlName="phone"  maxLength=10 minLength=10 placeholder="Phone Number">
+                  </mat-form-field>
+              </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput name="email" formControlName="email"  placeholder="Email Address">
+                  </mat-form-field>
+              </ion-col>
+              </ion-row>
+
+              <!-- <ion-row>
+                <ion-col>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput  name="address" formControlName="address" placeholder="Enter Address"  maxlength="75">
+                  </mat-form-field>
+                      
+              </ion-col>
+              </ion-row> -->
+
+              <ion-row [hidden]="editSuper">
+                <ion-col>
+                 
+                    <mat-form-field style="width:95%;"  appearance="outline">
+                      <mat-label>Taluk</mat-label>
+                      <mat-select name="taluk" formControlName="taluk" class="arrow_class">
+                        <mat-option *ngFor="let taluk1 of taluk_array" [value]="taluk1.taluka_master_id">
+                          {{taluk1.taluka_name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+               
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput nameOnly name="username" formControlName="username" placeholder="Username"  maxlength="75">
+                  </mat-form-field>
+                  
+              </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput nameOnly type="password" name="password" formControlName="password" placeholder="Password"  maxlength="75" readonly>
+                  </mat-form-field>
+                 
+              </ion-col>
+              </ion-row>
+
+              <!-- <ion-row>
+                <ion-col>
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput nameOnly type="password" name="confirm_password" formControlName="confirm_password" placeholder="Confirm Password"  maxlength="75">
+                  </mat-form-field>
+                   
+              </ion-col>
+              </ion-row> -->
+              <ion-row [hidden]="!editSuper">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <ion-text><b>Talukas assigned: </b>{{arr1}}</ion-text>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <mat-label class="label_class" style="padding:10px">Active </mat-label><mat-slide-toggle [checked]="active" (change)="onChangeSlideToggle($event)"></mat-slide-toggle>
+              </ion-col>
+  
+              </ion-row>
+              
+              <ion-row>
+              <ion-col style="text-align: right;">
+                <ion-button class="button_class1 background1 button_text_normal"  type="submit"  (click)="back()">Previous</ion-button>
+              </ion-col>
+
+                <ion-col style="text-align: left;">
+                <ion-button class="background button_text_normal"  type="submit" [disabled]="editUserForm.invalid"  (click)="editUser(editUserForm)">Save</ion-button>
+                </ion-col>
+             
+            </ion-row>
+      </form>
+
+      </ion-card-content>
+    </ion-card>
+
+    </ion-col>
+  </ion-row>
+  </div>
+   
+      </ion-col>
+      <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"  style="height:100%;"></ion-col>
+    </ion-row >
+    
+    </ion-grid>
+  </ion-content>
+
+ 
+</ion-app>

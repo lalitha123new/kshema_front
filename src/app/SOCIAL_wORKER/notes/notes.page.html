@@ -1,0 +1,205 @@
+<ion-app >
+
+ 
+  <ion-content >
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;" class="container3">
+
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" >
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+                <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+                <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+             </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1" >
+         <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"></ion-col>
+            <ion-col  size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding:0px;"><ion-searchbar class="custom_background_color2" placeholder="Search Patient" style="width:100%;" (ionInput)="applyFilter($event.target.value)" ></ion-searchbar></ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;text-align: center;"></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons" style="font-size:30px;vertical-align: middle;margin-top:15px;">
+              speaker_notes </span></ion-col>
+              <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+                <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" >
+                  cached
+                  </span>
+              </ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"><mat-icon (click)="home()" style="font-size: 30px;" class="pointer-class">home </mat-icon></ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+            
+          </ion-row>
+      </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-top" [hidden]="!psw">
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" style="padding-top:0px;" >
+          <div style="text-align: right;">
+          <button  mat-button class="custom_button_size_notes supervisor_notes_button font_family_class"  (click)="addNewNote()"><span class="material-icons" style="font-size:15px;vertical-align: middle;margin-right:10px;">
+            speaker_notes </span><span>New Note</span></button>
+          </div>
+        </ion-col>
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+      </ion-row>
+        <ion-row class="ion-padding-top" [hidden]="!psw">
+       
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  text-center style="height:100%;">
+         
+
+        <ion-row style="padding-top:0px;">
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+          <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" style="padding-top:0px;">
+         <ion-text>Notes</ion-text>
+        <div class="mat-elevation-z8" class="ion-text-left " style="padding-top:20px;" [hidden]="newNote">
+          <table mat-table [dataSource]="dataSource" matSort >
+        
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+              <td mat-cell *matCellDef="let element" class="dashboard_action "> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="notes_message">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Message </th>
+              <td mat-cell *matCellDef="let element" class="dashboard_action "> {{element.notes_message}} </td>
+            </ng-container>
+           
+
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> Next visit date </th>
+              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class=" header-align-right"><span class="cell_normal">Last Message:</span> {{element.date}}</span></td>
+              </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"  class="pointer-class hhh"  [ngClass]="{'unread_class': row.read_flag == 1}"></tr>
+          </table>
+
+        
+
+         
+          <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20,100]"></mat-paginator> -->
+         </div> 
+        
+
+         <div style="text-align: left; padding-top:10px;padding-bottom:10px;background-color:#F4F4F4;" [hidden]="!newNote">
+          <div>
+        <mat-form-field style="width:50%;display:inline-block;" appearance="outline" class="white">
+          <mat-label class="place_holder_text">Select Patient</mat-label>
+          <mat-select (selectionChange)="changePatient($event.value)">
+            <mat-option *ngFor="let patient1 of patientArray" [value]="patient1.patient_uuid">
+              {{patient1.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="ion-padding-top">
+          <mat-form-field style="width:70%;display:inline-block;" appearance="outline" class="white">
+            <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="75" style="height:20px;"></textarea>
+          </mat-form-field>
+         
+       
+          <button><span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="sendNotes()">play_circle_filled</span></button>
+        </div> 
+
+        </div>
+          </ion-col>
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+
+        </ion-row>
+
+      </ion-col>
+    
+    </ion-row>
+   
+
+    <ion-row class="ion-padding-top" [hidden]="psw">
+      <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+      <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" style="padding-top:0px;" >
+        <div style="text-align: right;">
+        <button  mat-button class="custom_button_size_notes supervisor_notes_button font_family_class"  (click)="addNewNote()"><span class="material-icons" style="font-size:15px;vertical-align: middle;margin-right:10px;">
+          speaker_notes </span><span>New Note</span></button>
+        </div>
+      </ion-col>
+      <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+    </ion-row>
+    
+      <ion-row class="ion-padding-top" [hidden]="psw">
+     
+      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  text-center style="height:100%;">
+       
+
+      <ion-row style="padding-top:0px;">
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12" style="padding-top:0px;">
+       <ion-text>Notes</ion-text>
+      <div class="mat-elevation-z8" class="ion-text-left " style="padding-top:20px;" [hidden]="newNote1">
+        <table mat-table [dataSource]="dataSource" matSort >
+      
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Patient Name </th>
+            <td mat-cell *matCellDef="let element" class="dashboard_action "> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="notes_message">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Message </th>
+            <td mat-cell *matCellDef="let element" class="dashboard_action "> {{element.notes_message}} </td>
+          </ng-container>
+         
+
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Next visit date </th>
+            <td mat-cell *matCellDef="let element" class="dashboard_action"><span class=" header-align-right"><span class="cell_normal">Last Message:</span> {{element.date}}</span></td>
+            </ng-container>
+
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"  class="pointer-class hhh" [ngClass]="{'unread_class': row.read_flag == 1}"></tr>
+        </table>
+
+       
+        <mat-paginator [pageSizeOptions]="[5, 10, 20,100]"></mat-paginator>
+       </div> 
+      
+
+       <div style="text-align: left; padding-top:10px;padding-bottom:10px;background-color:#F4F4F4;" [hidden]="!newNote1">
+        <div>
+      <mat-form-field style="width:50%;display:inline-block;" appearance="outline" class="white">
+        <mat-label class="place_holder_text">Select Patient</mat-label>
+        <mat-select (selectionChange)="changePatient($event.value)">
+          <mat-option *ngFor="let patient1 of allPatients_array" [value]="patient1.patient_uuid">
+            {{patient1.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="ion-padding-top">
+        <mat-form-field style="width:70%;display:inline-block;" appearance="outline" class="white">
+          <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="75" style="height:20px;"></textarea>
+        </mat-form-field>
+       
+     
+        <button><span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="sendNotes()">play_circle_filled</span></button>
+      </div> 
+
+      </div>
+        </ion-col>
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12" style="padding-top:0px;"></ion-col>
+
+      </ion-row>
+
+    </ion-col>
+  
+  </ion-row>
+    </ion-grid>
+  </ion-content>
+ 
+</ion-app>

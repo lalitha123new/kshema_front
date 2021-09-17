@@ -1,0 +1,2153 @@
+<ion-app >
+
+ 
+  <ion-content>
+
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right:0px;" class="container2">
+
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+              <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+              <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+           </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
+          <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="7" size-lg="7" size-md="7" size-xs="7"></ion-col>
+           <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons pointer-class" style="font-size:30px;vertical-align: middle;" (click)="superNotes()">
+            speaker_notes </span></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" >
+                cached
+                </span>
+            </ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+              <mat-icon class="pointer-class" (click)="home()" style="font-size:30px;">home</mat-icon>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-top">
+    
+        <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  align-text-center style="height:100%;" class="equal_height">
+          <ion-row class="ion-padding-top ion-padding-bottom custom_row">
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+              <ion-title  ion-text-left class="font_family_class name_class">{{name}}({{age}}/{{gender}})</ion-title>
+            </ion-row>
+            <ion-row ion-text-left>
+              <ion-title size="small" class="custom_text_class_header1 font_family_class pat_header1"><mat-icon style="color:green;">call</mat-icon>{{mobile}}</ion-title>
+            </ion-row>
+            <ion-row ion-text-left class="ion-padding-top">
+              <ion-title size="small" class="custom_text_class_header1 font_family_class pat_header2"><mat-icon style="color:red;font-size:15px;">location_on</mat-icon>{{address}}</ion-title>
+            </ion-row>
+            </ion-col>
+          
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
+              <ion-row>
+                <ion-title class="font_family_class pat_header1">KSHEMA ID</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title  class="custom_text_class_header1 font_family_class pat_header3">{{kshema_id}}</ion-title>
+              </ion-row>
+          
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title  ion-text-left class="font_family_class pat_header2">Care Giver</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class pat_header3">{{care_giver}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class pat_header3"><mat-icon style="color:green;font-size:15px;">call</mat-icon>{{care_giver_mobile}}</ion-title>
+              </ion-row>
+            </ion-col>
+          
+          
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+                <ion-title  ion-text-left class="font_family_class pat_header1">ASHA/ANM</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class pat_header3">{{asha}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title class="font_family_class pat_header1">Taluka level PSW In charge</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class pat_header3">Test psw</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="ion-padding-top">
+                 
+                  <a  class="pointer-class" ><span class="text_color1 font_family_class pat_header4">History</span></a>
+             
+               
+              </ion-title>
+            </ion-row>
+            </ion-col>
+          
+          </ion-row>
+          <!-- <app-header></app-header> -->
+            
+           </ion-col>
+           <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+      </ion-row>
+
+      
+     <ion-row>
+      <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+       
+      <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+       
+     
+
+       <div style="text-align:left" class="ion-padding-top">
+       <button  mat-button class="custom_button_size supervisor_notes_button font_family_class" (click)="viewReplyNotes()" [hidden]="notes"><span class="material-icons" style="font-size:15px;vertical-align: middle;margin-right:10px;">
+        speaker_notes </span><span>New Note</span></button>
+      </div>
+</ion-col>
+<ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+     </ion-row>
+
+     
+        <ion-row class="ion-padding-top" [hidden]="!notes">
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+          <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+          <ion-title class="cell3">Notes</ion-title>
+          </ion-col>
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+        </ion-row>
+
+        <ion-row class="ion-padding-top" [hidden]="!notes">
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+          <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+            <div style="text-align: center; padding-top:10px;padding-bottom:10px;background-color:#F4F4F4;" [hidden]="!firstNote">
+              <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
+                <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="75" style="height:20px;"></textarea>
+              </mat-form-field>
+             
+             
+              <button><span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="writeNotes(1)">play_circle_filled</span></button>
+              
+
+            </div>
+              <div class="mat-elevation-z8" class="ion-text-left notes_box ion-padding-bottom ion-padding-top" [hidden]=!allNotes>
+               <div style="text-align: right;">
+                <button type="button" class="close" aria-label="Close">
+                  <span aria-hidden="true" (click)="hide()">×</span>
+                </button>
+              </div>
+                <table mat-table [dataSource]="dataSource_dashboard1" matSort   class="mat-elevation-z0 notes_box1">
+              
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sender </th>
+                    <td mat-cell *matCellDef="let element" class="cell1" style="width:15%;"> {{element.name}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="notes_message">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Message</th>
+                    <td mat-cell *matCellDef="let element" class="cell2" style="width:55%;">{{element.notes_message}} </td>
+                  </ng-container>
+              
+    
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef>Date </th>
+                    <td mat-cell *matCellDef="let element" class="cell2" style="width:15%;"> {{element.createdAt2}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="time">
+                    <th mat-header-cell *matHeaderCellDef>Time</th>
+                    <td mat-cell *matCellDef="let element" class="cell2" style="width:15%;">{{element.time}}</td>
+                  </ng-container>
+                
+                  <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" [routerLink]="'/send-message'" class="pointer-class"></tr>
+
+                  
+                </table>
+                <div style="text-align: center;">
+                <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
+                  <textarea matInput  placeholder="Reply" maxlength="75" style="height:20px;" [(ngModel)]="replyNote"></textarea>
+                </mat-form-field>
+                <!-- <ion-icon name="caret-forward-circle-outline" class="forward_arrow"></ion-icon> -->
+               
+                <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="writeNotes(2)">play_circle_filled</span>
+                
+
+              </div>
+               
+                <!-- <mat-paginator [pageSizeOptions]="[10, 20,25]" showFirstLastButtons></mat-paginator> -->
+            </div>  
+           
+           
+          </ion-col>
+         
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+         
+        </ion-row>
+
+
+        <ion-row>
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+          <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+
+       <mat-tab-group class="ion-padding-top">
+      <mat-tab *ngFor="let tab of prefTabs; let index = index" [label]="tab.visit_type1">
+
+        <div *ngIf="tab.visit_type === 'PHC'">
+         
+         
+            <ion-card class="ion-card ion-padding-top">
+              <form>
+                  <ion-title class="label_class2 font_family_class">Who has come with him/her</ion-title>
+                  <ion-title class="label_class3">{{tab.who}}</ion-title>
+                      
+
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="label_class2 font_family_class">Rate important symptoms on a scale of 1 - 5</ion-title>
+                      </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="option_text font_family_class">1- No symptoms 3- Occur frequently/mildly affects behaviour 5- Occurs almost always or significantly affects behaviour</ion-title>
+                    </ion-col>
+                  </ion-row>
+
+                  
+                  <ion-row>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                         <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Suspiciousness</ion-title>
+                         </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                         <mat-button-toggle-group #group1="matButtonToggleGroup" aria-label="Font Style">
+                                 
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.suspicious == 1 || tab.suspicious_rate == 1">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.suspicious == 2 || tab.suspicious_rate == 2">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.suspicious == 3 || tab.suspicious_rate == 3">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.suspicious == 4 || tab.suspicious_rate == 4">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.suspicious == 5 || tab.suspicious_rate == 5">5</mat-button-toggle>
+                         </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                         <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Hallucinatory behaviour(reported hallucination / talking or laughing to self)</ion-title>
+                       </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                         <mat-button-toggle-group #group2="matButtonToggleGroup" aria-label="Font Style">
+                                 
+                           <mat-button-toggle value="1" [disabled]="true" [checked]="tab.hallucinatory == 1 || tab.hallucinatory_rate == 1">1</mat-button-toggle>
+                           <mat-button-toggle value="2" [disabled]="true" [checked]="tab.hallucinatory == 2 || tab.hallucinatory_rate == 2">2</mat-button-toggle>
+                           <mat-button-toggle value="3" [disabled]="true" [checked]="tab.hallucinatory == 3 || tab.hallucinatory_rate == 3">3</mat-button-toggle>
+                           <mat-button-toggle value="4" [disabled]="true" [checked]="tab.hallucinatory == 4 || tab.hallucinatory_rate == 4">4</mat-button-toggle>
+                           <mat-button-toggle value="5" [disabled]="true" [checked]="tab.hallucinatory == 5 || tab.hallucinatory_rate == 5">5</mat-button-toggle>
+                         
+                         </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+                       
+                 </ion-row>
+
+                 <ion-row>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Verbal or physical aggression </ion-title>
+                    </ion-col>
+                   </ion-row>
+
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <mat-button-toggle-group #group3="matButtonToggleGroup" aria-label="Font Style">
+                                
+                        <mat-button-toggle value="1" [disabled]="true" [checked]="tab.verbal == 1 || tab.verbal_rate == 1">1</mat-button-toggle>
+                       <mat-button-toggle value="2" [disabled]="true" [checked]="tab.verbal == 2 || tab.verbal_rate == 2">2</mat-button-toggle>
+                       <mat-button-toggle value="3" [disabled]="true" [checked]="tab.verbal == 3 || tab.verbal_rate == 3">3</mat-button-toggle>
+                       <mat-button-toggle value="4" [disabled]="true" [checked]="tab.verbal == 4 || tab.verbal_rate == 4">4</mat-button-toggle>
+                       <mat-button-toggle value="5" [disabled]="true" [checked]="tab.verbal == 5 || tab.verbal_rate == 5">5</mat-button-toggle>
+                     
+                      
+                      </mat-button-toggle-group>
+                       </ion-col>
+                   </ion-row>
+
+                  </ion-col>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Social isolation</ion-title>
+                    </ion-col>
+                   </ion-row>
+
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                        <mat-button-toggle value="1" [disabled]="true" [checked]="tab.social_isolation == 1 || tab.social_rate == 1">1</mat-button-toggle>
+                        <mat-button-toggle value="2" [disabled]="true" [checked]="tab.social_isolation == 2 || tab.social_rate == 2">2</mat-button-toggle>
+                        <mat-button-toggle value="3" [disabled]="true" [checked]="tab.social_isolation == 3 || tab.social_rate == 3">3</mat-button-toggle>
+                        <mat-button-toggle value="4" [disabled]="true" [checked]="tab.social_isolation == 4 || tab.social_rate == 4">4</mat-button-toggle>
+                        <mat-button-toggle value="5" [disabled]="true" [checked]="tab.social_isolation == 5 || tab.social_rate == 5">5</mat-button-toggle>
+                      
+                      
+                      </mat-button-toggle-group>
+                       </ion-col>
+                   </ion-row>
+
+                  </ion-col>
+                     
+               </ion-row>
+
+               <ion-row>
+
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                 <ion-row>
+                   <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Poor selfcare</ion-title>
+                  </ion-col>
+                 </ion-row>
+
+                 <ion-row>
+                   <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                      <mat-button-toggle value="1" [disabled]="true" [checked]="tab.poor_selfcare == 1 || tab.selfcare_rate == 1">1</mat-button-toggle>
+                      <mat-button-toggle value="2" [disabled]="true" [checked]="tab.poor_selfcare == 2 || tab.selfcare_rate == 2">2</mat-button-toggle>
+                      <mat-button-toggle value="3" [disabled]="true" [checked]="tab.poor_selfcare == 3 || tab.selfcare_rate == 3">3</mat-button-toggle>
+                      <mat-button-toggle value="4" [disabled]="true" [checked]="tab.poor_selfcare == 4 || tab.selfcare_rate == 4">4</mat-button-toggle>
+                      <mat-button-toggle value="5" [disabled]="true" [checked]="tab.poor_selfcare == 5 || tab.selfcare_rate == 5">5</mat-button-toggle>
+                    
+                    
+                    </mat-button-toggle-group>
+                     </ion-col>
+                 </ion-row>
+
+                </ion-col>
+
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                 <ion-row>
+                   <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Poor occupational functioning </ion-title>
+                  </ion-col>
+                 </ion-row>
+
+                 <ion-row>
+                   <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style">
+                                
+                      <mat-button-toggle value="1" [disabled]="true" [checked]=" tab.occupation_rate == 1">1</mat-button-toggle>
+                      <mat-button-toggle value="2" [disabled]="true" [checked]=" tab.occupation_rate == 2">2</mat-button-toggle>
+                      <mat-button-toggle value="3" [disabled]="true" [checked]=" tab.occupation_rate == 3">3</mat-button-toggle>
+                      <mat-button-toggle value="4" [disabled]="true" [checked]="tab.occupation_rate == 4">4</mat-button-toggle>
+                      <mat-button-toggle value="5" [disabled]="true" [checked]=" tab.occupation_rate == 5">5</mat-button-toggle>
+                    
+                    
+                    
+                    </mat-button-toggle-group>
+                     </ion-col>
+                 </ion-row>
+                
+                </ion-col>
+                   
+             </ion-row>
+
+             <ion-row>
+
+             
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title class="font_family_class incharge_class rate_label" style="padding-right:10px;">Sleep disturbance </ion-title>
+                </ion-col>
+               </ion-row>
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style">
+                              
+                    <mat-button-toggle value="1" [disabled]="true" [checked]="tab.sleep == 1 || tab.sleep_rate == 1">1</mat-button-toggle>
+                    <mat-button-toggle value="2" [disabled]="true" [checked]="tab.sleep == 2 || tab.sleep_rate == 2">2</mat-button-toggle>
+                    <mat-button-toggle value="3" [disabled]="true" [checked]="tab.sleep == 3 || tab.sleep_rate == 3">3</mat-button-toggle>
+                    <mat-button-toggle value="4" [disabled]="true" [checked]="tab.sleep == 4 || tab.sleep_rate == 4">4</mat-button-toggle>
+                    <mat-button-toggle value="5" [disabled]="true" [checked]="tab.sleep == 5 || tab.sleep_rate == 5">5</mat-button-toggle>
+                  
+                  
+                  
+                  </mat-button-toggle-group>
+                   </ion-col>
+               </ion-row>
+              
+              </ion-col>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+               
+
+              </ion-col>
+           </ion-row>
+             <ion-row *ngFor="let presc of tab.symptomArray; let i = index">
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                 <ion-title>{{presc.symptom1}}</ion-title>
+                </ion-col>
+               </ion-row>
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                              
+                    <mat-button-toggle value="1" [disabled]="true" [checked]="presc.symptom1_rate == 1 " [disabled]="true">1</mat-button-toggle>
+                    <mat-button-toggle value="2" [disabled]="true" [checked]="presc.symptom1_rate == 2 " [disabled]="true">2</mat-button-toggle>
+                    <mat-button-toggle value="3" [disabled]="true" [checked]="presc.symptom1_rate == 3 " [disabled]="true">3</mat-button-toggle>
+                    <mat-button-toggle value="4" [disabled]="true" [checked]="presc.symptom1_rate == 4" [disabled]="true">4</mat-button-toggle>
+                    <mat-button-toggle value="5" [disabled]="true" [checked]="presc.symptom1_rate == 5" [disabled]="true">5</mat-button-toggle>
+                  
+                  
+                  </mat-button-toggle-group>
+                   </ion-col>
+               </ion-row>
+
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title>{{presc.symptom2}}</ion-title>
+                </ion-col>
+               </ion-row>
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style">
+                              
+                    <mat-button-toggle value="1" [disabled]="true" [checked]="presc.symptom2_rate == 1 " [disabled]="true">1</mat-button-toggle>
+                    <mat-button-toggle value="2" [disabled]="true" [checked]="presc.symptom2_rate == 2 " [disabled]="true">2</mat-button-toggle>
+                    <mat-button-toggle value="3" [disabled]="true" [checked]="presc.symptom2_rate == 3 " [disabled]="true">3</mat-button-toggle>
+                    <mat-button-toggle value="4" [disabled]="true" [checked]="presc.symptom2_rate == 4" [disabled]="true">4</mat-button-toggle>
+                    <mat-button-toggle value="5" [disabled]="true" [checked]="presc.symptom2_rate == 5" [disabled]="true">5</mat-button-toggle>
+                  
+                  
+                  </mat-button-toggle-group>
+                   </ion-col>
+               </ion-row>
+
+              </ion-col>
+                 
+           </ion-row>
+              </form>
+
+            </ion-card>
+
+            <ion-card class="ion-card">
+
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">     
+                <ion-title class="font_family_class label_class2 rate_label">Substance Use</ion-title>
+            </ion-col>
+              </ion-row>
+
+              <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+              <div>
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-label class="font_family_class label_class3" style="margin-left:16px;">Tobacco</mat-label>
+                    <mat-radio-group  >
+                      <div style="display:inline-block">
+                        <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.tobacco == 'Yes'">Yes</mat-radio-button>
+                        <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.tobacco == 'No'">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                      </ion-col>
+
+                   
+                  </ion-row>
+
+              <!-- <ion-row *ngIf="tobaccoYesSelected">  -->
+                <ion-row> 
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                
+                  
+                    <!-- <input matInput  placeholder="Amount of use" maxlength="75"  class="place_holder_text"> -->
+                    <ion-title class="label_class3">{{tab.tobocco_amount}}</ion-title>
+                    
+                    <!-- <ion-title>{{tab.tobocco_amount}}</ion-title> -->
+                 
+            </ion-col>
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+              <ion-title class="label_class3">{{tab.tobacco_yes}}</ion-title>
+              <!-- <ion-title>{{tab.tobacco_remark}}</ion-title> -->
+        </ion-col>
+            </ion-row>
+          </div>
+
+        
+            
+              </ion-col>
+              </ion-row>
+
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <div >
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-label class="font_family_class label_class3" style="margin-left: 16px;;">Alcohol</mat-label>
+                    <mat-radio-group >
+                
+                      <div style="display:inline-block">
+                        <mat-radio-button  class="font_family_class label_class3" [value]="tab.alcohol" [disabled]="true" [checked]="tab.alcohol == 'Yes'">Yes</mat-radio-button>
+                        <mat-radio-button  class="font_family_class label_class3"[value]="tab.alcohol" [disabled]="true" [checked]="tab.alcohol == 'No'">No</mat-radio-button>
+                      </div>
+                        </mat-radio-group>
+                    </ion-col>
+
+                   
+                    </ion-row>
+
+                  <!-- <ion-row *ngIf="alcoholYesSelected"> -->
+                    <ion-row> 
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                        <ion-title class="label_class3">{{tab.alcohol_amount}}</ion-title>
+                       
+                        <!-- <ion-title>{{tab.alcohol_amount}}</ion-title> -->
+                  </ion-col>
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  
+                    <ion-title class="label_class3">{{tab.alcohol_yes}}</ion-title>
+                        <!-- <ion-title>{{tab.alcohol_remark}}</ion-title> -->
+              </ion-col>
+                  </ion-row>
+                </div>
+
+              
+              </ion-col>
+              
+            </ion-row>
+
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <div>
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-label class="font_family_class label_class3" style="margin-left: 16px;;">Other</mat-label>
+                    <mat-radio-group >
+                
+                      <div style="display:inline-block">
+                        <mat-radio-button  class="font_family_class label_class3" [value]="tab.other" [disabled]="true" [checked]="tab.other == 'Yes' || tab.others == 'Yes'">Yes</mat-radio-button>
+                        <mat-radio-button  class="font_family_class label_class3"[value]="tab.other" [disabled]="true" [checked]="tab.other == 'No' || tab.others == 'No'">No</mat-radio-button>
+                      </div>
+                        </mat-radio-group>
+                    </ion-col>
+
+                  
+                    </ion-row>
+
+                
+                    <ion-row> 
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                        <!-- <ion-title>{{tab.other_amount}}</ion-title> -->
+                        <ion-title class="label_class3">{{tab.other_amount}}</ion-title>
+                  </ion-col>
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                   
+                    <ion-title class="label_class3">{{tab.other_yes}}</ion-title>
+
+                        
+                        <!-- <ion-title>{{tab.others_remark}}</ion-title> -->
+              </ion-col>
+                  </ion-row>
+                </div>
+
+              
+              </ion-col>
+              
+            </ion-row>
+              
+          </ion-card>
+
+              <ion-card class="ion-padding ion-card">
+
+                <ion-row>
+                  <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10">
+                    <ion-title class="label_class3">Compliance Rate from 0 to 100% (based on most credible report)</ion-title>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+                  <ion-title class="label_class3">{{tab.comp_rate}}</ion-title>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12">
+                  <mat-label class="label_class5" style="margin-left: 16px;;">Is medication supervised?</mat-label>
+                  <mat-radio-group>
+               
+                    <div style="display:inline-block">
+                      <mat-radio-button  class="font_family_class label_class3" [value]="tab.med_supervised" [disabled]="true" [checked]="tab.med_supervised == 'Yes'">Yes</mat-radio-button>
+                      <mat-radio-button  class="font_family_class label_class3"[value]="tab.med_supervised" [disabled]="true" [checked]="tab.med_supervised == 'No'">No</mat-radio-button>
+                    </div>
+                      </mat-radio-group>
+                  </ion-col>
+
+                  <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12">
+                   <ion-title class="label_class3">Supervised by:{{tab.supervisor}}</ion-title>
+                  </ion-col>
+
+                 
+                </ion-row>
+                <ion-row class="ion-padding-top">
+                  <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10">
+                    <ion-title class="label_class3">How symptomatic is the patient?</ion-title>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+                  <ion-title class="label_class3">{{tab.symp_rate}}</ion-title>
+                  </ion-col>
+                </ion-row>
+
+            </ion-card>
+
+                <ion-card class="ion-card">
+
+                  <ion-row class="ion-padding">
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <ion-title class="label_class3">Rate adverse effects of medication on a scale of 1-5</ion-title>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-row>
+                      <ion-col size-xl="2" size-lg="2" size-md="4" size-xs="12" class="ion-text-left">
+                        <ion-title class="label_class4">1-Absent</ion-title>
+                      </ion-col>
+                      <ion-col size-xl="2" size-lg="2" size-md="4" size-xs="12" class="ion-text-left">
+                        <ion-title class="label_class4">Affects daily life </ion-title>
+                      </ion-col>
+                      <ion-col size-xl="3" size-lg="3" size-md="4" size-xs="12" class="ion-text-left">
+                        <ion-title class="label_class4">5- Slightly affects activities</ion-title>
+                      </ion-col>
+                    </ion-row>
+                    </ion-col>
+                  </ion-row>
+  
+                  <ion-row>
+  
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <ion-title class="label_class5" style="padding-right:10px;">Sedation</ion-title>
+                        </ion-col>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <mat-button-toggle-group #group10="matButtonToggleGroup" aria-label="Font Style">
+                                      
+                            <mat-button-toggle value="1" [disabled]="true" [checked]="tab.sedation_rate == '1' ">1</mat-button-toggle>
+                            <mat-button-toggle value="2" [disabled]="true" [checked]="tab.sedation_rate == '2'">2</mat-button-toggle>
+                            <mat-button-toggle value="3" [disabled]="true" [checked]="tab.sedation_rate == '3'">3</mat-button-toggle>
+                            <mat-button-toggle value="4" [disabled]="true" [checked]="tab.sedation_rate == '4'">4</mat-button-toggle>
+                            <mat-button-toggle value="5" [disabled]="true" [checked]="tab.sedation_rate == '5'">5</mat-button-toggle>
+                          
+                          
+                          
+                          </mat-button-toggle-group>
+                        </ion-col>
+                      </ion-row>
+                    
+                    </ion-col>
+  
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <ion-title class="label_class5" style="padding-right:10px;">Stiffness</ion-title>
+                        </ion-col>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <mat-button-toggle-group #group11="matButtonToggleGroup" aria-label="Font Style" >
+                                      
+                            <mat-button-toggle value="1" [disabled]="true" [checked]="tab.stiffness_rate == '1' ">1</mat-button-toggle>
+                            <mat-button-toggle value="2" [disabled]="true" [checked]="tab.stiffness_rate == '2'">2</mat-button-toggle>
+                            <mat-button-toggle value="3" [disabled]="true" [checked]="tab.stiffness_rate == '3'">3</mat-button-toggle>
+                            <mat-button-toggle value="4" [disabled]="true" [checked]="tab.stiffness_rate == '4'">4</mat-button-toggle>
+                            <mat-button-toggle value="5" [disabled]="true" [checked]="tab.stiffness_rate == '5'">5</mat-button-toggle>
+                          
+                          
+                          
+                          </mat-button-toggle-group>
+                        </ion-col>
+                      </ion-row>
+                    
+                    </ion-col>
+                  </ion-row>
+  
+                <ion-row>
+  
+                  <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-title class="label_class5" style="padding-right:10px;">Tiredness</ion-title>
+                      </ion-col>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group12="matButtonToggleGroup" aria-label="Font Style" >
+                                        
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.tiredness_rate == '1' ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.tiredness_rate == '2'">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.tiredness_rate == '3'">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.tiredness_rate == '4'">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.tiredness_rate == '5'">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                      </ion-col>
+                    </ion-row>
+                  
+                  </ion-col>
+  
+                  <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-title class="label_class5" style="padding-right:10px;">Weight Gain</ion-title>
+                      </ion-col>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group13="matButtonToggleGroup" aria-label="Font Style" >
+                                        
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.weight_gain_rate == '1' ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.weight_gain_rate == '2'">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.weight_gain_rate == '3'">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.weight_gain_rate == '4'">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.weight_gain_rate == '5'">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                      </ion-col>
+                    </ion-row>
+                  
+                  </ion-col>
+                </ion-row>
+  
+                <ion-row>
+  
+                  <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-title class="label_class5" style="padding-right:10px;">Menstrual irregularity</ion-title>
+                      </ion-col>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group14="matButtonToggleGroup" aria-label="Font Style">
+                                            
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.mens_rate == '1' ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.mens_rate == '2'">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.mens_rate == '3'">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.mens_rate == '4'">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.mens_rate == '5'">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                      </ion-col>
+                    </ion-row>
+                  
+                  </ion-col>
+  
+                  <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-title class="label_class5" style="padding-right:10px;">Sexual dysfunction</ion-title>
+                      </ion-col>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group15="matButtonToggleGroup" aria-label="Font Style" >
+                                            
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.sex_dysfunction_rate == '1' ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.sex_dysfunction_rate == '2'">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.sex_dysfunction_rate == '3'">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.sex_dysfunction_rate == '4'">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.sex_dysfunction_rate == '5'">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                      </ion-col>
+                    </ion-row>
+                  
+                  </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let presc of tab.symptomArray1; let i = index">
+
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+    
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                     <ion-title>{{presc.symptom1}}</ion-title>
+                    </ion-col>
+                   </ion-row>
+    
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                  
+                        <mat-button-toggle value="1" [checked]="presc.symptom1_rate == 1 " [disabled]="true">1</mat-button-toggle>
+                        <mat-button-toggle value="2" [checked]="presc.symptom1_rate == 2 " [disabled]="true">2</mat-button-toggle>
+                        <mat-button-toggle value="3" [checked]="presc.symptom1_rate == 3 " [disabled]="true">3</mat-button-toggle>
+                        <mat-button-toggle value="4" [checked]="presc.symptom1_rate == 4" [disabled]="true">4</mat-button-toggle>
+                        <mat-button-toggle value="5" [checked]="presc.symptom1_rate == 5" [disabled]="true">5</mat-button-toggle>
+                      
+                      
+                      </mat-button-toggle-group>
+                       </ion-col>
+                   </ion-row>
+    
+                  </ion-col>
+    
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title>{{presc.symptom2}}</ion-title>
+                    </ion-col>
+                   </ion-row>
+    
+                   <ion-row>
+                     <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style">
+                                  
+                        <mat-button-toggle value="1" [checked]="presc.symptom2_rate == 1 " [disabled]="true">1</mat-button-toggle>
+                        <mat-button-toggle value="2" [checked]="presc.symptom2_rate == 2 " [disabled]="true">2</mat-button-toggle>
+                        <mat-button-toggle value="3" [checked]="presc.symptom2_rate == 3 " [disabled]="true">3</mat-button-toggle>
+                        <mat-button-toggle value="4" [checked]="presc.symptom2_rate == 4" [disabled]="true">4</mat-button-toggle>
+                        <mat-button-toggle value="5" [checked]="presc.symptom2_rate == 5" [disabled]="true">5</mat-button-toggle>
+                      
+                      
+                      </mat-button-toggle-group>
+                       </ion-col>
+                   </ion-row>
+    
+                  </ion-col>
+                     
+               </ion-row>
+                </ion-card>
+        
+                <ion-card class="ion-card">
+
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <div>
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <mat-label class="label_class3" style="margin-left: 16px;;">Discussion with doctor</mat-label>
+                          <mat-radio-group >
+                      
+                            <div style="display:inline-block">
+                              <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.discuss_doctor == 'Yes'">Yes</mat-radio-button>
+                              <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.discuss_doctor == 'No'">No</mat-radio-button>
+                            </div>
+                              </mat-radio-group>
+                          </ion-col>
+      
+                          
+                          </ion-row>
+      
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                             <ion-title><span class="label_class2_details">Details</span></ion-title>
+                             <ion-title class="label_class3">{{tab.discuss_doctor_details}}</ion-title>
+                            </ion-col>
+                        
+                        </ion-row>
+                      </div>
+      
+                    
+                    </ion-col>
+                    
+                  </ion-row>
+      
+                  </ion-card>
+
+                  <ion-card class="ion-card">
+
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <div>
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <mat-label class="label_class3" style="margin-left: 16px;;">Medication</mat-label>
+                            <mat-radio-group>
+                        
+                              <div style="display:inline-block">
+                                <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.medication == 'Yes'">Yes</mat-radio-button>
+                                <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.medication == 'No'">No</mat-radio-button>
+                              </div>
+                                </mat-radio-group>
+                            </ion-col>
+        
+                            
+                            </ion-row>
+        
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                              
+                                 <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.presc_medicine}}</ion-title>
+                                 <!-- <ion-title>{{tab.medication_yes}}</ion-title> -->
+                              
+                              </ion-col>
+                          
+                          </ion-row>
+        
+                        </div>
+        
+                      
+                      </ion-col>
+                      
+                    </ion-row>
+
+                    <ion-row class="ion-padding-bottom">
+                    
+                    
+                      <mat-checkbox  class="font_family_class label_class4"  [disabled]="true" [checked]="tab.patient == true">Changes discussed with patient</mat-checkbox>
+                      <mat-checkbox  class="font_family_class label_class4"  [disabled]="true" [checked]="tab.caregiver == true">Changes discussed with caregiver</mat-checkbox>
+                       
+        
+                    </ion-row>
+
+                  </ion-card>
+
+
+                    <ion-card class="ion-card">
+
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <div>
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                              <mat-label class="label_class3" style="margin-left: 16px;;">Counselling</mat-label>
+                              <mat-radio-group  >
+                          
+                                <div style="display:inline-block">
+                                  <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.counselling == 'Yes'">Yes</mat-radio-button>
+                                  <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.counselling == 'No'">No</mat-radio-button>
+                                </div>
+                                  </mat-radio-group>
+                              </ion-col>
+                      
+                              
+                              </ion-row>
+                              <!-- <ion-row>
+                                <h6 class="font_family_class incharge_class rate_label ion-padding-right ion-padding-left" style="margin-right:15px;margin-left:15px;">This refers to any kind of Counselling, including about sexual education, marriage, continuing education, seeking employment etc. done in addition to psychological intervensions.</h6>
+                              </ion-row> -->
+                      
+                              <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                 <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.counselling_med}}</ion-title>
+                               
+                                </ion-col>
+                            
+                            </ion-row>
+                      
+                          </div>
+                      
+                        
+                        </ion-col>
+                        
+                      </ion-row>
+                    
+                    </ion-card>
+
+                    <ion-card class="ion-card">
+
+                      <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <div>
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                              <mat-label class="label_class3" style="margin-left: 16px;;">Referral</mat-label>
+                              <mat-radio-group >
+                          
+                                <div style="display:inline-block">
+                                  <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.referral == 'Yes'">Yes</mat-radio-button>
+                                  <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.referral == 'No'">No</mat-radio-button>
+                                </div>
+                                  </mat-radio-group>
+                              </ion-col>
+                      
+                              
+                              </ion-row>
+                      
+                              <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                 <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.referral_med}}</ion-title>
+                                
+                                </ion-col>
+                            
+                            </ion-row>
+                      
+                          </div>
+                      
+                        
+                        </ion-col>
+                        
+                      </ion-row>
+                    
+                    </ion-card>
+
+                        <ion-card class="ion-card">
+
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-title class="font_family_class label_class2">Psychoeducation Session</ion-title>
+                            </ion-col>
+                          </ion-row>
+            
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                              
+                              <div>
+                              <!-- <ion-row>
+                                
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                  <ion-title class="font_family_class label_class2">Psychoeducation Session</ion-title>
+                                </ion-col>
+                                
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                <mat-radio-group aria-label="Select an option" >
+                                  <div style="display:inline-block">
+                                    <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [checked]="tab.psychoeducation == 'Yes'">Yes</mat-radio-button>
+                                    <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [checked]="tab.psychoeducation == 'No'">No</mat-radio-button>
+                                  </div>
+                                </mat-radio-group>
+                              </ion-col>
+                              </ion-row> -->
+                              
+                             
+                                <!-- <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                  <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.psychoeducation_yes}}</ion-title>
+                                
+                            </ion-col> 
+                            </ion-row> -->
+
+                            
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                                
+                                <!-- <div> -->
+                                <ion-row>
+                                  
+                                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+  
+                                    <ion-row>
+                                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                        <ion-title class="font_family_class label_class5a">Psychoeducation Session</ion-title>
+                                      </ion-col>
+                                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                        <mat-radio-group aria-label="Select an option" >
+                                          <div style="display:inline-block">
+                                            <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [checked]="tab.psychoeducation == 'Yes'" [disabled]="true">Yes</mat-radio-button>
+                                            <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [checked]="tab.psychoeducation == 'No'" [disabled]="true">No</mat-radio-button>
+                                          </div>
+                                        </mat-radio-group>
+                                      </ion-col>
+                                    </ion-row>
+                                   
+                                  </ion-col>
+                                  
+                                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                  <ion-row>
+                                    <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                                      <ion-title class="font_family_class label_class5a">Psychological Intervensions</ion-title>
+                                    </ion-col>
+                
+                                    <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                                      <mat-radio-group aria-label="Select an option" >
+                                        <div style="display:inline-block">
+                                          <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [checked]="tab.psychointervension == 'Yes'" [disabled]="true">Yes</mat-radio-button>
+                                          <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [checked]="tab.psychointervension == 'No'" [disabled]="true">No</mat-radio-button>
+                                        </div>
+                                      </mat-radio-group>
+                                    </ion-col>
+                                  </ion-row>
+                                </ion-col>
+                                </ion-row>
+                                
+                               
+                                  <ion-row>
+                                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                    <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.psychoeducation_yes}}</ion-title>
+                                  
+                              </ion-col> 
+                              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.psychointervension_yes}}</ion-title>
+                               
+                           </ion-col> 
+                              </ion-row>
+  
+                              
+                              <!-- <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                                  <div>
+                                    <ion-row>
+                                    <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                                      <ion-title class="font_family_class label_class2">Psychological Intervensions</ion-title>
+                                    </ion-col>
+                
+                                    <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
+                                      <mat-radio-group aria-label="Select an option" >
+                                        <div style="display:inline-block">
+                                          <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [checked]="tab.psychointervension == 'Yes'">Yes</mat-radio-button>
+                                          <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [checked]="tab.psychointervension == 'No'">No</mat-radio-button>
+                                        </div>
+                                      </mat-radio-group>
+                                    </ion-col>
+                                  </ion-row>
+                
+                                
+                                    <ion-row>
+                                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                     <ion-title class="label_class3"><span class="label_class2_details">Details</span> {{tab.psychointervension_yes}}</ion-title>
+                                    
+                                </ion-col> 
+                                </ion-row>
+                              </div>
+                                
+                                </ion-col>
+                              </ion-row> -->
+                              <!-- </div> -->
+                            </ion-col>
+                          </ion-row>
+                            </div>
+            
+            
+                            <ion-row>
+                            
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                              
+                                <ion-row>
+                                
+                                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                        <ion-title class="font_family_class label_class2">Participants</ion-title>
+                                        </ion-col>
+                                        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                                         
+                                          <mat-checkbox  class="font_family_class label_class4"  [disabled]="true" [checked]="tab.patient1">Patient</mat-checkbox>
+                                          <mat-checkbox  class="font_family_class label_class4"  [disabled]="true" [checked]="tab.family">Family</mat-checkbox>
+                                           
+                            
+                                       
+                                          
+                                  </ion-col>
+            
+                        
+                          </ion-row>
+            
+                          <ion-row>
+                           
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <ion-title class="label_class3"><span class="label_class2_details">Details of Participants</span></ion-title>
+                                <ion-title class="label_class3">{{tab.pat_details}}</ion-title>
+                              </ion-col>
+                           
+                          </ion-row>
+                          <ion-row>
+                            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                              <ion-row>
+                      
+                              <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                                <ion-title class="label_class2"> Place</ion-title>
+                                </ion-col>
+                      
+                                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                                 
+                                  <button mat-button  class="button_text_normal custom_button_size1 custom_button_display3"  [ngClass]="{'selected_border': tab.next_visit_place2 == 1, 'default_border': tab.next_visit_place2 != 1 }" [disabled]="true">Home Consultation</button>
+                                </ion-col>
+                                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                                  <button mat-button   class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 2, 'default_border': tab.next_visit_place2 != 2 }" [disabled]="true">PHC Consultation</button>
+                                  
+                                </ion-col>
+                                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                                  <button  mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 3, 'default_border': tab.next_visit_place2 != 3 }" [disabled]="true">Mano Chaithanya</button>
+                                </ion-col>
+                                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                                  <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 4, 'default_border': tab.next_visit_place2 != 4 }" [disabled]="true">Phone Call</button>
+                                </ion-col>
+                                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                                   <button mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 5, 'default_border': tab.next_visit_place != 5 }" [disabled]="true">Others</button>
+                                 
+                               
+                                  </ion-col>
+                               
+                               
+                              </ion-row>
+                            </ion-col>
+                                  
+                                  
+                            </ion-row>
+                          <ion-row>
+        
+                            <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12">
+                            <ion-title class="label_class2">Date</ion-title>
+                            </ion-col>
+                  
+                            <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                              <ion-title class="label_class3">{{tab.next_date}}</ion-title>
+                          
+                        </ion-col>
+                        </ion-row>
+                    
+                          </ion-col>
+                        
+                        </ion-row>
+
+                        
+                        <ion-row>
+                         
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                           <ion-row>
+<!--                             
+                            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                              <ion-title class="font_family_class label_class2">Obtained consent for follow-up</ion-title>
+                          </ion-col> -->
+                        
+                            <!-- <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                             
+                             <mat-checkbox  class="font_family_class label_class4"  [checked]="tab.phone">Phone call</mat-checkbox>
+                            <mat-checkbox  class="font_family_class label_class4"  [checked]="tab.text">Text Message</mat-checkbox>
+                            <mat-checkbox  class="font_family_class label_class4"  [checked]="tab.home">Home consulation</mat-checkbox>
+                             
+                            </ion-col> -->
+            
+                        </ion-row>
+                          
+                          </ion-col>
+                          
+                        </ion-row>
+            
+                       
+                        </ion-col>
+            
+            
+                           
+                          </ion-row>
+
+
+                      </ion-card>
+            
+        
+
+    </div>
+
+
+   <div *ngIf="tab.visit_type === 'Phone'">
+         
+
+          <ion-card class="ion-card ion-padding-top ion-margin-bottom">
+
+            <ion-row>
+     
+              <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
+     
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md=" 12" size-xs="12">
+               <ion-title class="label_class2">Missed consultation date</ion-title>
+               <ion-title class="label_class3">{{tab.missed_phone}}</ion-title>
+             </ion-col>
+              </ion-row>
+     
+              <ion-row>
+               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+              <ion-title></ion-title>
+             </ion-col>
+             </ion-row>
+     
+              </ion-col>
+           
+              <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                
+               <ion-row>
+                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <ion-title class="label_class2">Date of phone follow-up</ion-title>
+              </ion-col>
+               </ion-row>
+      
+               <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+               <ion-title class="label_class3">{{tab.phone_follow_date}}</ion-title>
+              </ion-col>
+               </ion-row>
+      
+               </ion-col>
+     
+            </ion-row>
+     
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" ion-text-left>
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                   <ion-title class="label_class2">Person contacted</ion-title>
+                  </ion-col>
+                </ion-row>
+     
+                <ion-row>
+                 <ion-col size-xl="4" size-lg="4" size-md="6" size-xs="6">
+                   <ion-row  class="ion-padding-bottom">
+                     <ion-title class="label_class2">Patient</ion-title>
+                   </ion-row>
+                   <ion-row class="ion-padding-top">
+                     <mat-radio-group aria-label="Select an option"  >
+                      <div style="display:inline-block">
+                        <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.patient_contacted == 'Yes'">Yes</mat-radio-button>
+                        <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.patient_contacted == 'No'">No</mat-radio-button>
+                      </div>
+                     </mat-radio-group>
+                   </ion-row>
+                 
+                 </ion-col>
+     
+                 <ion-col size-xl="4" size-lg="4" size-md="6" size-xs="6">
+                 <ion-row>
+                   <ion-col size-xl="5" size-lg="5" size-md="6" size-xs="6">
+                   <ion-title class="label_class2">Caregiver</ion-title>
+                   </ion-col>
+                   <ion-col size-xl="7" size-lg="7" size-md="6" size-xs="6" class="ion-text-left">
+                    <mat-radio-group aria-label="Select an option"  >
+                    <div style="display:inline-block">
+                      <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.caregiver_contacted == 'Yes'">Yes</mat-radio-button>
+                      <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.caregiver_contacted == 'No'">No</mat-radio-button>
+                    </div>
+                    </mat-radio-group>
+                   </ion-col>
+                 </ion-row>
+                
+                 <ion-row>
+                  <ion-title class="label_class3">{{tab.caregiver_relation}}</ion-title>
+                 </ion-row>
+                  </ion-col>
+     
+                  <ion-col size-xl="4" size-lg="4" size-md="6" size-xs="6">
+                    <ion-row>
+                     <ion-col size-xl="5" size-lg="5" size-md="6" size-xs="6">
+                     <ion-title class="label_class2">Others</ion-title>
+                     </ion-col>
+                     <ion-col size-xl="7" size-lg="7" size-md="6" size-xs="6" class="ion-text-left">
+                      <mat-radio-group aria-label="Select an option"  >
+                      <div style="display:inline-block">
+                        <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.others_contacted == 'Yes'">Yes</mat-radio-button>
+                        <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.others_contacted == 'No'">No</mat-radio-button>
+                      </div>
+                      </mat-radio-group>
+                     </ion-col>
+                    </ion-row>
+                   
+                    <ion-row>
+                      <ion-title class="label_class3">{{tab.others_relation}}</ion-title>
+                    </ion-row>
+                  </ion-col>
+               </ion-row>
+               
+              </ion-col>
+            </ion-row>
+     
+            </ion-card>
+
+            <ion-card class="ion-card ion-margin-bottom">
+
+              <ion-row class="ion-padding-top">
+                <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12">
+                  <ion-title class="label_class3">Compliance Rate from 0 to 100% (based on most credible report)</ion-title>
+                </ion-col>
+                <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                  <ion-title class="label_class3">{{tab.compliance_rate}}</ion-title>
+                   </ion-col>
+              </ion-row>
+       
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12" class="ion-padding-top">
+                      <ion-title class="label_class3">Is medication supervised?</ion-title>
+                      <mat-radio-group aria-label="Select an option"  >
+                        <div style="display:inline-block">
+                          <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.med_supervised == 'Yes'">Yes</mat-radio-button>
+                          <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.med_supervised == 'No'">No</mat-radio-button>
+                        </div>
+                       </mat-radio-group>
+                    </ion-col>
+                    <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12">
+                      <ion-title><span class="label_class2_details">Details</span></ion-title>
+                      <ion-title class="label_class3">{{tab.med_supervised_yes}}</ion-title>
+                    
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+       
+       
+              <ion-row>
+       
+                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                     <ion-row>
+                       <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                         <ion-title class="label_class2">How symptomatic is the patient?</ion-title>
+                       </ion-col>
+                       <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                        <ion-title class="label_class3">{{tab.symptom_rate}}</ion-title>
+                        </ion-col>
+                     </ion-row>
+                   
+                   </ion-col>
+                
+             </ion-row>
+       
+       
+            </ion-card>
+
+            <ion-card class="ion-card">
+
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                  <ion-title class="label_class3">Reason for missed visit</ion-title>
+                </ion-row>
+                <ion-row>
+                  <ion-title class="label_class3">{{tab.reason_missed_visit}}</ion-title>
+                 
+                </ion-row>
+                </ion-col>
+        
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title class="label_class3">Plans to support next visit</ion-title>
+                </ion-row>
+                <ion-row>
+                  <ion-title class="label_class3">{{tab.plan_support_visit}}</ion-title>
+                </ion-row>
+                </ion-col>
+              </ion-row>
+               
+             <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <ion-title class="label_class3">Plan for next visit</ion-title></ion-col>
+            </ion-row>
+        
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <ion-row>
+        
+                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title class="label_class2"> Place</ion-title>
+                  </ion-col>
+        
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                   
+                    <button mat-button  class="button_text_normal custom_button_size1 custom_button_display3"  [ngClass]="{'selected_border': tab.next_visit_place == 1, 'default_border': tab.next_visit_place != 1 }">Home Consultation</button>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    <button mat-button   class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 2, 'default_border': tab.next_visit_place != 2 }">PHC Consultation</button>
+                    
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    <button  mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 3, 'default_border': tab.next_visit_place != 3 }">Mano Chaithanya</button>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 4, 'default_border': tab.next_visit_place != 4 }">Phone Call</button>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                     <button mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 5, 'default_border': tab.next_visit_place != 5 }">Others</button>
+                   
+                 
+                    </ion-col>
+                 
+                 
+                </ion-row>
+              </ion-col>
+                    
+                    
+              </ion-row>
+           
+        
+            <ion-row>
+              <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
+                <ion-row>
+        
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12">
+                  <ion-title class="label_class2">Date</ion-title>
+                  </ion-col>
+        
+                  <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                    <ion-title class="label_class3">{{tab.next_date}}</ion-title>
+                
+              </ion-col>
+              </ion-row>
+              </ion-col>
+            </ion-row>
+        
+            </ion-card>
+    </div>
+
+
+    <div *ngIf="tab.visit_type === 'Home'">
+    
+
+      <ion-card class="ion-card ion-padding-top">
+
+        <ion-row>
+          
+            
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+           
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <ion-row>
+                    <ion-title class="label_class2">Missed consultation date</ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="label_class3">{{tab.missed_visit_date}}</ion-title>
+                   
+                  </ion-row>
+                </ion-col>
+              
+            </ion-col>
+
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+           
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <ion-row>
+                  <ion-title class="label_class2">Date of last phone, if done</ion-title>
+                </ion-row>
+                <ion-row>
+                 <ion-title class="label_class3">{{tab.last_phone_date}}</ion-title>
+                </ion-row>
+              </ion-col>
+            
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+           
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+              <ion-row>
+                <ion-title class="label_class2">Date of home consultation</ion-title>
+              </ion-row>
+              <ion-row>
+              <ion-title class="label_class3">{{tab.home_visit_date}}</ion-title>
+              </ion-row>
+            </ion-col>
+          
+        </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+            <ion-title class="label_class3">Person seen at home</ion-title>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          
+            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+              <mat-label style="margin-left: 16px;;" class="label_class6">Patient</mat-label>
+              <mat-radio-group aria-label="Select an option"  >
+                <div style="display:inline-block">
+                  <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.seen_patient == 'Yes'">Yes</mat-radio-button>
+                  <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.seen_patient == 'No'">No</mat-radio-button>
+                </div>
+                </mat-radio-group>
+              </ion-col>
+          
+
+              <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                <ion-row>
+                <mat-label style="margin-left: 16px;;" class="label_class6">Caregiver</mat-label>
+                <mat-radio-group aria-label="Select an option"  >
+                  <div style="display:inline-block">
+                    <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.seen_caregiver == 'Yes'">Yes</mat-radio-button>
+                    <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.seen_caregiver == 'No'">No</mat-radio-button>
+                  </div>
+                  </mat-radio-group>
+                    </ion-row>
+                    <ion-row>
+                     <ion-title class="label_class3">{{tab.caregiver_name_relation}}</ion-title>
+                    </ion-row>
+                  </ion-col>
+
+                  <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                    <ion-row>
+                    <mat-label style="margin-left: 16px;;" class="label_class6">Others</mat-label>
+                    <mat-radio-group aria-label="Select an option"  >
+                      <div style="display:inline-block">
+                        <mat-radio-button  class="font_family_class label_class3" [value]="tab.tobacco" [disabled]="true" [checked]="tab.seen_others == 'Yes'">Yes</mat-radio-button>
+                        <mat-radio-button  class="font_family_class label_class3"[value]="tab.tobacco" [disabled]="true" [checked]="tab.seen_others == 'No'">No</mat-radio-button>
+                      </div>
+                      </mat-radio-group>
+                      </ion-row>
+                 
+                   <ion-row>
+                     <ion-title class="label_class3">{{tab.others_name_relation}}</ion-title>>
+                    </ion-row>
+                  </ion-col>
+                 
+        </ion-row>
+
+       
+  
+      </ion-card>
+
+
+      <ion-card class="ion-card">
+              
+        <ion-row class="ion-padding-top">
+               <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title class="label_class3">Rate important symptoms on a scale of 1 - 5</ion-title>
+                  </ion-col>
+             </ion-row>
+             
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                 <ion-title class="label_class4">1- No symptoms 3- Occur frequently 5- significantly affects behaviour</ion-title>
+                 </ion-col>
+               </ion-row>
+            
+               <ion-row>
+
+                   <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                     <ion-row>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                         <ion-title class="label_class5" style="padding-right:10px;">Suspiciousness</ion-title>
+                       </ion-col>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.suspicious_rate == 1 ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.suspicious_rate == 2 ">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.suspicious_rate == 3 ">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.suspicious_rate == 4">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.suspicious_rate == 5">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                       </ion-col>
+                     </ion-row>
+                   
+                   </ion-col>
+
+                   <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                     <ion-row>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                         <ion-title class="label_class5" style="padding-right:10px;">Hallucinatory behaviour(reported hallucination / talking or laughing to self)</ion-title>
+                       </ion-col>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.hallucinatory_rate == 1 ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.hallucinatory_rate == 2 ">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.hallucinatory_rate == 3 ">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.hallucinatory_rate == 4">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.hallucinatory_rate == 5">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                       </ion-col>
+                     </ion-row>
+                   
+                   </ion-col>
+             </ion-row>
+
+                 
+             <ion-row>
+
+                   <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                     <ion-row>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                         <ion-title class="label_class5" style="padding-right:10px;">Verbal or physical aggression </ion-title>
+                       </ion-col>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.verbal_rate == 1 ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.verbal_rate == 2 ">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.verbal_rate == 3 ">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.verbal_rate == 4">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.verbal_rate == 5">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                       </ion-col>
+                     </ion-row>
+                   
+                   </ion-col>
+
+                   <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                     <ion-row>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                         <ion-title class="label_class5" style="padding-right:10px;">Social isolation</ion-title>
+                       </ion-col>
+                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                          <mat-button-toggle value="1" [disabled]="true" [checked]="tab.social_rate == 1 ">1</mat-button-toggle>
+                          <mat-button-toggle value="2" [disabled]="true" [checked]="tab.social_rate == 2 ">2</mat-button-toggle>
+                          <mat-button-toggle value="3" [disabled]="true" [checked]="tab.social_rate == 3 ">3</mat-button-toggle>
+                          <mat-button-toggle value="4" [disabled]="true" [checked]="tab.social_rate == 4">4</mat-button-toggle>
+                          <mat-button-toggle value="5" [disabled]="true" [checked]="tab.social_rate == 5">5</mat-button-toggle>
+                        
+                        
+                        </mat-button-toggle-group>
+                       </ion-col>
+                     </ion-row>
+                   
+                   </ion-col>
+             </ion-row>
+
+                
+             <ion-row>
+
+               <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                 <ion-row>
+                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                     <ion-title class="label_class5" style="padding-right:10px;">Poor selfcare</ion-title>
+                   </ion-col>
+                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                      <mat-button-toggle value="1" [disabled]="true" [checked]="tab.selfcare_rate == 1 ">1</mat-button-toggle>
+                      <mat-button-toggle value="2" [disabled]="true" [checked]="tab.selfcare_rate == 2 ">2</mat-button-toggle>
+                      <mat-button-toggle value="3" [disabled]="true" [checked]="tab.selfcare_rate == 3 ">3</mat-button-toggle>
+                      <mat-button-toggle value="4" [disabled]="true" [checked]="tab.selfcare_rate == 4">4</mat-button-toggle>
+                      <mat-button-toggle value="5" [disabled]="true" [checked]="tab.selfcare_rate == 5">5</mat-button-toggle>
+                    
+                    
+                    </mat-button-toggle-group>
+                   </ion-col>
+                 </ion-row>
+               
+               </ion-col>
+
+               <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                 <ion-row>
+                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                     <ion-title class="label_class5" style="padding-right:10px;">Poor occupational functioning</ion-title>
+                   </ion-col>
+                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                      <mat-button-toggle value="1" [disabled]="true" [checked]="tab.occupation_rate == 1 ">1</mat-button-toggle>
+                      <mat-button-toggle value="2" [disabled]="true" [checked]="tab.occupation_rate == 2 ">2</mat-button-toggle>
+                      <mat-button-toggle value="3" [disabled]="true" [checked]="tab.occupation_rate == 3 ">3</mat-button-toggle>
+                      <mat-button-toggle value="4" [disabled]="true" [checked]="tab.occupation_rate == 4">4</mat-button-toggle>
+                      <mat-button-toggle value="5" [disabled]="true" [checked]="tab.occupation_rate == 5">5</mat-button-toggle>
+                    
+                    
+                    </mat-button-toggle-group>
+                   </ion-col>
+                 </ion-row>
+               
+               </ion-col>
+             </ion-row>
+               
+
+             <ion-row>
+               <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+               <ion-title class="label_class5" style="padding-right:10px;">Sleep disturbance </ion-title>
+             </ion-col>
+             </ion-row>
+
+             <ion-row>
+                   <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                                
+                      <mat-button-toggle value="1" [disabled]="true" [checked]="tab.sleep_rate == 1 ">1</mat-button-toggle>
+                      <mat-button-toggle value="2" [disabled]="true" [checked]="tab.sleep_rate == 2 ">2</mat-button-toggle>
+                      <mat-button-toggle value="3" [disabled]="true" [checked]="tab.sleep_rate == 3 ">3</mat-button-toggle>
+                      <mat-button-toggle value="4" [disabled]="true" [checked]="tab.sleep_rate == 4">4</mat-button-toggle>
+                      <mat-button-toggle value="5" [disabled]="true" [checked]="tab.sleep_rate == 5">5</mat-button-toggle>
+                    
+                    
+                    </mat-button-toggle-group>
+                   </ion-col>
+             </ion-row>
+             <ion-row *ngFor="let presc of tab.symptomArray; let i = index">
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                 <ion-title>{{presc.symptom1}}</ion-title>
+                </ion-col>
+               </ion-row>
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style">
+                              
+                    <mat-button-toggle value="1" [checked]="presc.symptom1_rate == 1 " [disabled]="true">1</mat-button-toggle>
+                    <mat-button-toggle value="2" [checked]="presc.symptom1_rate == 2 " [disabled]="true">2</mat-button-toggle>
+                    <mat-button-toggle value="3" [checked]="presc.symptom1_rate == 3 " [disabled]="true">3</mat-button-toggle>
+                    <mat-button-toggle value="4" [checked]="presc.symptom1_rate == 4" [disabled]="true">4</mat-button-toggle>
+                    <mat-button-toggle value="5" [checked]="presc.symptom1_rate == 5" [disabled]="true">5</mat-button-toggle>
+                  
+                  
+                  </mat-button-toggle-group>
+                   </ion-col>
+               </ion-row>
+
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title>{{presc.symptom2}}</ion-title>
+                </ion-col>
+               </ion-row>
+
+               <ion-row>
+                 <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                  <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style">
+                              
+                    <mat-button-toggle value="1" [checked]="presc.symptom2_rate == 1 " [disabled]="true">1</mat-button-toggle>
+                    <mat-button-toggle value="2" [checked]="presc.symptom2_rate == 2 " [disabled]="true">2</mat-button-toggle>
+                    <mat-button-toggle value="3" [checked]="presc.symptom2_rate == 3 " [disabled]="true">3</mat-button-toggle>
+                    <mat-button-toggle value="4" [checked]="presc.symptom2_rate == 4" [disabled]="true">4</mat-button-toggle>
+                    <mat-button-toggle value="5" [checked]="presc.symptom2_rate == 5" [disabled]="true">5</mat-button-toggle>
+                  
+                  
+                  </mat-button-toggle-group>
+                   </ion-col>
+               </ion-row>
+
+              </ion-col>
+                 
+           </ion-row>
+
+         </ion-card>
+
+         <ion-card class="ion-card">
+                  
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">     
+            <ion-title class="label_class3">Substance Use</ion-title>
+         </ion-col>
+         </ion-row>
+
+         <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+          
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <mat-label class="label_class6" style="margin-left:16px;">Tobacco</mat-label>
+                <mat-radio-group >
+                  
+                  <div style="display:inline-block">
+                    <mat-radio-button  class="font_family_class label_class3" [value]="tab.alcohol" [disabled]="true" [checked]="tab.tobacco == 'Yes'">Yes</mat-radio-button>
+                    <mat-radio-button  class="font_family_class label_class3"[value]="tab.alcohol" [disabled]="true" [checked]="tab.tobacco == 'No'">No</mat-radio-button>
+                  </div>
+                </mat-radio-group>
+                  </ion-col>
+
+              </ion-row>
+          </ion-col>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            <div>
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <ion-title class="label_class3">Reported in the previous consultation: <span class="label_class8">{{tab.tobocco_amount1}}</span></ion-title>
+                  </ion-col>
+                  </ion-row>
+                  </div>
+                  </ion-col>
+        </ion-row>
+
+        <ion-row> 
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            
+           
+              <!-- <mat-label class="place_holder_text">Amount of use</mat-label> -->
+            
+                <ion-title class="label_class3" *ngIf="tab.tobocco_amount1 == 1">Same level as last time</ion-title>
+                <ion-title class="label_class3" *ngIf="tab.tobocco_amount1 == 2">Reduced amount</ion-title>
+                <ion-title class="label_class3" *ngIf="tab.tobocco_amount1 == 3">Abstinent</ion-title>
+                <ion-title class="label_class3" *ngIf="tab.tobocco_amount1 == 4">Same level as last time</ion-title>
+              
+            
+      </ion-col>
+
+
+      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            
+       <ion-title class="label_class3">{{tab.tobacco_remark1}}</ion-title>
+  </ion-col>
+      </ion-row>
+
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <mat-label class="label_class6" style="margin-left: 16px;;">Alcohol</mat-label>
+                <mat-radio-group>
+             
+                  <div style="display:inline-block">
+                    <mat-radio-button  class="font_family_class label_class3" [value]="tab.alcohol" [disabled]="true" [checked]="tab.alcohol == 'Yes'">Yes</mat-radio-button>
+                    <mat-radio-button  class="font_family_class label_class3"[value]="tab.alcohol" [disabled]="true" [checked]="tab.alcohol == 'No'">No</mat-radio-button>
+                  </div>
+                    </mat-radio-group>
+                </ion-col>
+                </ion-row>
+
+          </ion-col>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            <div>
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                  <ion-title class="label_class3">Reported in the previous consultation: <span class="label_class8">{{tab.alcohol_amount1}}</span></ion-title>
+                  </ion-col>
+                  </ion-row>
+                  </div>
+                  </ion-col>
+          
+        </ion-row>
+
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+            <!-- <mat-label class="place_holder_text">Amount of use</mat-label> -->
+            
+                <ion-title class="label_class3" *ngIf="tab.alcohol_amount1 == 1">Same level as last time</ion-title>
+                <ion-title class="label_class3" *ngIf="tab.alcohol_amount1 == 2">Reduced amount</ion-title>
+                <ion-title class="label_class3" *ngIf="tab.alcohol_amount1 == 3">Abstinent</ion-title>
+                <ion-title class="label_class3" *ngIf="tab.alcohol_amount1 == 4">Same level as last time</ion-title>
+          </ion-col>
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+        <ion-title class="label_class3">{{tab.alcohol_remark1}}</ion-title>
+      </ion-col>
+      </ion-row>
+
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+            <div>
+              <ion-row>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <mat-label class="label_class6" style="margin-left: 16px;;">Others</mat-label>
+                <mat-radio-group >
+             
+                  <div style="display:inline-block">
+                    <mat-radio-button  class="font_family_class label_class3" [value]="tab.alcohol" [disabled]="true" [checked]="tab.others == 'Yes'">Yes</mat-radio-button>
+                    <mat-radio-button  class="font_family_class label_class3"[value]="tab.alcohol" [disabled]="true" [checked]="tab.others == 'No'">No</mat-radio-button>
+                  </div>
+                    </mat-radio-group>
+                </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <div>
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-title class="label_class3">Reported in the previous consultation: <span class="label_class8">{{tab.other_amount1}}</span></ion-title>
+                        </ion-col>
+                        </ion-row>
+                        </div>
+                        </ion-col>
+
+               
+                </ion-row>
+
+             
+                <ion-row>
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                    <!-- <mat-label class="place_holder_text">Amount of use</mat-label> -->
+            
+                    <ion-title class="label_class3" *ngIf="tab.other_amount1 == 1">Same level as last time</ion-title>
+                    <ion-title class="label_class3" *ngIf="tab.other_amount1 == 2">Reduced amount</ion-title>
+                    <ion-title class="label_class3" *ngIf="tab.other_amount1 == 3">Abstinent</ion-title>
+                    <ion-title class="label_class3" *ngIf="tab.other_amount1 == 4">Same level as last time</ion-title>
+                  </ion-col>
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <ion-title class="label_class3">{{tab.others_remark1}}</ion-title>
+              </ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+          
+        </ion-row>
+     
+        </ion-card>
+
+        <ion-card class="ion-padding ion-card">
+
+          <ion-row>
+            <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+              <ion-title class='label_class3'>Compliance Rate from 0 to 100% (based on most credible report)</ion-title>
+            </ion-col>
+            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+              <ion-title>{{tab.home_compliance_rate}}</ion-title>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+              <div>
+                <ion-row>
+                  <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12">
+                  <mat-label class="label_class3" style="margin-left: 16px;;">Is medication supervised?</mat-label>
+                  <mat-radio-group>
+               
+                    <div style="display:inline-block">
+                      <mat-radio-button  class="font_family_class label_class3" [value]="tab.alcohol" [disabled]="true" [checked]="tab.med_supervised_home == 'Yes'">Yes</mat-radio-button>
+                      <mat-radio-button  class="font_family_class label_class3"[value]="tab.alcohol" [disabled]="true" [checked]="tab.med_supervised_home == 'No'">No</mat-radio-button>
+                    </div>
+                      </mat-radio-group>
+                  </ion-col>
+                  <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12">
+                    <ion-title>{{tab.med_supervisor_home}}</ion-title>
+                  </ion-col>
+
+                 
+                  </ion-row>
+                  </div>
+                  </ion-col>
+          </ion-row>
+                 
+          <ion-row>
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+              <ion-title class="label_class3">How symptomatic is the patient?</ion-title>
+            </ion-col>
+            <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12"><ion-title>{{tab.symptom_rate}}</ion-title>
+                </ion-col>
+          </ion-row>
+                    
+             
+          </ion-card>
+
+          <ion-card class="ion-card">
+
+            <ion-row class="ion-padding-top">
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+                <ion-title class="label_class3">Reason for missed visit</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title>{{tab.missed_visit_reason1}}</ion-title>
+              
+              </ion-row>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-row>
+                  <ion-title class="label_class3">Plans to support next visit</ion-title>
+              </ion-row>
+              <ion-row>
+               <ion-title>{{tab.next_visit_plan1}}</ion-title>>
+              </ion-row>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <ion-title class="label_class3">Plan for next consultation</ion-title>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                <ion-row>
+
+                <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                  <ion-title class="label_class6"> Place</ion-title>
+                  </ion-col>
+
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    
+                    <button mat-button class="button_text_normal custom_button_size1 custom_button_display3"  [ngClass]="{'selected_border': tab.next_visit_place1 == 1, 'default_border': tab.next_visit_place1 != 1 }" >Home Consultation</button>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    <button mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 2, 'default_border': tab.next_visit_place1 != 2 }">PHC Consultation</button>
+                    
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 3, 'default_border': tab.next_visit_place1 != 3 }" >Mano Chaithanya</button>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                    <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 4, 'default_border': tab.next_visit_place1 != 4 }" >Phone Call</button>
+                  </ion-col>
+                  <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                      <button mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 5, 'default_border': tab.next_visit_place1 != 5 }">Others</button>
+                    
+                  
+                    </ion-col>
+                  
+                  
+                </ion-row>
+              </ion-col>
+                    
+                    
+            </ion-row>
+
+            <ion-row>
+              <ion-col  size-xl="2" size-lg="2" size-md="2" size-xs="2">
+                <ion-title class="label_class6">Date</ion-title>
+
+              </ion-col>
+              <ion-col size-xl="5" size-lg="5" size-md="10" size-xs="10" class="ion-text-left">
+                
+             <ion-title>{{tab.next_follow}}</ion-title>
+              </ion-col>
+            </ion-row>
+
+          </ion-card>
+</div>
+    
+
+  </mat-tab>
+</mat-tab-group>
+
+       </ion-col>
+       <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+     </ion-row>
+     <ion-row>
+      <ion-col>
+        <div style="text-align: center;">
+          <button  mat-button class="back_button"  (click)="back()">Back</button>
+        </div>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  </ion-content>
+
+ 
+</ion-app>

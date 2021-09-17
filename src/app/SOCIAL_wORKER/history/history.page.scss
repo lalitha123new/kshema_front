@@ -1,0 +1,229 @@
+
+
+      ::ng-deep .mat-input-wrapper{
+        border: 2px solid black;
+     }
+
+     ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+      opacity: 0.03 !important;
+      background-color: #813D7E!important;
+    }
+  
+  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+      background-color: #813D7E;
+    }
+
+    ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle  {
+      background-color: #813D7E;
+     
+    }
+
+    ::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+      border-color:  #813D7E !important; /*outer ring color change*/
+      } 
+  
+  mat-button-toggle-group {
+    border:0px !important;
+    box-shadow: none;
+  }
+
+  mat-button-toggle {
+      border: 2px  #813d7e solid !important;
+      width:47px !important;
+      height:47px !important;
+      margin-left:10px !important;
+      border-radius: 6px;
+      
+  }
+
+ 
+
+  .label_class{
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+color: #242424;
+  }
+
+.incharge_class{
+font-size: 12px;
+line-height: 19px;
+color: rgba(0, 0, 0, 0.89);
+font-weight: normal;
+}
+.font_family_class{
+  font-family: 'Open sans',sans-serif;
+  font-style: normal;
+ 
+}
+.button_size{
+  border-radius: 4px;
+}
+.label_class2{
+font-weight: 600;
+font-size: 18px;
+line-height: 25px;
+color: #242424;
+}
+.label_class2a{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 25px;
+  color: #242424;
+  }
+.label_class2_details{
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 25px;
+  color: #813D7E;
+  }
+.label_class3{
+font-weight: normal;
+font-size: 16px;
+line-height: 22px;
+color: #242424;
+}
+.label_class3a{
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 22px;
+  color: #242424;
+  }
+.label_class4{
+  font-weight: 600;
+font-size: 16px;
+line-height: 22px;
+color: #000000;
+}
+.label_class5{
+  font-style: italic;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #242424;
+}
+.option_text{
+font-weight: 300;
+font-size: 12px;
+line-height: 16px;
+color: #242424;
+}
+.rate_label{
+  color: #242424;
+}
+.ion-card{
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  margin-bottom:40px;
+ }
+
+  ::ng-deep .mat-tab-header {
+    overflow-x: scroll;
+}
+
+/* Styles for tab labels */
+::ng-deep.mat-tab-label {
+  background-color: #F4F4F4;
+  border-radius: 12px;
+}
+
+/* Styles for the active tab label */
+::ng-deep.mat-tab-label.mat-tab-label-active {
+  background-color: #813D7E;
+  border-radius: 12px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #FFFFFF;
+}
+
+
+::ng-deep .mat-input-wrapper{
+  border: 2px solid black;
+}
+.equal_height{
+padding-bottom: 1%;
+margin-bottom: -1%;
+}
+  
+.mat-select {
+  width:75%;
+}
+.custom_row{
+  background-color:rgba(252, 228, 251, 1);
+  border-radius:12px ;
+}
+.custom_blue{
+  color:rgba(66, 133, 244, 1) !important;
+}
+.font_family_class{
+font-family: 'Open Sans',sans-serif;
+}
+.name_class{
+
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 27px;
+color: #242424;
+}
+.label_class1b{
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 19px;
+color: rgba(0, 0, 0, 0.53);
+opacity: 0.89;
+}
+.label_class2b{
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 21px;
+color: rgba(0, 0, 0, 0.53);
+opacity: 0.89;
+}
+.label_class3b{
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 16px;
+color: rgba(36, 36, 36, 0.85);
+}
+.label_class4b{
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 19px;
+color: #813D7E;
+}
+.center{
+text-align:center;
+} 
+.back_button{
+  width: 65px;
+  height: 40px;
+  background: #FFFFFF;
+  border: 1px solid #813D7E;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: 'Open sans',sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #813D7E;
+ }
+
+ ion-scroll {
+  white-space: nowrap;
+  height: 250px;
+}
+.wrap-mat-check-label {
+  white-space: normal;
+}

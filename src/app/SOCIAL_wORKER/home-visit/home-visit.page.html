@@ -1,0 +1,990 @@
+<ion-app >
+
+ 
+  <ion-content>
+
+    <ion-grid  style="height: 100%;padding-top: 0px;padding-right: 0px;" class="container2">
+
+      <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
+        <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
+          <ion-header-bar  align-title="center">
+            <h1 class="title ion-padding-top" style="margin-bottom: 0px;">
+              <img class="title-image" src="assets/icon/logo.svg" style="vertical-align:top;" height="80%" />
+              <span style="vertical-align:top;margin-left:10px;" class="social_logo_text">KSHEMA</span>
+           </h1>
+          </ion-header-bar>
+        </ion-col>
+        <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
+          <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
+            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+                cached
+                </span>
+            </ion-col>
+           
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+              <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <a mat-menu-item>
+                  <mat-icon matPrefix>settings</mat-icon>Settings </a>
+      
+                  <a  mat-menu-item (click)="logout()">
+                      <mat-icon matPrefix>logout</mat-icon>Logout </a>
+                  
+              </mat-menu>
+            </ion-col>
+          </ion-row>
+      </ion-col>
+      </ion-row>
+     
+        <ion-row class="ion-padding-top">
+
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+          <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  text-center style="height:100%;" class="equal_height">
+      
+          <!-- <app-patient-info-header></app-patient-info-header> -->
+          <ion-row class="ion-padding-top ion-padding-bottom custom_row">
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+              <ion-title  ion-text-left class="font_family_class name_class">{{name}}({{age}}/{{gender}})</ion-title>
+            </ion-row>
+            <ion-row ion-text-left>
+              <ion-title size="small" class="custom_text_class_header1 font_family_class label_class1a"><mat-icon style="color:green;">call</mat-icon>{{mobile}}</ion-title>
+            </ion-row>
+            <ion-row ion-text-left class="ion-padding-top">
+              <ion-title size="small" class="custom_text_class_header1 font_family_class label_class2a"><mat-icon style="color:red;font-size:15px;">location_on</mat-icon>{{address}}</ion-title>
+            </ion-row>
+            </ion-col>
+          
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
+              <ion-row>
+                <ion-title class="font_family_class label_class1a">KSHEMA ID</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title  class="custom_text_class_header1 font_family_class label_class3a">{{kshema_id}}</ion-title>
+              </ion-row>
+          
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title  ion-text-left class="font_family_class label_class2a">Care Giver</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3a">{{care_giver}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title size="small" class="custom_text_class_header1 font_family_class label_class3a"><mat-icon style="color:green;font-size:15px;">call</mat-icon>{{care_giver_mobile}}</ion-title>
+              </ion-row>
+            </ion-col>
+          
+          
+            <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" ion-text-left>
+              <ion-row ion-text-left>
+                <ion-title  ion-text-left class="font_family_class label_class1a">ASHA/ANM</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class label_class3a">{{asha}}</ion-title>
+              </ion-row>
+              <ion-row ion-text-left class="ion-padding-top">
+                <ion-title class="font_family_class label_class1a">Taluka level PSW In charge</ion-title>
+              </ion-row>
+              <ion-row ion-text-left>
+                <ion-title class="font_family_class label_class3a">{{psw_incharge}}</ion-title>
+              </ion-row>
+              <ion-row>
+                <ion-title class="ion-padding-top">
+                  <a  class="pointer-class" (click)="redirectTo(2)"><span class="text_color1 font_family_class label_class4a">Edit Patient | </span></a>
+                  <a  class="pointer-class" (click)="redirectTo(1)"><span class="text_color1 font_family_class label_class4a">History</span></a>
+             
+               
+              </ion-title>
+            </ion-row>
+            </ion-col>
+          
+          </ion-row>
+        
+
+          <ion-row class="ion-padding-top">
+            <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12" class="ion-padding-top"> 
+              <ion-title class="ion-padding-top label_class1"><span class="ion-text-wrap">Home Consulation</span></ion-title> 
+            </ion-col>
+              <ion-col size-xl="9" size-lg="9" size-md="12" size-xs="12" class="ion-padding-top right">
+                <button mat-button  class="button_text_normal custom_button_size button_color_tasks custom_button_display2"  [routerLink]="'/welfare'">Welfare Module</button>
+                <button mat-button class="button_text_normal custom_button_size custom_button_display2" [routerLink]="'/udid'">UDID Form</button>
+                <button mat-button class="button_text_normal custom_button_size custom_button_display2" [routerLink]="'/rehab-measures'">Rehab Measures</button>
+                <button mat-button class="button_text_normal custom_button_size custom_button_display2" [routerLink]="'/assessment-needs'">Assessment of Needs</button>
+            </ion-col>
+          </ion-row>
+
+        <ion-row>
+
+      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" text-center>
+  
+        <mat-horizontal-stepper  labelPosition="bottom" #stepper class="home_step">
+         
+  
+          <mat-step [stepControl]="firstFormGroup" label="Step1" >
+            <form [formGroup]="firstFormGroup">
+  
+              <ion-card class="ion-card">
+                <ion-row>
+                  
+                    
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                   
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <ion-row>
+                            <ion-title class="label_class2">Last planned clinic consultation date</ion-title>
+                          </ion-row>
+                          <ion-row>
+                            <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
+                              <mat-label class="place_holder_text">Follow-up By</mat-label>
+                              <input matInput [matDatepicker]="picker81" readonly name="missed_visit_date" formControlName="missed_visit_date">
+                              <mat-datepicker-toggle matSuffix [for]="picker81"></mat-datepicker-toggle>
+                              <mat-datepicker #picker81></mat-datepicker>
+                            </mat-form-field>
+                          </ion-row>
+                        </ion-col>
+                      
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                   
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <ion-row>
+                          <ion-title class="label_class2">Date of last phone, if done</ion-title>
+                        </ion-row>
+                        <ion-row>
+                          <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
+                            <mat-label class="place_holder_text">Date</mat-label>
+                            <input matInput [matDatepicker]="picker82" readonly name="last_phone_date" formControlName="last_phone_date">
+                            <mat-datepicker-toggle matSuffix [for]="picker82"></mat-datepicker-toggle>
+                            <mat-datepicker #picker82></mat-datepicker>
+                          </mat-form-field>
+                        </ion-row>
+                      </ion-col>
+                    
+                  </ion-col>
+
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                   
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <ion-row>
+                        <ion-title class="label_class2">Date of home consultation</ion-title>
+                      </ion-row>
+                      <ion-row>
+                        <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
+                          <mat-label class="place_holder_text">Date</mat-label>
+                          <input matInput [matDatepicker]="picker83" readonly name="home_visit_date" formControlName="home_visit_date">
+                          <mat-datepicker-toggle matSuffix [for]="picker83"></mat-datepicker-toggle>
+                          <mat-datepicker #picker83></mat-datepicker>
+                        </mat-form-field>
+                      </ion-row>
+                    </ion-col>
+                  
+                </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <ion-title class="label_class3">Person seen at home</ion-title>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row>
+                  
+                    <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                      <mat-label style="margin-left: 16px;;" class="label_class6">Patient</mat-label>
+                      <mat-radio-group  name="seen_patient" formControlName="seen_patient">
+                   
+                        <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
+                          <mat-radio-button [value]="arr1.viewValue"  [name]="arr1.viewValue" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+                        </div>
+                          </mat-radio-group>
+                      </ion-col>
+                  
+
+                      <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                        <div formGroupName='caregiverFormGroup'>
+                        <ion-row>
+                        <mat-label style="margin-left: 16px;;" class="label_class6">Caregiver</mat-label>
+                        <mat-radio-group  name="seen_caregiver" formControlName="seen_caregiver">
+                     
+                          <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="caregiverClicked($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+                          </div>
+                            </mat-radio-group>
+                            </ion-row>
+                            <ion-row>
+                              <mat-form-field style="width:100%;" appearance="outline">
+                                <input matInput  placeholder="Name & Relation" maxlength="75" name="caregiver_name_relation" formControlName="caregiver_name_relation" class="place_holder_text">
+                              </mat-form-field>
+                            </ion-row>
+                          </div>
+                          </ion-col>
+
+                          <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                            <div formGroupName='othersFormGroup'>
+                            <ion-row>
+                            <mat-label style="margin-left: 16px;;" class="label_class6">Others</mat-label>
+                            <mat-radio-group  name="seen_others" formControlName="seen_others">
+                         
+                              <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
+                                <mat-radio-button [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="othersClicked($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+                              </div>
+                                </mat-radio-group>
+                              </ion-row>
+                         
+                           <ion-row>
+                              <mat-form-field style="width:100%;" appearance="outline">
+                                <input matInput  placeholder="Name & Relation" maxlength="75" name="others_name_relation" formControlName="others_name_relation" class="place_holder_text">
+                              </mat-form-field>
+                            </ion-row>
+                            </div>
+                          </ion-col>
+                         
+                </ion-row>
+
+               
+          
+              </ion-card>
+                     
+                    
+                  
+                     
+                        <div class="button_align_class">
+                          <ion-button  class="button_text_normal" class="default_bg" (click)="previous1()"><span style="text-transform:none!important;">Previous</span></ion-button>
+                          <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!secondFormGroup.valid">Save & Next</ion-button> -->
+                          <ion-button  class="button_text_normal" class="background" (click)="submitStep1(firstFormGroup)" [disabled]="!firstFormGroup.valid"><span style="text-transform:none!important;">Save & Next</span></ion-button>
+                        </div>
+                     
+  
+            </form>
+          </mat-step>
+  
+          <mat-step [stepControl]="secondFormGroup" label="Step2">
+            <form [formGroup]="secondFormGroup">
+  
+             
+              <ion-card class="ion-card">
+                <ion-row class="ion-padding-top">
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                    <ion-title class="label_class3">How symptomatic is the patient?</ion-title>
+                  </ion-col>
+                  <ion-col size-xl="3" size-lg="3" size-md="8" size-xs="8">
+                    <mat-slider style="width:100%;"
+                    thumbLabel
+                    [displayWith]=""
+                    tickInterval="10"
+                    min="0"
+                    max="100" (input)="home_pitch_symptom($event)" name="symptom" formControlName="symptom"></mat-slider>
+                  </ion-col>
+                  <ion-col size-xl="3" size-lg="3" size-md="4" size-xs="4">
+                    <ion-title class="label_class8">{{rate2}}</ion-title>
+                  </ion-col>
+                </ion-row>
+               <ion-row class="ion-padding-top">
+                      <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                         <ion-title class="label_class3">Rate important symptoms on a scale of 1 - 5</ion-title>
+                         </ion-col>
+                    </ion-row>
+                    
+                      <ion-row>
+                        <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-title class="label_class4">1- No symptoms 3- Occur frequently 5- significantly affects behaviour</ion-title>
+                        </ion-col>
+                      </ion-row>
+                   
+                      <ion-row>
+
+                          <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <ion-title class="label_class5" style="padding-right:10px;">Suspiciousness</ion-title>
+                              </ion-col>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-button-toggle-group #group1="matButtonToggleGroup" aria-label="Font Style" name="suspicious_rate" formControlName="suspicious_rate">
+                                
+                                  <mat-button-toggle value="1" (click)="suspiciousClicked()">1</mat-button-toggle>
+                                  <mat-button-toggle value="2" (click)="suspiciousClicked()">2</mat-button-toggle>
+                                  <mat-button-toggle value="3" (click)="suspiciousClicked()">3</mat-button-toggle>
+                                  <mat-button-toggle value="4" (click)="suspiciousClicked()">4</mat-button-toggle>
+                                  <mat-button-toggle value="5" (click)="suspiciousClicked()">5</mat-button-toggle>
+                                
+                                </mat-button-toggle-group>
+                              </ion-col>
+                            </ion-row>
+                          
+                          </ion-col>
+
+                          <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <ion-title class="label_class5" style="padding-right:10px;"><span class="wrap-mat-check-label">Hallucinatory behaviour(reported hallucination / talking or laughing to self)</span></ion-title>
+                              </ion-col>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-button-toggle-group #group2="matButtonToggleGroup" aria-label="Font Style" name="hallucinatory_rate" formControlName="hallucinatory_rate">
+                                
+                                  <mat-button-toggle value="1" (click)="hallucinatoryClicked()">1</mat-button-toggle>
+                                  <mat-button-toggle value="2" (click)="hallucinatoryClicked()">2</mat-button-toggle>
+                                  <mat-button-toggle value="3" (click)="hallucinatoryClicked()">3</mat-button-toggle>
+                                  <mat-button-toggle value="4" (click)="hallucinatoryClicked()">4</mat-button-toggle>
+                                  <mat-button-toggle value="5" (click)="hallucinatoryClicked()">5</mat-button-toggle>
+                                
+                                </mat-button-toggle-group>
+                              </ion-col>
+                            </ion-row>
+                          
+                          </ion-col>
+                    </ion-row>
+    
+                        
+                    <ion-row>
+
+                          <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <ion-title class="label_class5" style="padding-right:10px;">Verbal or physical aggression </ion-title>
+                              </ion-col>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-button-toggle-group #group3="matButtonToggleGroup" aria-label="Font Style" name="verbal_rate" formControlName="verbal_rate">
+                                    
+                                  <mat-button-toggle value="1" (click)="verbalClicked()">1</mat-button-toggle>
+                                  <mat-button-toggle value="2" (click)="verbalClicked()">2</mat-button-toggle>
+                                  <mat-button-toggle value="3" (click)="verbalClicked()">3</mat-button-toggle>
+                                  <mat-button-toggle value="4" (click)="verbalClicked()">4</mat-button-toggle>
+                                  <mat-button-toggle value="5" (click)="verbalClicked()">5</mat-button-toggle>
+                                
+                                </mat-button-toggle-group>
+                              </ion-col>
+                            </ion-row>
+                          
+                          </ion-col>
+
+                          <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                            <ion-row>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <ion-title class="label_class5" style="padding-right:10px;">Social isolation</ion-title>
+                              </ion-col>
+                              <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" name="social_rate" formControlName="social_rate">
+                                    
+                                  <mat-button-toggle value="1" (click)="socialClicked()">1</mat-button-toggle>
+                                  <mat-button-toggle value="2" (click)="socialClicked()">2</mat-button-toggle>
+                                  <mat-button-toggle value="3" (click)="socialClicked()">3</mat-button-toggle>
+                                  <mat-button-toggle value="4" (click)="socialClicked()">4</mat-button-toggle>
+                                  <mat-button-toggle value="5" (click)="socialClicked()">5</mat-button-toggle>
+                                
+                                </mat-button-toggle-group>
+                              </ion-col>
+                            </ion-row>
+                          
+                          </ion-col>
+                    </ion-row>
+    
+                       
+                    <ion-row>
+
+                      <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <ion-title class="label_class5" style="padding-right:10px;">Poor selfcare</ion-title>
+                          </ion-col>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" name="selfcare_rate" formControlName="selfcare_rate">
+                                    
+                              <mat-button-toggle value="1" (click)="selfcareClicked()">1</mat-button-toggle>
+                              <mat-button-toggle value="2" (click)="selfcareClicked()">2</mat-button-toggle>
+                              <mat-button-toggle value="3" (click)="selfcareClicked()">3</mat-button-toggle>
+                              <mat-button-toggle value="4" (click)="selfcareClicked()">4</mat-button-toggle>
+                              <mat-button-toggle value="5" (click)="selfcareClicked()">5</mat-button-toggle>
+                            
+                            </mat-button-toggle-group>
+                          </ion-col>
+                        </ion-row>
+                      
+                      </ion-col>
+
+                      <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <ion-title class="label_class5" style="padding-right:10px;">Poor occupational functioning</ion-title>
+                          </ion-col>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <mat-button-toggle-group #group6="matButtonToggleGroup" aria-label="Font Style" name="occupation_rate" formControlName="occupation_rate">
+                                    
+                              <mat-button-toggle value="1" (click)="occupClicked()">1</mat-button-toggle>
+                              <mat-button-toggle value="2" (click)="occupClicked()">2</mat-button-toggle>
+                              <mat-button-toggle value="3" (click)="occupClicked()">3</mat-button-toggle>
+                              <mat-button-toggle value="4" (click)="occupClicked()">4</mat-button-toggle>
+                              <mat-button-toggle value="5" (click)="occupClicked()">5</mat-button-toggle>
+                            
+                            </mat-button-toggle-group>
+                          </ion-col>
+                        </ion-row>
+                      
+                      </ion-col>
+                    </ion-row>
+                      
+    
+                    <ion-row>
+                      <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="label_class5" style="padding-right:10px;">Sleep disturbance </ion-title>
+                    </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                          <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                            <mat-button-toggle-group #group7="matButtonToggleGroup" aria-label="Font Style" name="sleep_rate" formControlName="sleep_rate">
+                                
+                              <mat-button-toggle value="1" (click)="sleepClicked()">1</mat-button-toggle>
+                              <mat-button-toggle value="2" (click)="sleepClicked()">2</mat-button-toggle>
+                              <mat-button-toggle value="3" (click)="sleepClicked()">3</mat-button-toggle>
+                              <mat-button-toggle value="4" (click)="sleepClicked()">4</mat-button-toggle>
+                              <mat-button-toggle value="5" (click)="sleepClicked()">5</mat-button-toggle>
+                            
+                            </mat-button-toggle-group>
+                          </ion-col>
+                    </ion-row>
+    
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-justify">
+                        <h6 class="label_class5" style="margin-left:10px;margin-right:10px;">Include any other symptom, such as suicidal thoughts, wandering away from home, etc that you think is due to the illness, and rate as per the scale based on how often it occurs and how much it affects the person and the people (s)he is living with.</h6>
+                      </ion-col>
+                    </ion-row>
+                    
+
+                    <ion-row *ngFor="let presc of symptomArray; let i = index">
+
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+  
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-form-field style="display: block;" appearance="outline">    
+                            <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="presc.symptom1" name="symptom1" [ngModelOptions]="{standalone: true}" class="place_holder_text">
+                          </mat-form-field>
+                        </ion-col>
+                       </ion-row>
+  
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="presc.symptom1_rate" name="symptom1_rate" [ngModelOptions]="{standalone: true}">
+                                      
+                            <mat-button-toggle value="1">1</mat-button-toggle>
+                            <mat-button-toggle value="2">2</mat-button-toggle>
+                            <mat-button-toggle value="3">3</mat-button-toggle>
+                            <mat-button-toggle value="4">4</mat-button-toggle>
+                            <mat-button-toggle value="5">5</mat-button-toggle>
+                          
+                          </mat-button-toggle-group>
+                           </ion-col>
+                       </ion-row>
+  
+                      </ion-col>
+  
+                      <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                        
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-form-field style="display: block;" appearance="outline">       
+                            <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="presc.symptom2" name="symptom2" [ngModelOptions]="{standalone: true}"  class="place_holder_text">
+                          </mat-form-field>
+                        </ion-col>
+                       </ion-row>
+  
+                       <ion-row>
+                         <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="presc.symptom2_rate" name="symptom2_rate" [ngModelOptions]="{standalone: true}">
+                                      
+                            <mat-button-toggle value="1">1</mat-button-toggle>
+                            <mat-button-toggle value="2">2</mat-button-toggle>
+                            <mat-button-toggle value="3">3</mat-button-toggle>
+                            <mat-button-toggle value="4">4</mat-button-toggle>
+                            <mat-button-toggle value="5">5</mat-button-toggle>
+                          
+                          </mat-button-toggle-group>
+                           </ion-col>
+                       </ion-row>
+  
+                      </ion-col>
+                         
+                   </ion-row>
+
+                   <ion-row>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-form-field style="display: block;" appearance="outline">    
+                          <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="newSymptom.symptom1" name="symptom1" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                      </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-button-toggle-group #group4="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="newSymptom.symptom1_rate" name="symptom1_rate" [ngModelOptions]="{standalone: true}">
+                                    
+                          <mat-button-toggle value="1">1</mat-button-toggle>
+                          <mat-button-toggle value="2">2</mat-button-toggle>
+                          <mat-button-toggle value="3">3</mat-button-toggle>
+                          <mat-button-toggle value="4">4</mat-button-toggle>
+                          <mat-button-toggle value="5">5</mat-button-toggle>
+                        
+                        </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-form-field style="display: block;" appearance="outline">       
+                          <input matInput  placeholder="Enter Symptom" maxlength="75" [(ngModel)]="newSymptom.symptom2" name="symptom2" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                      </ion-col>
+                     </ion-row>
+
+                     <ion-row>
+                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" [(ngModel)]="newSymptom.symptom2_rate" name="symptom2_rate" [ngModelOptions]="{standalone: true}">
+                                    
+                          <mat-button-toggle value="1">1</mat-button-toggle>
+                          <mat-button-toggle value="2">2</mat-button-toggle>
+                          <mat-button-toggle value="3">3</mat-button-toggle>
+                          <mat-button-toggle value="4">4</mat-button-toggle>
+                          <mat-button-toggle value="5">5</mat-button-toggle>
+                        
+                        </mat-button-toggle-group>
+                         </ion-col>
+                     </ion-row>
+
+                    </ion-col>
+                       
+                  </ion-row>
+    
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <div style="margin:16px;">
+                    <ion-button   class="button_text_normal" class="background" (click)="addSymptom()"><ion-icon name="add-circle-outline"></ion-icon><span style="text-transform: none !important">Add More</span></ion-button>
+                  </div>
+                  </ion-col>
+                  </ion-row>
+                  <ion-row class="ion-padding-top">
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      <ion-title class="label_class3"> 
+                        <mat-form-field style="display: block;" appearance="outline" [hidden]=!symp_reason_visible>    
+                          <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="test_reason" formControlName="test_reason" class="place_holder_text" (keyup)="onKey2($event)">
+                        </mat-form-field>
+                      </ion-title>
+                    </ion-col>
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                      </ion-col>
+                      </ion-row>
+                </ion-card>
+                 
+                <ion-card class="ion-card">
+                  
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">     
+                      <ion-title class="label_class3">Substance Use</ion-title>
+                   </ion-col>
+                   </ion-row>
+    
+                   <div formGroupName="tobaccoFormGroup">
+                   <ion-row>
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                    
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <mat-label class="label_class6" style="margin-left:16px;">Tobacco</mat-label>
+                          <mat-radio-group  name="tobacco" formControlName="tobacco">
+                            <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
+                              <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkTobChange1($event)">{{arr.viewValue}}</mat-radio-button>
+                          </div>
+                          </mat-radio-group>
+                            </ion-col>
+    
+                        </ion-row>
+                    </ion-col>
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <div>
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <ion-title class="label_class7">Reported in the previous consultation: <span class="label_class8">{{amount1}}</span></ion-title>
+                            </ion-col>
+                            </ion-row>
+                            </div>
+                            </ion-col>
+                  </ion-row>
+
+                  <ion-row> 
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      
+                      <mat-form-field style="display: block;" appearance="outline">
+                        <!-- <input matInput  placeholder="Amount of use" maxlength="75" name="tobacco_amount" formControlName="tobacco_amount"> -->
+                        <mat-label class="place_holder_text">Amount of use</mat-label>
+                        <mat-select  formControlName="tobocco_amount" name="tobocco_amount">
+                          <mat-option *ngFor="let amount1 of Amount" [value]="amount1.value">
+                            {{amount1.viewValue_amount}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </ion-col>
+
+
+                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput  placeholder="Remarks" maxlength="75" name="tobacco_remark" formControlName="tobacco_remark" class="place_holder_text">
+                  </mat-form-field>
+            </ion-col>
+                </ion-row>
+              </div>
+
+              <div formGroupName="alcoholFormGroup">
+                  <ion-row>
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <mat-label class="label_class6" style="margin-left: 16px;;">Alcohol</mat-label>
+                          <mat-radio-group  name="alcohol" formControlName="alcohol">
+                       
+                            <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
+                              <mat-radio-button [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkTobChange2($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+                            </div>
+                              </mat-radio-group>
+                          </ion-col>
+                          </ion-row>
+    
+                    </ion-col>
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <div>
+                        <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <ion-title class="label_class7">Reported in the previous consultation: <span class="label_class8">{{amount2}}</span></ion-title>
+                            </ion-col>
+                            </ion-row>
+                            </div>
+                            </ion-col>
+                    
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <mat-form-field style="display: block;" appearance="outline">
+                        <!-- <input matInput  placeholder="Amount of use" maxlength="75" name="alcohol_amount" formControlName="alcohol_amount"> -->
+                        <mat-label class="place_holder_text">Amount of use</mat-label>
+                        <mat-select  formControlName="alcohol_amount" name="alcohol_amount">
+                          <mat-option *ngFor="let amount1 of Amount" [value]="amount1.value">
+                            {{amount1.viewValue_amount}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </ion-col>
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                  <mat-form-field style="display: block;" appearance="outline">
+                    <input matInput  placeholder="Remarks" maxlength="75" name="alcohol_remark" formControlName="alcohol_remark" class="place_holder_text">
+                  </mat-form-field>
+                </ion-col>
+                </ion-row>
+</div>
+
+<div formGroupName="OtherUseFormGroup">
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <div>
+                        <ion-row>
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                          <mat-label class="label_class6" style="margin-left: 16px;;">Others</mat-label>
+                          <mat-radio-group  name="others" formControlName="others">
+                       
+                            <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
+                              <mat-radio-button [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="checkTobChange3($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+                            </div>
+                              </mat-radio-group>
+                          </ion-col>
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                            <div>
+                              <ion-row>
+                                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                                  <ion-title class="label_class7">Reported in the previous consultation: <span class="label_class8">{{amount3}}</span></ion-title>
+                                  </ion-col>
+                                  </ion-row>
+                                  </div>
+                                  </ion-col>
+    
+                         
+                          </ion-row>
+    
+                       
+                          <ion-row>
+                            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                              <mat-form-field style="display: block;" appearance="outline">
+                                <!-- <input matInput  placeholder="Amount of use" maxlength="75" name="others_amount" formControlName="others_amount"> -->
+                                <mat-label>Amount of use</mat-label>
+                                <mat-select  formControlName="other_amount" name="other_amount">
+                                  <mat-option *ngFor="let amount1 of Amount" [value]="amount1.value">
+                                    {{amount1.viewValue_amount}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </ion-col>
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                          <mat-form-field style="display: block;" appearance="outline">
+                            <input matInput  placeholder="Other Substance Used" maxlength="75" name="others_remark" formControlName="others_remark" class="place_holder_text">
+                          </mat-form-field>
+                        </ion-col>
+                        </ion-row>
+                      </div>
+                    </ion-col>
+                    
+                  </ion-row>
+                </div>
+                  </ion-card>
+
+              <div class="button_align_class">
+                <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Previous</span></ion-button>
+                <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid">Save & Next</ion-button>   -->
+                <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!(secondFormGroup.valid && (rateSymptom || domainValid))"><span style="text-transform:none!important;">Save & Next</span></ion-button>  
+              </div>
+  
+            </form>
+          </mat-step>
+  
+         
+  
+          <mat-step [stepControl]="thirdFormGroup" label="Step3">
+            <form [formGroup]="thirdFormGroup">
+
+              <ion-card class="ion-padding ion-card">
+
+                <ion-row class="ion-padding-top">
+                  <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                    <ion-title class='label_class3'><span class="wrap-mat-check-label">Compliance Rate from 0 to 100% (based on most credible report)</span></ion-title>
+                  </ion-col>
+                  <ion-col size-xl="3" size-lg="3" size-md="8" size-xs="8">
+                   <mat-slider style="width:100%;"
+                   thumbLabel
+                   [displayWith]=""
+                   tickInterval="10"
+                   min="0"
+                   max="100" (input)="home_pitch_comp($event)" name="home_compliance_rate" formControlName="home_compliance_rate"></mat-slider>
+                  </ion-col>
+                  <ion-col size-xl="3" size-lg="3" size-md="4" size-xs="4">
+                    <ion-title class="label_class8"><span class="wrap-mat-check-label">{{rate1}}</span></ion-title>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ion-padding-top">
+                  <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="label_class3"> 
+                      <mat-form-field style="display: block;" appearance="outline" [hidden]="!comp_reason_visible">    
+                        <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="comp_reason" formControlName="comp_reason" class="place_holder_text" (keyup)="onKey3($event)">
+                      </mat-form-field>
+                    </ion-title>
+                  </ion-col>
+                  <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+                    </ion-col>
+                    </ion-row>
+                <ion-row>
+                  <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                    <div formGroupName="medFormGroup">
+                      <ion-row>
+                        <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
+                        <mat-label class="label_class3" style="margin-left: 16px;;">Is someone helping the person take medicines?</mat-label>
+                        <mat-radio-group  name="med_supervised" formControlName="med_supervised">
+                     
+                          <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
+                            <mat-radio-button [value]="arr1.viewValue"  [name]="arr1.viewValue" (change)="medChange1($event)" class="label_class6">{{arr1.viewValue}}</mat-radio-button>
+                          </div>
+                            </mat-radio-group>
+                        </ion-col>
+                        <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                          <mat-form-field style="display: block;" appearance="outline">
+                            <input matInput   placeholder="If yes, who supervises?" name="med_supervisor" formControlName="med_supervisor" class="place_holder_text">
+                          </mat-form-field>
+                        </ion-col>
+  
+                       
+                        </ion-row>
+                        </div>
+                        </ion-col>
+                </ion-row>
+                       
+                
+                          
+                   
+                </ion-card>
+
+                <ion-card class="ion-card">
+                  <ion-row class="ion-padding-top">
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <ion-row>
+                      <ion-title class="label_class3">Reason for missed consultation</ion-title>
+                    </ion-row>
+                    <ion-row>
+                      <mat-form-field style="width:100%;" appearance="outline">
+                        <textarea matInput  placeholder="Remark" maxlength="75" name="missed_visit_reason" formControlName="missed_visit_reason" class="place_holder_text"></textarea>
+                      </mat-form-field>
+                    </ion-row>
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <ion-row>
+                        <ion-title class="label_class3">Plans to support next consultation</ion-title>
+                    </ion-row>
+                    <ion-row>
+                      <mat-form-field style="width:100%;" appearance="outline">
+                        <textarea matInput  placeholder="Remark" maxlength="75" name="next_visit_plan" formControlName="next_visit_plan" class="place_holder_text"></textarea>
+                      </mat-form-field>
+                    </ion-row>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-title class="label_class3">Medicine Refill</ion-title>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                      <ion-title class="label_class3med">Missed</ion-title>
+                      <ion-title class="label_class3med">{{missed_phc_date}}</ion-title>
+                    </ion-col>
+                    <!-- <ion-col  size-xl="2" size-lg="2" size-md="12" size-xs="12" >
+                     <ion-title class="label_class3med" *ngIf="!med_refill_others">Plan</ion-title>
+                     <mat-form-field style="display: block;" appearance="outline">
+                      <input matInput   placeholder="Remarks for Others" formControlName="medicine_plan_other_remark" name="medicine_plan_other_remark" class="place_holder_text">
+                    </mat-form-field>
+                    </ion-col> -->
+                    <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" >
+                    
+                     <mat-form-field style="display: block;" appearance="outline">
+                       
+                       <mat-select (selectionChange)="changeMedRefill($event.value)" formControlName="medicine_plan" name="medicine_plan">
+                         <mat-option *ngFor="let med1 of Medicine" [value]="med1.viewValue_amount">
+                           {{med1.viewValue_amount}}
+                         </mat-option>
+                       </mat-select>
+                     </mat-form-field>
+                     <!-- <mat-form-field appearance="outline" class="mat_custom_block_class" *ngIf="med_refill_others">
+                      <mat-label class="place_holder_text">Date</mat-label>
+                      <input matInput  [max]=""   [matDatepicker]="picker790" readonly formControlName="medicine_plan_other_date" name="medicine_plan_other_date">
+                      <mat-datepicker-toggle matSuffix  [for]="picker790"></mat-datepicker-toggle>
+                      <mat-datepicker #picker790></mat-datepicker>
+                    </mat-form-field> -->
+            
+                    </ion-col>
+            
+                   
+            
+                    
+                    <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
+                     <mat-form-field style="display: block;" appearance="outline">
+                       <input matInput   placeholder="Remarks for Medicine Refill"  formControlName="medicine_plan_remark" name="medicine_plan_remark" class="place_holder_text">
+                     </mat-form-field>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngIf="med_refill_others">
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                     
+                      <mat-form-field style="display: block;" appearance="outline">
+                       <input matInput   placeholder="Remarks for Others" formControlName="medicine_plan_other_remark" name="medicine_plan_other_remark" class="place_holder_text">
+                     </mat-form-field>
+                     </ion-col>
+                    <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                      <mat-form-field appearance="outline" class="mat_custom_block_class" *ngIf="med_refill_others">
+                        <mat-label class="place_holder_text">Date</mat-label>
+                        <input matInput  [max]=""   [matDatepicker]="picker790" readonly formControlName="medicine_plan_other_date" name="medicine_plan_other_date">
+                        <mat-datepicker-toggle matSuffix  [for]="picker790"></mat-datepicker-toggle>
+                        <mat-datepicker #picker790></mat-datepicker>
+                      </mat-form-field>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <ion-title class="label_class3">Plan for next consultation</ion-title>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                      <ion-row>
+
+                      <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-title class="label_class6"> Place</ion-title>
+                        </ion-col>
+
+                        <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                          
+                          <button mat-button class="button_text_normal custom_button_size1 custom_button_display3"  [ngClass]="{'selected_border': isValue == 1, 'default_border': isValue != 1 }" (click)="toggle1(1)">Home Consultation</button>
+                        </ion-col>
+                        <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                          <button mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 2, 'default_border': isValue != 2 }" (click)="toggle1(2)">PHC Consultation</button>
+                          
+                        </ion-col>
+                        <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                          <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 3, 'default_border': isValue != 3 }" (click)="toggle1(3)">Mano Chaithanya</button>
+                        </ion-col>
+                        <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                          <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 4, 'default_border': isValue != 4 }" (click)="toggle1(4)">Phone Call</button>
+                        </ion-col>
+                        <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
+                            <button mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 5, 'default_border': isValue != 5 }" (click)="toggle1(5)" *ngIf="!others_selected">Others</button>
+                          <mat-form-field  appearance="outline" *ngIf="others_selected" style="width:100%;margin:0px;padding-top:0px;">
+                            <input matInput name="next_visit_place_other" formControlName="next_visit_place_other" placeholder="Enter place for next visit" maxlength="75">
+                          </mat-form-field>
+                        
+                          </ion-col>
+                        
+                        
+                      </ion-row>
+                    </ion-col>
+                          
+                          
+                  </ion-row>
+
+                  <ion-row>
+                    <ion-col  size-xl="2" size-lg="2" size-md="2" size-xs="2">
+                      <ion-title class="label_class6">Date</ion-title>
+
+                    </ion-col>
+                    <ion-col size-xl="5" size-lg="5" size-md="10" size-xs="10" class="ion-text-left">
+                      
+                    <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
+                      <mat-label class="place_holder_text">Date</mat-label>
+                      <input matInput [matDatepicker]="picker85" readonly name="next_visit_date" formControlName="next_visit_date">
+                      <mat-datepicker-toggle matSuffix [for]="picker85"></mat-datepicker-toggle>
+                      <mat-datepicker #picker85></mat-datepicker>
+                    </mat-form-field>
+                    </ion-col>
+                  </ion-row>
+
+                </ion-card>
+           
+                <div class="button_align_class">
+                  <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform: none !important;">Previous</span></ion-button>
+                  <!-- <ion-button  class="button_text_normal" class="background"  (click)="submitStep5(fifthFormGroup)" [disabled]="!fifthFormGroup.valid">Save & Preview</ion-button> -->
+                  <ion-button  class="button_text_normal" class="background"  (click)="submitStep3(thirdFormGroup)" [disabled]="!(thirdFormGroup.valid && compRate)"><span style="text-transform: none !important;">Submit</span></ion-button>
+
+                </div>
+            </form>
+          </mat-step>
+         
+        </mat-horizontal-stepper>
+    </ion-col>
+  
+   </ion-row>
+          </ion-col>
+          <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
+    </ion-row>
+  
+    </ion-grid>
+  </ion-content>
+
+ 
+</ion-app>
