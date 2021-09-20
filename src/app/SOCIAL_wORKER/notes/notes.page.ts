@@ -68,6 +68,9 @@ export class NotesPage implements OnInit {
     allnotes_array_first1:any;
     group_data;
     group_data1;
+    sender_user_id;
+    receiver_user_id;
+    psw_array:any;
 
   ngOnInit() {
   }
@@ -84,6 +87,7 @@ export class NotesPage implements OnInit {
      
     this.group_data_id1 = sessionStorage.getItem("group_data_id");
     this.group_data_id = parseInt(this.group_data_id1);
+    this.sender_user_id = sessionStorage.getItem("users_id")
     this.dataSource.data = [];
 
     if(this.role == "psw"){
@@ -97,6 +101,7 @@ export class NotesPage implements OnInit {
       this.group_data_id = 0;
       this.getGroupDataServer(this.supervisor_id);
       this.getAllPatientsServer(this.group_data_id);
+      this.getAllPSWs();
       // this.getAllNotesServer();
       
     }
@@ -104,6 +109,19 @@ export class NotesPage implements OnInit {
    
   }
 
+   //to get all psws
+ async getAllPSWs(){
+  let psw_array_first :any;
+  let test = await this.serverService.getPsws().toPromise().then(result1 => {
+   
+    psw_array_first=result1;
+
+ });
+ 
+  this.psw_array = psw_array_first;
+
+ 
+}
   async getPatients(){
     let patients_array_first :any;
     let test = await this.patientService.fetchPatients().then(result1 => {
@@ -122,7 +140,7 @@ export class NotesPage implements OnInit {
     this.dataSource.data = [];
     let notes_uuid_array = [];
     let super_notes_array_first :any;
-    let test = await this.patientService.fetchSuperNotes(this.sw_id).then(result2 => {
+    let test = await this.patientService.fetchSuperNotes(this.sender_user_id).then(result2 => {
      
       super_notes_array_first=result2;
       
@@ -233,7 +251,7 @@ export class NotesPage implements OnInit {
 
     // });
 
-    let test = await this.serverService.getAllNOtifications(this.supervisor_id)
+    let test = await this.serverService.getAllNOtifications(this.sender_user_id)
     .subscribe(
     data  => {
     let date_array = [];
@@ -308,16 +326,23 @@ export class NotesPage implements OnInit {
        
       }
     }
+    //this.psw_array
     for(var n=0;n<this.group_data_array.length;n++){
       if(this.sw_group_id == this.group_data_array[n].group_data_id){
         this.sw_id = this.group_data_array[n].social_worker_id; 
+      }
+    }
+    for(var n=0;n<this.psw_array.length;n++){
+      if(this.sw_id == this.psw_array[n].social_worker_id){
+        this.receiver_user_id = this.psw_array[n].users_id; 
       }
     }
   }
 
   sendNotes(){
   if(this.role == "psw"){
-      this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sw_id,this.supervisor_id).then(() => {
+   
+      this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id).then(() => {
         this.alertController.create({
           header: '',
           cssClass: 'my-custom-alert',
@@ -368,8 +393,8 @@ export class NotesPage implements OnInit {
             "notes_message":this.notes1,
             "read_flag":1,
             "patient_uuid":this.patient_uuid,
-            "sender_user_id": this.supervisor_id,
-            "recipient_user_id":this.sw_id,
+            "sender_user_id": this.sender_user_id,
+            "recipient_user_id":this.receiver_user_id,
             "createdAt":dateStr
         }
 

@@ -112,6 +112,7 @@ export class LoginPage implements OnInit {
     this.serverService.login(this.loginObj).subscribe(data  => {
 
       let user_id = parseInt(JSON.stringify(data));
+      
     
       if(user_id > 0){
         
@@ -131,10 +132,11 @@ export class LoginPage implements OnInit {
       this.form.reset();
 
       data2 = data1.text.split("@@###");
-    
+   
     
      
       //based on the rolw, display data in pages(if role is psw - data from local db, if rolw is supervisor - data is from serverdb)
+      sessionStorage.setItem("users_id",data2[0]);
       sessionStorage.setItem("role",data2[1]);
 
     if(data2[1] == "supervisor"){
@@ -187,7 +189,7 @@ export class LoginPage implements OnInit {
       let sw1 = res1[0].swData;
       let group1 = res1[0].groupData;
       
-     
+    
       sessionStorage.setItem("role","psw");
       sessionStorage.setItem("users_id",login1[0].users_id);
       sessionStorage.setItem("name",login1[0].user_name);
@@ -227,6 +229,7 @@ getMetaDataPsw(user_id,role,user_name,psw){
   let res1User = res1.user;
   let res1PSW = res1.group_data;
   let res1Info= res1.social_worker;
+  let res1Super = res1.supervisor;
  
  
 
@@ -235,7 +238,8 @@ getMetaDataPsw(user_id,role,user_name,psw){
  sessionStorage.setItem("group_data_id",res1PSW.group_data_id);
  sessionStorage.setItem("taluka_id",res1PSW.taluka_id);
  sessionStorage.setItem("sw_id",res1PSW.social_worker_id);
- sessionStorage.setItem("supervisor_id",res1PSW.supervisor_id);
+ sessionStorage.setItem("supervisor_id",res1Super.users_id);
+// sessionStorage.setItem("supervisor_user_id",res1Super.users_id);
  sessionStorage.setItem("user_name",res1Info.first_name);
  let retSelect:any;
     
@@ -246,19 +250,15 @@ getMetaDataPsw(user_id,role,user_name,psw){
      if(retSelect.values.length < 1){
       
       this.dataExists = false;
-      //commented line shows error 
-      //this.offlineManager.fetchServerData();
      
       this.offlineManager.reverseSync(res1PSW.group_data_id);
-      
-     
       
      }else{
       this.dataExists = true;
       let result =this.offlineManager.fetchServerNotes();
      }
   
-      this.patientService.addUser(res1User.users_id,user_name,psw,res1PSW.group_data_id,res1PSW.social_worker_id,res1PSW.supervisor_id,res1Info.first_name,res1PSW.taluka_id).then(() => {
+      this.patientService.addUser(res1User.users_id,user_name,psw,res1PSW.group_data_id,res1PSW.social_worker_id,res1Super.users_id,res1Info.first_name,res1PSW.taluka_id).then(() => {
        this.displayLoader();
        if(this.dataExists){
         setTimeout(()=>{
@@ -292,7 +292,7 @@ getMetaDataPsw(user_id,role,user_name,psw){
 
 }
 
-//get the supervisor metadata
+//old api to get the supervisor metadata
 getMetaDataSupervisor(user_id,role){
   
   this.serverService.getMetaData(user_id,role).subscribe(data  => {
@@ -351,12 +351,15 @@ getMetaDataSupervisor1(user_id,role){
   //this.serverService.getMetaData1(user_id,role).subscribe(data  => {
 
   this.serverService.getMetaData1(user_id,role).subscribe(data  => {
-   console.log(data)
+  
     this.super_array = data;
 
     let group_array:any;
+    let psw_array:any;
     let group_aray2 = [];
-    group_array = this.super_array.group_data
+    
+    group_array = this.super_array.group_data;
+    psw_array = this.super_array.group_data;
      
     for(var i= 0;i<group_array.length;i++){
 
@@ -366,7 +369,6 @@ getMetaDataSupervisor1(user_id,role){
     
     sessionStorage.setItem("user_name",this.super_array.user.first_name);
     //sessionStorage.setItem("group_data_id",this.super_array.group_data.group_data_id);
-    //sessionStorage.setItem("group_data_id","7");
     sessionStorage.setItem("supervisor_id",this.super_array.supervisor.supervisor_id);
     this.router.navigate(['/supervisor-dashboard']);
     

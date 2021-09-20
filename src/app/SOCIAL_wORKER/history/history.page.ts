@@ -79,6 +79,9 @@ export class HistoryPage implements OnInit {
     group_data1;
     sw_id2;
     medicine_refill_date;
+    sender_user_id;
+    receiver_user_id;
+    psw_array:any;
     
   
 
@@ -100,6 +103,7 @@ export class HistoryPage implements OnInit {
     this.patient_id =  sessionStorage.getItem('patient_id');
     this.patient_uuid =  sessionStorage.getItem('patient_uuid');
     this.group_id =  sessionStorage.getItem("group_data_id")
+    this.sender_user_id = sessionStorage.getItem("users_id")
     this.patient_notes_array = [];
     this.notes_array_local;
 
@@ -114,9 +118,23 @@ export class HistoryPage implements OnInit {
       this.getGroupDataServer(this.supervisor_id);
       //this.getPatientServer();
       this.getVisitHistoryServer();
+      this.getAllPSWs();
     }
    
   }
+    //to get all psws
+ async getAllPSWs(){
+  let psw_array_first :any;
+  let test = await this.serverService.getPsws().toPromise().then(result1 => {
+   
+    psw_array_first=result1;
+
+ });
+ 
+  this.psw_array = psw_array_first;
+
+ 
+}
 
   async getPatient(){
    
@@ -190,7 +208,7 @@ export class HistoryPage implements OnInit {
        date_array = [];
        notes_array =  history_array_first[0].notes_data;
      
-     if(notes_array[i].sender_user_id == this.sw_id){
+     if(notes_array[i].recipient_user_id != this.sender_user_id){
        notes_array[i].name = "You";
        }else{
          notes_array[i].name = "supervisor";
@@ -668,6 +686,12 @@ let med_task_date;this.any;
           this.sw_id2 = this.group_data_array[k].social_worker_id;
         }
       }
+
+      for(var k=0;k<this.psw_array.length;k++){
+        if( this.sw_id2 == this.psw_array[k].social_worker_id){
+          this.receiver_user_id = this.psw_array[k].users_id;
+        }
+      }
    
   }
   async getVisitHistoryServer(){
@@ -1060,9 +1084,9 @@ let med_task_date;this.any;
 
   sendNotes(){
   
-  
+ 
      
-      this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sw_id,this.supervisor_id).then(() => {
+      this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id).then(() => {
        
        
          this.alertController.create({
@@ -1145,9 +1169,9 @@ let med_task_date;this.any;
    
     for(var i = 0;i<this.patient_notes_array.length;i++){
 
-      if(this.patient_notes_array[i].sender_user_id != this.supervisor_id){
+      if(this.patient_notes_array[i].recipient_user_id == this.supervisor_id){
         this.patient_notes_array[i].name = "PSW";
-        this.sender_id = this.patient_notes_array[i].sender_user_id;
+        this.receiver_user_id = this.patient_notes_array[i].sender_user_id;
       }else{
         this.patient_notes_array[i].name = "You";
        
@@ -1175,48 +1199,49 @@ let med_task_date;this.any;
         ("00" + date.getSeconds()).slice(-2);
       
        
-   
-    this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sw_id,this.supervisor_id).then(() => {
+   alert(this.sender_user_id)
+   alert(this.supervisor_id)
+    // this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id).then(() => {
        
-      this.alertController.create({
-        header: '',
-        cssClass: 'my-custom-alert',
-        subHeader: '',
+    //   this.alertController.create({
+    //     header: '',
+    //     cssClass: 'my-custom-alert',
+    //     subHeader: '',
         
-        message: 'Changes saved successfully',
+    //     message: 'Changes saved successfully',
         
-        buttons: [
+    //     buttons: [
          
-          {
-            text: 'OK',
-            cssClass: 'alertButton2',
-            handler: () => {
-              this.notes1 = "";
-              this.offlineManager.checkForEvents().subscribe();
-             // this.router.navigate(['dashboard']);
-             this.displayLoader();
-             setTimeout(()=>{
-              this.dismissLoader();
-              this.router.navigate(['dashboard']);
-             }, 5000);
+    //       {
+    //         text: 'OK',
+    //         cssClass: 'alertButton2',
+    //         handler: () => {
+    //           this.notes1 = "";
+    //           this.offlineManager.checkForEvents().subscribe();
+    //          // this.router.navigate(['dashboard']);
+    //          this.displayLoader();
+    //          setTimeout(()=>{
+    //           this.dismissLoader();
+    //           this.router.navigate(['dashboard']);
+    //          }, 5000);
              
         
               
-            }
+    //         }
           
-          }
-        ]
-      }).then(res => {
-        res.present();
-      });
+    //       }
+    //     ]
+    //   }).then(res => {
+    //     res.present();
+    //   });
      
      
         
-      },err => {
-        console.log("No Internet Connection! Data added to the Request List");
+    //   },err => {
+    //     console.log("No Internet Connection! Data added to the Request List");
         
        
-      });
+    //   });
   }
   writeNotes2(x){
 
@@ -1234,48 +1259,50 @@ let med_task_date;this.any;
         let notesObj:any;
      
     notesObj.notes_message = this.replyNote;
+    alert(this.sender_user_id)
+    alert(this.supervisor_id)
    
-    this.patientService.addNewNotes(this.patient_uuid,this.replyNote,this.sw_id,this.supervisor_id).then(() => {
+    // this.patientService.addNewNotes(this.patient_uuid,this.replyNote,this.sender_user_id,this.supervisor_id).then(() => {
        
-      this.alertController.create({
-        header: '',
-        cssClass: 'my-custom-alert',
-        subHeader: '',
+    //   this.alertController.create({
+    //     header: '',
+    //     cssClass: 'my-custom-alert',
+    //     subHeader: '',
         
-        message: 'Changes saved successfully',
+    //     message: 'Changes saved successfully',
         
-        buttons: [
+    //     buttons: [
          
-          {
-            text: 'OK',
-            cssClass: 'alertButton2',
-            handler: () => {
-              this.notes1 = "";
-              this.offlineManager.checkForEvents().subscribe();
-             // this.router.navigate(['dashboard']);
-             this.displayLoader();
-             setTimeout(()=>{
-              this.dismissLoader();
-              this.router.navigate(['dashboard']);
-             }, 5000);
+    //       {
+    //         text: 'OK',
+    //         cssClass: 'alertButton2',
+    //         handler: () => {
+    //           this.notes1 = "";
+    //           this.offlineManager.checkForEvents().subscribe();
+    //          // this.router.navigate(['dashboard']);
+    //          this.displayLoader();
+    //          setTimeout(()=>{
+    //           this.dismissLoader();
+    //           this.router.navigate(['dashboard']);
+    //          }, 5000);
              
         
               
-            }
+    //         }
           
-          }
-        ]
-      }).then(res => {
-        res.present();
-      });
+    //       }
+    //     ]
+    //   }).then(res => {
+    //     res.present();
+    //   });
      
      
         
-      },err => {
-        console.log("No Internet Connection! Data added to the Request List");
+    //   },err => {
+    //     console.log("No Internet Connection! Data added to the Request List");
         
        
-      });
+    //   });
    
   }
   writeNotes3(x){
@@ -1294,23 +1321,24 @@ let med_task_date;this.any;
         let notesObj:any;
     
       //recipient_user_id1 = this.sw_id;
-      if(this.sender_id != undefined){
-        recipient_user_id1 = this.sender_id;
-    }else{
-      recipient_user_id1 = this.sw_id2;
-    }
+    //   if(this.sender_id != undefined){
+    //     recipient_user_id1 = this.sender_id;
+    // }else{
+    //   recipient_user_id1 = this.sw_id2;
+    // }
        notesObj = {
         "notes_id":0,
         "notes_uuid" :notes_uuid,
         "notes_message":'',
         "read_flag":1,
         "patient_uuid":this.patient_uuid,
-        "sender_user_id":this.supervisor_id,
-        "recipient_user_id":recipient_user_id1,
+        "sender_user_id":this.sender_user_id,
+        "recipient_user_id":this.receiver_user_id,
         "createdAt":dateStr
       
 
     }
+   
     notesObj.notes_message = this.notes1;
     this.serverService.addNotes(notesObj)
     .subscribe(
@@ -1339,7 +1367,7 @@ let med_task_date;this.any;
         
      // recipient_user_id1 = this.sender_id;
     
-    recipient_user_id1 = this.sw_id2;
+     
   
 
        notesObj = {
@@ -1348,12 +1376,13 @@ let med_task_date;this.any;
         "notes_message":'',
         "read_flag":1,
         "patient_uuid":this.patient_uuid,
-        "sender_user_id":this.supervisor_id,
-        "recipient_user_id":recipient_user_id1,
+        "sender_user_id":this.sender_user_id,
+        "recipient_user_id":this.receiver_user_id,
         "createdAt":dateStr
       
 
     }
+   
     notesObj.notes_message = this.replyNote;
     this.serverService.addNotes(notesObj)
     .subscribe(

@@ -101,6 +101,7 @@ export class SupervisorDashboardPage implements OnInit {
   new_array1= [];
   group_data;
   group_data1;
+  user_id;
  
 
 
@@ -134,6 +135,7 @@ export class SupervisorDashboardPage implements OnInit {
     
     this.group_data_id = sessionStorage.getItem('group_data_id');
     this.group_data_id = 0;
+    this.user_id =  sessionStorage.getItem("users_id");
   
     this.getGroupData(this.super_id);
     this.getAllTaluks();
@@ -1703,9 +1705,10 @@ export class SupervisorDashboardPage implements OnInit {
 
   //get the unread notification count 
   getNotificationCount(){
+  
  let notes_array :any;
  let notes_array1 :any;
-    this.serverService.getUnreadCount(this.super_id)
+    this.serverService.getUnreadCount(this.user_id)
     .subscribe(
     data  => {
    notes_array= data;

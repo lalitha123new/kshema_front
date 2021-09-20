@@ -1094,7 +1094,7 @@ export class PatientService {
       const notes_array1 = [];
       let retSelect13:any;
       
-      let test = await this.offlineManager.sqlQuery("getSuperNotes",{recipient_user_id:JSON.stringify(sw_id)}).then(result => {
+      let test = await this.offlineManager.sqlQuery("getSuperNotes",{recipient_user_id:sw_id}).then(result => {
         retSelect13=result;
     
         

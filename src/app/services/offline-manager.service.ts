@@ -84,6 +84,7 @@ export class OfflineManagerService {
   taluk_id = parseInt(this.taluk_id1);
   today_visit_data:any;
   remainging_array:any;
+  reciever_user_id;
 
  dashObj:any= {
   today_visit_data:"",
@@ -662,7 +663,9 @@ udidObj:any = {
     let sw_id = parseInt(sw_id1);
     let taluk_id1 = sessionStorage.getItem("taluk_id");
     let taluk_id = parseInt(taluk_id1);
-    let result = await this.serverService.getSupervisorNotes(sw_id)
+    this.reciever_user_id = sessionStorage.getItem("users_id");
+  
+    let result = await this.serverService.getSupervisorNotes(this.reciever_user_id)
     .subscribe(
     data  => {
     
@@ -1121,7 +1124,7 @@ if(notes1){
 
        //get today's consultations - latest consultation only for each patient and other counts
       if(op == "todaysPatients1"){
-     
+        this.reciever_user_id = sessionStorage.getItem("users_id");
       let sqlcmd = "SELECT * FROM clinical_visits WHERE followup_date = ? AND clinical_visits_id IN ( SELECT MAX(clinical_visits_id) FROM clinical_visits GROUP BY patient_uuid )";
       let sqlcmd1 = "SELECT count(*) as cnt1 FROM clinical_visits WHERE followup_date > ?  AND clinical_visits_id IN ( SELECT MAX(clinical_visits_id) FROM clinical_visits GROUP BY patient_uuid )";
       let sqlcmd2 = "SELECT count(*) as cnt2 FROM clinical_visits WHERE followup_date < ?  AND clinical_visits_id IN ( SELECT MAX(clinical_visits_id) FROM clinical_visits GROUP BY patient_uuid )";
@@ -1133,7 +1136,7 @@ if(notes1){
       let sqlcmd8 = "SELECT count(*) as cnt8 FROM patient";
         
         let values:Array<any>  = [data.followup_date];
-        let values1:Array<any>  = [JSON.stringify(sw_id)];
+        let values1:Array<any>  = [this.reciever_user_id];
         let values2:Array<any>  = [];
 
         let retSelect: [] = await this._sqlite.query({statement:sqlcmd,values:values});
@@ -1147,7 +1150,6 @@ if(notes1){
         let retSelect7: any = await this._sqlite.query({statement:sqlcmd7,values:values1});
         let retSelect8: any = await this._sqlite.query({statement:sqlcmd8,values:values2});
 
-       
 
         this.dashObj.today_visit_data = retSelect;
         this.dashObj.upcoming_visit = retSelect1.values[0].cnt1;

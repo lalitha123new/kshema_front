@@ -137,6 +137,7 @@ export class DashboardPage implements OnInit {
 
   
   public notes_count: number;
+  users_id;
   
  
 
@@ -165,6 +166,7 @@ export class DashboardPage implements OnInit {
    
     this.sw_id1 = sessionStorage.getItem("sw_id");
     this.sw_id = parseInt(this.sw_id1);
+    this.users_id = sessionStorage.getItem("users_id");
    
     this.today_action = true;
     this.today_final_array = [];

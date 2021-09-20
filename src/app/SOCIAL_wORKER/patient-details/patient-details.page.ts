@@ -81,6 +81,9 @@ export class PatientDetailsPage implements OnInit {
   group_data1;
   recipient_user_id;
   sw_id2;
+  sender_user_id;
+  receiver_user_id;
+  psw_array:any;
   ngOnInit() {
     
   }
@@ -101,7 +104,8 @@ ionViewWillEnter() {
     this.supervisor_id1 = sessionStorage.getItem("supervisor_id");
     this.supervisor_id1 = JSON.parse(this.supervisor_id1);
     this.supervisor_id = parseInt(this.supervisor_id1);
-    this.group_id =  sessionStorage.getItem("group_data_id")
+    this.group_id =  sessionStorage.getItem("group_data_id");
+    this.sender_user_id = sessionStorage.getItem("users_id")
   
   
    this.patient_id =  sessionStorage.getItem('patient_id');
@@ -121,8 +125,23 @@ ionViewWillEnter() {
     this.getGroupDataServer(this.supervisor_id);
    // this.getPatientServer();
     this.getPatientNotesServer();
+    this.getAllPSWs();
   }
    
+ 
+}
+
+ //to get all psws
+ async getAllPSWs(){
+  let psw_array_first :any;
+  let test = await this.serverService.getPsws().toPromise().then(result1 => {
+   
+    psw_array_first=result1;
+
+ });
+ 
+  this.psw_array = psw_array_first;
+
  
 }
 
@@ -215,8 +234,8 @@ async getCount(){
     
       date_array = [];
       notes_array =  count_array_first[0].notes_data;
-     
-      if(notes_array[i].sender_user_id == this.sw_id){
+   
+      if(notes_array[i].recipient_user_id != this.sender_user_id){
       notes_array[i].name = "You";
       }else{
         notes_array[i].name = "supervisor";
@@ -231,7 +250,6 @@ async getCount(){
     
  
 }
-
 
 async getGroupDataServer(supervisor_id){
   let group_array_first :any;
@@ -295,8 +313,13 @@ async getPatientServer(){
     if(this.patient_array[0].group_data_id == this.group_data_array[j].group_data_id){
     
       this.sw_id2 = this.group_data_array[j].social_worker_id;
-      console.log(this.sw_id2)
      
+     
+    }
+  }
+  for(var n=0;n<this.psw_array.length;n++){
+    if(this.sw_id2 == this.psw_array[n].social_worker_id){
+      this.receiver_user_id = this.psw_array[n].users_id; 
     }
   }
    
@@ -327,10 +350,10 @@ data  => {
     for(var i = 0;i<this.patient_notes_array.length;i++){
 
     
-      if(this.patient_notes_array[i].sender_user_id !=this.supervisor_id){
+      if(this.patient_notes_array[i].recipient_user_id ==this.supervisor_id){
       
         this.patient_notes_array[i].name = "PSW";
-        this.sender_id = this.patient_notes_array[i].sender_user_id;
+        this.sender_user_id = this.patient_notes_array[i].sender_user_id;
       }else{
         this.patient_notes_array[i].name = "You";
       
@@ -346,12 +369,13 @@ data  => {
     this.dataSource_dashboard1.data = this.patient_notes_array;
 
   });
-  }
+}
+
 sendNotes(){
  
  
-   
-    this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sw_id,this.supervisor_id).then(() => {
+  
+    this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id).then(() => {
        
       this.alertController.create({
         header: '',
@@ -432,7 +456,6 @@ home(){
 
   }
   
- 
   logout(){
     this.router.navigate(['']);
   }
@@ -502,13 +525,7 @@ startNoteSupervisor(){
     
       let notesObj:any;
  
-   // recipient_user_id1 = this.sw_id;
-      if(this.sender_id != undefined){
-        this.recipient_user_id = this.sender_id;
-    }else{
-      
-      this.recipient_user_id = this.sw_id2;
-    }
+   
   
      notesObj = {
       "notes_id":0,
@@ -516,12 +533,13 @@ startNoteSupervisor(){
       "notes_message":'',
       "read_flag":1,
       "patient_uuid":this.patient_uuid,
-      "sender_user_id":this.supervisor_id,
-      "recipient_user_id":this.recipient_user_id,
+      "sender_user_id":this.sender_user_id,
+      "recipient_user_id":this.receiver_user_id,
       "createdAt":dateStr
     
 
   }
+ 
   notesObj.notes_message = this.notes1;
   this.serverService.addNotes(notesObj)
   .subscribe(
@@ -533,6 +551,7 @@ startNoteSupervisor(){
   })
  
 }
+
 replyNoteSupervisor(){
 
   let recipient_user_id1;
@@ -559,8 +578,8 @@ replyNoteSupervisor(){
       "notes_message":'',
       "read_flag":1,
       "patient_uuid":this.patient_uuid,
-      "sender_user_id":this.supervisor_id,
-      "recipient_user_id":recipient_user_id1,
+      "sender_user_id":this.sender_user_id,
+      "recipient_user_id":this.receiver_user_id,
       "createdAt":dateStr
     
 
@@ -577,11 +596,13 @@ replyNoteSupervisor(){
   })
  
 }
+
 viewReplyNotes(){
   this.notes = true;
   this.buttons = true;
   
 }
+
 displayLoader(){
   this.loadingCtrl.create({
     message: 'Loading. Please wait...'
