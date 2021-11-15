@@ -92,7 +92,6 @@
       background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
     }
     .custom-file-input ~ .custom-file-label::after {
-     // content: "Browse";
      content: "";
     }
   .input-group>.custom-file {
@@ -228,7 +227,6 @@
   .custom_card_class{
     border-radius:12px;
     color:white;
-    // height:240px;
   }
  
   .emans_text{
@@ -302,7 +300,7 @@ color: #000000;
 .label_class5{
   font-style: italic;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 22px;
   color: #242424;
 }
@@ -331,4 +329,7 @@ color: #242424;
 }
 .wrap-mat-check-label {
   white-space: normal;
+}
+.red{
+  color: red;
 }

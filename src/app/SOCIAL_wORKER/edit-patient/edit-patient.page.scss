@@ -20,11 +20,7 @@
       ::ng-deep .mat-input-wrapper{
         border: 2px solid black;
      }
-    //  .equal_height{
-    //   padding-bottom: 0%;
-    //   margin-bottom: 0%;
-    //  }
-
+   
  
   
 .place_holder_text{
@@ -179,3 +175,17 @@ text-align:center;
 ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: #813D7E;
 }
+::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #813D7E;
+
+  }
+  .overlay-spinner {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.286);
+    z-index: 10;
+    top: 0;
+    left: 0;
+    position: fixed;
+}
+

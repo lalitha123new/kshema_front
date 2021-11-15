@@ -12,6 +12,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {  MatIconModule } from  '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { PatientInfoHeaderComponentModule } from 'src/app/patient-header.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -29,7 +30,8 @@ import { PatientInfoHeaderComponentModule } from 'src/app/patient-header.module'
     MatRadioModule,
     MatIconModule,
     MatMenuModule,
-    PatientInfoHeaderComponentModule
+    PatientInfoHeaderComponentModule,
+    MatProgressSpinnerModule
    
    
   ],

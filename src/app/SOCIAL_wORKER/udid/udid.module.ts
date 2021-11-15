@@ -24,6 +24,7 @@ import {  MatIconModule } from  '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -49,6 +50,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatMenuModule,
     MatButtonToggleModule,
     MatSliderModule,
+    MatProgressSpinnerModule
     
     
   ],

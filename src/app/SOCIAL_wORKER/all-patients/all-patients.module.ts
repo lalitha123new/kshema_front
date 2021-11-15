@@ -19,7 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {  MatIconModule } from  '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -37,6 +37,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatIconModule,
     MatMenuModule,
+    MatProgressSpinnerModule
    
   ],
   declarations: [AllPatientsPage],

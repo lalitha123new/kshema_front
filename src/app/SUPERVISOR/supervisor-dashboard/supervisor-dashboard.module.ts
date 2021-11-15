@@ -24,6 +24,7 @@ import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     MatSliderModule,
     MatBadgeModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   declarations: [SupervisorDashboardPage],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

@@ -123,11 +123,17 @@ color: #242424;
     overflow-x: scroll;
 }
 
-
-::ng-deep.mat-tab-label[role^='tab'] {
+/* Styles for tab labels */
+::ng-deep.mat-tab-label {
   background-color: #F4F4F4;
   border-radius: 12px;
-  min-width: 10px;
+  width:50%;
+ 
+  
+}
+
+::ng-deep.mat-tab-label[role^='tab'] {
+  min-width: 72px;
 }
 
 /* Styles for the active tab label */
@@ -231,7 +237,33 @@ text-align:center;
 .basic-container {
   padding: 5px;
 }
-::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+.label_class10{
+  font-family: 'Open Sans',sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+  color: #242424;
+ }
+
+
+ .label_class6{
+  font-family: 'Open Sans',sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #242424;
+ }
+ .label_class8{
+  font-family: 'Open Sans',sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 22px;
+  color: #242424;
+ }
+ ::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
   stroke: #813D7E;
 
   }
@@ -244,5 +276,3 @@ text-align:center;
     left: 0;
     position: fixed;
 }
-
-

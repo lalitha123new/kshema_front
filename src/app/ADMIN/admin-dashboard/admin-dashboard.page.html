@@ -6,7 +6,11 @@
     <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;" class="container2">
 
  <app-admin-header></app-admin-header>
-      
+  <div class="overlay-spinner" *ngIf="showSpinner">
+    <div class="center-spinner">
+  <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+  </div>
+  </div>
         <ion-row class="ion-padding-top" >
           <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
         <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  text-center style="height:100%;">
@@ -57,7 +61,7 @@
               <ion-row  class="ion-padding-top">
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
                   <ion-row>
-                    <ion-title size="small" class="text_status">Supervisor</ion-title>
+                    <ion-title size="small" class="text_status">Supervisors</ion-title>
                   </ion-row>
                   <ion-row>
                     <ion-title class="number_class">{{supervisor}}</ion-title>
@@ -90,7 +94,7 @@
               <ion-row>
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
                   <ion-row class="ion-padding-top">
-                    <ion-title class="text_status" size="small">Taluks</ion-title>
+                    <ion-title class="text_status" size="small">Talukas</ion-title>
                   </ion-row>
                   <ion-row>
                     <ion-title class="number_class">{{taluk_count}}</ion-title>

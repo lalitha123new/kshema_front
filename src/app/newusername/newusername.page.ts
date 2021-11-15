@@ -18,6 +18,7 @@ export class NewusernamePage implements OnInit {
     email_old ="";
   
     ngOnInit() {
+      
       var url_path=this.router.url;
       var arr=url_path.split("?");
       var arr1=arr[1].split("=");
@@ -41,13 +42,13 @@ export class NewusernamePage implements OnInit {
     newusername(usernameForm){
     
         this.serverService.newUsername(usernameForm.value.username,usernameForm.value.email).subscribe(data  => {
-          this.snackBar.open('Successfully reset password', 'x', {
+          this.snackBar.open('Successfully reset username', 'x', {
             duration: 10000,
           });
           this.router.navigate(['']);
         },
         error  => {
-          this.snackBar.open('Successfully reset password', 'x', {
+          this.snackBar.open('Successfully reset username', 'x', {
             duration: 3000,
             
           });

@@ -19,7 +19,7 @@ sw_no = 0;
 supervisor = 0;
 taluk_array:any;
 taluk_count = 0;
-
+showSpinner = false;
   
   constructor(private formBuilder: FormBuilder,private router: Router,private serverService: ServerService) { }
 
@@ -28,7 +28,7 @@ taluk_count = 0;
   }
 
   ionViewWillEnter() {
-
+    this.showSpinner = true;
     this.getAllUsers();
     this.getAllTaluks();
 
@@ -36,9 +36,7 @@ taluk_count = 0;
 
    //to get all supervisors
   getAllUsers(){
-    this.serverService.getUsers()
-    .subscribe(
-    data  => {
+    this.serverService.getUsers().subscribe(data  => {
    
     let resultArray1 :any;
     let resultArray2 :any;
@@ -55,10 +53,8 @@ taluk_count = 0;
 
 
   getAllTaluks(){
-    this.serverService.getAlltalukas()
-    .subscribe(
-    data  => {
-     
+    this.serverService.getAlltalukas().subscribe(data  => {
+      this.showSpinner = false;
       this.taluk_array = data;
       this.taluk_count =  this.taluk_array.length
      

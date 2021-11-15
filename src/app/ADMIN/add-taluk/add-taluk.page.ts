@@ -24,10 +24,10 @@ export class AddTalukPage implements OnInit {
   form1:FormGroup;
   supervisor_array:any;
   constructor(private _formBuilder: FormBuilder,private router: Router,
-     private serverService: ServerService,
-    private http: HttpClient,private snackBar: MatSnackBar) { }
+  private serverService: ServerService,
+  private http: HttpClient,private snackBar: MatSnackBar) { }
 
-    selectedSuper;
+  selectedSuper;
 
   ngOnInit() {
     this.form1 =new FormGroup({
@@ -51,8 +51,7 @@ export class AddTalukPage implements OnInit {
   //to get all supervisors
   getAllSupervisors(){
       
-    this.serverService.getSupervisors()
-  .subscribe(data  => {
+    this.serverService.getSupervisors().subscribe(data  => {
 
       this.supervisor_array = data;
 

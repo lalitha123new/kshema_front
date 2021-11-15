@@ -108,6 +108,7 @@ export class HomeVisitPage implements OnInit {
     selfcare_rate:'',
     occupation_rate:'',
     sleep_rate:'',
+    work:'',
     test_reason:'',
     tobacco:'',
     tobocco_amount:'',
@@ -139,8 +140,18 @@ export class HomeVisitPage implements OnInit {
   medObj:any = {};
   med_tasks_uuid;
   med_plan;
+  caregiverYesClicked:Boolean = false;
+  otherPersonYesClicked:Boolean = false;
+  tobaccoYesClicked:Boolean = false;
+  alcoholYesClicked:Boolean = false;
+  otherSubYesClicked:Boolean = false;
+  medHelpYesClicked:Boolean = false;
+  medicine_refill_date;
+  medDisplay = true;
+  isDisabled = false;
 
   ngOnInit() {
+
     this.firstFormGroup = this._formBuilder.group({
       missed_visit_date: new FormControl(this.homeVisitObj.missed_visit_date,[]),
       last_phone_date: new FormControl(this.homeVisitObj.last_phone_date,[]),
@@ -164,6 +175,7 @@ export class HomeVisitPage implements OnInit {
       selfcare_rate: new FormControl(this.homeVisitObj.selfcare_rate,[]),
       occupation_rate: new FormControl(this.homeVisitObj.occupation_rate,[]),
       sleep_rate: new FormControl(this.homeVisitObj.sleep_rate,[]),
+      work: new FormControl(this.homeVisitObj.work,[]),
       test_reason:new FormControl(this.homeVisitObj.test_reason,[]),
       tobaccoFormGroup:new FormGroup({
       tobacco: new FormControl(this.homeVisitObj.tobacco,[Validators.required]),
@@ -193,15 +205,79 @@ export class HomeVisitPage implements OnInit {
       next_visit_plan: new FormControl(this.homeVisitObj.next_visit_plan,[Validators.required]),
       next_visit_place_other: new FormControl(this.homeVisitObj.next_visit_place_other,[]),
       next_visit_date: new FormControl(this.homeVisitObj.next_visit_date,[Validators.required]),
-      medicine_plan:new FormControl(this.homeVisitObj.medicine_plan,[]),
+      medicine_plan:new FormControl(this.homeVisitObj.medicine_plan,[Validators.required]),
       medicine_plan_other_date:new FormControl(this.homeVisitObj.medicine_plan_other_date,[]),
       medicine_plan_other_remark:new FormControl(this.homeVisitObj.medicine_plan_other_remark,[]),
-      medicine_plan_remark:new FormControl(this.homeVisitObj.medicine_plan_remark,[]),
+      medicine_plan_remark:new FormControl(this.homeVisitObj.medicine_plan_remark,[Validators.required]),
      
     })
   }
 
   ionViewWillEnter() {
+    this.rate1 = "Unable to rate";
+    this.rate2 = "Unable to rate";
+    this.homeVisitObj.symptom='';
+    this.homeVisitObj.home_compliance_rate='';
+    this.isDisabled = false;
+    this.firstFormGroup = this._formBuilder.group({
+      missed_visit_date: new FormControl(this.homeVisitObj.missed_visit_date,[]),
+      last_phone_date: new FormControl(this.homeVisitObj.last_phone_date,[]),
+      home_visit_date: new FormControl(this.homeVisitObj.home_visit_date,[Validators.required]),
+      seen_patient: new FormControl(this.homeVisitObj.seen_patient,[Validators.required]),
+      caregiverFormGroup:new FormGroup({
+      seen_caregiver: new FormControl(this.homeVisitObj.seen_caregiver,[Validators.required]),
+      caregiver_name_relation: new FormControl(this.homeVisitObj.caregiver_name_relation,[]),
+      }),
+      othersFormGroup:new FormGroup({
+      seen_others: new FormControl(this.homeVisitObj.seen_others,[Validators.required]),
+      others_name_relation: new FormControl(this.homeVisitObj.others_name_relation,[]),
+      })
+    })
+    this.secondFormGroup = this._formBuilder.group({
+      symptom: new FormControl(this.homeVisitObj.symptom,[]),
+      suspicious_rate: new FormControl(this.homeVisitObj.suspicious_rate,[]),
+      hallucinatory_rate: new FormControl(this.homeVisitObj.hallucinatory_rate,[]),
+      verbal_rate: new FormControl(this.homeVisitObj.verbal_rate,[]),
+      social_rate: new FormControl(this.homeVisitObj.social_rate,[]),
+      selfcare_rate: new FormControl(this.homeVisitObj.selfcare_rate,[]),
+      occupation_rate: new FormControl(this.homeVisitObj.occupation_rate,[]),
+      sleep_rate: new FormControl(this.homeVisitObj.sleep_rate,[]),
+      work: new FormControl(this.homeVisitObj.work,[]),
+      test_reason:new FormControl(this.homeVisitObj.test_reason,[]),
+      tobaccoFormGroup:new FormGroup({
+      tobacco: new FormControl(this.homeVisitObj.tobacco,[Validators.required]),
+      tobocco_amount: new FormControl(this.homeVisitObj.tobocco_amount,[]),
+      tobacco_remark: new FormControl(this.homeVisitObj.tobacco_remark,[]),
+      }),
+      alcoholFormGroup:new FormGroup({
+      alcohol: new FormControl(this.homeVisitObj.alcohol,[Validators.required]),
+      alcohol_amount: new FormControl(this.homeVisitObj.alcohol_amount,[]),
+      alcohol_remark: new FormControl(this.homeVisitObj.alcohol_remark,[]),
+      }),
+      OtherUseFormGroup:new FormGroup({
+      others: new FormControl(this.homeVisitObj.others,[Validators.required]),
+      other_amount: new FormControl(this.homeVisitObj.other_amount,[]),
+      others_remark: new FormControl(this.homeVisitObj.others_remark,[]),
+      })
+    })
+    this.thirdFormGroup = this._formBuilder.group({
+      home_compliance_rate: new FormControl(this.homeVisitObj.home_compliance_rate,[]),
+      comp_reason:new FormControl(this.homeVisitObj.comp_reason,[]),
+      medFormGroup:new FormGroup({
+      med_supervised: new FormControl(this.homeVisitObj.med_supervised,[Validators.required]),
+      med_supervisor: new FormControl(this.homeVisitObj.med_supervisor,[]),
+      }),
+      // symptom: new FormControl(this.homeVisitObj.symptom,[Validators.required]),
+      missed_visit_reason: new FormControl(this.homeVisitObj.missed_visit_reason,[]),
+      next_visit_plan: new FormControl(this.homeVisitObj.next_visit_plan,[Validators.required]),
+      next_visit_place_other: new FormControl(this.homeVisitObj.next_visit_place_other,[]),
+      next_visit_date: new FormControl(this.homeVisitObj.next_visit_date,[Validators.required]),
+      medicine_plan:new FormControl(this.homeVisitObj.medicine_plan,[Validators.required]),
+      medicine_plan_other_date:new FormControl(this.homeVisitObj.medicine_plan_other_date,[]),
+      medicine_plan_other_remark:new FormControl(this.homeVisitObj.medicine_plan_other_remark,[]),
+      medicine_plan_remark:new FormControl(this.homeVisitObj.medicine_plan_remark,[Validators.required]),
+     
+    })
     this.user_name = sessionStorage.getItem("user_name");
     this.sw_id1 = sessionStorage.getItem("sw_id");
     this.sw_id = parseInt(this.sw_id1);
@@ -261,106 +337,175 @@ export class HomeVisitPage implements OnInit {
   
   
   }
-  
   async getPreviousVisitDetails(){
+    let notes_array;
+    let date_array = [];
   
-    let prev_visit_array_first :any;
-    let test = await this.patientService.getPreviousVisit(this.patient_uuid).then(result2 => {
+
+    let history_array_first :any;
+    let test = await this.patientService.getVisitHistory(this.patient_uuid).then(result2 => {
      
-      prev_visit_array_first=result2;
+      history_array_first=result2;
 
    });
-   
-      
-      let array1 = JSON.parse(prev_visit_array_first[0].visit_details);
-      //for displaying any previous phone date
-      if(array1.follow_up_date){
-        let array1_phone_date = array1.follow_up_date;
-        this.firstFormGroup.get('last_phone_date').setValue(array1.follow_up_date);
-      }
-      
-      let array2:any;
-      let array2_new:any;
-      let array3:any;
-     
-      if(array1.clinicalData){
-       
-       array2_new = JSON.parse(array1.clinicalData);
-       this.amount1 = array2_new.tobocco_amount;
-       this.amount2 = array2_new.alcohol_amount;
-       this.amount3 = array2_new.other_amount;
-       if(typeof array1.consentObj1 != 'object'){
-        array3 = JSON.parse(array1.consentObj1);
-        }else{
-          array3 = array1.consentObj1;
-        }
-     
-        if(array3.next_visit_place == "PHC"){
-        
-          let missed_phc_date1 = new Date(array3.follow_up_date_new);
-          let date = ("0" + missed_phc_date1.getDate()).slice(-2);
-          let month = ("0" + (missed_phc_date1.getMonth() + 1)).slice(-2);
-          let year =missed_phc_date1.getFullYear();
-          this.missed_phc_date = date + "-" + month + "-" + year;
-          this.missed_phc_date =  array3.follow_up_date_new;
-          this.missed_phc_date =  array3.follow_up_date_new;
-          
-          this.firstFormGroup.get('missed_visit_date').setValue(array3.follow_up_date_new);
-          
-        }else if(prev_visit_array_first[0].visit_type == "PHC"){
-     
-          let missed_phc_date1 = new Date(prev_visit_array_first[0].followup_date);
-        
-            let date = ("0" + missed_phc_date1.getDate()).slice(-2);
-            let month = ("0" + (missed_phc_date1.getMonth() + 1)).slice(-2);
-            let year =missed_phc_date1.getFullYear();
-            this.missed_phc_date = date + "-" + month + "-" + year;
-           
-            this.firstFormGroup.get('missed_visit_date').setValue(missed_phc_date1);
-      }
 
-      }else if(array1.step2Data){
-        array2 = JSON.parse(array1.step2Data);
-      }
+    for(var i = 0;i <history_array_first[0].history_data.length;i++){
     
-    if(array2.tobocco_amount == "1"){
-      this.amount1="Same level as last time";
+        
+        let check_type =JSON.parse(history_array_first[0].history_data[i].visit_details);
+      
+        if (!('clinicalData' in check_type) && !('step1Data' in check_type)){
+        
+          history_array_first[0].history_data[i].visit_type = "Phone";
+         
+          
+        }else if(('step1Data' in check_type)){
+          history_array_first[0].history_data[i].visit_type = "Home";
+         
+         }else{
+          history_array_first[0].history_data[i].visit_type =  "PHC"
+          
+         }
+         
+      if(history_array_first[0].history_data[i].visit_type == "PHC" || history_array_first[0].history_data[i].visit_type=="Manochaithanya"){
+        
+        let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
+       
+        if(phc_data.clinicalData){
+      
+        let mat_data = JSON.parse(phc_data.clinicalData);
+      
+          if(typeof phc_data.consentObj1 !='object'){
+          
+         let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
+         this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
+          
+        let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
+      
+       
+        let array2 = JSON.parse(phc_data.clinicalData);
+       
+       if(array2.tobocco_amount == "Same level as last time"){
+        
+        this.amount1="Same level as last time";
+  
+      }else if(array2.tobocco_amount == "Reduced amount"){
+        
+        this.amount1="Reduced amount";
+      }else if(array2.tobocco_amount == "Abstinent"){
+        
+        this.amount1="Abstinent";
+      }else if(array2.tobocco_amount == "Increased use"){
+        
+        this.amount1="Increased use";
+      }else{
+        
+        this.amount1= array2.tobocco_amount;
+      }
 
-    }else if(array2.tobocco_amount == "2"){
-      this.amount1="Reduced amount";
-    }else if(array2.tobocco_amount == "3"){
-      this.amount1="Abstinent";
-    }else if(array2.tobocco_amount == "4"){
-      this.amount1="Increased use";
-    }else{
-      this.amount1= array2.tobocco_amount;
-    }
-    if(array2.alcohol_amount == "1"){
-      this.amount2="Same level as last time";
-    }else if(array2.alcohol_amount == "2"){
-      this.amount2="Reduced amount";
-    }else if(array2.alcohol_amount == "3"){
-      this.amount2="Abstinent";
-    }else if(array2.alcohol_amount == "4"){
-      this.amount2="Increased use";
-    }else{
-      this.amount2= array2.alcohol_amount;
-    }
+      if(array2.alcohol_amount == "Same level as last time"){
+        this.amount2="Same level as last time";
+      }else if(array2.alcohol_amount == "Reduced amount"){
+        this.amount2="Reduced amount";
+      }else if(array2.alcohol_amount == "Abstinent"){
+        this.amount2="Abstinent";
+      }else if(array2.alcohol_amount == "Increased use"){
+        this.amount2="Increased use";
+      }else{
+        this.amount2= array2.alcohol_amount;
+      }
+      
+       if(array2.other_amount == "1"){
+        this.amount3="Same level as last time";
+      }else if(array2.other_amount == "2"){
+        this.amount3="Reduced amount";
+      }else if(array2.other_amount == "3"){
+        this.amount3="Abstinent";
+      }else if(array2.other_amount == "4"){
+        this.amount3="Increased use";
+      }else{
+        this.amount3= array2.other_amount;
+      }
+        
+         
+          
+          }else{
+           
+            let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
+            this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
+             
+            let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
+          
+            //substance used data from add patient clinical data
+            let array2 = JSON.parse(phc_data.clinicalData);
+            this.amount1 = array2.tobocco_amount;
+            this.amount2 = array2.alcohol_amount;
+            this.amount3 = array2.other_amount;
+         
+          }
 
-    if(array2.other_amount == "1"){
-      this.amount3="Same level as last time";
-    }else if(array2.other_amount == "2"){
-      this.amount3="Reduced amount";
-    }else if(array2.other_amount == "3"){
-      this.amount3="Abstinent";
-    }else if(array2.other_amount == "4"){
-      this.amount3="Increased use";
-    }else{
-      this.amount3= array2.other_amount;
+      }
+
+      }else if(history_array_first[0].history_data[i].visit_type == "Phone"){
+        
+        let phone_date =new Date(history_array_first[0].history_data[i].created_at);
+        this.firstFormGroup.get('last_phone_date').setValue(phone_date);
+       
+
+      }else if(history_array_first[0].history_data[i].visit_type == "Home"){
+       
+        let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
+       
+       
+          let array2 = JSON.parse(phc_data.step2Data);
+         
+         if(array2.tobocco_amount == "1"){
+          
+          this.amount1="Same level as last time";
+    
+        }else if(array2.tobocco_amount == "2"){
+          
+          this.amount1="Reduced amount";
+        }else if(array2.tobocco_amount == "3"){
+          
+          this.amount1="Abstinent";
+        }else if(array2.tobocco_amount == "4"){
+          
+          this.amount1="Increased use";
+        }else{
+          
+          this.amount1= array2.tobocco_amount;
+        }
+        if(array2.alcohol_amount == "1"){
+          this.amount2="Same level as last time";
+        }else if(array2.alcohol_amount == "2"){
+          this.amount2="Reduced amount";
+        }else if(array2.alcohol_amount == "3"){
+          this.amount2="Abstinent";
+        }else if(array2.alcohol_amount == "4"){
+          this.amount2="Increased use";
+        }else{
+          this.amount2= array2.alcohol_amount;
+        }
+        
+         if(array2.other_amount == "1"){
+          this.amount3="Same level as last time";
+        }else if(array2.other_amount == "2"){
+          this.amount3="Reduced amount";
+        }else if(array2.other_amount == "3"){
+          this.amount3="Abstinent";
+        }else if(array2.other_amount == "4"){
+          this.amount3="Increased use";
+        }else{
+          this.amount3= array2.other_amount;
+        }
+       
+       
+      }
     }
   
-   
   }
+ 
 
   async getMedTask(){
     let med_array_first :any;
@@ -368,12 +513,19 @@ export class HomeVisitPage implements OnInit {
      
       med_array_first=result3;
      
+     
 
    });
-   
-      if(med_array_first[0]){
-      this.med_tasks_uuid = med_array_first[0].tasks_uuid;
+   this.med_tasks_uuid = med_array_first[0].tasks_uuid;
+     // if(med_array_first[0].status == "pending"){
+      if(med_array_first[0].status != ""){
+        this.medDisplay = true;
+        this.medicine_refill_date = new Date(med_array_first[0].task_due_date);
+        this.thirdFormGroup.get('medicine_plan_other_date').setValue(this.medicine_refill_date);
      
+      }else{
+        this.medDisplay = false;
+        this.medicine_refill_date = "";
       }
  
   }
@@ -440,13 +592,13 @@ export class HomeVisitPage implements OnInit {
 
   caregiverClicked($event:MatRadioChange){
     if ($event.value ==='Yes') {
-    
+      this.caregiverYesClicked = true;
       this.firstFormGroup.controls.caregiverFormGroup.get('caregiver_name_relation').setValidators(Validators.required);
       this.firstFormGroup.controls.caregiverFormGroup.get('caregiver_name_relation').updateValueAndValidity();
      
     
     } else {
-      
+      this.caregiverYesClicked = false;
       this.firstFormGroup.controls.caregiverFormGroup.get('caregiver_name_relation').setValue('');
       this.firstFormGroup.controls.caregiverFormGroup.get('caregiver_name_relation').clearValidators();
       this.firstFormGroup.controls.caregiverFormGroup.get('caregiver_name_relation').updateValueAndValidity();
@@ -455,15 +607,16 @@ export class HomeVisitPage implements OnInit {
       
     }
   }
+
   othersClicked($event:MatRadioChange){
     if ($event.value ==='Yes') {
-    
+      this.otherPersonYesClicked = true;
       this.firstFormGroup.controls.othersFormGroup.get('others_name_relation').setValidators(Validators.required);
       this.firstFormGroup.controls.othersFormGroup.get('others_name_relation').updateValueAndValidity();
      
     
     } else {
-      
+      this.otherPersonYesClicked = false;
       this.firstFormGroup.controls.othersFormGroup.get('others_name_relation').setValue('');
       this.firstFormGroup.controls.othersFormGroup.get('others_name_relation').clearValidators();
       this.firstFormGroup.controls.othersFormGroup.get('others_name_relation').updateValueAndValidity();
@@ -472,30 +625,19 @@ export class HomeVisitPage implements OnInit {
       
     }
   }
+
   submitStep1(firstFormGroup){
     
     let missed_visit;
     let phone_visit;
     let home_visit ;
 if(this.firstFormGroup.get('missed_visit_date').value){
-      let missed_date = new Date(this.firstFormGroup.get('missed_visit_date').value);
-      
-      let date1 = ("0" + missed_date.getDate()).slice(-2);
-      let month1 = ("0" + (missed_date.getMonth() + 1)).slice(-2);
-      let year1 =missed_date.getFullYear();
-      this.dateMissed = date1 + "-" + month1 + "-" + year1;
-      missed_visit = this.dateMissed;
+      missed_visit = this.firstFormGroup.get('missed_visit_date').value;
       
 }
 
 if(this.firstFormGroup.get('last_phone_date').value){
 
-      let phone_date = new Date(this.firstFormGroup.get('last_phone_date').value);
-      let date2 = ("0" + phone_date.getDate()).slice(-2);
-      let month2 = ("0" + (phone_date.getMonth() + 1)).slice(-2);
-      let year2 =phone_date.getFullYear();
-      this.datePhone = date2 + "-" + month2 + "-" + year2;
-      phone_visit = this.datePhone;
       phone_visit = this.firstFormGroup.get('last_phone_date').value;
      
 }else{
@@ -503,12 +645,8 @@ if(this.firstFormGroup.get('last_phone_date').value){
 }
 
 if(this.firstFormGroup.get('home_visit_date').value){
-      let home_date = this.firstFormGroup.get('home_visit_date').value;
-      let date3 = ("0" + home_date.getDate()).slice(-2);
-      let month3 = ("0" + (home_date.getMonth() + 1)).slice(-2);
-      let year3 =home_date.getFullYear();
-      this.dateHome = date3 + "-" + month3 + "-" + year3;
-       home_visit = this.dateHome;
+
+       home_visit = this.firstFormGroup.get('home_visit_date').value;
 }
 
       let step1Obj = {
@@ -540,13 +678,14 @@ if(this.firstFormGroup.get('home_visit_date').value){
      this.med_task_array = [];
      this.med_plan = "Others";
       this.med_refill_others = true;
-      this.thirdFormGroup.get('medicine_plan_other_date').setValidators(Validators.required);
+      //this.med_refill_others = false;
+     // this.thirdFormGroup.get('medicine_plan_other_date').setValidators(Validators.required);
       this.thirdFormGroup.get('medicine_plan_other_remark').setValidators(Validators.required);
       this.medObj = {
         // check1:"",
         // option:45,
         task_remark:"medicine refill",
-        task_date:"",
+        task_date:this.medicine_refill_date,
         task_status:"pending",
         tasks_uuid: this.med_tasks_uuid
       }
@@ -557,13 +696,13 @@ if(this.firstFormGroup.get('home_visit_date').value){
       this.thirdFormGroup.get('medicine_plan_other_date').clearValidators();
       this.thirdFormGroup.get('medicine_plan_other_remark').clearValidators();
       this.thirdFormGroup.get('medicine_plan_other_remark').setValue('');
-      this.thirdFormGroup.get('medicine_plan_other_date').setValue('');
+      //this.thirdFormGroup.get('medicine_plan_other_date').setValue('');
       this.medObj = {
         // check1:"",
         // option:45,
         task_remark:"medicine refill",
-        task_date:"",
-        task_status:"Completed",
+        task_date:this.medicine_refill_date,
+        task_status:"pending",
         tasks_uuid: this.med_tasks_uuid
       }
     }else{
@@ -572,14 +711,14 @@ if(this.firstFormGroup.get('home_visit_date').value){
       this.thirdFormGroup.get('medicine_plan_other_date').clearValidators();
       this.thirdFormGroup.get('medicine_plan_other_remark').clearValidators();
       this.thirdFormGroup.get('medicine_plan_other_remark').setValue('');
-      this.thirdFormGroup.get('medicine_plan_other_date').setValue('');
+      //this.thirdFormGroup.get('medicine_plan_other_date').setValue('');
       this.med_task_array = [];
       this.medObj = {
         // check1:"",
         // option:45,
         task_remark:"medicine refill",
         task_date:"",
-        task_status:"Completed",
+        task_status:"pending",
         tasks_uuid: this.med_tasks_uuid
       }
     }
@@ -628,6 +767,7 @@ if(this.firstFormGroup.get('home_visit_date').value){
       }
       this.symp_reason_visible = false;
     }
+
     socialClicked(){
       this.domainArray.push(4);
     if(this.domainArray.length == 7){
@@ -635,6 +775,7 @@ if(this.firstFormGroup.get('home_visit_date').value){
     }
       this.symp_reason_visible = false;
     }
+
     selfcareClicked(){
       this.domainArray.push(5);
       if(this.domainArray.length == 7){
@@ -642,13 +783,16 @@ if(this.firstFormGroup.get('home_visit_date').value){
       }
       this.symp_reason_visible = false;
     }
-    occupClicked(){
-      this.domainArray.push(6);
-      if(this.domainArray.length == 7){
-        this.domainValid = true;
-      }
-      this.symp_reason_visible = false;
-    }
+
+    
+    // occupClicked(){
+    //   this.domainArray.push(6);
+    //   if(this.domainArray.length == 8){
+    //     this.domainValid = true;
+    //   }
+    //   this.symp_reason_visible = false;
+    // }
+
     sleepClicked(){
       this.domainArray.push(7);
     if(this.domainArray.length == 7){
@@ -656,11 +800,15 @@ if(this.firstFormGroup.get('home_visit_date').value){
     }
       this.symp_reason_visible = false;
     }
+   workClicked(){
+      this.domainArray.push(8);
+    if(this.domainArray.length == 7){
+      this.domainValid = true;
+    }
+      this.symp_reason_visible = false;
+    }
     onKey2(event) {
       const inputValue = event.target.value;
-      // if(inputValue){
-      // this.rateSymptom = true;
-      // }
       if(inputValue.length > 1){
         this.rateSymptom = true;
         }else{
@@ -671,14 +819,14 @@ if(this.firstFormGroup.get('home_visit_date').value){
     checkTobChange1($event:MatRadioChange){
   
       if ($event.value ==='Yes') {
-      
+      this.tobaccoYesClicked = true;
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').setValidators(Validators.required);
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').updateValueAndValidity();
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_remark').setValidators(Validators.required);
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_remark').updateValueAndValidity();
     
     } else {
-      
+      this.tobaccoYesClicked = false;
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').setValue('');
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').clearValidators();
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').updateValueAndValidity();
@@ -693,19 +841,19 @@ if(this.firstFormGroup.get('home_visit_date').value){
   checkTobChange2($event:MatRadioChange){
      
     if ($event.value ==='Yes') {
-    
-   this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').setValidators(Validators.required);
-   this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').updateValueAndValidity();
-   this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').setValidators(Validators.required);
-   this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').updateValueAndValidity();
-  } else {
-   
-    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').setValue('');
-    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').clearValidators();
+    this.alcoholYesClicked = true;
+    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').setValidators(Validators.required);
     this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').updateValueAndValidity();
-    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').setValue('');
-    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').clearValidators();
+    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').setValidators(Validators.required);
     this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').updateValueAndValidity();
+    } else {
+      this.alcoholYesClicked = false;
+      this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').setValue('');
+      this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').clearValidators();
+      this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').updateValueAndValidity();
+      this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').setValue('');
+      this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').clearValidators();
+      this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_remark').updateValueAndValidity();
     
   }
   
@@ -714,24 +862,25 @@ if(this.firstFormGroup.get('home_visit_date').value){
   checkTobChange3($event:MatRadioChange){
    
   if ($event.value ==='Yes') {
+    this.otherSubYesClicked = true;
+    this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').setValidators(Validators.required);
+    this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').updateValueAndValidity();
+    this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').setValidators(Validators.required);
+    this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').updateValueAndValidity();
+    } else {
+      this.otherSubYesClicked =false;
+    this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').setValue('');
+    this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').clearValidators();
+    this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').updateValueAndValidity();
+    this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').setValue('');
+    this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').clearValidators();
+    this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').updateValueAndValidity();
   
-  this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').setValidators(Validators.required);
-  this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').updateValueAndValidity();
-  this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').setValidators(Validators.required);
-  this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').updateValueAndValidity();
-  } else {
-  
-  this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').setValue('');
-  this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').clearValidators();
-  this.secondFormGroup.controls.OtherUseFormGroup.get('other_amount').updateValueAndValidity();
-  this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').setValue('');
-  this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').clearValidators();
-  this.secondFormGroup.controls.OtherUseFormGroup.get('others_remark').updateValueAndValidity();
-  
-  
-  }
   
   }
+  
+  }
+
   submitStep2(secondFormGroup){
     this.secondFormGroup.value.symtom = this.symptomArray;
     
@@ -743,6 +892,7 @@ if(this.firstFormGroup.get('home_visit_date').value){
       occupation_rate: this.secondFormGroup.get('occupation_rate').value,
       selfcare_rate: this.secondFormGroup.get('selfcare_rate').value,
       sleep_rate: this.secondFormGroup.get('sleep_rate').value,
+      work:this.secondFormGroup.get('work').value,
       social_rate: this.secondFormGroup.get('social_rate').value,
       suspicious_rate: this.secondFormGroup.get('suspicious_rate').value,
       symtom: this.secondFormGroup.value.symtom,
@@ -759,15 +909,13 @@ if(this.firstFormGroup.get('home_visit_date').value){
       
     }
    
+   
     sessionStorage.setItem("step2Home", JSON.stringify(step2Obj));
     this.stepper.next();
   }
 
   onKey3(event) {
     const inputValue = event.target.value;
-    // if(inputValue){
-    // this.compRate= true;
-    // }
     if(inputValue.length > 1){
       this.compRate= true;
       }else{
@@ -776,14 +924,15 @@ if(this.firstFormGroup.get('home_visit_date').value){
     
     
   }
+
   medChange1($event:MatRadioChange){
     if ($event.value ==='Yes') {
-  
+      this.medHelpYesClicked = true;
       this.thirdFormGroup.controls.medFormGroup.get('med_supervisor').setValidators(Validators.required);
       this.thirdFormGroup.controls.medFormGroup.get('med_supervisor').updateValueAndValidity();
      
       } else {
-      
+        this.medHelpYesClicked = false;
       this.thirdFormGroup.controls.medFormGroup.get('med_supervisor').setValue('');
       this.thirdFormGroup.controls.medFormGroup.get('med_supervisor').clearValidators();
       this.thirdFormGroup.controls.medFormGroup.get('med_supervisor').updateValueAndValidity();
@@ -792,7 +941,9 @@ if(this.firstFormGroup.get('home_visit_date').value){
       
       }
   }
+
   submitStep3(thirdFormGroup){
+    this.isDisabled = true;
     let next_visit = "";
     if(this.place_array.length<1){
       next_visit = "Home";
@@ -824,7 +975,6 @@ if(this.firstFormGroup.get('home_visit_date').value){
     let step3Obj = {
       home_compliance_rate:this.thirdFormGroup.get('home_compliance_rate').value,
       comp_reason:this.thirdFormGroup.get('comp_reason').value,
-      // symptom_rate:this.thirdFormGroup.get('symptom').value,
       med_supervised: this.thirdFormGroup.controls.medFormGroup.get('med_supervised').value,
       med_supervisor:this.thirdFormGroup.controls.medFormGroup.get('med_supervisor').value,
       missed_visit_reason:this.thirdFormGroup.get('missed_visit_reason').value,
@@ -834,29 +984,24 @@ if(this.firstFormGroup.get('home_visit_date').value){
       medicine_plan_other_remark:this.thirdFormGroup.get('medicine_plan_other_remark').value,
       medicine_plan_remark:this.thirdFormGroup.get('medicine_plan_remark').value,
       med_plan:this.med_plan
-     // next_visit_plan: this.thirdFormGroup.get('next_visit_plan').value,
+    
     }
     
-    //to save the follow-up date in dd-mm-yyyy format
+   
     if(this.thirdFormGroup.get('next_visit_date').value){
-      // let next_date = this.thirdFormGroup.get('next_visit_date').value;
-      // let date = ("0" + next_date.getDate()).slice(-2);
-      // let month = ("0" + (next_date.getMonth() + 1)).slice(-2);
-      // let year =next_date.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      //follow_up_date = this.dateToday;
+      
       follow_up_date = this.thirdFormGroup.get('next_visit_date').value;
     }
 
 
     if(this.thirdFormGroup.get('medicine_plan_other_date').value != ""){
-      // let next_date = this.thirdFormGroup.get('medicine_plan_other_date').value;
-      // let date = ("0" + next_date.getDate()).slice(-2);
-      // let month = ("0" + (next_date.getMonth() + 1)).slice(-2);
-      // let year =next_date.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let medicine_plan_other_date1 = this.dateToday;
+      
       this.medObj.task_date = this.thirdFormGroup.get('medicine_plan_other_date').value;
+    }else{
+       //for completed medicine refill task there is no next due date, so in the dashboard under completed tasks,
+      //medicine refill task due date shows a date by default(like 01-01-1970)
+      //this.medObj.task_date =new Date();
+      this.medObj.task_date =this.medicine_refill_date;
     }
      
     this.med_task_array.push(this.medObj);
@@ -886,9 +1031,8 @@ if(this.firstFormGroup.get('home_visit_date').value){
                 cssClass: 'alertButton2',
                 handler: () => {
   
-               // location.reload();
-               this.offlineManager.checkForEvents().subscribe();
-               //this.router.navigate(['patient-details']);
+             
+               //this.offlineManager.checkForEvents().subscribe();
                this.displayLoader();
                setTimeout(()=>{
                 this.dismissLoader();

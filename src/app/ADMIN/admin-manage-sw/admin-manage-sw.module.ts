@@ -20,6 +20,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {ReactiveFormsModule} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -39,6 +40,7 @@ import { MatMenuModule } from '@angular/material/menu';
     ReactiveFormsModule,
     MatInputModule,
     MatMenuModule,
+    MatProgressSpinnerModule
    
     
   ],

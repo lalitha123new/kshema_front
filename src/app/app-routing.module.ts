@@ -89,14 +89,6 @@ const routes: Routes = [
     loadChildren: () => import('./SOCIAL_wORKER/all-patients/all-patients.module').then( m => m.AllPatientsPageModule)
   },
   {
-    path: 'send-message',
-    loadChildren: () => import('./SUPERVISOR/send-message/send-message.module').then( m => m.SendMessagePageModule)
-  },
-  {
-    path: 'patients',
-    loadChildren: () => import('./SUPERVISOR/patients/patients.module').then( m => m.PatientsPageModule)
-  },
-  {
     path: 'edit-patient',
     loadChildren: () => import('./SOCIAL_wORKER/edit-patient/edit-patient.module').then( m => m.EditPatientPageModule)
   },
@@ -117,20 +109,16 @@ const routes: Routes = [
     loadChildren: () => import('./SOCIAL_wORKER/notes/notes.module').then( m => m.NotesPageModule)
   },
   {
-    path: 'super-notes',
-    loadChildren: () => import('./SUPERVISOR/super-notes/super-notes.module').then( m => m.SuperNotesPageModule)
-  },
-  {
-    path: 'patient-history',
-    loadChildren: () => import('./SUPERVISOR/patient-history/patient-history.module').then( m => m.PatientHistoryPageModule)
-  },
-  {
     path: 'newpass',
     loadChildren: () => import('./newpass/newpass.module').then( m => m.NewpassPageModule)
   },
   {
     path: 'newusername',
     loadChildren: () => import('./newusername/newusername.module').then( m => m.NewusernamePageModule)
+  },
+  {
+    path: 'task-history',
+    loadChildren: () => import('./SOCIAL_wORKER/task-history/task-history.module').then( m => m.TaskHistoryPageModule)
   },
  
  

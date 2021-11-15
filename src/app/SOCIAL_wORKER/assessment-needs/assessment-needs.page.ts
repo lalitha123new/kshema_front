@@ -22,8 +22,8 @@ interface tobacco_options{
   styleUrls: ['./assessment-needs.page.scss'],
 })
 export class AssessmentNeedsPage implements OnInit {
+
   dataReturned: any;
- 
   patient_id;
   patient_uuid;
   kshema_id;
@@ -39,9 +39,12 @@ export class AssessmentNeedsPage implements OnInit {
   asha;
   psw_incharge;
 
-  constructor(private _formBuilder: FormBuilder,private router: Router,
-    private patientService: PatientService,private loadingCtrl: LoadingController,
-    public alertController: AlertController,private offlineManager : OfflineManagerService) { }
+  constructor(private _formBuilder: FormBuilder,
+    private router: Router,
+    private patientService: PatientService,
+    private loadingCtrl: LoadingController,
+    public alertController: AlertController,
+    private offlineManager : OfflineManagerService) { }
 
   assessmentFormGroup: any;
   skillFormGroup:any;
@@ -53,9 +56,13 @@ export class AssessmentNeedsPage implements OnInit {
   communityFormGroup:any;
   communityYesSelected: Boolean = false;
   dailyFormGroup:any;
+  dailyYesSelected:Boolean = false;
   houseFormGroup:any;
+  houseYesSelected:Boolean = false;
   financeFormGroup:any;
+  financeYesSelected:Boolean = false;
   otherHelpFormGroup:any;
+  otherYesSelected:Boolean = false;
 
   patObject = {
     description:'',
@@ -78,7 +85,8 @@ export class AssessmentNeedsPage implements OnInit {
 
 
   };
-
+  showSpinner = false;
+  isDisabled = false;
   
   
 
@@ -124,18 +132,82 @@ export class AssessmentNeedsPage implements OnInit {
 
 
   ionViewWillEnter() {
-
+    this.isDisabled = false;
+    for(var i=0;i<this.tobaccooptionsArray1.length;i++){
+      this.tobaccooptionsArray1[i].checked = false;
+    }
+    for(var i=0;i<this.tobaccooptionsArray2.length;i++){
+     this.tobaccooptionsArray2[i].checked = false;
+   }
+   for(var i=0;i<this.tobaccooptionsArray3.length;i++){
+     this.tobaccooptionsArray3[i].checked = false;
+   }
+   for(var i=0;i<this.tobaccooptionsArray4.length;i++){
+     this.tobaccooptionsArray4[i].checked = false;
+   }
+   for(var i=0;i<this.tobaccooptionsArray5.length;i++){
+    this.tobaccooptionsArray5[i].checked = false;
+  }
+  for(var i=0;i<this.tobaccooptionsArray6.length;i++){
+    this.tobaccooptionsArray6[i].checked = false;
+  }
+  for(var i=0;i<this.tobaccooptionsArray7.length;i++){
+    this.tobaccooptionsArray7[i].checked = false;
+  }
+  for(var i=0;i<this.tobaccooptionsArray8.length;i++){
+    this.tobaccooptionsArray8[i].checked = false;
+  }
+    this.assessmentFormGroup = this._formBuilder.group({
+      description:new FormControl(this.patObject.description,[]),
+      skillFormGroup:new FormGroup({
+      skill:new FormControl(this.patObject.skill,[] ),
+      skill_yes:new FormControl(this.patObject.skill_yes),
+    }),
+    jobFormGroup:new FormGroup({
+      job:new FormControl(this.patObject.job,[]),
+      job_yes:new FormControl(this.patObject.job_yes),
+    }),
+    interestActFormGroup:new FormGroup({
+      interest_act:new FormControl(this.patObject.interest_act, []),
+      interest_act_yes:new FormControl(this.patObject.interest_act_yes),
+    }),
+    communityFormGroup:new FormGroup({
+      community:new FormControl(this.patObject.community, []),
+      community_yes:new FormControl(this.patObject.community_yes),
+    }),
+  
+    dailyFormGroup:new FormGroup({
+      daily:new FormControl(this.patObject.daily, []),
+      daily_yes:new FormControl(this.patObject.daily_yes),
+    }),
+    houseFormGroup:new FormGroup({
+      house:new FormControl(this.patObject.house, []),
+      house_yes:new FormControl(this.patObject.house_yes),
+    }),
+    financeFormGroup:new FormGroup({
+      finance:new FormControl(this.patObject.finance, []),
+      finance_yes:new FormControl(this.patObject.finance_yes),
+    }),
+    otherHelpFormGroup:new FormGroup({
+      other_help:new FormControl(this.patObject.other_help, []),
+      other_help_yes:new FormControl(this.patObject.other_help_yes),
+    }),
+    })
+   
+  
+    this.showSpinner = true;
     this.user_name = sessionStorage.getItem("user_name");
     this.patient_id =  sessionStorage.getItem('patient_id');
     this.patient_uuid =  sessionStorage.getItem('patient_uuid');
     this.getPatientAssessment();
+   
   
   }
 
   getPatientAssessment(){
 
     this.patientService.fetchPatient(this.patient_uuid).then((res) => {
-
+      this.showSpinner = false;
       this.kshema_id = res[0].kshema_id;
       this.name = res[0].name;
       this.demo = JSON.parse(res[0].demographic_info);
@@ -213,6 +285,7 @@ export class AssessmentNeedsPage implements OnInit {
       this.tobaccooptionsArray3[0].checked = false;
       this.tobaccooptionsArray3[1].checked = false;
     }
+
     if(assessData.community == "Yes"){
       this.tobaccooptionsArray4[0].checked = true;
       this.assessmentFormGroup.controls.communityFormGroup.get('community').setValue(assessData.community);
@@ -313,7 +386,7 @@ redirectTo(x){
 
 
   submitAssessment(assessmentFormGroup){
-   
+    this.isDisabled = true;
     let thirdObj = {
     
       add_help:this.assessmentFormGroup.get('description').value,
@@ -353,8 +426,7 @@ redirectTo(x){
             cssClass: 'alertButton2',
             handler: () => {
            
-             this.offlineManager.checkForEvents().subscribe();
-             //this.router.navigate(['patient-details']);
+             //this.offlineManager.checkForEvents().subscribe();
              this.displayLoader();
              setTimeout(()=>{
               this.dismissLoader();
@@ -378,9 +450,6 @@ redirectTo(x){
         });
   
   }
-
-
- 
 
   
   tobaccooptionsArray1: tobacco_options[] = [
@@ -485,11 +554,11 @@ redirectTo(x){
 
   checkDailyChange($event:MatRadioChange){
     if ($event.value ==='Yes') {
-     // this.communityYesSelected = true;
+      this.dailyYesSelected = true;
      this.assessmentFormGroup.controls.dailyFormGroup.get('daily_yes').setValidators(Validators.required);
      this.assessmentFormGroup.controls.dailyFormGroup.get('daily_yes').updateValueAndValidity();
     } else {
-     // this.communityYesSelected = false;
+      this.dailyYesSelected = false;
      this.assessmentFormGroup.controls.dailyFormGroup.get('daily_yes').setValue('');
       this.assessmentFormGroup.controls.dailyFormGroup.get('daily_yes').clearValidators();
       this.assessmentFormGroup.controls.dailyFormGroup.get('daily_yes').updateValueAndValidity();
@@ -500,11 +569,11 @@ redirectTo(x){
 
   checkHouseChange($event:MatRadioChange){
     if ($event.value ==='Yes') {
-     // this.communityYesSelected = true;
+      this.houseYesSelected = true;
      this.assessmentFormGroup.controls.houseFormGroup.get('house_yes').setValidators(Validators.required);
      this.assessmentFormGroup.controls.houseFormGroup.get('house_yes').updateValueAndValidity();
     } else {
-     // this.communityYesSelected = false;
+      this.houseYesSelected = false;
      this.assessmentFormGroup.controls.houseFormGroup.get('house_yes').setValue('');
       this.assessmentFormGroup.controls.houseFormGroup.get('house_yes').clearValidators();
       this.assessmentFormGroup.controls.houseFormGroup.get('house_yes').updateValueAndValidity();
@@ -515,11 +584,11 @@ redirectTo(x){
 
   checkFinanceChange($event:MatRadioChange){
     if ($event.value ==='Yes') {
-     // this.communityYesSelected = true;
+     this.financeYesSelected = true;
      this.assessmentFormGroup.controls.financeFormGroup.get('finance_yes').setValidators(Validators.required);
      this.assessmentFormGroup.controls.financeFormGroup.get('finance_yes').updateValueAndValidity();
     } else {
-     // this.communityYesSelected = false;
+      this.financeYesSelected = false;
      this.assessmentFormGroup.controls.financeFormGroup.get('finance_yes').setValue('');
       this.assessmentFormGroup.controls.financeFormGroup.get('finance_yes').clearValidators();
       this.assessmentFormGroup.controls.financeFormGroup.get('finance_yes').updateValueAndValidity();
@@ -527,13 +596,14 @@ redirectTo(x){
     }
 
   }
+
   checkOtherChange($event:MatRadioChange){
     if ($event.value ==='Yes') {
-     // this.communityYesSelected = true;
+     this.otherYesSelected = true;
      this.assessmentFormGroup.controls.otherHelpFormGroup.get('other_help_yes').setValidators(Validators.required);
      this.assessmentFormGroup.controls.otherHelpFormGroup.get('other_help_yes').updateValueAndValidity();
     } else {
-     // this.communityYesSelected = false;
+      this.otherYesSelected = false;
      this.assessmentFormGroup.controls.otherHelpFormGroup.get('other_help_yes').setValue('');
       this.assessmentFormGroup.controls.otherHelpFormGroup.get('other_help_yes').clearValidators();
       this.assessmentFormGroup.controls.otherHelpFormGroup.get('other_help_yes').updateValueAndValidity();
@@ -549,6 +619,7 @@ redirectTo(x){
       response.present();
   });
   }
+  
   dismissLoader(){
     this.loadingCtrl.dismiss().then((response) => {
       console.log('Loader closed!', response);

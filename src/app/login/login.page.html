@@ -29,9 +29,9 @@
                 <h1 color=black class="sub_header_font3 common_font">Log in to Portal</h1>
               </ion-row>
               <ion-row >
-                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': isValue == 1, 'toggleWhite': isValue != 1 }" (click)="toggle1(1)">Admin</button>
-                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': isValue == 2, 'toggleWhite': isValue != 2 }" (click)="toggle1(2)">Supervisor</button>
-                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': isValue == 3, 'toggleWhite': isValue != 3 }" (click)="toggle1(3)">Social Worker</button>
+                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': defaultValue == 1, 'toggleWhite': defaultValue != 1 }" (click)="toggle1(1)">Admin</button>
+                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': defaultValue == 2, 'toggleWhite': defaultValue != 2 }" (click)="toggle1(2)">Supervisor</button>
+                <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': defaultValue == 3, 'toggleWhite': defaultValue != 3 }" (click)="toggle1(3)">Social Worker</button>
                   
               </ion-row>
               <ion-row class="ion-padding-top">

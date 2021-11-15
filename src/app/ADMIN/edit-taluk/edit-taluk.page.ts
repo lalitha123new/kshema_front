@@ -33,6 +33,8 @@ export class EditTalukPage implements OnInit {
    group_array:any;
    supervisorId;
    selectedSuper;
+   showSpinner = false;
+   isDisabled = false;
 
   ngOnInit() {
     this.editTalukform1 =new FormGroup({
@@ -43,6 +45,8 @@ export class EditTalukPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.isDisabled = false;
+    this.showSpinner = true;
     this.supervisorId;
     this.taluka_id = sessionStorage.getItem("taluka_id");
     
@@ -63,31 +67,27 @@ export class EditTalukPage implements OnInit {
   }
   
   editTaluk(form1){
-   
+    this.isDisabled = true;
     let edittaluakObj = {
       "taluka_name":this.editTalukform1.get('taluk').value,
       "taluka_details": this.editTalukform1.get('district').value,
-      //supervisor:this.editTalukform1.get('supervisor').value,
+     
     }
     
-    this.serverService.editTaluk(edittaluakObj,this.taluka_id,this.selectedSuper)
-    .subscribe(
-    data  => {
-      //window.location.reload();
+    this.serverService.editTaluk(edittaluakObj,this.taluka_id,this.selectedSuper).subscribe(data  => {
+     
       this.router.navigate(['admin-manage-taluk']);
     },
     error  => {
       console.log(error);
-      //window.location.reload();
+     
       this.router.navigate(['admin-manage-taluk']);
     });
   }
 
   getTalukDetails(){
-    this.serverService.getTaluka(this.taluka_id)
-    .subscribe(
-    data  => {
-     
+    this.serverService.getTaluka(this.taluka_id).subscribe(data  => {
+      this.showSpinner = false;
       this.taluk_data = data;
        //replace this data with the REST call data
       this.editTalukform1.get('district').setValue(this.taluk_data[0].taluka_details);
@@ -103,8 +103,7 @@ export class EditTalukPage implements OnInit {
   //to get all supervisors
 getAllSupervisors(){
     
-  this.serverService.getSupervisors()
-.subscribe(data  => {
+  this.serverService.getSupervisors().subscribe(data  => {
 
     this.supervisor_array = data;
 

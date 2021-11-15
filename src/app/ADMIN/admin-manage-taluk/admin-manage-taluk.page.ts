@@ -29,7 +29,7 @@ export class AdminManageTalukPage implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,private router: Router,private serverService: ServerService) { }
-
+  showSpinner = false;
   ngOnInit() {
     
     this.form =new FormGroup({
@@ -40,7 +40,7 @@ export class AdminManageTalukPage implements OnInit {
 
   
   ionViewWillEnter() {
-  
+    this. showSpinner = true;
     this.taluka_supervisor_array = [];
     this.psw_array = [];
     this.taluk_array = [];
@@ -57,11 +57,11 @@ export class AdminManageTalukPage implements OnInit {
 
    });
  
- 
-  this.taluka_supervisor_array = taluk_array_first[0].taluka_supervisor;
-  this.psw_array = taluk_array_first[0].social_worker;
-  this.group_array = taluk_array_first[0].group_data;
-  this.supervisor_array = taluk_array_first[0].supervisor;
+    this. showSpinner = false;
+    this.taluka_supervisor_array = taluk_array_first[0].taluka_supervisor;
+    this.psw_array = taluk_array_first[0].social_worker;
+    this.group_array = taluk_array_first[0].group_data;
+    this.supervisor_array = taluk_array_first[0].supervisor;
 
    
      
@@ -77,7 +77,6 @@ export class AdminManageTalukPage implements OnInit {
 
      for(var m =0;m<this.group_array.length;m++){
        
-     // taluk_array_first[0].taluka_master[i].supervisors = this.group_array.filter((obj) => obj.taluka_id === taluk_array_first[0].taluka_master[i].taluka_master_id).length;
      if( taluk_array_first[0].taluka_master[i].taluka_master_id == this.group_array[m].taluka_id ){
        if(this.group_array[m].supervisor_id != 0){
      taluk_array_first[0].taluka_master[i].supervisors = 1;

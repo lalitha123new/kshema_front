@@ -24,11 +24,9 @@ export class AdminHeaderComponent implements OnInit {
   logout(){
  
     this.router.navigate(['']);
+   
+   
     
   }
- 
-  // ngAfterViewInit(){
-
-  // }
 
 }

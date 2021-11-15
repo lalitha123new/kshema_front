@@ -102,7 +102,7 @@ export class SupervisorDashboardPage implements OnInit {
   group_data;
   group_data1;
   user_id;
- 
+  showSpinner = false;
 
 
   ngOnInit() {
@@ -113,11 +113,13 @@ export class SupervisorDashboardPage implements OnInit {
     let year = this.date_today.getFullYear();
     this.dateToday = date + "/" + month + "/" + year;
     this.day = this.days[this.date_today.getDay()];
-    this.getAllPSWs();
+    //this.getAllPSWs();
+    this.getAllTalukasPswsTalukasupervisors();
   }
  
 
   ionViewWillEnter() {
+    this. showSpinner = true;
    this.sw_total = 0;
    this.group_data_array = [];
     this.group_data = sessionStorage.getItem("group_data");
@@ -171,6 +173,15 @@ export class SupervisorDashboardPage implements OnInit {
    
     
   }
+  async getAllTalukasPswsTalukasupervisors(){
+    let taluk_array_first :any;
+    let test = await this.serverService.getAllTalukasPswsTalukasupervisors().toPromise().then(result3 => {
+     
+      taluk_array_first=result3;
+
+   });
+   this.psw_array = taluk_array_first[0].social_worker;
+  }
   //to get all psws
  async getAllPSWs(){
   let psw_array_first :any;
@@ -193,7 +204,7 @@ export class SupervisorDashboardPage implements OnInit {
 
  });
   
-   console.log(group_array_first)
+ 
     
      this.group_data_array = group_array_first;
      this.sw_total = this.group_data_array.filter(function(item){
@@ -560,7 +571,7 @@ export class SupervisorDashboardPage implements OnInit {
     today_visit_array_first=result5;
 
  });
-    
+    this. showSpinner = false;
     this.visit_number_array = [];
    
    
@@ -590,12 +601,12 @@ export class SupervisorDashboardPage implements OnInit {
           this.data_res3[k].patient_uuid = this.data_res3[k].patientObj.patient_uuid;
           this.data_res3[k].task =  this.data_res3[k].clinical_visits.visit_type;
         
-          this.data_res3[k].due_date1 =  new Date(this.data_res3[k].clinical_visits.followup_date);
+          this.data_res3[k].due_date =  new Date(this.data_res3[k].clinical_visits.followup_date);
         
-          let date = ("0" + this.data_res3[k].due_date1.getDate()).slice(-2);
-          let month = ("0" + (this.data_res3[k].due_date1.getMonth() + 1)).slice(-2);
-          let year =this.data_res3[k].due_date1.getFullYear();
-          this.data_res3[k].due_date = date + "-" + month + "-" + year;
+          // let date = ("0" + this.data_res3[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res3[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res3[k].due_date1.getFullYear();
+          // this.data_res3[k].due_date = date + "-" + month + "-" + year;
          
           let demo = (this.data_res3[k].patientObj);
           let demo1= JSON.parse(demo.demographic_info);
@@ -679,6 +690,7 @@ export class SupervisorDashboardPage implements OnInit {
        
         let res2 = [];
         this.patientArray = data2;
+        console.log(data2)
         //res2 = data2;
         array2 = data2;
 
@@ -756,7 +768,45 @@ export class SupervisorDashboardPage implements OnInit {
           }else{
             this.data_res4[k].task = "Medicine Refill";
           }
-          this.data_res4[k].due_date =  this.data_res4[k].tasks.task_due_date;
+          
+          //new date display
+          // let date_array = [];
+          // date_array = this.data_res4[k].tasks.task_due_date.split('-');
+          // let month:any;
+          // if(date_array[1] == "09"){
+          //   month =  "Sept"
+          // }
+          // console.log(date_array[2]+"-"+date_array[1]+month+"-"+date_array[0]);
+          // console.log(date_array[2]+"-"+month+"-"+date_array[0])
+          // console.log(new Date())
+          // this.data_res4[k].due_date1 = this.data_res4[k].tasks.task_due_date;
+       
+          //  let date_array = [];
+          // date_array = this.data_res4[k].due_date1.split('-');
+          // let month:any;
+          // if(date_array[1] == "09"){
+          //   month =  "Sept"
+          // }
+          // console.log(date_array[2]+"-"+date_array[1]+month+"-"+date_array[0]);
+          // console.log(date_array[2]+"-"+month+"-"+date_array[0])
+          // console.log(new Date())
+         
+          // let date_array1 = [];
+         this.data_res4[k].due_date =  new Date(this.data_res4[k].tasks.task_due_date);
+        //  this.data_res4[k].due_date1 =  new Date(this.data_res4[k].tasks.task_due_date);
+         //console.log(this.data_res4[k].due_date1.split(' '));
+         //date_array1 = this.data_res4[k].due_date1.split(' ');
+          let month1:any;
+         //console.log(date_array1)
+        
+          // let date = ("0" + this.data_res4[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res4[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res4[k].due_date1.getFullYear();
+          // this.data_res4[k].due_date = date + "-" + month + "-" + year;
+          //this.data_res4[k].due_date = date_array[2]+"-"+date_array[1]+month+"-"+date_array[0];
+
+          //this.data_res4[k].due_date =  this.data_res4[k].due_date;
+         
          
           let demo = (this.data_res4[k].patientObj);
           let demo1= JSON.parse(demo.demographic_info);
@@ -881,11 +931,11 @@ export class SupervisorDashboardPage implements OnInit {
           this.data_res2[k].name = this.data_res2[k].patientObj.name;
           this.data_res2[k].patient_uuid = this.data_res2[k].patientObj.patient_uuid;
           this.data_res2[k].task =  this.data_res2[k].clinical_visits.visit_type;
-          this.data_res2[k].due_date1 =  new Date(this.data_res2[k].clinical_visits.followup_date);
-          let date = ("0" + this.data_res2[k].due_date1.getDate()).slice(-2);
-          let month = ("0" + (this.data_res2[k].due_date1.getMonth() + 1)).slice(-2);
-          let year =this.data_res2[k].due_date1.getFullYear();
-          this.data_res2[k].due_date = date + "-" + month + "-" + year;
+          this.data_res2[k].due_date =  new Date(this.data_res2[k].clinical_visits.followup_date);
+          // let date = ("0" + this.data_res2[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res2[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res2[k].due_date1.getFullYear();
+          // this.data_res2[k].due_date = date + "-" + month + "-" + year;
          
           let demo = (this.data_res2[k].patientObj);
           let demo1= JSON.parse(demo.demographic_info);
@@ -1071,13 +1121,13 @@ export class SupervisorDashboardPage implements OnInit {
           }else{
             this.data_res5[k].task = "Medicine Refill";
           }
-          this.data_res5[k].due_date1 =  new Date(this.data_res5[k].task_due_date);
+          this.data_res5[k].due_date =  new Date(this.data_res5[k].task_due_date);
          
         
-          let date = ("0" + this.data_res5[k].due_date1.getDate()).slice(-2);
-          let month = ("0" + (this.data_res5[k].due_date1.getMonth() + 1)).slice(-2);
-          let year =this.data_res5[k].due_date1.getFullYear();
-          this.data_res5[k].due_date = date + "-" + month + "-" + year;
+          // let date = ("0" + this.data_res5[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res5[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res5[k].due_date1.getFullYear();
+          // this.data_res5[k].due_date = date + "-" + month + "-" + year;
          
          // let demo = (this.data_res5[k].patientObj);
          // let demo1= demo.demographic_info;
@@ -1180,12 +1230,12 @@ export class SupervisorDashboardPage implements OnInit {
           this.data_res5a[k].name = this.data_res5a[k].patientObj.name;
           this.data_res5a[k].patient_uuid = this.data_res5a[k].patientObj.patient_uuid;
           this.data_res5a[k].task =  this.data_res5a[k].clinical_visits.visit_type;
-          this.data_res5a[k].due_date1 =  new Date(this.data_res5a[k].clinical_visits.followup_date);
+          this.data_res5a[k].due_date =  new Date(this.data_res5a[k].clinical_visits.followup_date);
         
-          let date = ("0" + this.data_res5a[k].due_date1.getDate()).slice(-2);
-          let month = ("0" + (this.data_res5a[k].due_date1.getMonth() + 1)).slice(-2);
-          let year =this.data_res5a[k].due_date1.getFullYear();
-          this.data_res5a[k].due_date = date + "-" + month + "-" + year;
+          // let date = ("0" + this.data_res5a[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res5a[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res5a[k].due_date1.getFullYear();
+          // this.data_res5a[k].due_date = date + "-" + month + "-" + year;
          
           let demo = (this.data_res5a[k].patientObj);
           let demo1= JSON.parse(demo.demographic_info);
@@ -1392,13 +1442,13 @@ export class SupervisorDashboardPage implements OnInit {
             this.data_res6[k].task = "Medicine Refill";
           }
         
-          this.data_res6[k].due_date1 =  new Date(this.data_res6[k].task_due_date);
+          this.data_res6[k].due_date =  new Date(this.data_res6[k].task_due_date);
          
         
-          let date = ("0" + this.data_res6[k].due_date1.getDate()).slice(-2);
-          let month = ("0" + (this.data_res6[k].due_date1.getMonth() + 1)).slice(-2);
-          let year =this.data_res6[k].due_date1.getFullYear();
-          this.data_res6[k].due_date = date + "-" + month + "-" + year;
+          // let date = ("0" + this.data_res6[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res6[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res6[k].due_date1.getFullYear();
+          // this.data_res6[k].due_date = date + "-" + month + "-" + year;
          
           //let demo = (this.data_res6[k].patientObj);
           let demo1= JSON.parse(this.data_res6[k].demographic_info);
@@ -1572,11 +1622,11 @@ export class SupervisorDashboardPage implements OnInit {
           }else{
             this.data_res10[k].task = "Medicine Refill";
           }
-          this.data_res10[k].due_date1 =  new Date(this.data_res10[k].tasks.task_due_date);
-          let date = ("0" + this.data_res10[k].due_date1.getDate()).slice(-2);
-          let month = ("0" + (this.data_res10[k].due_date1.getMonth() + 1)).slice(-2);
-          let year =this.data_res10[k].due_date1.getFullYear();
-          this.data_res10[k].due_date = date + "-" + month + "-" + year;
+          this.data_res10[k].due_date =  new Date(this.data_res10[k].tasks.task_due_date);
+          // let date = ("0" + this.data_res10[k].due_date1.getDate()).slice(-2);
+          // let month = ("0" + (this.data_res10[k].due_date1.getMonth() + 1)).slice(-2);
+          // let year =this.data_res10[k].due_date1.getFullYear();
+          // this.data_res10[k].due_date = date + "-" + month + "-" + year;
          
           let demo = (this.data_res10[k].patientObj);
           let demo1= JSON.parse(demo.demographic_info);
@@ -1653,10 +1703,10 @@ export class SupervisorDashboardPage implements OnInit {
 
  //redirect to the patient page
   patientDetails(n,group_data_id){
-  
+ 
     sessionStorage.setItem("patient_uuid",n);
     sessionStorage.setItem("group_id",group_data_id);
-    this.router.navigate(['send-message']);
+    this.router.navigate(['patient-details']);
     this.today_action =  true;
       this.upcoming = false;
       this.overdue = false;

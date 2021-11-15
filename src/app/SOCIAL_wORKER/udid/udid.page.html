@@ -15,7 +15,7 @@
         </ion-col>
         <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
-            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
               <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
                 cached
@@ -104,6 +104,12 @@
 
           </ion-row>
 
+          <div class="overlay-spinner" *ngIf="showSpinner">
+        <div class="center-spinner">
+      <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+      </div>
+          </div>
+
           <ion-row class="ion-padding-top ion-padding-bottom">
             <ion-title class="text_color1 ion-padding-top">UDID Application</ion-title> 
         </ion-row>
@@ -126,7 +132,7 @@
                     <ion-row class="ion-padding-top">
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                      <mat-label class='label_class2' style="margin-left: 16px;;">Upload UDID details</mat-label>
+                      <mat-label class='label_class2' style="margin-left: 16px;;">Upload UDID details<span class="red">*</span></mat-label>
                       <mat-radio-group  name="udid_details_first" formControlName="udid_details_first">
                   
                         <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -137,14 +143,15 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <input matInput  placeholder="Remark" maxlength="75" name="remarks_first" formControlName="remarks_first" class="place_holder_text">
+                            <mat-label>Remark<span class="red">*</span></mat-label>
+                            <input matInput  maxlength="75" name="remarks_first" formControlName="remarks_first" class="place_holder_text">
                           </mat-form-field>
                         </ion-col>
                         </ion-row>
                       </ion-col>
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" [hidden]="uploadYes">
                         <ion-row>
-                          <ion-title class="label_class2">Next review of UDID form</ion-title>
+                          <ion-title class="label_class2">Next review of UDID form<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -161,12 +168,12 @@
                       <ion-row [hidden]="!uploadYes">
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Date of completed application</ion-title>
+                            <ion-title class="label_class2">Date of completed application<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
                               <mat-label class="place_holder_text">Date</mat-label>
-                              <input matInput [matDatepicker]="picker90" readonly name="completed_date_first" formControlName='completed_date_first'>
+                              <input matInput [matDatepicker]="picker90" readonly name="completed_date_first" formControlName="completed_date_first">
                               <mat-datepicker-toggle matSuffix [for]="picker90"></mat-datepicker-toggle>
                               <mat-datepicker #picker90></mat-datepicker>
                             </mat-form-field>
@@ -174,7 +181,7 @@
                         </ion-col>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Acknowledgement Number</ion-title>
+                            <ion-title class="label_class2">Acknowledgement Number<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -190,7 +197,7 @@
                   <div class="button_align_class">
                     <ion-button  class="button_text_normal" class="default_bg" (click)="previous1()"><span style='text-transform: none !important;'>Previous</span></ion-button>
                     <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!secondFormGroup.valid">Save & Next</ion-button> -->
-                    <ion-button  class="button_text_normal" class="background" (click)="submitStep1(firstFormGroup)" [disabled]="!firstFormGroup.valid"><span style='text-transform: none !important;'>Save & Next</span></ion-button>
+                    <ion-button  class="button_text_normal" class="background" (click)="submitStep1(firstFormGroup)" [disabled]="!firstFormGroup.valid || isDisabled" type="submit"><span style='text-transform: none !important;'>Save & Next</span></ion-button>
                   </div>
                         
       
@@ -207,7 +214,7 @@
                     <ion-row class="ion-padding-top">
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                      <mat-label class="label_class2" style="margin-left: 16px;;">Upload UDID details</mat-label>
+                      <mat-label class="label_class2" style="margin-left: 16px;;">Upload UDID details<span class="red">*</span></mat-label>
                       <mat-radio-group  name="udid_details_1week" formControlName="udid_details_1week">
                   
                         <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -218,7 +225,8 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <input matInput  placeholder="Remark" maxlength="75" name="remarks_1week" formControlName="remarks_1week" class="place_holder_text">
+                            <mat-label>Reamrk<span class="red">*</span></mat-label>
+                            <input matInput maxlength="75" name="remarks_1week" formControlName="remarks_1week" class="place_holder_text">
                           </mat-form-field>
                         </ion-col>
                         </ion-row>
@@ -229,7 +237,7 @@
                       <ion-row>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Date of completed application</ion-title>
+                            <ion-title class="label_class2">Date of completed application<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -242,7 +250,7 @@
                         </ion-col>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Acknowledgement Number</ion-title>
+                            <ion-title class="label_class2">Acknowledgement Number<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -259,7 +267,7 @@
                     <ion-row>
                       <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class2">Check whether the data/time has been given</ion-title>
+                          <ion-title class="label_class2">Check whether the data/time has been given<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-radio-group  name="date_time_1week" formControlName='date_time_1week'>
@@ -275,7 +283,7 @@
                     <ion-row [hidden]="!dateYes">
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                          <ion-title class="label_class2">Date & time of appoinment</ion-title>
+                          <ion-title class="label_class2">Date & time of appoinment<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -291,7 +299,7 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <ion-row>
-                              <ion-title class="label_class2"><span class="wrap-mat-check-label">Place of verification/medical authority the person must appear before</span></ion-title>
+                              <ion-title class="label_class2"><span class="wrap-mat-check-label">Place of verification/medical authority the person must appear before</span><span class="red">*</span></ion-title>
                             </ion-row>
                             <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -315,7 +323,7 @@
                   <div class="button_align_class">
                     <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform: none !important">Previous</span></ion-button>
                     <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid">Save & Next</ion-button>   -->
-                    <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!secondFormGroup.valid"><span style="text-transform: none !important">Save & Next</span></ion-button>  
+                    <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)" [disabled]="!secondFormGroup.valid || isDisabled" type="submit"><span style="text-transform: none !important">Save & Next</span></ion-button>  
                   </div>
       
                 </form>
@@ -330,7 +338,7 @@
                     <ion-row class="ion-padding-top">
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                      <mat-label class="label_class2" style="margin-left: 16px;;">Upload UDID details</mat-label>
+                      <mat-label class="label_class2" style="margin-left: 16px;;">Upload UDID details<span class="red">*</span></mat-label>
                       <mat-radio-group  name="udid_details_2days" formControlName="udid_details_2days">
                   
                         <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -341,7 +349,8 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <input matInput  placeholder="Remark" maxlength="75" name="remarks_2days" formControlName="remarks_2days" class="place_holder_text">
+                            <mat-label>Remark<span class="red">*</span></mat-label>
+                            <input matInput maxlength="75" name="remarks_2days" formControlName="remarks_2days" class="place_holder_text">
                           </mat-form-field>
                         </ion-col>
                         </ion-row>
@@ -352,7 +361,7 @@
                       <ion-row>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Date of completed application</ion-title>
+                            <ion-title class="label_class2">Date of completed application<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -365,7 +374,7 @@
                         </ion-col>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Acknowledgement Number</ion-title>
+                            <ion-title class="label_class2">Acknowledgement Number<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -382,7 +391,7 @@
                     <ion-row class="ion-padding-top">
                       <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                          <ion-title class="label_class2">Check whether the data/time has been given</ion-title>
+                          <ion-title class="label_class2">Check whether the data/time has been given<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-radio-group  name="date_time_2days" formControlName="date_time_2days">
@@ -398,7 +407,7 @@
                     <ion-row>
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                          <ion-title class="label_class2">Date & time of appoinment</ion-title>
+                          <ion-title class="label_class2">Date & time of appoinment<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -414,7 +423,7 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <ion-row>
-                              <ion-title class="label_class2"><span class="wrap-mat-check-label">Place of verification/medical authority the person must appear before</span></ion-title>
+                              <ion-title class="label_class2"><span class="wrap-mat-check-label">Place of verification/medical authority the person must appear before</span><span class="red">*</span></ion-title>
                             </ion-row>
                             <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -441,7 +450,7 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <ion-row>
-                              <ion-title class="label_class2">Reminder given?</ion-title>
+                              <ion-title class="label_class2">Reminder given?<span class="red">*</span></ion-title>
                             </ion-row>
                             <ion-row>
                               <mat-radio-group  name="reminder_given_2days" formControlName='reminder_given_2days'>
@@ -454,7 +463,7 @@
                             <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                               <mat-form-field  appearance="outline" style="display:block;">
-                              <mat-label class="place_holder_text">Method of Reminder</mat-label>
+                              <mat-label class="place_holder_text">Method of Reminder<span class="red" *ngIf="checkReminderYesSelected">*</span></mat-label>
                               <mat-select name="reminder_method" formControlName="reminder_method_2days">
                               <mat-option *ngFor="let lan1 of Reminder" [value]="lan1.value">
                                           {{lan1.viewValue}}
@@ -472,7 +481,7 @@
                                 <div class="button_align_class">
                                   <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform: none !important">Previous</span></ion-button>
                                   <!-- <ion-button  class="button_text_normal" class="background"  (click)="submitStep5(fifthFormGroup)" [disabled]="!fifthFormGroup.valid">Save & Preview</ion-button> -->
-                                  <ion-button  class="button_text_normal" class="background"  (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid"><span style="text-transform: none !important">Save & Next</span></ion-button>
+                                  <ion-button  class="button_text_normal" class="background"  (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid || isDisabled" type="submit"><span style="text-transform: none !important">Save & Next</span></ion-button>
       
                                 </div>
                 </form>
@@ -487,7 +496,7 @@
                     <ion-row class="ion-padding-top">
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                      <mat-label class="label_class2" style="margin-left: 16px;;">Upload UDID details</mat-label>
+                      <mat-label class="label_class2" style="margin-left: 16px;;">Upload UDID details<span class="red">*</span></mat-label>
                       <mat-radio-group  name="udid_details_1month" formControlName="udid_details_1month">
                   
                         <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -498,7 +507,8 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <input matInput  placeholder="Remark" maxlength="75" name="remarks_1month" formControlName="remarks_1month" class="place_holder_text">
+                            <mat-label>Remark<span class="red">*</span></mat-label>
+                            <input matInput   maxlength="75" name="remarks_1month" formControlName="remarks_1month" class="place_holder_text">
                           </mat-form-field>
                         </ion-col>
                         </ion-row>
@@ -509,7 +519,7 @@
                       <ion-row>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Date of completed application</ion-title>
+                            <ion-title class="label_class2">Date of completed application<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -522,7 +532,7 @@
                         </ion-col>
                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <ion-row>
-                            <ion-title class="label_class2">Acknowledgement Number</ion-title>
+                            <ion-title class="label_class2">Acknowledgement Number<span class="red">*</span></ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -539,7 +549,7 @@
                     <ion-row class="ion-padding-top">
                       <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                          <ion-title class="label_class2">Check whether the data/time has been given</ion-title>
+                          <ion-title class="label_class2">Check whether the data/time has been given<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-radio-group  name="date_time_1month" formControlName='date_time_1month'>
@@ -555,7 +565,7 @@
                     <ion-row>
                       <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         <ion-row>
-                          <ion-title class="label_class2">Date & time of appoinment</ion-title>
+                          <ion-title class="label_class2">Date & time of appoinment<span class="red">*</span></ion-title>
                         </ion-row>
                         <ion-row>
                           <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
@@ -571,7 +581,7 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <ion-row>
-                              <ion-title class="label_class2"><span class="wrap-mat-check-label">Place of verification/medical authority the person must appear before</span></ion-title>
+                              <ion-title class="label_class2"><span class="wrap-mat-check-label">Place of verification/medical authority the person must appear before</span><span class="red">*</span></ion-title>
                             </ion-row>
                             <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -587,7 +597,7 @@
 
                     <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                        <ion-title class="label_class2">Reminder to be given:{{reminder2}}</ion-title>
+                        <ion-title class="label_class2">Reminder to be given:{{reminder1 | date}}</ion-title>
                       </ion-col>
                     </ion-row>
                   </ion-card>
@@ -598,7 +608,7 @@
                         <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <ion-row>
-                              <ion-title class="label_class2">Reminder given?</ion-title>
+                              <ion-title class="label_class2">Reminder given?<span class="red">*</span></ion-title>
                             </ion-row>
                             <ion-row>
                               <mat-radio-group  name="reminder_given_1month" formControlName="reminder_given_1month">
@@ -636,7 +646,7 @@
                             </ion-row>
                             <ion-row>
                               <mat-form-field  appearance="outline" style="width:100%;">
-                                <mat-label class="place_holder_text">Status</mat-label>
+                                <mat-label class="place_holder_text">Status<span class="red">*</span></mat-label>
                                 <mat-select name="udid_status" formControlName="udid_status"  (selectionChange)="statusCheck($event.value)">
                                 <mat-option *ngFor="let lan1 of Status" [value]="lan1.value" >
                                             {{lan1.viewValue}}
@@ -652,7 +662,7 @@
                     <ion-row [hidden]="!statusPending">
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <ion-row>
-                        <ion-title class="label_class2">Check status with medical authority</ion-title>
+                        <ion-title class="label_class2">Check status with medical authority<span class="red">*</span></ion-title>
                       </ion-row>
                         <ion-row>
                           <mat-radio-group  name="med_authority" formControlName="med_authority">
@@ -666,13 +676,14 @@
                     </ion-row>
                     <ion-row [hidden]="!statusPending">
                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
-                      <ion-title class="label_class2">Details of further steps needed</ion-title>  
+                      <ion-title class="label_class2">Details of further steps needed<span class="red">*</span></ion-title>  
                       </ion-col>
                     </ion-row>
                     <ion-row [hidden]="!statusPending">
                       <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
                         <mat-form-field style="display: block;" appearance="outline">
-                          <textarea matInput  placeholder="Details" maxlength="75" name="details_further_steps" formControlName="details_further_steps" class="place_holder_text"></textarea>
+                          <mat-label>Details<span class="red">*</span></mat-label>
+                          <textarea matInput maxlength="75" name="details_further_steps" formControlName="details_further_steps" class="place_holder_text"></textarea>
                         </mat-form-field>
                       </ion-col>
                 </ion-row>
@@ -682,7 +693,7 @@
                     </ion-col>
                     <ion-col  size-xl="6" size-lg="6" size-md="6" size-xs="6" class="ion-text-left">
                     <mat-form-field appearance="outline" class="mat_date_custom mat_custom_block_class2">
-                    <mat-label class="place_holder_text">Date</mat-label>
+                    <mat-label class="place_holder_text">Date<span class="red">*</span></mat-label>
                             <input matInput [matDatepicker]="picker1201" readonly name="date_supervisor" formControlName="date_supervisor">
                             <mat-datepicker-toggle matSuffix [for]="picker1201"></mat-datepicker-toggle>
                             <mat-datepicker #picker1201></mat-datepicker>
@@ -698,7 +709,7 @@
                 <ion-row [hidden]="!certifcateIssued">
                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                     <ion-row>
-                      <ion-title class="label_class2">Explain welfare benefits</ion-title>
+                      <ion-title class="label_class2">Explain welfare benefits<span class="red">*</span></ion-title>
                     </ion-row>
                     <ion-row>
                       <mat-form-field  style="width:100%"  appearance="outline">
@@ -708,7 +719,7 @@
                   </ion-col>
                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                     <ion-row>
-                      <ion-title class="label_class2">Brochure given</ion-title>
+                      <ion-title class="label_class2">Brochure given<span class="red">*</span></ion-title>
                     </ion-row>
                     <ion-row>
                     
@@ -722,7 +733,7 @@
 
                 <ion-row [hidden]="!certifcateIssued">
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                  <ion-title class='label_class2'>Initiate welfare module</ion-title>
+                  <ion-title class='label_class2'>Initiate welfare module<span class="red">*</span></ion-title>
                 </ion-col>
                 </ion-row>
                 <ion-row [hidden]="!certifcateIssued">
@@ -738,7 +749,7 @@
                                 <div class="button_align_class">
                                   <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform: none !important">Previous</span></ion-button>
                                   <!-- <ion-button  class="button_text_normal" class="background"  (click)="submitStep5(fifthFormGroup)" [disabled]="!fifthFormGroup.valid">Save & Preview</ion-button> -->
-                                  <ion-button  class="button_text_normal" class="background"  (click)="submitStep4(fourthFormGroup)" [disabled]="!fourthFormGroup.valid"><span style="text-transform: none !important">Submit</span></ion-button>
+                                  <ion-button  class="button_text_normal" class="background"  (click)="submitStep4(fourthFormGroup)" [disabled]="!fourthFormGroup.valid || isDisabled" type="submit"><span style="text-transform: none !important">Submit</span></ion-button>
       
                                 </div>
                 </form>

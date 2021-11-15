@@ -11,6 +11,7 @@ import {Count}  from '../count.model';
 import {History}  from '../history.model';
 import {Taluks}  from '../taluk.model';
 import {Phcs}  from '../phc.model';
+import {Home}  from '../home.model';
 import {Districts}  from '../district.model';
 import { BehaviorSubject, from, Observable, of, throwError } from 'rxjs';
 import { take, map, tap, delay, switchMap, catchError } from 'rxjs/operators';
@@ -59,6 +60,7 @@ export class PatientService {
   private district1 = new BehaviorSubject<Districts[]>([]);
   private count1 = new BehaviorSubject<Count[]>([]);
   private history1 = new BehaviorSubject<History[]>([]);
+  private home1 = new BehaviorSubject<Home[]>([]);
   imageUrl = new BehaviorSubject<string>("");
 
   _sqlite: any;
@@ -95,27 +97,16 @@ export class PatientService {
         retSelect=result;
       });
     
-      
-      // for (let i = 0; i < retSelect.length; i++) {
         login_array.push(
           new Login(
              retSelect.loginData.values,
              retSelect.swData.values,
              retSelect.groupData.values,
-            //  retSelect.values[0].role,
-            //  retSelect.values[0].email,
-            //  retSelect.values[0].contact_no,
-            //  retSelect.values[0].first_name,
-            //  retSelect.values[0].last_name,
-            //  retSelect.values[0].address,
-            //  retSelect.values[0].taluka_id,
-            //  retSelect.values[0].created_at,
+          
           )
         );
-         // }
-      //this.login1.next(login_array);
       return login_array;
-     // });
+  
      
     }
 
@@ -130,7 +121,7 @@ export class PatientService {
       //consent-form5,follow_up_date - form5
       let taskArray = JSON.parse(taskData);
       taskArray.push(medObj)
-      console.log(taskArray)
+   
       var date = new Date();
       let today =
          
@@ -671,6 +662,58 @@ export class PatientService {
   }
 
   //get the previous visit details of a patient
+  async getPreviousVisitPhone(patient){
+    const record_array1 = [];
+    let retSelect = [];
+      
+      let test = await this.offlineManager.sqlQuery("getPreviousVisitRecordPhone",{patient_uuid:patient}).then(result => {
+    
+        retSelect.push(result);
+      });
+      for (let i = 0; i < retSelect.length; i++) {
+        
+      
+        record_array1.push(
+            new Record(
+              retSelect[0].visit_type,
+              retSelect[0].visit_details,
+              retSelect[0].followup_date
+              
+            
+          )
+        );
+          }
+        this.record1.next(record_array1);
+        return record_array1;
+
+  }
+   //get the previous visit details of a patient
+   async getPreviousVisitHome(patient){
+    const record_array1 = [];
+    let retSelect = [];
+      
+      let test = await this.offlineManager.sqlQuery("getPreviousVisitRecordHome",{patient_uuid:patient}).then(result => {
+    
+        retSelect.push(result);
+      });
+      for (let i = 0; i < retSelect.length; i++) {
+        
+      
+        record_array1.push(
+            new Record(
+              retSelect[0].visit_type,
+              retSelect[0].visit_details,
+              retSelect[0].followup_date
+              
+            
+          )
+        );
+          }
+        this.record1.next(record_array1);
+        return record_array1;
+
+  }
+  //get the previous visit details of a patient
   async getPreviousVisit(patient){
     const record_array1 = [];
     let retSelect = [];
@@ -744,7 +787,7 @@ export class PatientService {
 
             for(var k = 0;k<statusArray.length;k++){
             
-             
+           
               await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusArray[k].tasks_uuid,task_due_date:statusArray[k].task_date,
               task_details:statusArray[k].task_remark,status:statusArray[k].task_status,update_date:today});
            
@@ -977,11 +1020,11 @@ export class PatientService {
 
 
     //to add new notes for a patient
-    async addNewNotes(patient,notes,sw_id,supervisor_id){
+    async addNewNotes(patient,notes,sw_id,supervisor_id,images){
     
       const notes_uuid =  UUID.UUID();
      
-      return this.offlineManager.sqlQuery("addNotes",{notes_uuid:notes_uuid,notes_message:notes,read_flag:1,patient_uuid:patient,sender_user_id:sw_id,recipient_user_id:supervisor_id});
+      return this.offlineManager.sqlQuery("addNotes",{notes_uuid:notes_uuid,notes_message:notes,read_flag:1,patient_uuid:patient,sender_user_id:sw_id,recipient_user_id:supervisor_id,images:images});
     }
 
     
@@ -1277,6 +1320,35 @@ export class PatientService {
         
          this.district1.next(district_array1);
          return district_array1;
+      }
+      
+      async reverseSync(patientObj,clinical_visits,tasks1,notes1,udid_info1){
+        for(var i=0;i<patientObj.length;i++){
+          let result = await this.offlineManager.sqlQuery("reverseSyncPatients",{patient_uuid:patientObj[i].patient_uuid,kshema_id:patientObj[i].kshema_id,group_data_id:patientObj[i].group_data_id,name:patientObj[i].name,demographic_info:patientObj[i].demographic_info,needs_assessment:patientObj[i].needs_assessment,uuid_info:patientObj[i].uuid_info,status:patientObj[i].status,created_at:patientObj[i].created_at});
+            
+        }
+        
+        for(var i=0;i<clinical_visits.length;i++){
+          let result = await this.offlineManager.sqlQuery("reverseSyncVisits",{patient_uuid:clinical_visits[i].patient_uuid,clinical_visits_uuid:clinical_visits[i].clinical_visits_uuid,social_worker_id:clinical_visits[i].social_worker_id,visit_date:clinical_visits[i].visit_date,visit_type:clinical_visits[i].visit_type,visit_details:clinical_visits[i].visit_details,followup_date:clinical_visits[i].followup_date,created_at:clinical_visits[i].createdAt});
+            
+        }
+        for(var i=0;i<tasks1.length;i++){
+          let result = await this.offlineManager.sqlQuery("reverseSyncTasks",{tasks_uuid:tasks1[i].tasks_uuid,patient_uuid:tasks1[i].patient_uuid,task_type:tasks1[i].task_type,creation_date:tasks1[i].creation_date,task_due_date:tasks1[i].task_due_date,task_details:tasks1[i].task_details,status:tasks1[i].status,update_date:tasks1[i].update_date,prev_record_uuuid:tasks1[i].prev_record_uuuid,origin_record_id:tasks1[i].origin_record_id});
+            
+        }
+        if(notes1){
+          for(var i=0;i<notes1.length;i++){
+            let result =  await this.offlineManager.sqlQuery("reverseSyncNotes",{notes_uuid:notes1[i].notes_uuid,notes_message:notes1[i].notes_message,read_flag:notes1[i].read_flag,patient_uuid:notes1[i].patient_uuid,sender_user_id:notes1[i].sender_user_id,recipient_user_id:notes1[i].recipient_user_id,created_at:notes1[i].createdAt});
+              
+          }
+          }
+        
+          if(udid_info1){
+          for(var i=0;i<udid_info1.length;i++){
+            let result = await this.offlineManager.sqlQuery("reverseSyncUdid",{udid_uuid:udid_info1[i].udid_uuid,patient_uuid:udid_info1[i].patient_uuid,udid_info_obj:udid_info1[i].udid_info_obj,created_at:udid_info1[i].createdAt});
+              
+          }
+        }
       }
 
     

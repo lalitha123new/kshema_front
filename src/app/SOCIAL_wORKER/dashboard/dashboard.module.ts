@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatBadgeModule } from '@angular/material/badge';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -43,12 +44,13 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatMenuModule,
     MatSliderModule,
     MatBadgeModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule
     
 
   ],
  
- // declarations: [DashboardPage,SocialsidenavPage],
+ 
  declarations: [DashboardPage],
  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
   

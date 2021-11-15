@@ -31,19 +31,19 @@ export class NetworkService {
  
   //this function is caleed to update the network status on app init (device ready)
   public initializeNetworkEvents() {
-    console.log("CHECK NET STATUS",this.status.getValue())
+  
  
     this.network.onDisconnect().subscribe(() => {
       if (this.status.getValue() === ConnectionStatus.Online) {
-        console.log('WE ARE OFFLINE',this.status.getValue());
+       
         this.updateNetworkStatus(ConnectionStatus.Offline);
       }
     });
  
     this.network.onConnect().subscribe(() => {
-      console.log("NET IS",this.status.getValue())
+     
       if (this.status.getValue() === ConnectionStatus.Offline) {
-        console.log('WE ARE ONLINE');
+      
         this.updateNetworkStatus(ConnectionStatus.Online);
       }
     });
@@ -53,19 +53,19 @@ export class NetworkService {
   public initializeNetworkEvents1() {
     let status =  this.network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
     this.status.next(status);
-    console.log("CHECK NET STATUS",this.status.getValue())
+ 
  
     this.network.onDisconnect().subscribe(() => {
       if (this.status.getValue() === ConnectionStatus.Online) {
-        console.log('WE ARE OFFLINE',this.status.getValue());
+      
         this.updateNetworkStatus(ConnectionStatus.Offline);
       }
     });
  
     this.network.onConnect().subscribe(() => {
-      console.log("NET IS",this.status.getValue())
+    
       if (this.status.getValue() === ConnectionStatus.Offline) {
-        console.log('WE ARE ONLINE');
+      
         this.updateNetworkStatus(ConnectionStatus.Online);
       }
     });

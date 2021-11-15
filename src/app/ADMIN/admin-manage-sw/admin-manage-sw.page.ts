@@ -23,7 +23,7 @@ export class AdminManageSwPage implements OnInit {
   dataSource_SW = new MatTableDataSource<PeriodicElement_sw>(ELEMENT_DATA_SW);
 
   constructor(private formBuilder: FormBuilder,private router: Router,private serverService: ServerService) { }
-
+  showSpinner = false;
   ngOnInit() {
     
     this.form =new FormGroup({
@@ -37,7 +37,7 @@ export class AdminManageSwPage implements OnInit {
   }
 
   ionViewWillEnter() {
-   
+    this. showSpinner = true;
     this.getallTaluksPsws();
     
 
@@ -53,6 +53,7 @@ export class AdminManageSwPage implements OnInit {
       resultArray=result2;
 
    });
+    this. showSpinner = false;
     this.taluk_array = resultArray[0].taluka_master;
    
         resultArray = resultArray.reverse();

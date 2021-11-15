@@ -252,6 +252,19 @@ mat-button-toggle {
   color: #000000;
   opacity: 0.54;
    }
+   .custom_button_display3{
+    background: rgba(129, 61, 126, 0.2);;
+    border-radius: 40px;
+    color: #813D7E;
+   
+    font-family: 'Open Sans',sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+    opacity: 0.54;
+     }
    .label_class2{
     font-family: 'Open Sans',sans-serif;
     font-style: normal;
@@ -285,21 +298,7 @@ mat-button-toggle {
     line-height: 25px;
     color: #242424;
    }
-   .custom_button_display3{
-    background: rgba(129, 61, 126, 0.2);;
-    color: #813D7E;
-    margin-right:10px;
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 19px;
-    text-align: center;
-    color: #8D8D8D;
-    background: rgba(129, 61, 126, 0.2);
-    border-radius: 4px;
-     
-   }
+  
    
    .ion-card{
     background: #FFFFFF;
@@ -514,3 +513,40 @@ color: #813D7E;
 .wrap-mat-check-label {
   white-space: normal;
 }
+@media (max-width: 850px){
+  .portrait{
+      display: inline-block;
+      
+  }
+  .landscape{
+    display:none
+  }
+  .custom_button_size3{
+    display:inline-block
+   
+   }
+   .custom_button_size{
+    display:none
+   
+   }
+
+}
+@media (min-width: 850px){
+  .portrait{
+      display: none;
+      
+  }
+  .landscape{
+    display:block
+  }
+  .custom_button_size3{
+    display:none
+   
+   }
+
+}
+.custom_button_size3{
+ width:200px;
+ height:40px
+ 
+ }

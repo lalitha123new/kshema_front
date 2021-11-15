@@ -31,7 +31,7 @@ export class AdminManageSupervisorPage implements OnInit {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
  
   constructor(private formBuilder: FormBuilder,private router: Router,private serverService: ServerService) { }
-
+  showSpinner = false;
   ngOnInit() {
   
     this.form =new FormGroup({
@@ -42,7 +42,7 @@ export class AdminManageSupervisorPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    
+    this. showSpinner = true;
     this.taluk_array = [];
     this.taluka_supervisor_array = [];
     this.group_array = [];
@@ -61,7 +61,7 @@ export class AdminManageSupervisorPage implements OnInit {
 
    });
  
- 
+   this. showSpinner = false;
   this.group_array = taluk_array_first[0].group_data;
   this.supervisor_array = taluk_array_first[0].supervisor;
   this.taluk_array = taluk_array_first[0].taluka_master;

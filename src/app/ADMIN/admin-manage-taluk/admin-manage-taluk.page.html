@@ -41,16 +41,22 @@
       </ion-col>
       </ion-row>
 
+      <div class="overlay-spinner" *ngIf="showSpinner">
+        <div class="center-spinner">
+      <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+      </div>
+      </div>
+      
       <ion-row class="ion-padding-top">
         <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
           
 
         <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  text-left>
           <div style="text-align: right;">
-            <ion-button style="vertical-align:bottom;" class="button_text_normal background custom_border_radius" (click)="add_taluk()"><mat-icon>add</mat-icon><span class="button_text_normal">Add New Taluk</span></ion-button>
+            <ion-button style="vertical-align:bottom;" class="button_text_normal background custom_border_radius" (click)="add_taluk()"><mat-icon>add</mat-icon><span class="button_text_normal">Add New Taluka</span></ion-button>
           </div>
         <ion-row>
-          <ion-title class="label_class_header1">Manage Taluk</ion-title>
+          <ion-title class="label_class_header1">Manage Talukas</ion-title>
         </ion-row>
          <ion-card class="ion-card">
 
@@ -80,7 +86,7 @@
           
               <!-- Position Column -->
               <ng-container matColumnDef="taluka_name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Taluk Name </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Taluka Name </th>
                 <td mat-cell *matCellDef="let element" class="cell_normal"> {{element.taluka_name}} </td>
               </ng-container>
           
@@ -92,7 +98,7 @@
           
               <!-- Weight Column -->
               <ng-container matColumnDef="social_workers">
-                <th mat-header-cell *matHeaderCellDef> Social workers </th>
+                <th mat-header-cell *matHeaderCellDef> Social Workers </th>
                 <td mat-cell *matCellDef="let element" class="cell_normal"> {{element.social_workers}} </td>
               </ng-container>
                 <!-- Weight Column -->

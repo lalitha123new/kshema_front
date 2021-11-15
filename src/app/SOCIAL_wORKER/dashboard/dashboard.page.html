@@ -22,7 +22,7 @@
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons" style="font-size:30px;vertical-align: middle;" (click)="displayNotes()"  [matBadge]="notes_count" matBadgePosition="after" matBadgeColor="warn">
               speaker_notes </span></ion-col>
               <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-                <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" >
+                <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" (click)="sync()">
                   cached
                   </span>
               </ion-col>
@@ -43,6 +43,12 @@
       </ion-col>
       </ion-row>
 
+      <div class="overlay-spinner" *ngIf="showSpinner">
+        <div class="center-spinner">
+      <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+      </div>
+      </div>
+      
         <ion-row class="ion-padding-top">
        
         <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  text-center style="height:100%;">
@@ -124,14 +130,14 @@
               </ion-row>
 
               <ion-row class="ion-padding-bottom">
-                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12">
                   <ion-row>
                     <ion-title><span class="number_first">{{upcoming_task}} </span><span  class="font_weight_class1">Tasks</span> </ion-title>
                   </ion-row>
                 
                   
                 </ion-col>
-                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-right">
+                <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-right">
                   <ion-row>
                     <ion-title><span class="number_first">{{upcoming_visit}} </span><span class="font_weight_class1">Consultations</span> </ion-title>
 
@@ -157,14 +163,14 @@
               </ion-row>
 
               <ion-row class="ion-padding-bottom">
-                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12">
                   <ion-row>
                     <ion-title class="number_first">{{overdue_task}} <span size="small" class="font_weight_class1">Tasks</span> </ion-title>
                   </ion-row>
                 
                   
                 </ion-col>
-                <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-right">
+                <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-right">
                   <ion-row>
                     <ion-title class="number_first">{{overdue_visit}} <span size="small" class="font_weight_class1">Consultations</span> </ion-title>
 
@@ -193,7 +199,7 @@
               
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-right">
                   <ion-row>
-                    <ion-title class="number_first">0 <span class="font_weight_class1"  size="small" (click)="toggleButton(5)">Incomplete profiles</span></ion-title>
+                    <ion-title class="number_first">0 <span class="font_weight_class1"  size="small" (click)="toggleButton(5)">Incomplete Profiles</span></ion-title>
                   </ion-row>
                 </ion-col>
               </ion-row>
@@ -267,7 +273,7 @@
 
             <ng-container matColumnDef="due_date">
               <th mat-header-cell *matHeaderCellDef> Next visit date </th>
-              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date | date}}</td>
               </ng-container>
 
             <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_id,row.patient_uuid)" class="pointer-class hhh"></tr>
@@ -302,7 +308,7 @@
 
             <ng-container matColumnDef="due_date">
               <th mat-header-cell *matHeaderCellDef> Next visit date </th>
-              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date | date}}</td>
               </ng-container>
 
             <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_id,row.patient_uuid)" class="pointer-class hhh"></tr>
@@ -337,7 +343,7 @@
 
             <ng-container matColumnDef="due_date">
               <th mat-header-cell *matHeaderCellDef> Next visit date </th>
-              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date | date}}</td>
               </ng-container>
 
             <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_id,row.patient_uuid)" class="pointer-class hhh"></tr>
@@ -372,7 +378,7 @@
 
             <ng-container matColumnDef="due_date">
               <th mat-header-cell *matHeaderCellDef> Next visit date </th>
-              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date}}</td>
+              <td mat-cell *matCellDef="let element" class="dashboard_action"><span class="cell_normal">Due By: </span>{{element.due_date | date}}</td>
               </ng-container>
 
             <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_id,row.patient_uuid)" class="pointer-class hhh"></tr>

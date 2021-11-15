@@ -15,7 +15,7 @@
         </ion-col>
         <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
-            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="8" size-lg="8" size-md="5" size-xs="5"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
               <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle">
                 cached
@@ -105,8 +105,14 @@
           
           </ion-row>
 
+          <div class="overlay-spinner" *ngIf="showSpinner">
+            <div class="center-spinner">
+          <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+          </div>
+          </div>
+          
           <ion-row class="ion-padding-top ion-padding-bottom">
-            <ion-title class="label_class1">Assessment of needs</ion-title>
+            <ion-title class="label_class1">Assessment of Needs</ion-title>
           </ion-row>
       <ion-row>
 
@@ -120,7 +126,7 @@
               
               <ion-row class="ion-padding-top">
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left" class="ion-padding-bottom">
-                  <ion-title class="label_class2"><span class="wrap-mat-check-label">Please ask the follwoing questions to the patients and their families so that you can plan interventions.</span></ion-title>
+                  <ion-title class="label_class2"><span class="wrap-mat-check-label">Please ask the following questions to the patients and their families so that you can plan interventions.</span></ion-title>
                 </ion-col>
               </ion-row>
 
@@ -133,7 +139,9 @@
               <ion-row>
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
                   <mat-form-field appearance="outline" style="display:block">
-                    <input matInput  placeholder="Enter Description" maxlength="75" name="description" formControlName="description" class="place_holder_text">
+                    <!-- <input matInput  placeholder="Enter Description" maxlength="75" name="description" formControlName="description" class="place_holder_text"> -->
+                  
+                    <textarea class="place_holder_text" placeholder="Enter Description" maxlength="75" name="description" formControlName="description" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
                   </mat-form-field>
                
               </ion-col>
@@ -163,7 +171,10 @@
                       <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                     <mat-form-field appearance="outline" style="display:block">
-                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="skill_yes" formControlName="skill_yes" class="place_holder_text">
+                      <mat-label>If yes, Remarks<span class="red" *ngIf="skillYesSelected">*</span></mat-label>
+                      <!-- <input matInput  placeholder="If yes, Remarks" maxlength="75" name="skill_yes" formControlName="skill_yes" class="place_holder_text"> -->
+                      <textarea class="place_holder_text"  placeholder="Enter Description" maxlength="75" name="skill_yes" formControlName="skill_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                     </mat-form-field>
                   </ion-col>
                 </ion-row>
@@ -196,7 +207,10 @@
                       <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                     <mat-form-field appearance="outline" style="display:block">
-                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="job_yes" formControlName="job_yes" class="place_holder_text">
+                      <mat-label>If yes, Remarks<span class="red" *ngIf="jobYesSelected">*</span></mat-label>
+                      <!-- <input matInput  maxlength="75" name="job_yes" formControlName="job_yes" class="place_holder_text"> -->
+                      <textarea class="place_holder_text" placeholder="Enter Description" maxlength="75"  name="job_yes" formControlName="job_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                     </mat-form-field>
                   </ion-col>
                 </ion-row>
@@ -228,7 +242,10 @@
                   <ion-row>
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                     <mat-form-field appearance="outline" style="display:block">
-                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="interest_act_yes" formControlName="interest_act_yes" class="place_holder_text">
+                      <mat-label>If yes, Remarks<span class="red" *ngIf="interestActYesSelected">*</span></mat-label>
+                      <!-- <input matInput  maxlength="75" name="interest_act_yes" formControlName="interest_act_yes" class="place_holder_text"> -->
+                      <textarea class="place_holder_text"  placeholder="Enter Description" maxlength="75"  name="interest_act_yes" formControlName="interest_act_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                     </mat-form-field>
                   </ion-col>
                   </ion-row>
@@ -255,7 +272,10 @@
                           <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <mat-form-field appearance="outline" style="display:block">
-                              <input matInput  placeholder="If yes, Remarks" maxlength="75" name="community_yes" formControlName="community_yes" class="place_holder_text">
+                              <mat-label>If yes, Remarks<span class="red" *ngIf="communityYesSelected">*</span></mat-label>
+                              <!-- <input matInput  maxlength="75" name="community_yes" formControlName="community_yes" class="place_holder_text"> -->
+                              <textarea class="place_holder_text" placeholder="Enter Description" maxlength="75"  name="community_yes" formControlName="community_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                             </mat-form-field>
                           </ion-col>
                             </ion-row>
@@ -283,7 +303,10 @@
                               <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                                 <mat-form-field appearance="outline" style="display:block">
-                                  <input matInput  placeholder="If yes, Remarks" maxlength="75" name="daily_yes" formControlName="daily_yes" class="place_holder_text">
+                                  <mat-label>If yes, Remarks<span class="red" *ngIf="dailyYesSelected">*</span></mat-label>
+                                  <!-- <input matInput   maxlength="75" name="daily_yes" formControlName="daily_yes" class="place_holder_text"> -->
+                                  <textarea class="place_holder_text" placeholder="Enter Description" maxlength="75"  name="daily_yes" formControlName="daily_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                                 </mat-form-field>
                               </ion-col>
                                 </ion-row>
@@ -311,7 +334,10 @@
                               <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                                 <mat-form-field appearance="outline" style="display:block">
-                                  <input matInput  placeholder="If yes, Remarks" maxlength="75" name="house_yes" formControlName="house_yes" class="place_holder_text">
+                                  <mat-label>If yes, Remarks<span class="red" *ngIf="houseYesSelected">*</span></mat-label>
+                                  <!-- <input matInput   maxlength="75" name="house_yes" formControlName="house_yes" class="place_holder_text"> -->
+                                  <textarea class="place_holder_text"  placeholder="Enter Description" maxlength="75"  name="house_yes" formControlName="house_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                                 </mat-form-field>
                               </ion-col>
                                 </ion-row>
@@ -339,7 +365,10 @@
                               <ion-row>
                               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                                 <mat-form-field appearance="outline" style="display:block">
-                                  <input matInput  placeholder="If yes, Remarks" maxlength="75" name="finance_yes" formControlName="finance_yes" class="place_holder_text">
+                                  <mat-label>If yes, Remarks<span class="red" *ngIf="financeYesSelected">*</span></mat-label>
+                                  <!-- <input matInput maxlength="75" name="finance_yes" formControlName="finance_yes" class="place_holder_text"> -->
+                                  <textarea class="place_holder_text"  placeholder="Enter Description" maxlength="75"  name="finance_yes" formControlName="finance_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                                 </mat-form-field>
                               </ion-col>
                                 </ion-row>
@@ -369,7 +398,10 @@
                   <ion-row>
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                     <mat-form-field appearance="outline" style="display:block">
-                      <input matInput  placeholder="If yes, Remarks" maxlength="75" name="other_help_yes" formControlName="other_help_yes" class="place_holder_text">
+                      <mat-label>If yes, Remarks<span class="red" *ngIf="otherYesSelected">*</span></mat-label>
+                      <!-- <input matInput maxlength="75" name="other_help_yes" formControlName="other_help_yes" class="place_holder_text"> -->
+                      <textarea class="place_holder_text" placeholder="Enter Description" maxlength="75"  name="other_help_yes" formControlName="other_help_yes" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500"></textarea>
+                
                     </mat-form-field>
                   </ion-col>
                   </ion-row>
@@ -380,7 +412,7 @@
                 <div class="button_align_class">
                   <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Previous</span></ion-button>
                   <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep4(fourthFormGroup)" [disabled]="!fourthFormGroup.valid">Save & Next</ion-button>     -->
-                  <ion-button  class="button_text_normal" class="background" (click)="submitAssessment(assessmentFormGroup)" [disabled]="!assessmentFormGroup.valid"><span style="text-transform:none!important;">Submit</span></ion-button> 
+                  <ion-button  class="button_text_normal"   type="submit" class="background" (click)="submitAssessment(assessmentFormGroup)" [disabled]="!assessmentFormGroup.valid || isDisabled"><span style="text-transform:none!important;">Submit</span></ion-button> 
                 </div>
           </form>
        

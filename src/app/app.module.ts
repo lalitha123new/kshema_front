@@ -14,6 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network/ngx';
 import {DatePipe} from '@angular/common';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { File,FileEntry } from '@ionic-native/file/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 
 
@@ -27,8 +32,14 @@ import {DatePipe} from '@angular/common';
      providers: [DatePipe,
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Network,
+    FilePath,
+    File,
+    FileTransfer,
+    AndroidPermissions
+    
     
   ],
   bootstrap: [AppComponent]

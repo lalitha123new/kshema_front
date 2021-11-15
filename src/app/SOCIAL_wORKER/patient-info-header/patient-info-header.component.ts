@@ -41,7 +41,7 @@ export class PatientInfoHeaderComponent implements OnInit {
   }
 
   ngAfterContentInit(){
-console.log("check")
+
       this.role = sessionStorage.getItem("role")
       this.patient_id =  sessionStorage.getItem('patient_id');
       this.patient_uuid =  sessionStorage.getItem('patient_uuid');

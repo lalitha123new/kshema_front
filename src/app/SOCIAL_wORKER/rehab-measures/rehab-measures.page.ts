@@ -28,9 +28,13 @@ export class RehabMeasuresPage implements OnInit {
 
  
 
-  constructor(private _location: Location,private router: Router,
-    private _formBuilder: FormBuilder,private dialogModel: MatDialog,
-    private patientService: PatientService,private loadingCtrl: LoadingController,public alertController: AlertController,
+  constructor(private _location: Location,
+    private router: Router,
+    private _formBuilder: FormBuilder,
+    private dialogModel: MatDialog,
+    private patientService: PatientService,
+    private loadingCtrl: LoadingController,
+    private alertController: AlertController,
     private offlineManager : OfflineManagerService) { }
     rehabFormGroup: any;
     noneAboveFormGroup:any;
@@ -302,9 +306,30 @@ tasks_array :any;
 noneChecked = false;
 none_visible = true;
 taskValidationArray = [];
+task1Clicked:Boolean = false;
+task2Clicked:Boolean = false;
+task3Clicked:Boolean = false;
+task4Clicked:Boolean = false;
+task5Clicked:Boolean = false;
+task6Clicked:Boolean = false;
+task7Clicked:Boolean = false;
+task8Clicked:Boolean = false;
+task9Clicked:Boolean = false;
+task10Clicked:Boolean = false;
+task11Clicked:Boolean = false;
+task12Clicked:Boolean = false;
+task13Clicked:Boolean = false;
+task14Clicked:Boolean = false;
+task15Clicked:Boolean = false;
+task16Clicked:Boolean = false;
+task17Clicked:Boolean = false;
+task18Clicked:Boolean = false;
+showSpinner = false;
+isDisabled = false;
   
 
   ngOnInit() {
+
     this.rehabFormGroup = this._formBuilder.group({
 
       options1FormGroup:new FormGroup({
@@ -521,6 +546,220 @@ taskValidationArray = [];
 
 
   ionViewWillEnter() {
+    this.isDisabled = false;
+    this.showSpinner = true;
+    this.rehabFormGroup = this._formBuilder.group({
+
+      options1FormGroup:new FormGroup({
+        opt1:new FormControl(this.patObject.opt1),
+        opt1_remark:new FormControl(this.patObject.opt1_remark),
+        opt1_date:new FormControl(this.patObject.opt1_date)
+      }), 
+      options2FormGroup:new FormGroup({
+        opt2:new FormControl(this.patObject.opt2),
+        opt2_remark:new FormControl(this.patObject.opt2_remark),
+        opt2_date:new FormControl(this.patObject.opt2_date)
+      }), 
+      options3FormGroup:new FormGroup({
+        opt3:new FormControl(this.patObject.opt3),
+        opt3_remark:new FormControl(this.patObject.opt3_remark),
+        opt3_date:new FormControl(this.patObject.opt3_date)
+      }), 
+      options4FormGroup:new FormGroup({
+        opt4:new FormControl(this.patObject.opt4),
+        opt4_remark:new FormControl(this.patObject.opt4_remark),
+        opt4_date:new FormControl(this.patObject.opt4_date)
+      }),
+      options5FormGroup:new FormGroup({
+        opt5:new FormControl(this.patObject.opt5),
+        opt5_remark:new FormControl(this.patObject.opt5_remark),
+        opt5_date:new FormControl(this.patObject.opt5_date)
+      }), 
+      options6FormGroup:new FormGroup({
+        opt6:new FormControl(this.patObject.opt6),
+        opt6_remark:new FormControl(this.patObject.opt6_remark),
+        opt6_date:new FormControl(this.patObject.opt6_date)
+      }), 
+      options7FormGroup:new FormGroup({
+        opt7:new FormControl(this.patObject.opt7),
+        opt7_remark:new FormControl(this.patObject.opt7_remark),
+        opt7_date:new FormControl(this.patObject.opt7_date)
+      }), 
+      options8FormGroup:new FormGroup({
+        opt8:new FormControl(this.patObject.opt8),
+        opt8_remark:new FormControl(this.patObject.opt8_remark),
+        opt8_date:new FormControl(this.patObject.opt8_date)
+      }), 
+      options9FormGroup:new FormGroup({
+        opt9:new FormControl(this.patObject.opt9),
+        opt9_remark:new FormControl(this.patObject.opt9_remark),
+        opt9_date:new FormControl(this.patObject.opt9_date)
+      }), 
+
+      options10FormGroup:new FormGroup({
+        opt10:new FormControl(this.patObject.opt10),
+        opt10_remark:new FormControl(this.patObject.opt10_remark),
+        opt10_date:new FormControl(this.patObject.opt10_date)
+      }), 
+
+      options11FormGroup:new FormGroup({
+        opt11:new FormControl(this.patObject.opt11),
+        opt11_remark:new FormControl(this.patObject.opt11_remark),
+        opt11_date:new FormControl(this.patObject.opt11_date)
+      }),
+      
+      options12FormGroup:new FormGroup({
+        opt12:new FormControl(this.patObject.opt12),
+        opt12_remark:new FormControl(this.patObject.opt12_remark),
+        opt12_date:new FormControl(this.patObject.opt12_date)
+      }),
+
+      options13FormGroup:new FormGroup({
+        opt13:new FormControl(this.patObject.opt13),
+        opt13_remark:new FormControl(this.patObject.opt13_remark),
+        opt13_date:new FormControl(this.patObject.opt13_date)
+      }),
+
+      options14FormGroup:new FormGroup({
+        opt14:new FormControl(this.patObject.opt14),
+        opt14_remark:new FormControl(this.patObject.opt14_remark),
+        opt14_date:new FormControl(this.patObject.opt14_date)
+      }),
+
+      options15FormGroup:new FormGroup({
+        opt15:new FormControl(this.patObject.opt15),
+        opt15_remark:new FormControl(this.patObject.opt15_remark),
+        opt15_date:new FormControl(this.patObject.opt15_date)
+      }),
+
+      options16FormGroup:new FormGroup({
+        opt16:new FormControl(this.patObject.opt16),
+        opt16_remark:new FormControl(this.patObject.opt16_remark),
+        opt16_date:new FormControl(this.patObject.opt16_date)
+      }),
+
+      options17FormGroup:new FormGroup({
+        opt17:new FormControl(this.patObject.opt17),
+        opt17_remark:new FormControl(this.patObject.opt17_remark),
+        opt17_date:new FormControl(this.patObject.opt17_date)
+      }),
+
+      
+      options18FormGroup:new FormGroup({
+        opt18:new FormControl(this.patObject.opt18),
+        opt18_remark:new FormControl(this.patObject.opt18_remark),
+        opt18_date:new FormControl(this.patObject.opt18_date)
+      }),
+      options19FormGroup:new FormGroup({
+        opt19:new FormControl(this.patObject.opt19),
+        opt19_remark:new FormControl(this.patObject.opt19_remark),
+        opt19_date:new FormControl(this.patObject.opt19_date)
+      }),
+
+    localResourceFormGroup:new FormGroup({
+      check1:new FormControl(this.patObject.check1),
+      local_resource_yes:new FormControl(this.patObject.local_resource_yes),
+      local_resource_date:new FormControl(this.patObject.local_resource_date)
+    }),
+    differentNeedsFormGroup:new FormGroup({
+      check2:new FormControl(this.patObject.check2),
+      different_needs_yes:new FormControl(this.patObject.different_needs_yes),
+      different_needs_date:new FormControl(this.patObject.different_needs_date),
+    }),
+  
+    localFormGroup:new FormGroup({
+      check3:new FormControl(this.patObject.check3),
+      local_industries_yes:new FormControl(this.patObject.local_industries_yes),
+      local_industries_date:new FormControl(this.patObject.local_industries_date),
+    }),
+  
+    skillDevFormGroup:new FormGroup({
+      check4:new FormControl(this.patObject.check4),
+      skill_dev_yes:new FormControl(this.patObject.skill_dev_yes),
+      skill_dev_date:new FormControl(this.patObject.skill_dev_date),
+    }),
+  
+    selfEmployFormGroup:new FormGroup({
+      check5:new FormControl(this.patObject.check5),
+      self_employ_yes:new FormControl(this.patObject.self_employ_yes),
+      self_employ_date:new FormControl(this.patObject.self_employ_date),
+    }),
+    incomeGroup:new FormGroup({
+      check6:new FormControl(this.patObject.check6),
+      income_generation_yes:new FormControl(this.patObject.income_generation_yes),
+      income_generation_date:new FormControl(this.patObject.income_generation_date),
+    }),
+    minergaGroup:new FormGroup({
+        check7:new FormControl(this.patObject.check7),
+        minerga_yes:new FormControl(this.patObject.minerga_yes),
+        minerga_date:new FormControl(this.patObject.minerga_date),
+    }),
+    daycareFormGroup:new FormGroup({
+      check8:new FormControl(this.patObject.check8),
+      daycare:new FormControl(this.patObject.daycare),
+      daycare_yes:new FormControl(this.patObject.daycare_yes),
+      
+    }),
+    cultutalEventFormGroup:new FormGroup({
+      check9:new FormControl(this.patObject.check9),
+        cultural_event:new FormControl(this.patObject.cultural_event),
+        cultural_event_yes:new FormControl(this.patObject.cultural_event_yes),
+    }),
+    educationFormGroup:new FormGroup({
+      check10:new FormControl(this.patObject.check10),
+      education_yes:new FormControl(this.patObject.education_yes),
+      education_date:new FormControl(this.patObject.education_date),
+    }),
+    idProofFormGroup:new FormGroup({
+      check11:new FormControl(this.patObject.check11),
+      id_proof_yes:new FormControl(this.patObject.id_proof_yes),
+      id_proof_date:new FormControl(this.patObject.id_proof_date),
+    }),
+    insClaimFormGroup:new FormGroup({
+      check12:new FormControl(this.patObject.check12),
+      ins_claim_yes:new FormControl(this.patObject.ins_claim_yes),
+      ins_claim_date:new FormControl(this.patObject.ins_claim_date),
+    }),
+    physicianFormGroup:new FormGroup({
+      check13:new FormControl(this.patObject.check13),
+      physician_yes:new FormControl(this.patObject.physician_yes),
+      physician_date:new FormControl(this.patObject.physician_date),
+    }),
+    legalFormGroup:new FormGroup({
+      check14:new FormControl(this.patObject.check14),
+      legal_yes:new FormControl(this.patObject.legal_yes),
+      legal_date:new FormControl(this.patObject.legal_date),
+    }),
+    liaiseFormGroup:new FormGroup({
+      check15:new FormControl(this.patObject.check15),
+      liase_yes:new FormControl(this.patObject.liase_yes),
+      liase_date:new FormControl(this.patObject.liase_date),
+    }),
+    consultLegalFormGroup:new FormGroup({
+      check16:new FormControl(this.patObject.check16),
+      consult_legal_yes:new FormControl(this.patObject.consult_legal_yes),
+      consult_legal_date:new FormControl(this.patObject.consult_legal_date),
+    }),
+    bankAccountFormGroup:new FormGroup({
+      check17:new FormControl(this.patObject.check17),
+      bank_account_yes:new FormControl(this.patObject.bank_account_yes),
+      bank_account_date:new FormControl(this.patObject.bank_account_date),
+    }),
+    offerHelpFormGroup:new FormGroup({
+      check18:new FormControl(this.patObject.check18),
+      offer_help_yes:new FormControl(this.patObject.offer_help_yes),
+      offer_help_date:new FormControl(this.patObject.offer_help_date),
+    }),
+    noneAboveFormGroup:new FormGroup({
+      check19:new FormControl(this.patObject.check19),
+      none_reason:new FormControl(this.patObject.none_reason),
+    
+    }),
+    review_date: new FormControl(this.patObject.review_date,[]),
+  
+   
+    })
+   
     this.check1_remark ="";
     this.check2_remark ="";
     this.check3_remark ="";
@@ -656,7 +895,7 @@ async getPatient(){
 
  });
  
-  
+ this.showSpinner = false;
   this.kshema_id = patient_array_first[0].kshema_id;
   this.name = patient_array_first[0].name;
   this.demo = JSON.parse(patient_array_first[0].demographic_info);
@@ -715,6 +954,8 @@ redirectTo(x){
   
 taskCheck1($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task1Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(1);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -729,7 +970,8 @@ taskCheck1($event:MatCheckboxChange){
     this.rehabFormGroup.controls.localResourceFormGroup.get('local_resource_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.localResourceFormGroup.get('local_resource_date').updateValueAndValidity();
   } else {
-
+    this.task1Clicked = false;
+    
    const index = this.taskValidationArray.indexOf(1);
       if (index > -1) {
         this.taskValidationArray.splice(index, 1);
@@ -754,6 +996,8 @@ taskCheck1($event:MatCheckboxChange){
 
 taskCheck2($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task2Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(2);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -768,6 +1012,7 @@ taskCheck2($event:MatCheckboxChange){
     this.rehabFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').updateValueAndValidity();
   } else {
+    this.task2Clicked = false;
     const index = this.taskValidationArray.indexOf(2);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -791,6 +1036,8 @@ taskCheck2($event:MatCheckboxChange){
 
 taskCheck3($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task3Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(3);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -805,6 +1052,7 @@ taskCheck3($event:MatCheckboxChange){
     this.rehabFormGroup.controls.localFormGroup.get('local_industries_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.localFormGroup.get('local_industries_date').updateValueAndValidity();
   } else {
+    this.task3Clicked = false;
     const index = this.taskValidationArray.indexOf(3);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -828,6 +1076,8 @@ taskCheck3($event:MatCheckboxChange){
 
 taskCheck4($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task4Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(4);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -842,6 +1092,7 @@ taskCheck4($event:MatCheckboxChange){
     this.rehabFormGroup.controls.skillDevFormGroup.get('skill_dev_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.skillDevFormGroup.get('skill_dev_date').updateValueAndValidity();
   } else {
+    this.task4Clicked = false;
     const index = this.taskValidationArray.indexOf(4);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -865,6 +1116,8 @@ taskCheck4($event:MatCheckboxChange){
 
 taskCheck5($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task5Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(5);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -879,6 +1132,7 @@ taskCheck5($event:MatCheckboxChange){
     this.rehabFormGroup.controls.selfEmployFormGroup.get('self_employ_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.selfEmployFormGroup.get('self_employ_date').updateValueAndValidity();
   } else {
+    this.task5Clicked = false;
     const index = this.taskValidationArray.indexOf(5);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -902,6 +1156,8 @@ taskCheck5($event:MatCheckboxChange){
 
 taskCheck6($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task6Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(6);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -916,6 +1172,7 @@ taskCheck6($event:MatCheckboxChange){
     this.rehabFormGroup.controls.incomeGroup.get('income_generation_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.incomeGroup.get('income_generation_date').updateValueAndValidity();
   } else {
+    this.task6Clicked = false;
     const index = this.taskValidationArray.indexOf(6);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -939,6 +1196,8 @@ taskCheck6($event:MatCheckboxChange){
 
 taskCheck7($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task7Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(7);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -953,6 +1212,7 @@ taskCheck7($event:MatCheckboxChange){
     this.rehabFormGroup.controls.minergaGroup.get('minerga_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.minergaGroup.get('minerga_date').updateValueAndValidity();
   } else {
+    this.task7Clicked = false;
     const index = this.taskValidationArray.indexOf(7);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -976,6 +1236,8 @@ taskCheck7($event:MatCheckboxChange){
 
 taskCheck8($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task8Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(8);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -990,6 +1252,7 @@ taskCheck8($event:MatCheckboxChange){
     this.rehabFormGroup.controls.daycareFormGroup.get('daycare_yes').setValidators(Validators.required);
     this.rehabFormGroup.controls.daycareFormGroup.get('daycare_yes').updateValueAndValidity();
   } else {
+    this.task8Clicked = false;
     const index = this.taskValidationArray.indexOf(8);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1013,6 +1276,8 @@ taskCheck8($event:MatCheckboxChange){
 
 taskCheck9($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task9Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(9);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1027,6 +1292,7 @@ taskCheck9($event:MatCheckboxChange){
     this.rehabFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').setValidators(Validators.required);
     this.rehabFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').updateValueAndValidity();
   } else {
+    this.task9Clicked = false;
     const index = this.taskValidationArray.indexOf(9);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1050,6 +1316,8 @@ taskCheck9($event:MatCheckboxChange){
 
 taskCheck10($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task10Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(10);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1064,6 +1332,7 @@ taskCheck10($event:MatCheckboxChange){
     this.rehabFormGroup.controls.educationFormGroup.get('education_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.educationFormGroup.get('education_date').updateValueAndValidity();
   } else {
+    this.task10Clicked = false;
     const index = this.taskValidationArray.indexOf(10);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1087,6 +1356,8 @@ taskCheck10($event:MatCheckboxChange){
 
 taskCheck11($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task11Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(11);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1101,6 +1372,7 @@ taskCheck11($event:MatCheckboxChange){
     this.rehabFormGroup.controls.idProofFormGroup.get('id_proof_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.idProofFormGroup.get('id_proof_date').updateValueAndValidity();
   } else {
+    this.task11Clicked = false;
     const index = this.taskValidationArray.indexOf(11);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1124,6 +1396,8 @@ taskCheck11($event:MatCheckboxChange){
 
 taskCheck12($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task12Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(12);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1138,6 +1412,7 @@ taskCheck12($event:MatCheckboxChange){
     this.rehabFormGroup.controls.insClaimFormGroup.get('ins_claim_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.insClaimFormGroup.get('ins_claim_date').updateValueAndValidity();
   } else {
+    this.task12Clicked = false;
     const index = this.taskValidationArray.indexOf(12);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1161,6 +1436,8 @@ taskCheck12($event:MatCheckboxChange){
 
 taskCheck13($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task13Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(13);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1175,6 +1452,7 @@ taskCheck13($event:MatCheckboxChange){
     this.rehabFormGroup.controls.physicianFormGroup.get('physician_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.physicianFormGroup.get('physician_date').updateValueAndValidity();
   } else {
+    this.task13Clicked = false;
     const index = this.taskValidationArray.indexOf(13);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1198,6 +1476,8 @@ taskCheck13($event:MatCheckboxChange){
 
 taskCheck14($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task14Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(14);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1212,6 +1492,7 @@ taskCheck14($event:MatCheckboxChange){
     this.rehabFormGroup.controls.legalFormGroup.get('legal_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.legalFormGroup.get('legal_date').updateValueAndValidity();
   } else {
+    this.task14Clicked = false;
     const index = this.taskValidationArray.indexOf(14);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1235,6 +1516,8 @@ taskCheck14($event:MatCheckboxChange){
 
 taskCheck15($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task15Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(15);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1249,6 +1532,7 @@ taskCheck15($event:MatCheckboxChange){
     this.rehabFormGroup.controls.liaiseFormGroup.get('liase_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.liaiseFormGroup.get('liase_date').updateValueAndValidity();
   } else {
+    this.task15Clicked = false;
     const index = this.taskValidationArray.indexOf(15);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1272,6 +1556,8 @@ taskCheck15($event:MatCheckboxChange){
 
 taskCheck16($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task16Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(16);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1286,6 +1572,7 @@ taskCheck16($event:MatCheckboxChange){
     this.rehabFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').updateValueAndValidity();
   } else {
+    this.task16Clicked = false;
     const index = this.taskValidationArray.indexOf(16);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1309,6 +1596,8 @@ taskCheck16($event:MatCheckboxChange){
 
 taskCheck17($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task17Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(17);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1323,6 +1612,7 @@ taskCheck17($event:MatCheckboxChange){
     this.rehabFormGroup.controls.bankAccountFormGroup.get('bank_account_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.bankAccountFormGroup.get('bank_account_date').updateValueAndValidity();
   } else {
+    this.task17Clicked = false;
     const index = this.taskValidationArray.indexOf(17);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1346,6 +1636,8 @@ taskCheck17($event:MatCheckboxChange){
 
 taskCheck18($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task18Clicked = true;
+    this.noneChecked= false;
     this.taskValidationArray.push(18);
     this.none_visible = false;
     this.rehabFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -1360,6 +1652,7 @@ taskCheck18($event:MatCheckboxChange){
     this.rehabFormGroup.controls.offerHelpFormGroup.get('offer_help_date').setValidators(Validators.required);
     this.rehabFormGroup.controls.offerHelpFormGroup.get('offer_help_date').updateValueAndValidity();
   } else {
+    this.task18Clicked = false;
     const index = this.taskValidationArray.indexOf(18);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -1423,11 +1716,6 @@ async getTasks(){
         this.check1_remark = tasks_array_first[i].task_details;
         this.check1_date1 = tasks_array_first[i].task_due_date; 
         this.check1_date = new Date(tasks_array_first[i].task_due_date); 
-
-        let date = ("0" + this.check1_date.getDate()).slice(-2);
-      let month = ("0" + (this.check1_date.getMonth() + 1)).slice(-2);
-      let year =this.check1_date.getFullYear();
-      this.check1_date = date + "-" + month + "-" + year;
        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray1[0].checked = true;
@@ -1446,10 +1734,6 @@ async getTasks(){
         this.check2_date1 = tasks_array_first[i].task_due_date; 
         this.check2_date = new Date(tasks_array_first[i].task_due_date); 
 
-        let date = ("0" + this.check2_date.getDate()).slice(-2);
-        let month = ("0" + (this.check2_date.getMonth() + 1)).slice(-2);
-        let year =this.check2_date.getFullYear();
-        this.check2_date = date + "-" + month + "-" + year;
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray2[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1466,10 +1750,7 @@ async getTasks(){
         this.check3_remark = tasks_array_first[i].task_details;
         this.check3_date1 = tasks_array_first[i].task_due_date; 
         this.check3_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check3_date.getDate()).slice(-2);
-        let month = ("0" + (this.check3_date.getMonth() + 1)).slice(-2);
-        let year =this.check3_date.getFullYear();
-        this.check3_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray3[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1486,10 +1767,7 @@ async getTasks(){
         this.check4_remark = tasks_array_first[i].task_details; 
         this.check4_date1 = tasks_array_first[i].task_due_date; 
         this.check4_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check4_date.getDate()).slice(-2);
-        let month = ("0" + (this.check4_date.getMonth() + 1)).slice(-2);
-        let year =this.check4_date.getFullYear();
-        this.check4_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray4[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1506,10 +1784,7 @@ async getTasks(){
         this.check5_remark = tasks_array_first[i].task_details; 
         this.check5_date1 = tasks_array_first[i].task_due_date; 
         this.check5_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check5_date.getDate()).slice(-2);
-        let month = ("0" + (this.check5_date.getMonth() + 1)).slice(-2);
-        let year =this.check5_date.getFullYear();
-        this.check5_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray5[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1526,10 +1801,7 @@ async getTasks(){
         this.check6_remark = tasks_array_first[i].task_details; 
         this.check6_date1 = tasks_array_first[i].task_due_date; 
         this.check6_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check6_date.getDate()).slice(-2);
-        let month = ("0" + (this.check6_date.getMonth() + 1)).slice(-2);
-        let year =this.check6_date.getFullYear();
-        this.check6_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray6[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1546,10 +1818,7 @@ async getTasks(){
         this.check7_remark = tasks_array_first[i].task_details; 
         this.check7_date1 = tasks_array_first[i].task_due_date;
         this.check7_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check7_date.getDate()).slice(-2);
-        let month = ("0" + (this.check7_date.getMonth() + 1)).slice(-2);
-        let year =this.check7_date.getFullYear();
-        this.check7_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray7[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1566,10 +1835,7 @@ async getTasks(){
         this.check8_remark = tasks_array_first[i].task_details; 
         this.check8_date1 = tasks_array_first[i].task_due_date; 
         this.check8_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check8_date.getDate()).slice(-2);
-        let month = ("0" + (this.check8_date.getMonth() + 1)).slice(-2);
-        let year =this.check8_date.getFullYear();
-        this.check8_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray8[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1586,10 +1852,7 @@ async getTasks(){
         this.check9_remark = tasks_array_first[i].task_details; 
         this.check9_date1 = tasks_array_first[i].task_due_date; 
         this.check9_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check9_date.getDate()).slice(-2);
-        let month = ("0" + (this.check9_date.getMonth() + 1)).slice(-2);
-        let year =this.check9_date.getFullYear();
-        this.check9_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray9[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1606,10 +1869,7 @@ async getTasks(){
         this.check10_remark = tasks_array_first[i].task_details; 
         this.check10_date1 = tasks_array_first[i].task_due_date; 
         this.check10_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check10_date.getDate()).slice(-2);
-        let month = ("0" + (this.check10_date.getMonth() + 1)).slice(-2);
-        let year =this.check10_date.getFullYear();
-        this.check10_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray10[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1626,10 +1886,7 @@ async getTasks(){
         this.check11_remark = tasks_array_first[i].task_details; 
         this.check11_date1 = tasks_array_first[i].task_due_date;
         this.check11_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check11_date.getDate()).slice(-2);
-        let month = ("0" + (this.check11_date.getMonth() + 1)).slice(-2);
-        let year =this.check11_date.getFullYear();
-        this.check11_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray11[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1646,10 +1903,7 @@ async getTasks(){
         this.check12_remark = tasks_array_first[i].task_details; 
         this.check12_date1 = tasks_array_first[i].task_due_date;
         this.check12_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check12_date.getDate()).slice(-2);
-        let month = ("0" + (this.check12_date.getMonth() + 1)).slice(-2);
-        let year =this.check12_date.getFullYear();
-        this.check12_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray12[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1666,10 +1920,7 @@ async getTasks(){
         this.check13_remark = tasks_array_first[i].task_details; 
         this.check13_date1 = tasks_array_first[i].task_due_date;
         this.check13_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check13_date.getDate()).slice(-2);
-        let month = ("0" + (this.check13_date.getMonth() + 1)).slice(-2);
-        let year =this.check13_date.getFullYear();
-        this.check13_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray13[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1686,10 +1937,7 @@ async getTasks(){
         this.check14_remark = tasks_array_first[i].task_details; 
         this.check14_date1 = tasks_array_first[i].task_due_date;
         this.check14_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check14_date.getDate()).slice(-2);
-        let month = ("0" + (this.check14_date.getMonth() + 1)).slice(-2);
-        let year =this.check14_date.getFullYear();
-        this.check14_date = date + "-" + month + "-" + year;
+        
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray14[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1706,10 +1954,7 @@ async getTasks(){
         this.check15_remark = tasks_array_first[i].task_details; 
         this.check15_date1 = tasks_array_first[i].task_due_date;
         this.check15_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check15_date.getDate()).slice(-2);
-        let month = ("0" + (this.check15_date.getMonth() + 1)).slice(-2);
-        let year =this.check15_date.getFullYear();
-        this.check15_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray15[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1726,10 +1971,7 @@ async getTasks(){
         this.check16_remark = tasks_array_first[i].task_details; 
         this.check16_date1 = tasks_array_first[i].task_due_date;
         this.check16_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check16_date.getDate()).slice(-2);
-        let month = ("0" + (this.check16_date.getMonth() + 1)).slice(-2);
-        let year =this.check16_date.getFullYear();
-        this.check16_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray16[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1747,10 +1989,7 @@ async getTasks(){
         this.check17_date1 = tasks_array_first[i].task_due_date;
        
         this.check17_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check17_date.getDate()).slice(-2);
-        let month = ("0" + (this.check17_date.getMonth() + 1)).slice(-2);
-        let year =this.check17_date.getFullYear();
-        this.check17_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray17[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1767,10 +2006,7 @@ async getTasks(){
         this.check18_remark = tasks_array_first[i].task_details; 
         this.check18_date1 = tasks_array_first[i].task_due_date;
         this.check18_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check18_date.getDate()).slice(-2);
-        let month = ("0" + (this.check18_date.getMonth() + 1)).slice(-2);
-        let year =this.check18_date.getFullYear();
-        this.check18_date = date + "-" + month + "-" + year;
+       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray18[0].checked = true;
         }else if(tasks_array_first[i].status == "Completed"){
@@ -1788,10 +2024,7 @@ async getTasks(){
         this.check19_remark = tasks_array_first[i].task_details; 
         this.check19_date1 = tasks_array_first[i].task_due_date;
         this.check19_date = new Date(tasks_array_first[i].task_due_date); 
-        let date = ("0" + this.check19_date.getDate()).slice(-2);
-        let month = ("0" + (this.check19_date.getMonth() + 1)).slice(-2);
-        let year =this.check19_date.getFullYear();
-        this.check19_date = date + "-" + month + "-" + year;
+        
       
         if(tasks_array_first[i].status == "pending" || tasks_array_first[i].status == "In Progress"){
           this.statusArray19[0].checked = true;
@@ -1811,7 +2044,7 @@ async getTasks(){
 
 
   submitRehab(rehabFormGroup){
-
+    this.isDisabled = true;
     let statusAyyay = [];
     let statusObj1 = {};
     let statusObj2 = {};
@@ -2783,7 +3016,7 @@ async getTasks(){
      
     }
     
-     console.log(fourthArray)
+  
       this.patientService.addNewTask(this.patient_uuid,fourthArray,statusAyyay).then(() => {
          
         this.alertController.create({
@@ -2799,8 +3032,7 @@ async getTasks(){
               cssClass: 'alertButton2',
               handler: () => {
 
-                this.offlineManager.checkForEvents().subscribe();
-                //this.router.navigate(['patient-details']);
+                //this.offlineManager.checkForEvents().subscribe();
                 this.displayLoader();
                 setTimeout(()=>{
                  this.dismissLoader();

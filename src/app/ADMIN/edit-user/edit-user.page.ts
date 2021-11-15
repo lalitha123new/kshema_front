@@ -48,7 +48,8 @@ export class EditUserPage implements OnInit {
     group_array:any;
     supervisor_array:any;
     arr1 = [];
-
+    showSpinner = false;
+    isDisabled = false;
   ngOnInit() {
     
     this.editUserForm =new FormGroup({
@@ -56,19 +57,19 @@ export class EditUserPage implements OnInit {
       last_name: new FormControl('',[Validators.required]),
       phone: new FormControl('',[Validators.required]),
       email: new FormControl('',[Validators.required]),
-      //address: new FormControl('',[Validators.required]),
-      taluk: new FormControl('',[Validators.required]),
+      taluk: new FormControl('',[]),
       username: new FormControl('',[Validators.required]),
       password: new FormControl('',[Validators.required]),
       confirm_password: new FormControl('',[Validators.required]),
   })
-  // this.getAllTaluks();
-  // this.getTalukaSupervisors();
+ 
     
   }
 
 
   ionViewWillEnter() {
+    this.isDisabled = false;
+    this.showSpinner = true;
     this.user1 = sessionStorage.getItem('user');
     this.users_id = sessionStorage.getItem('users_id');
     this.getAllTaluks();
@@ -82,13 +83,10 @@ export class EditUserPage implements OnInit {
   }
 
    getAllTaluks(){
-     this.serverService.getAlltalukas()
-    .subscribe(
-    data  => {
+     this.serverService.getAlltalukas().subscribe(data  => {
      
-      this.taluk_array = data;
-     // this.getTalukaSupervisors();
-     this.getUserDetails();
+    this.taluk_array = data;
+    this.getUserDetails();
       
      
     },
@@ -124,7 +122,7 @@ export class EditUserPage implements OnInit {
 
    });
  
- 
+   this.showSpinner = false;
   this.group_array = taluk_array_first[0].group_data;
   
   this.taluk_array = taluk_array_first[0].taluka_master;
@@ -219,6 +217,7 @@ export class EditUserPage implements OnInit {
   
 
   editUser(editUserForm){
+    this.isDisabled = true;
     let taluka_id;
     if(this.user1 == "Supervisor"){
       taluka_id = 0;
@@ -234,12 +233,6 @@ export class EditUserPage implements OnInit {
       contact_no: this.editUserForm.get('phone').value,
       email: this.editUserForm.get('email').value,
       users_id: this.users_id,
-      
-
-      //address: this.editUserForm.get('phone').value,
-      // taluk: this.editUserForm.get('taluk').value,
-      // username: this.editUserForm.get('username').value,
-      // password:this.editUserForm.get('password').value,
      
     }
     let role_type = 0;

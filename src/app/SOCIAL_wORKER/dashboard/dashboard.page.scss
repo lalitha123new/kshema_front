@@ -76,7 +76,7 @@
     border-radius:12px;
     color:white;
     padding-bottom:0px;
-    // height:240px;
+   
   }
  
   .mat-table {
@@ -239,5 +239,18 @@ color: #FFFFFF;
   
     display: table-cell;
     vertical-align: bottom;
+}
+::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #813D7E;
+
+  }
+  .overlay-spinner {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.286);
+    z-index: 10;
+    top: 0;
+    left: 0;
+    position: fixed;
 }
 

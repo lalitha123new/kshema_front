@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SendMessagePage } from './send-message.page';
+import { TaskHistoryPage } from './task-history.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SendMessagePage
+    component: TaskHistoryPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class SendMessagePageRoutingModule {}
+export class TaskHistoryPageRoutingModule {}

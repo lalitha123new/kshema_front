@@ -46,10 +46,15 @@ interface status_optons{
 })
 export class UdidPage implements OnInit {
  
-  constructor(private _location: Location,
-    private router: Router,private _formBuilder: FormBuilder,private dialogModel: MatDialog,
-    private patientService: PatientService,private loadingCtrl: LoadingController,
-    public alertController: AlertController,private offlineManager : OfflineManagerService) { }
+  constructor(
+    private _location: Location,
+    private router: Router,
+    private _formBuilder: FormBuilder,
+    private dialogModel: MatDialog,
+    private patientService: PatientService,
+    private loadingCtrl: LoadingController,
+    public alertController: AlertController,
+    private offlineManager : OfflineManagerService) { }
   @ViewChild('stepper') stepper: MatStepper;
   firstFormGroup: any;
   secondFormGroup: any;
@@ -125,6 +130,9 @@ export class UdidPage implements OnInit {
   dateYes = true;
   reminder1:any;
    reminder2;
+   checkReminderYesSelected:Boolean = false;
+   showSpinner = false;
+   isDisabled = false;
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       udid_details_first:  new FormControl(this.udidObj.udid_details_first,[Validators.required]),
@@ -194,15 +202,73 @@ export class UdidPage implements OnInit {
 
 
   ionViewWillEnter() {
-  
-   
+    
+    this.isDisabled = false;
+    this.firstFormGroup = this._formBuilder.group({
+      udid_details_first:  new FormControl(this.udidObj.udid_details_first,[Validators.required]),
+      remarks_first: new FormControl(this.udidObj.remarks_first,[]),
+      completed_date_first: new FormControl(this.udidObj.completed_date_first,[]),
+      ack_first: new FormControl(this.udidObj.ack_first,[]),
+      review_date:new FormControl(this.udidObj.review_date,[]),
+    })
+    this.secondFormGroup = this._formBuilder.group({
+      udid_details_1week:  new FormControl(this.udidObj.udid_details_1week,[Validators.required]),
+      remarks_1week: new FormControl(this.udidObj.remarks_1week,[Validators.required]),
+      completed_date_1week: new FormControl(this.udidObj.completed_date_1week,[Validators.required]),
+      ack_1week: new FormControl(this.udidObj.ack_1week,[Validators.required]),
+      date_time_1week: new FormControl(this.udidObj.date_time_1week,[Validators.required]),
+      appointment_date_1week: new FormControl(this.udidObj.appointment_date_1week,[]),
+      verification_place_1week: new FormControl(this.udidObj.verification_place_1week,[]),
+    })
+    this.thirdFormGroup = this._formBuilder.group({
+
+      udid_details_2days:  new FormControl(this.udidObj.udid_details_2days,[Validators.required]),
+      remarks_2days: new FormControl(this.udidObj.remarks_2days,[Validators.required]),
+      completed_date_2days: new FormControl(this.udidObj.completed_date_2days,[Validators.required]),
+      ack_2days: new FormControl(this.udidObj.ack_2days,[Validators.required]),
+      date_time_2days: new FormControl(this.udidObj.date_time_2days,[Validators.required]),
+      appointment_date_2days: new FormControl(this.udidObj.appointment_date_2days,[Validators.required]),
+      verification_place_2days: new FormControl(this.udidObj.verification_place_2days,[Validators.required]),
+      reminder_given_2days: new FormControl(this.udidObj.reminder_given_2days,[Validators.required]),
+      reminder_method_2days: new FormControl(this.udidObj.reminder_method_2days,[]),
+    })
+    this.fourthFormGroup = this._formBuilder.group({
+
+      udid_details_1month:  new FormControl(this.udidObj.udid_details_1month,[Validators.required]),
+      remarks_1month: new FormControl(this.udidObj.remarks_1month,[Validators.required]),
+      completed_date_1month: new FormControl(this.udidObj.completed_date_1month,[Validators.required]),
+      ack_1month: new FormControl(this.udidObj.ack_1month,[Validators.required]),
+      date_time_1month: new FormControl(this.udidObj.date_time_1month,[Validators.required]),
+      appointment_date_1month: new FormControl(this.udidObj.appointment_date_1month,[Validators.required]),
+      verification_place_1month: new FormControl(this.udidObj.verification_place_1month,[Validators.required]),
+      reminder_given_1month: new FormControl(this.udidObj.reminder_given_1month,[Validators.required]),
+      reminder_method_1month: new FormControl(this.udidObj.reminder_method_1month,[Validators.required]),
+      udid_status: new FormControl(this.udidObj.udid_status,[Validators.required]),
+      details_further_steps: new FormControl(this.udidObj.details_further_steps,[]),
+      welfare_benefits: new FormControl(this.udidObj.welfare_benefits,[]),
+      brochure: new FormControl(this.udidObj.brochure,[]),
+      module: new FormControl(this.udidObj.module,[]),
+      med_authority:new FormControl(this.udidObj.med_authority,[]),
+      date_supervisor:new FormControl(this.udidObj.date_supervisor,[]),
+    })
+    for(var i=0;i<this.tobaccooptionsArray.length;i++){
+      this.tobaccooptionsArray[i].checked = false;
+    }
+    for(var i=0;i<this.tobaccooptionsArray1.length;i++){
+      this.tobaccooptionsArray1[i].checked = false;
+    }
+    for(var i=0;i<this.tobaccooptionsArray2.length;i++){
+      this.tobaccooptionsArray2[i].checked = false;
+    }
+    for(var i=0;i<this.tobaccooptionsArray3.length;i++){
+      this.tobaccooptionsArray3[i].checked = false;
+    }
+    //this.showSpinner = true;
     this.user_name = sessionStorage.getItem("user_name");
     this.patient_id =  sessionStorage.getItem('patient_id');
     this.patient_uuid =  sessionStorage.getItem('patient_uuid');
     this.getPatient();
     this.getUUIDUDID();
-    //to go to a particular step index
-    // this.stepper.selectedIndex = 2;
   }
 
   async getPatient(){
@@ -215,9 +281,7 @@ export class UdidPage implements OnInit {
   
    });
   
-  
-    
-   
+   this.showSpinner = false;
     this.kshema_id = patient_array_first[0].kshema_id;
     this.name = patient_array_first[0].name;
     this.demo = JSON.parse(patient_array_first[0].demographic_info);
@@ -257,13 +321,16 @@ export class UdidPage implements OnInit {
   }
   
   async getUUIDUDID(){
+
+    this.patient_id =  sessionStorage.getItem('patient_id');
+    this.patient_uuid =  sessionStorage.getItem('patient_uuid');
     let uuid_array_first :any;
     let test = await this.patientService.getPatientUUIDUDID(this.patient_uuid).then(result2 => {
      
       uuid_array_first=result2;
  
    });
-    
+   
    
       //get the uuid of the udid task in the task table for updating the status if it exists
      if(uuid_array_first[0].udid_uuid_data[0].tasks_uuid){
@@ -277,21 +344,28 @@ export class UdidPage implements OnInit {
 
       let udidObject = JSON.parse(uuid_array_first[0].latest_udid_data[0].udid_info_obj);
       this.firstFormGroup.get('udid_details_first').setValue(udidObject.udid_details);
-     
+    
       if(udidObject.udid_details == "Yes"){
-      
-        this.tobaccooptionsArray[0].checked = true;
+        this.stepper.selectedIndex = 1;
         this.uploadYes = true;
-       this.stepper.selectedIndex = 1;
-      }else  if(udidObject.udid_details == "No"){
-        this.tobaccooptionsArray[1].checked = true;
+        this.tobaccooptionsArray[0].checked = true;
+        
+      
+      }else if(udidObject.udid_details == "No"){
+      
         this.uploadYes = false;
+        this.tobaccooptionsArray[1].checked = true;
+       
       }else if(udidObject.udid_details == "Incomplete"){
+        this.uploadYes = false;
         this.tobaccooptionsArray[2].checked = true;
+        
       }
-  
+ 
       this.firstFormGroup.get('remarks_first').setValue((udidObject.remarks));
       this.firstFormGroup.get('completed_date_first').setValue(udidObject.completed_date);
+      this.firstFormGroup.get('review_date').setValue(udidObject.review_date);
+      
       this.firstFormGroup.get('ack_first').setValue(udidObject.ack_no);
   
        this.secondFormGroup.get('udid_details_1week').setValue(udidObject.udid_details);
@@ -334,15 +408,10 @@ export class UdidPage implements OnInit {
      
       this.reminder1 = this.addDays1(new Date(udidObject.appointment_date),2);
      
-      let date = ("0" + this.reminder1.getDate()).slice(-2);
-      let month = ("0" + (this.reminder1.getMonth() + 1)).slice(-2);
-      let year =this.reminder1.getFullYear();
-      
-      this.reminder2 = date + "-" + month + "-" + year;
+      this.reminder2 = this.reminder1;
      
-    
-  
       if(udidObject.reminder == "Yes"){
+     
         this.stepper.selectedIndex = 3;
         this.tobaccooptionsArray1[0].checked = true;
        
@@ -419,22 +488,12 @@ addDays(theDate, days) {
     // ("00" + date.getMinutes()).slice(-2) + ":" +
     // ("00" + date.getSeconds()).slice(-2);
 }
+
 addDays1(theDate, days) {
   
   let date =  new Date(theDate.getTime() - days*24*60*60*1000);
   return date;
-  //commented for date format new
-  // return ("00" + date.getDate()).slice(-2)  + "-"+("00" + (date.getMonth() + 1)).slice(-2) + "-" +date.getFullYear() + " " +
-  // ("00" + date.getHours()).slice(-2) + ":" +
-  // ("00" + date.getMinutes()).slice(-2) + ":" +
-  // ("00" + date.getSeconds()).slice(-2);
-   //end commented for date format new
-
   
-  // return date.getFullYear() + "-"+("00" + (date.getMonth() + 1)).slice(-2) + "-" +("00" + date.getDate()).slice(-2) + " " +
-  // ("00" + date.getHours()).slice(-2) + ":" +
-  // ("00" + date.getMinutes()).slice(-2) + ":" +
-  // ("00" + date.getSeconds()).slice(-2);
 }
 
 
@@ -464,6 +523,7 @@ redirectTo(x){
   previous(){
     this.stepper.previous();
   }
+
   checkUpload($event:MatRadioChange){
     if ($event.value ==='Yes') {
      this.uploadYes = true;
@@ -476,7 +536,7 @@ redirectTo(x){
       this.firstFormGroup.get('review_date').setValue('');
       this.firstFormGroup.get('review_date').clearValidators();
       this.firstFormGroup.get('review_date').updateValueAndValidity();
-      //completed_date_first,ack_first
+      
     }else{
       this.uploadYes = false;
       this.firstFormGroup.get('remarks_first').setValue('');
@@ -490,32 +550,42 @@ redirectTo(x){
       this.firstFormGroup.get('ack_first').updateValueAndValidity();
       this.firstFormGroup.get('review_date').setValidators(Validators.required);
       this.firstFormGroup.get('review_date').updateValueAndValidity();
-      //review_date
+     
     }
   }
 
   submitStep1(firstFormGroup){
-   
-   
-    let follow_up_date1 =this.firstFormGroup.get('completed_date_first').value;
+    this.isDisabled = true;
+    let follow_up_date1:any;
+    let review_date:any;
+    if(this.firstFormGroup.get('completed_date_first').value){
+     follow_up_date1 =this.firstFormGroup.get('completed_date_first').value;
+    }else{
+      follow_up_date1 = "";
+    }
+    if(this.firstFormGroup.get('review_date').value){
+      review_date = this.firstFormGroup.get('review_date').value;
+    }else{
+      review_date = "";
+    }
      
 
     let udidObj1 = {
       udid_details:  this.firstFormGroup.get('udid_details_first').value,
       remarks: this.firstFormGroup.get('remarks_first').value,
-      completed_date:  follow_up_date1,
-      ack_no:  this.firstFormGroup.get('ack_first').value,
-      review_date:this.firstFormGroup.get('review_date').value,
+      completed_date: follow_up_date1,
+      ack_no: this.firstFormGroup.get('ack_first').value,
+      review_date:review_date,
 
     }
     
-    console.log(this.firstFormGroup.get('udid_details_first').value)
+   
     var currentDate = new Date();
     let date1;
     if(this.firstFormGroup.get('udid_details_first').value == "Yes"){
      date1 = this.addDays(currentDate, 7);
     }else{
-      //let date1 = this.addDays(currentDate, 7);
+      
        date1 = this.firstFormGroup.get('review_date').value;
     }
    
@@ -536,8 +606,7 @@ redirectTo(x){
             cssClass: 'alertButton2',
             handler: () => {
 
-              this.offlineManager.checkForEvents().subscribe();
-              //this.router.navigate(['patient-details']);
+              //this.offlineManager.checkForEvents().subscribe();
               this.displayLoader();
               setTimeout(()=>{
                this.dismissLoader();
@@ -582,6 +651,7 @@ redirectTo(x){
 
 
   submitStep2(secondFormGroup){
+    this.isDisabled = true;
     let date1_new;
     let date2_new;
   
@@ -591,7 +661,6 @@ redirectTo(x){
       let follow_up_date2 =this.secondFormGroup.get('appointment_date_1week').value;
       
 
-      //verification_place_1week
     let udidObj2 = {
       udid_details:  this.secondFormGroup.get('udid_details_1week').value,
       remarks: this.secondFormGroup.get('remarks_1week').value,
@@ -605,11 +674,11 @@ redirectTo(x){
   
     var currentDate = new Date();
     let date1;
-    //  let =date1 = this.addDays(currentDate, 2);
+   
     if(this.secondFormGroup.get('date_time_1week').value == "Yes"){
-      //date1 = follow_up_date2;
+     
       date1 = this.addDays1(follow_up_date2, 2);
-      // console.log("New date"+date1)
+     
     }else{
       date1 = this.addDays(currentDate, 14);
     }
@@ -631,8 +700,8 @@ redirectTo(x){
               cssClass: 'alertButton2',
               handler: () => {
   
-                this.offlineManager.checkForEvents().subscribe();
-               // this.router.navigate(['patient-details']);
+                //this.offlineManager.checkForEvents().subscribe();
+              
                this.displayLoader();
                setTimeout(()=>{
                 this.dismissLoader();
@@ -660,20 +729,23 @@ redirectTo(x){
 
   checkReminder($event:MatRadioChange){
     if ($event.value ==='Yes') {
+      this.checkReminderYesSelected = true;
       this.thirdFormGroup.get('reminder_method_2days').setValidators(Validators.required);
       this.thirdFormGroup.get('reminder_method_2days').updateValueAndValidity();
     }else{
+      this.checkReminderYesSelected = false;
       this.thirdFormGroup.get('reminder_method_2days').setValue('');
       this.thirdFormGroup.get('reminder_method_2days').clearValidators();
       this.thirdFormGroup.get('reminder_method_2days').updateValueAndValidity();
     }
   }
+
   submitStep3(thirdFormGroup){
    
-
+    this.isDisabled = true;
     let date1_new;
     let date2_new;
-    console.log(thirdFormGroup);
+   
     let follow_up_date1 =this.thirdFormGroup.get('completed_date_2days').value;
      
 
@@ -693,7 +765,7 @@ redirectTo(x){
       reminder_method: this.thirdFormGroup.get('reminder_method_2days').value,
 
     }
-   
+  
     var currentDate = new Date();
     let date1 = this.addDays(currentDate, 30);
    
@@ -716,8 +788,8 @@ redirectTo(x){
             cssClass: 'alertButton2',
             handler: () => {
 
-              this.offlineManager.checkForEvents().subscribe();
-              //this.router.navigate(['patient-details']);
+              //this.offlineManager.checkForEvents().subscribe();
+              
               this.displayLoader();
               setTimeout(()=>{
                this.dismissLoader();
@@ -742,6 +814,7 @@ redirectTo(x){
         });
    
   }
+
   statusCheck($event){
     console.log($event);
     if($event == 1 ||$event == 4 ||$event == 5 ){
@@ -786,16 +859,13 @@ redirectTo(x){
   }
 
   submitStep4(fourthFormGroup){
-
-
+    this.isDisabled = true;
     let date1_new;
     let date2_new;
 
    
     let follow_up_date1 =this.fourthFormGroup.get('completed_date_1month').value;
-      
-
-      let follow_up_date2 =this.fourthFormGroup.get('appointment_date_1month').value;
+    let follow_up_date2 =this.fourthFormGroup.get('appointment_date_1month').value;
      
  
    
@@ -844,8 +914,8 @@ redirectTo(x){
               cssClass: 'alertButton2',
               handler: () => {
   
-                this.offlineManager.checkForEvents().subscribe();
-                //this.router.navigate(['patient-details']);
+                //this.offlineManager.checkForEvents().subscribe();
+               
                 this.displayLoader();
                 setTimeout(()=>{
                  this.dismissLoader();
@@ -881,6 +951,7 @@ redirectTo(x){
     {value: '5', viewValue_rating: '5'}
    
   ];
+  
   tobaccooptionsArray: tobacco_options[] = [
     {value: '1', viewValue: 'Yes',checked:false},
     {value: '2', viewValue: 'No',checked:false},

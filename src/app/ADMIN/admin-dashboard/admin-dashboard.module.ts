@@ -21,6 +21,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { AdminHeaderComponentModule } from 'src/app/admin-header.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -42,7 +43,9 @@ import { AdminHeaderComponentModule } from 'src/app/admin-header.module';
     ReactiveFormsModule,
     MatInputModule,
     MatMenuModule,
-    AdminHeaderComponentModule
+    AdminHeaderComponentModule,
+    MatProgressSpinnerModule
+
    
   ],
   declarations: [AdminDashboardPage],

@@ -78,10 +78,13 @@ export class DashboardPage implements OnInit {
   checkModel2 = false;
 
   
-  constructor(private _formBuilder: FormBuilder,private _location: Location,
-    private router: Router,private patientService: PatientService,
+  constructor(private _formBuilder: FormBuilder,
+    private _location: Location,
+    private router: Router,
+    private patientService: PatientService,
     private networkService : NetworkService,
-    private offlineManager : OfflineManagerService,private serverService: ServerService) { 
+    private offlineManager : OfflineManagerService,
+    private serverService: ServerService) { 
 
   }
  
@@ -128,7 +131,7 @@ export class DashboardPage implements OnInit {
   filtered_completed_task= [];
 
 
-  //date in the dd-mm-yyyy format for fetching todays,upcoming and overdue data from table 
+  //not used - date in the dd-mm-yyyy format for fetching todays,upcoming and overdue data from table 
   today = new Date();
   date = ("0" + this.today.getDate()).slice(-2);
   month = ("0" + (this.today.getMonth() + 1)).slice(-2);
@@ -138,8 +141,7 @@ export class DashboardPage implements OnInit {
   
   public notes_count: number;
   users_id;
-  
- 
+  showSpinner = false;
 
   ngOnInit() {
   this.data_uuid_today = []; 
@@ -161,7 +163,7 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    
+    this.showSpinner = true;
     this.user_name = sessionStorage.getItem("user_name");
    
     this.sw_id1 = sessionStorage.getItem("sw_id");
@@ -199,12 +201,9 @@ export class DashboardPage implements OnInit {
       patients_array_first=result1;
 
    });
-  
-      // this.data_uuid_today = res;
       
     this.data_res1 = patients_array_first;
     this.data_res1a = patients_array_first;
-    //this.total_patients = res.length;
   
     
    
@@ -226,8 +225,8 @@ export class DashboardPage implements OnInit {
       today_visit_array_first=result1;
 
    });
-      // this.patientService.todaysPatients1(this.today_date).then((res) => {
-     
+    
+        this.showSpinner = false;
       if(today_visit_array_first[0].today_visit_data.length > 0){
         this.data_res3 = today_visit_array_first[0].today_visit_data;
       
@@ -277,7 +276,7 @@ export class DashboardPage implements OnInit {
             this.data_res3[filter].patient_id = resultArray1[arr].patient_id;
             this.data_res3[filter].name = resultArray1[arr].name;
             this.data_res3[filter].demographic_info = resultArray1[arr].demographic_info;
-            //sort_array1.push(this.data_res3[filter].patient_id);
+        
             }
           }
           }
@@ -288,18 +287,11 @@ export class DashboardPage implements OnInit {
     for(var k = 0; k<this.data_res3.length;k++){
       if(this.data_res3[filter].followup_date1){
     if(this.data_res3[k].name){
-      
 
-      //this.today_visit_total = this.data_res3.length;
-      let date = ("0" + this.data_res3[k].followup_date1.getDate()).slice(-2);
-      let month = ("0" + (this.data_res3[k].followup_date1.getMonth() + 1)).slice(-2);
-      let year =this.data_res3[k].followup_date1.getFullYear();
-
-      this.data_res3[k].followup_date2 = date + "-" + month + "-" + year;
       this.data_res3[k].name = this.data_res3[k].name;
       this.data_res3[k].task =  this.data_res3[k].visit_type;
      
-      this.data_res3[k].due_date =  this.data_res3[k].followup_date2;
+      this.data_res3[k].due_date =  this.data_res3[k].followup_date1;
       let demo1= (JSON.parse(this.data_res3[k].demographic_info));
        const birthDate = new Date(demo1.dob);
        const today = new Date();
@@ -388,7 +380,6 @@ export class DashboardPage implements OnInit {
       if(this.checkModel1){
         this.today_final_array = [];
         this.dataSource_dashboard1.data = [];
-       // this.getTodayVisit();
        this.getTodayVisitOld();
         this.upcoming_final_array = [];
         this.dataSource_dashboard2.data = [];
@@ -421,7 +412,6 @@ export class DashboardPage implements OnInit {
       if(this.checkModel1 && !this.checkModel2){
         this.today_final_array = [];
         this.dataSource_dashboard1.data = [];
-        //this.getTodayVisit();
         this.getTodayVisitOld();
         this.upcoming = false;
         this.overdue = true;
@@ -444,7 +434,6 @@ export class DashboardPage implements OnInit {
       
         this.today_final_array = [];
         this.dataSource_dashboard1.data = [];
-        //this.getTodayVisit();
         this.getTodayVisitOld();
         this.getTodayTask();
         this.upcoming = false;
@@ -556,9 +545,6 @@ export class DashboardPage implements OnInit {
      
     }else if(x ==4){
       if(this.checkModel1 && !this.checkModel2){
-        //to be done
-        // this.complete_final_array = [];
-        // this.getCompletedTask();
          this.today_action =  false;
          this.upcoming = false;
          this.overdue = false;
@@ -610,8 +596,6 @@ export class DashboardPage implements OnInit {
     }
   }
 
-  
-
   //get today consultation - active patients only based on button click
   getTodayVisitOld(){
    
@@ -622,7 +606,7 @@ export class DashboardPage implements OnInit {
     let sort_array1 = [];
 
       this.patientService.todaysPatients(this.today_date).then((res) => {
-        console.log("TODAY VISIT"+JSON.stringify(res))
+      
         this.data_res3 = res;
       let resultArray1 :any;
       //all patients with demographic data only
@@ -636,7 +620,7 @@ export class DashboardPage implements OnInit {
             this.data_res3[filter].patient_id = resultArray1[arr].patient_id;
             this.data_res3[filter].name = resultArray1[arr].name;
             this.data_res3[filter].demographic_info = resultArray1[arr].demographic_info;
-            //sort_array1.push(this.data_res3[filter].patient_id);
+            
             }
       }
     }
@@ -646,14 +630,11 @@ export class DashboardPage implements OnInit {
     for(var k = 0; k<this.data_res3.length;k++){
       
     if(this.data_res3[k].name){
-      let date = ("0" + this.data_res3[k].followup_date.getDate()).slice(-2);
-      let month = ("0" + (this.data_res3[k].followup_date.getMonth() + 1)).slice(-2);
-      let year =this.data_res3[k].followup_date.getFullYear();
-      this.data_res3[k].followup_date1 = date + "-" + month + "-" + year;
+      
       this.data_res3[k].name = this.data_res3[k].name;
       this.data_res3[k].task =  this.data_res3[k].visit_type;
      
-      this.data_res3[k].due_date =  this.data_res3[k].followup_date1;
+      this.data_res3[k].due_date =  new Date(this.data_res3[k].followup_date);
       let demo1= (JSON.parse(this.data_res3[k].demographic_info));
        const birthDate = new Date(demo1.dob);
        const today = new Date();
@@ -754,12 +735,9 @@ this.data_res4 = filterArray;
 
     for(var k = 0; k<this.data_res4.length;k++){
       if(this.data_res4[k].name){
-        let date = ("0" + this.data_res4[k].task_due_date.getDate()).slice(-2);
-        let month = ("0" + (this.data_res4[k].task_due_date.getMonth() + 1)).slice(-2);
-        let year =this.data_res4[k].task_due_date.getFullYear();
-        this.data_res4[k].task_due_date1 = date + "-" + month + "-" + year;
+       
       this.data_res4[k].name = this.data_res4[k].name;
-      this.data_res4[k].due_date = this.data_res4[k].task_due_date1;
+      this.data_res4[k].due_date = new Date(this.data_res4[k].task_due_date);
     
       if(this.data_res4[k].task_type < 20){
         this.data_res4[k].task = "Rehabilitation Measures";
@@ -817,7 +795,7 @@ this.data_res4 = filterArray;
         this.data_res2 = [];
         this.filtered_upcoming_visit = [];
         let sort_array2 = [];
-       // this.upcoming_final_array = [];
+       
 
         this.patientService.upcomingPatients(this.today_date).then((res30) => {
        
@@ -848,12 +826,8 @@ this.data_res4 = filterArray;
         for(var k = 0; k<this.data_res2.length;k++){
          if(this.data_res2[k].name){
           
-          let date = ("0" + this.data_res2[k].followup_date.getDate()).slice(-2);
-          let month = ("0" + (this.data_res2[k].followup_date.getMonth() + 1)).slice(-2);
-          let year =this.data_res2[k].followup_date.getFullYear();
-          this.data_res2[k].followup_date1 = date + "-" + month + "-" + year;
           this.data_res2[k].name = this.data_res2[k].name;
-          this.data_res2[k].due_date =  this.data_res2[k].followup_date1;
+          this.data_res2[k].due_date =  new Date(this.data_res2[k].followup_date);
           this.data_res2[k].task =  this.data_res2[k].visit_type;
          
           let demo1= (JSON.parse(this.data_res2[k].demographic_info));
@@ -969,10 +943,6 @@ this.data_res4 = filterArray;
     for(var k = 0; k<this.data_res5.length;k++){
       if( this.data_res5[k].name){
 
-        let date = ("0" + this.data_res5[k].task_due_date.getDate()).slice(-2);
-        let month = ("0" + (this.data_res5[k].task_due_date.getMonth() + 1)).slice(-2);
-        let year =this.data_res5[k].task_due_date.getFullYear();
-        this.data_res5[k].task_due_date1 = date + "-" + month + "-" + year;
       this.data_res5[k].name = this.data_res5[k].name;
     
      if(this.data_res5[k].task_type < 20){
@@ -985,7 +955,7 @@ this.data_res4 = filterArray;
       this.data_res5[k].task = "Medicine Refill";
     }
     
-      this.data_res5[k].due_date =  this.data_res5[k].task_due_date1; 
+      this.data_res5[k].due_date =  new Date(this.data_res5[k].task_due_date); 
       let demo1= (JSON.parse(this.data_res5[k].demographic_info));
        const birthDate = new Date(demo1.dob);
        const today = new Date();
@@ -1028,7 +998,6 @@ this.data_res4 = filterArray;
         this.patientService.overdueVisit(this.today_date).then((res6) => {
          
           this.data_res5a = res6;
-          //this.overdue_visit = res6.length;
           let resultArray_over_visit :any;
           resultArray_over_visit = this.data_res1;
       
@@ -1049,13 +1018,10 @@ this.data_res4 = filterArray;
     
         for(var k = 0; k<this.data_res5a.length;k++){
           if(this.data_res5a[k].name){
-            let date = ("0" + this.data_res5a[k].followup_date.getDate()).slice(-2);
-            let month = ("0" + (this.data_res5a[k].followup_date.getMonth() + 1)).slice(-2);
-            let year =this.data_res5a[k].followup_date.getFullYear();
-            this.data_res5a[k].followup_date1 = date + "-" + month + "-" + year;
+            
           this.data_res5a[k].name = this.data_res5a[k].name;
           this.data_res5a[k].task =  this.data_res5a[k].visit_type;
-          this.data_res5a[k].due_date =  this.data_res5a[k].followup_date1;
+          this.data_res5a[k].due_date =  new Date(this.data_res5a[k].followup_date);
        
           let demo1= (JSON.parse(this.data_res5a[k].demographic_info));
            const birthDate = new Date(demo1.dob);
@@ -1172,13 +1138,9 @@ this.data_res4 = filterArray;
   for(var k = 0; k<this.data_res6.length;k++){
     
    if(this.data_res6[k].name){
-    let date = ("0" + this.data_res6[k].task_due_date.getDate()).slice(-2);
-    let month = ("0" + (this.data_res6[k].task_due_date.getMonth() + 1)).slice(-2);
-    let year =this.data_res6[k].task_due_date.getFullYear();
-
-    this.data_res6[k].task_due_date1 = date + "-" + month + "-" + year;
+    
     this.data_res6[k].name = this.data_res6[k].name;
-    this.data_res6[k].due_date = this.data_res6[k].task_due_date1;
+    this.data_res6[k].due_date = new Date(this.data_res6[k].task_due_date);
  
     if(this.data_res6[k].task_type < 20){
       this.data_res6[k].task = "Rehabilitation Measures";
@@ -1220,7 +1182,7 @@ this.data_res4 = filterArray;
     this.dataSource_dashboard3.data = this.overdue_final_array;
     this.dataSource_dashboard3.paginator = this.paginator;
    
-  //}
+  
   }
 }
 })
@@ -1302,14 +1264,10 @@ return accumalator;
 this.data_res10 = filterArray_comp;
 for(var k = 0; k<this.data_res10.length;k++){
   if(this.data_res10[k].name){
-    let date = ("0" + this.data_res10[k].task_due_date.getDate()).slice(-2);
-    let month = ("0" + (this.data_res10[k].task_due_date.getMonth() + 1)).slice(-2);
-    let year =this.data_res10[k].task_due_date.getFullYear();
-    this.data_res10[k].task_due_date1 = date + "-" + month + "-" + year;
     
 this.data_res10[k].name = this.data_res10[k].name;
 
-this.data_res10[k].due_date = this.data_res10[k].task_due_date1;
+this.data_res10[k].due_date = new Date(this.data_res10[k].task_due_date);
 
 if(this.data_res10[k].task_type < 20){
   this.data_res10[k].task = "Rehabilitation Measures";
@@ -1383,10 +1341,11 @@ add_patient(){
 logout(){
   this.router.navigate(['']);
  
+ 
 }
 
 patientDetails(m,n){
- // sessionStorage.setItem("patient_id",m);
+ 
  this.today_action =  false;
  this.upcoming = false;
  this.overdue = false;
@@ -1395,7 +1354,7 @@ patientDetails(m,n){
  this.checkModel2 = false;
  this.checkModel1 = true;
  sessionStorage.setItem("patient_uuid",n);
-this.router.navigate(['patient-details']);
+ this.router.navigate(['patient-details']);
  
 
 
@@ -1409,7 +1368,10 @@ displayNotes(){
   this.router.navigate(['notes']);
 }
 
-
+//sync data from storage table in device to the server db
+sync(){
+  this.offlineManager.checkForEvents().subscribe();
+}
 
 
 taluk: taluk_optons[] = [

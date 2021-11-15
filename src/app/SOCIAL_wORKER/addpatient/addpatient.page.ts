@@ -107,8 +107,6 @@ interface rateOptions{
 })
 export class AddpatientPage implements OnInit {
 
-  
-
   dataReturned: any;
   firstFormGroup: any;
 
@@ -117,6 +115,7 @@ export class AddpatientPage implements OnInit {
   tobaccoYesSelected: Boolean = false;
   alcoholFormGroup: any;
   alcoholYesSelected: Boolean = false;
+  otherYesSelected: Boolean = false;
   otherFormGroup:any;
   public newSymptom: any = {};
   public symptomArray: Array<any> = [];
@@ -130,6 +129,10 @@ export class AddpatientPage implements OnInit {
   interestActYesSelected: Boolean = false;
   communityFormGroup:any;
   communityYesSelected: Boolean = false;
+  dailyYesSelected:Boolean = false;
+  houseYesSelected:Boolean = false;
+  financeYesSelected:Boolean = false;
+  otherAssessYesSelected:Boolean = false;
   dailyFormGroup:any;
   houseFormGroup:any;
   financeFormGroup:any;
@@ -171,6 +174,7 @@ export class AddpatientPage implements OnInit {
   meditationFormGroup:any;
   medicationHelpFormGroup:any;
   medYesSelected: Boolean = false;
+  medHelpYesSelected:Boolean = false;
   counsellingFormGroup:any;
   counsellingYesSelected: Boolean = false;
   referralFormGroup:any;
@@ -201,8 +205,6 @@ export class AddpatientPage implements OnInit {
   domainArray = [];
   domainValid = false;
 
- 
-
   patObject = {
     name : '',
     gender : '',
@@ -219,7 +221,6 @@ export class AddpatientPage implements OnInit {
 
     
     phc_symptom_rate:'',
-    //rate_option:'',
     test_reason:'',
     suspicious:'',
     hallucinatory:'',
@@ -227,6 +228,7 @@ export class AddpatientPage implements OnInit {
     social_isolation:'',
     poor_selfcare:'',
     sleep:'',
+    work:'',
     diagnosis: '',
     tobacco:'',
     tobacco_yes:'',
@@ -358,14 +360,36 @@ export class AddpatientPage implements OnInit {
     file_upload:'',
 
   };
-  show = false;
 
+  show = false;
+  task1Checked:Boolean = false;
+  task2Checked:Boolean = false;
+  task3Checked:Boolean = false;
+  task4Checked:Boolean = false;
+  task5Checked:Boolean = false;
+  task6Checked:Boolean = false;
+  task7Checked:Boolean = false;
+  task8Checked:Boolean = false;
+  task9Checked:Boolean = false;
+  task10Checked:Boolean = false;
+  task11Checked:Boolean = false;
+  task12Checked:Boolean = false;
+  task13Checked:Boolean = false;
+  task14Checked:Boolean = false;
+  task15Checked:Boolean = false;
+  task16Checked:Boolean = false;
+  task17Checked:Boolean = false;
+  task18Checked:Boolean = false;
+  reniewUUIDYesSelected:Boolean = false;
+  needBenefitYesSelected:Boolean = false;
   
   constructor(private _formBuilder: FormBuilder,private _location: Location,private router: Router, private patientService: PatientService,
     private loadingCtrl: LoadingController, private route: ActivatedRoute,
     private navCtrl: NavController,private dialogModel: MatDialog,private serverService: ServerService,
     public alertController: AlertController,private datePipe: DatePipe,private offlineManager : OfflineManagerService) { }
-  @ViewChild('stepper') stepper: MatStepper;
+  
+    @ViewChild('stepper') stepper: MatStepper;
+
   user_name;
   sw_id1;
   sw_id;
@@ -380,11 +404,15 @@ export class AddpatientPage implements OnInit {
   symp_reason_visible = true;
   comp_reason_visible = true;
   none_visible = true;
- 
+  public fieldArray: Array<any> = [];
+  public newAttribute: any = {};
+  selectedFile: File[] = [];
+  selectedFile1: File[] = [];
+  x = 0;
+  fileContent:any;
+  filePath:any;
+  isDisabled = false;
 
-
-
-  
 
   ngOnInit() {
     
@@ -404,19 +432,17 @@ export class AddpatientPage implements OnInit {
       district_selected : new FormControl(this.patObject.district_selected, Validators.required),
       taluk_selected: new FormControl(this.patObject.taluk_selected, Validators.required),
       contact_patient: new FormControl(this.patObject.contact_patient, ),
-      //psw_incharge: new FormControl(this.patObject.psw_incharge, Validators.required),
     });
 
   this.secondFormGroup = this._formBuilder.group({
     phc_symptom_rate:new FormControl(this.patObject.phc_symptom_rate),
-    //rate_option:new FormControl(this.patObject.rate_option, Validators.required),
-    
     suspicious:new FormControl(this.patObject.suspicious),
     hallucinatory:new FormControl(this.patObject.hallucinatory),
     verbal:new FormControl(this.patObject.verbal),
     social_isolation:new FormControl(this.patObject.social_isolation),
     poor_selfcare:new FormControl(this.patObject.poor_selfcare),
     sleep:new FormControl(this.patObject.sleep),
+    work:new FormControl(this.patObject.work),
     test_reason:new FormControl(this.patObject.test_reason),
     diagnosis: new FormControl(this.patObject.diagnosis),
    
@@ -480,7 +506,7 @@ export class AddpatientPage implements OnInit {
 
 
   this.fourthFormGroup = this._formBuilder.group({
-    notebook:new FormControl(this.patObject.notebook),
+
 
   localResourceFormGroup:new FormGroup({
     check1:new FormControl(this.patObject.check1),
@@ -603,6 +629,7 @@ export class AddpatientPage implements OnInit {
 
 
 this.fifthFormGroup = this._formBuilder.group({
+  notebook:new FormControl(this.patObject.notebook),
   diagnosis_step5:new FormControl(this.patObject.diagnosis_step5, Validators.required),
   pat_compliance_rate:new FormControl(this.patObject.pat_compliance_rate),
   comp_reason:new FormControl(this.patObject.comp_reason),
@@ -641,10 +668,6 @@ this.fifthFormGroup = this._formBuilder.group({
     },this.requireCheckboxesToBeCheckedValidator()),
     participant_details:new FormControl(this.patObject.participant_details,Validators.required),
    
-    // consentFormGroup:new FormGroup({
-    //  // consent:new FormControl(this.patObject.consent, Validators.required),
-    // },this.requireCheckboxesToBeCheckedValidator()),
-   
     file_upload:new FormControl(this.patObject.file_upload)
   })
   this.setParticipantGroupControl();
@@ -652,6 +675,7 @@ this.fifthFormGroup = this._formBuilder.group({
   }
 
   ionViewWillEnter() {
+    this.isDisabled = false;
     this.user_name = sessionStorage.getItem("user_name");
     this.sw_id1 = sessionStorage.getItem("sw_id");
     this.sw_id = parseInt(this.sw_id1);
@@ -660,10 +684,6 @@ this.fifthFormGroup = this._formBuilder.group({
     this.taluk_id1 = sessionStorage.getItem("taluk_id");
     this.taluk_id = parseInt(this.taluk_id1);
     this.group_data_id = sessionStorage.getItem("group_data_id");
-    //this.group_dat_id = parseInt(this.group_dat_id1);
-    // this.getTaluks();
-    // this.getPhcs();
-    // this.getDistricts();
     this.firstFormGroup = this._formBuilder.group({
       name: new FormControl(this.patObject.name, Validators.required),
       gender:new FormControl(this.patObject.gender, Validators.required),
@@ -676,19 +696,18 @@ this.fifthFormGroup = this._formBuilder.group({
       district_selected : new FormControl(this.patObject.district_selected, Validators.required),
       taluk_selected: new FormControl(this.patObject.taluk_selected, Validators.required),
       contact_patient: new FormControl(this.patObject.contact_patient, ),
-      //psw_incharge: new FormControl(this.patObject.psw_incharge, Validators.required),
+     
     });
 
   this.secondFormGroup = this._formBuilder.group({
     phc_symptom_rate:new FormControl(this.patObject.phc_symptom_rate),
-    //rate_option:new FormControl(this.patObject.rate_option, Validators.required),
-    
     suspicious:new FormControl(this.patObject.suspicious),
     hallucinatory:new FormControl(this.patObject.hallucinatory),
     verbal:new FormControl(this.patObject.verbal),
     social_isolation:new FormControl(this.patObject.social_isolation),
     poor_selfcare:new FormControl(this.patObject.poor_selfcare),
     sleep:new FormControl(this.patObject.sleep),
+    work:new FormControl(this.patObject.work),
     test_reason:new FormControl(this.patObject.test_reason),
     diagnosis: new FormControl(this.patObject.diagnosis),
    
@@ -752,7 +771,6 @@ this.fifthFormGroup = this._formBuilder.group({
 
 
   this.fourthFormGroup = this._formBuilder.group({
-    notebook:new FormControl(this.patObject.notebook),
 
   localResourceFormGroup:new FormGroup({
     check1:new FormControl(this.patObject.check1),
@@ -875,6 +893,7 @@ this.fifthFormGroup = this._formBuilder.group({
 
 
 this.fifthFormGroup = this._formBuilder.group({
+  notebook:new FormControl(this.patObject.notebook),
   diagnosis_step5:new FormControl(this.patObject.diagnosis_step5, Validators.required),
   pat_compliance_rate:new FormControl(this.patObject.pat_compliance_rate),
   comp_reason:new FormControl(this.patObject.comp_reason),
@@ -912,9 +931,6 @@ this.fifthFormGroup = this._formBuilder.group({
     participantFormGroup: new FormGroup({
     },this.requireCheckboxesToBeCheckedValidator()),
     participant_details:new FormControl(this.patObject.participant_details,Validators.required),
-    // consentFormGroup:new FormGroup({
-    //  // consent:new FormControl(this.patObject.consent, Validators.required),
-    // },this.requireCheckboxesToBeCheckedValidator()),
    
     file_upload:new FormControl(this.patObject.file_upload)
   })
@@ -961,10 +977,6 @@ this.fifthFormGroup = this._formBuilder.group({
       (this.fifthFormGroup.controls.participantFormGroup as FormGroup).addControl(item.value, control);
     });
 
-    // this.consentArray.forEach((item, index) => {
-    //   const control = new FormControl(false);
-    //   (this.fifthFormGroup.controls.consentFormGroup as FormGroup).addControl(item.value, control);
-    // });
   }
   
  options: select_optons[] = [
@@ -999,9 +1011,6 @@ district: district_optons[] = [
 ];
 
 taluk: taluk_optons[] = [
-  // {value_taluk: 16, viewValue_taluk: 'Test'},
-  // {value_taluk: 17, viewValue_taluk: ' Kurugodu'},
-  // {value_taluk: 18, viewValue_taluk: 'Athani'},
   {value_taluk: 1, viewValue_taluk: 'Gangavathi'},
   {value_taluk: 2, viewValue_taluk: 'Gauribidanur'},
   {value_taluk: 3, viewValue_taluk: 'Madhugiri'},
@@ -1012,7 +1021,7 @@ taluk: taluk_optons[] = [
   {value_taluk: 8, viewValue_taluk: 'Chikodi'},
   {value_taluk: 9, viewValue_taluk: 'Basavakalyan'},
   {value_taluk: 10, viewValue_taluk: 'Jamkhandi'},
-  // {value_taluk: 29, viewValue_taluk: 'Nimhans '}
+ 
 ];
 visit_placenew: visit_place[] = [
   {value_visit: '1', viewValue_visit: 'PHC'},
@@ -1038,7 +1047,7 @@ uuidptionsArray: uuid_options[] = [
 
 uuidValidptionsArray: valid_options[] = [
   {value: '1', viewValue_valid: 'Current and valid'},
-  {value: '2', viewValue_valid: 'Needs Renvewal'},
+  {value: '2', viewValue_valid: 'Needs Renewal'},
   {value: '3', viewValue_valid: 'Needs reassessment from medical board'},
   {value: '4', viewValue_valid: 'Not applicable'},
   {value: '5', viewValue_valid: 'Do not know'}
@@ -1177,7 +1186,6 @@ selectedTaluk(event: MatSelectChange){
     this.secondFormGroup.phc_symptom_rate = event.value;
     this.rate2 =  this.secondFormGroup.phc_symptom_rate +"%" ;
     this.rateSymptom = true;
-    // this.secondFormGroup.get('test_reason').clearValidators();
     this.symp_reason_visible = false;
   }
 
@@ -1193,7 +1201,7 @@ selectedTaluk(event: MatSelectChange){
     
     this.symp_reason_visible = false;
     this.domainArray.push(1);
-    if(this.domainArray.length == 6){
+    if(this.domainArray.length == 7){
       this.domainValid = true;
     }
   }
@@ -1202,14 +1210,14 @@ selectedTaluk(event: MatSelectChange){
  
     this.symp_reason_visible = false;
     this.domainArray.push(2);
-    if(this.domainArray.length == 6){
+    if(this.domainArray.length == 7){
       this.domainValid = true;
     }
   }
   verbalClicked(){
     
     this.domainArray.push(3);
-    if(this.domainArray.length == 6){
+    if(this.domainArray.length == 7){
       this.domainValid = true;
     }
   }
@@ -1217,7 +1225,7 @@ selectedTaluk(event: MatSelectChange){
    
     this.symp_reason_visible = false;
     this.domainArray.push(4);
-    if(this.domainArray.length == 6){
+    if(this.domainArray.length == 7){
       this.domainValid = true;
     }
   }
@@ -1225,7 +1233,7 @@ selectedTaluk(event: MatSelectChange){
    
     this.symp_reason_visible = false;
     this.domainArray.push(5);
-    if(this.domainArray.length == 6){
+    if(this.domainArray.length == 7){
       this.domainValid = true;
     }
   }
@@ -1233,16 +1241,21 @@ selectedTaluk(event: MatSelectChange){
    
     this.symp_reason_visible = false;
     this.domainArray.push(6);
-    if(this.domainArray.length == 6){
+    if(this.domainArray.length == 7){
+     
+      this.domainValid = true;
+    }
+  }
+  workClicked(){
+    this.symp_reason_visible = false;
+    this.domainArray.push(7);
+    if(this.domainArray.length == 7){
      
       this.domainValid = true;
     }
   }
   onKey2(event) {
      const inputValue = event.target.value;
-   
-  
-   // this.secondFormGroup.get('test_reason').setValidators(Validators.required);
     if(inputValue.length > 1){
       this.rateSymptom = true;
       }else{
@@ -1253,22 +1266,19 @@ selectedTaluk(event: MatSelectChange){
 
   onKey5(event) {
     const inputValue = event.target.value;
-    // if(inputValue){
-    // this.compRate= true;
-    // }
     if(inputValue.length > 1){
       this.compRate= true;
       }else{
         this.compRate= false;
       }
   }
+
   submitStep2(secondFormGroup){
 
     this.secondFormGroup.value.symtom = this.symptomArray
 
     let clinicalObj = {
       phc_symptom_rate:this.secondFormGroup.get('phc_symptom_rate').value,
-      // rate_option:this.secondFormGroup.get('rate_option').value,
       test_reason:this.secondFormGroup.get('test_reason').value,
       diagnosis:  this.secondFormGroup.get('diagnosis').value,
       suspicious:this.secondFormGroup.get('suspicious').value,
@@ -1276,6 +1286,7 @@ selectedTaluk(event: MatSelectChange){
       verbal:this.secondFormGroup.get('verbal').value,
       social_isolation:this.secondFormGroup.get('social_isolation').value,
       sleep:this.secondFormGroup.get('sleep').value,
+      work:this.secondFormGroup.get('work').value,
       poor_selfcare:this.secondFormGroup.get('poor_selfcare').value,
       other_symptom:this.symptomArray,
       tobacco:this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco').value,
@@ -1291,7 +1302,7 @@ selectedTaluk(event: MatSelectChange){
     
     }
 
-    console.log(clinicalObj)
+ 
     sessionStorage.setItem("step2",JSON.stringify(clinicalObj));
     this.stepper.next();
     
@@ -1366,7 +1377,7 @@ selectedTaluk(event: MatSelectChange){
   }
 
   onFileChange1(file){
-    console.log(file.target.files[0].name)
+  
     this.patObject.file_upload = file.target.files;
   }
  
@@ -1400,13 +1411,9 @@ selectedTaluk(event: MatSelectChange){
     if(!this.fourthFormGroup.controls.localResourceFormGroup.get('check1').value){
       this.fourthFormGroup.removeControl('localResourceFormGroup');
     }else{
-      //date in dd-mm-yyyy format
+      
       let follow_up_date1 = this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       
       fourthObj1 = {
         check1:this.fourthFormGroup.controls.localResourceFormGroup.get('check1').value,
@@ -1421,11 +1428,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('differentNeedsFormGroup');
     }else{
       let follow_up_date1 = this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       fourthObj2 = {
         check2:this.fourthFormGroup.controls.differentNeedsFormGroup.get('check2').value,
         option:2,
@@ -1440,11 +1443,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('localFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj3 = {
         check3:this.fourthFormGroup.controls.localFormGroup.get('check3').value,
         option:3,
@@ -1459,11 +1458,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('skillDevFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj4 = {
         check4:this.fourthFormGroup.controls.skillDevFormGroup.get('check4').value,
         option:4,
@@ -1478,11 +1473,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('selfEmployFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj5 = {
         check5:this.fourthFormGroup.controls.selfEmployFormGroup.get('check5').value,
         option:5,
@@ -1497,11 +1488,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('incomeGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj6 = {
         check6:this.fourthFormGroup.controls.incomeGroup.get('check6').value,
         option:6,
@@ -1516,11 +1503,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('minergaGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.minergaGroup.get('minerga_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj7 = {
         check7:this.fourthFormGroup.controls.minergaGroup.get('check7').value,
         option:7,
@@ -1535,11 +1518,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('daycareFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj8 = {
         check8:this.fourthFormGroup.controls.daycareFormGroup.get('check8').value,
         option:8,
@@ -1554,11 +1533,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('cultutalEventFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj9 = {
         check9:this.fourthFormGroup.controls.cultutalEventFormGroup.get('check9').value,
         option:9,
@@ -1573,11 +1548,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('educationFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.educationFormGroup.get('education_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       fourthObj10 = {
         check10:this.fourthFormGroup.controls.educationFormGroup.get('check10').value,
         option:10,
@@ -1592,11 +1563,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('idProofFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj11 = {
         check11:this.fourthFormGroup.controls.idProofFormGroup.get('check11').value,
         option:11,
@@ -1611,11 +1578,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('insClaimFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       fourthObj12 = {
         check12:this.fourthFormGroup.controls.insClaimFormGroup.get('check12').value,
         option:12,
@@ -1630,11 +1593,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('physicianFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       fourthObj13 = {
         check13:this.fourthFormGroup.controls.physicianFormGroup.get('check13').value,
         option:13,
@@ -1649,11 +1608,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('legalFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.legalFormGroup.get('legal_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj14 = {
         check14:this.fourthFormGroup.controls.legalFormGroup.get('check14').value,
         option:14,
@@ -1668,11 +1623,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('liaiseFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
       fourthObj15 = {
         check15:this.fourthFormGroup.controls.liaiseFormGroup.get('check15').value,
         option:15,
@@ -1687,11 +1638,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('consultLegalFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       fourthObj16 = {
         check16:this.fourthFormGroup.controls.consultLegalFormGroup.get('check16').value,
         option:16,
@@ -1706,11 +1653,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('bankAccountFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
 
       fourthObj17 = {
         check17:this.fourthFormGroup.controls.bankAccountFormGroup.get('check17').value,
@@ -1726,11 +1669,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('offerHelpFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
 
       fourthObj18 = {
         check18:this.fourthFormGroup.controls.offerHelpFormGroup.get('check18').value,
@@ -1745,11 +1684,7 @@ selectedTaluk(event: MatSelectChange){
       this.fourthFormGroup.removeControl('noneAboveFormGroup');
     }else{
       let follow_up_date1 =this.fourthFormGroup.get('review_date').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
 
       fourthObj19 = {
         check19:this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').value,
@@ -1760,13 +1695,12 @@ selectedTaluk(event: MatSelectChange){
       }
       fourthArray.push(fourthObj19);
     }
+
+    
     if(this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew').value == "Yes"){
       let follow_up_date1 =this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_follow_up').value;
-      let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      let year =follow_up_date1.getFullYear();
-      this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+      
+     
       fourthObj41= {
         check41:this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew').value,
         option:41,
@@ -1778,11 +1712,7 @@ selectedTaluk(event: MatSelectChange){
     }
     if(this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit').value == "Yes"){
       let follow_up_date1 =this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_follow_up').value;
-      // let date = ("0" + follow_up_date1.getDate()).slice(-2);
-      // let month = ("0" + (follow_up_date1.getMonth() + 1)).slice(-2);
-      // let year =follow_up_date1.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let follow_up_date = this.dateToday;
+     
       fourthObj42= {
         check42:this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit').value,
         option:35,
@@ -1792,7 +1722,7 @@ selectedTaluk(event: MatSelectChange){
       }
       fourthArray.push(fourthObj42);
     }
-    console.log(fourthArray)
+  
     let follow_up_review;
     let follow_up_benefit;
   
@@ -1810,12 +1740,6 @@ selectedTaluk(event: MatSelectChange){
     }
    
     sessionStorage.setItem("step4",JSON.stringify(uuidObj));
-   
-    this.fourthFormGroup.removeControl('UUIDFormGroup');
-    this.fourthFormGroup.removeControl('validUUIDFormGroup');
-    this.fourthFormGroup.removeControl('renewUUIdFormGroup');
-    this.fourthFormGroup.removeControl('benefitFormGroup');
-    
     sessionStorage.setItem("step4_data",JSON.stringify(fourthArray));
     this.stepper.next();
     
@@ -1881,8 +1805,9 @@ selectedTaluk(event: MatSelectChange){
       this.fifthFormGroup.get('phc_other').updateValueAndValidity();
     }
   }
+
   submitStep5(fifthFormGroup){
-   
+   this.isDisabled = true;
     const tempPartCheckBox = [];
     let consentObj = {
       consent:this.consent_array
@@ -1917,14 +1842,13 @@ selectedTaluk(event: MatSelectChange){
      participant_details:this.fifthFormGroup.get('participant_details').value,
      phc:this.fifthFormGroup.get('phc').value,
      phc_other:this.fifthFormGroup.get('phc_other').value,
-    // consent:this.getConsentDetails(fifthFormGroup.controls['consentFormGroup']),
     
 
    }
 
  
   
- console.log(consentObj1)
+ 
   this.consentData = this.consent_array;
  
   let follow_up_date = this.fifthFormGroup.get('follow_up_date').value;
@@ -1936,20 +1860,13 @@ selectedTaluk(event: MatSelectChange){
   let clinicalData = sessionStorage.getItem('step2');
   let assessData = sessionStorage.getItem('step3');
   let uuidData = sessionStorage.getItem('step4');
-  //let taskData = sessionStorage.getItem('step4_data');
+ 
   let taskData :any;
-   taskData = sessionStorage.getItem('step4_data');
+  taskData = sessionStorage.getItem('step4_data');
  
- 
- console.log(taskData)
- 
-let mergedObj = {clinicalData,consentObj1};
-let med_date = JSON.stringify(medObj);
+  let mergedObj = {clinicalData,consentObj1};
+  let med_date = JSON.stringify(medObj);
 
-
-
-    
-       
         this.patientService.addPatient(name,demographicData,uuidData,assessData,consentObj,mergedObj,taskData,follow_up_date,this.sw_id,this.group_data_id,medObj).then(() => {
            
          
@@ -1966,11 +1883,7 @@ let med_date = JSON.stringify(medObj);
                 cssClass: 'alertButton2',
                 handler: () => {
   
-              // location.reload();
-              
-              this.offlineManager.checkForEvents().subscribe();
-             
-              //this.router.navigate(['dashboard']);
+              //this.offlineManager.checkForEvents().subscribe();
               this.displayLoader();
               setTimeout(()=>{
                this.dismissLoader();
@@ -2094,9 +2007,36 @@ previous4(){
     this.patObject.offer_help_date = this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').value
 
   }
+  if(this.fourthFormGroup.controls.noneAboveFormGroup){
+   
+    this.patObject.check19 = this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').value,
+    this.patObject.none_reason = this.fourthFormGroup.controls.noneAboveFormGroup.get('none_reason').value,
+    this.patObject.review_date = this.fourthFormGroup.get('review_date').value
+
+  }
+ 
+  this.patObject.uuid = this.fourthFormGroup.controls.UUIDFormGroup.get('uuid').value
+
+  if(this.fourthFormGroup.controls.validUUIDFormGroup){
+   
+    this.patObject.uuid_valid = this.fourthFormGroup.controls.validUUIDFormGroup.get('uuid_valid').value
+  }
+  if(this.fourthFormGroup.controls.renewUUIdFormGroup){
+   
+    this.patObject.uuid_renew = this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew').value,
+    this.patObject.uuid_renew_remark = this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_remark').value,
+    this.patObject.uuid_renew_follow_up = this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_follow_up').value
+
+  }
+  if(this.fourthFormGroup.controls.benefitFormGroup){
+   
+    this.patObject.dis_benefit = this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit').value,
+    this.patObject.dis_benefit_remark = this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_remark').value,
+    this.patObject.dis_benefit_follow_up = this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_follow_up').value
+
+  }
  
   this.fourthFormGroup = this._formBuilder.group({
-    notebook:new FormControl(this.patObject.notebook),
 
   localResourceFormGroup:new FormGroup({
     check1:new FormControl(this.patObject.check1),
@@ -2192,6 +2132,11 @@ previous4(){
     offer_help_yes:new FormControl(this.patObject.offer_help_yes),
     offer_help_date:new FormControl(this.patObject.offer_help_date),
   }),
+  noneAboveFormGroup:new FormGroup({
+    check19:new FormControl(this.patObject.check19),
+    none_reason:new FormControl(this.patObject.none_reason),
+  
+  }),
   UUIDFormGroup:new FormGroup({
     uuid:new FormControl(this.patObject.uuid),
   }),
@@ -2210,6 +2155,10 @@ previous4(){
   }),
  
   })
+  console.log(this.patObject.uuid)
+  console.log(this.patObject.uuid_valid)
+  console.log(this.patObject.uuid_renew)
+  console.log(this.patObject.dis_benefit)
    this.stepper.previous();
 }
 checkRateChange1($event:MatRadioChange){
@@ -2219,18 +2168,12 @@ checkTobChange1($event:MatRadioChange){
   
       if ($event.value ==='Yes') {
       this.tobaccoYesSelected = true;
-      // this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').setValidators(Validators.required);
        this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').updateValueAndValidity();
-      // this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_yes').setValidators(Validators.required);
        this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_yes').updateValueAndValidity();
     
     } else {
       this.tobaccoYesSelected = false;
-      //this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').setValue('');
-     // this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').clearValidators();
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobocco_amount').updateValueAndValidity();
-     // this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_yes').setValue('');
-     // this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_yes').clearValidators();
       this.secondFormGroup.controls.tobaccoFormGroup.get('tobacco_yes').updateValueAndValidity();
       
       
@@ -2241,19 +2184,13 @@ checkTobChange1($event:MatRadioChange){
 checkTobChange2($event:MatRadioChange){
    
     if ($event.value ==='Yes') {
-    
-  // this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').setValidators(Validators.required);
-   this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').updateValueAndValidity();
-   //this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_yes').setValidators(Validators.required);
-   this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_yes').updateValueAndValidity();
+    this.alcoholYesSelected = true;
+    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').updateValueAndValidity();
+    this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_yes').updateValueAndValidity();
   } else {
     this.alcoholYesSelected = false;
-   
-    ////this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').setValue('');
-    //this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').clearValidators();
     this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_amount').updateValueAndValidity();
     this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_yes').setValue('');
-    ////this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_yes').clearValidators();
     this.secondFormGroup.controls.alcoholFormGroup.get('alcohol_yes').updateValueAndValidity();
     
   }
@@ -2263,18 +2200,12 @@ checkTobChange2($event:MatRadioChange){
 checkTobChange3($event:MatRadioChange){
    
   if ($event.value ==='Yes') {
-  this.alcoholYesSelected = true;
- //this.secondFormGroup.controls.otherFormGroup.get('other_amount').setValidators(Validators.required);
+  this.otherYesSelected = true;
  this.secondFormGroup.controls.otherFormGroup.get('other_amount').updateValueAndValidity();
-// this.secondFormGroup.controls.otherFormGroup.get('other_yes').setValidators(Validators.required);
  this.secondFormGroup.controls.otherFormGroup.get('other_yes').updateValueAndValidity();
 } else {
-  this.alcoholYesSelected = false;
-  //this.secondFormGroup.controls.otherFormGroup.get('other_amount').setValue('');
-  //this.secondFormGroup.controls.otherFormGroup.get('other_amount').clearValidators();
+  this.otherYesSelected = false;
   this.secondFormGroup.controls.otherFormGroup.get('other_amount').updateValueAndValidity();
-  //this.secondFormGroup.controls.otherFormGroup.get('other_yes').setValue('');
-  //this.secondFormGroup.controls.otherFormGroup.get('other_yes').clearValidators();
   this.secondFormGroup.controls.otherFormGroup.get('other_yes').updateValueAndValidity();
 
   
@@ -2345,11 +2276,11 @@ checkCommunityChange($event:MatRadioChange){
 
 checkDailyChange($event:MatRadioChange){
   if ($event.value ==='Yes') {
-    // this.communityYesSelected = true;
+     this.dailyYesSelected = true;
     this.thirdFormGroup.controls.dailyFormGroup.get('daily_yes').setValidators(Validators.required);
     this.thirdFormGroup.controls.dailyFormGroup.get('daily_yes').updateValueAndValidity();
   } else {
-    // this.communityYesSelected = false;
+     this.dailyYesSelected = false;
     this.thirdFormGroup.controls.dailyFormGroup.get('daily_yes').setValue('');
     this.thirdFormGroup.controls.dailyFormGroup.get('daily_yes').clearValidators();
     this.thirdFormGroup.controls.dailyFormGroup.get('daily_yes').updateValueAndValidity();
@@ -2360,11 +2291,11 @@ checkDailyChange($event:MatRadioChange){
 
 checkHouseChange($event:MatRadioChange){
   if ($event.value ==='Yes') {
-    // this.communityYesSelected = true;
+    this.houseYesSelected = true;
     this.thirdFormGroup.controls.houseFormGroup.get('house_yes').setValidators(Validators.required);
     this.thirdFormGroup.controls.houseFormGroup.get('house_yes').updateValueAndValidity();
   } else {
-    // this.communityYesSelected = false;
+    this.houseYesSelected = false;
     this.thirdFormGroup.controls.houseFormGroup.get('house_yes').setValue('');
     this.thirdFormGroup.controls.houseFormGroup.get('house_yes').clearValidators();
     this.thirdFormGroup.controls.houseFormGroup.get('house_yes').updateValueAndValidity();
@@ -2375,11 +2306,11 @@ checkHouseChange($event:MatRadioChange){
 
 checkFinanceChange($event:MatRadioChange){
   if ($event.value ==='Yes') {
-    
+    this.financeYesSelected = true;
     this.thirdFormGroup.controls.financeFormGroup.get('finance_yes').setValidators(Validators.required);
     this.thirdFormGroup.controls.financeFormGroup.get('finance_yes').updateValueAndValidity();
   } else {
-    
+    this.financeYesSelected = false;
     this.thirdFormGroup.controls.financeFormGroup.get('finance_yes').setValue('');
     this.thirdFormGroup.controls.financeFormGroup.get('finance_yes').clearValidators();
     this.thirdFormGroup.controls.financeFormGroup.get('finance_yes').updateValueAndValidity();
@@ -2390,11 +2321,11 @@ checkFinanceChange($event:MatRadioChange){
 
 checkOtherHelpChange($event:MatRadioChange){
   if ($event.value ==='Yes') {
-    
+    this.otherAssessYesSelected = true;
     this.thirdFormGroup.controls.otherHelpFormGroup.get('other_help_yes').setValidators(Validators.required);
     this.thirdFormGroup.controls.otherHelpFormGroup.get('other_help_yes').updateValueAndValidity();
   } else {
-    
+    this.otherAssessYesSelected = false;
     this.thirdFormGroup.controls.otherHelpFormGroup.get('other_help_yes').setValue('');
     this.thirdFormGroup.controls.otherHelpFormGroup.get('other_help_yes').clearValidators();
     this.thirdFormGroup.controls.otherHelpFormGroup.get('other_help_yes').updateValueAndValidity();
@@ -2405,6 +2336,8 @@ checkOtherHelpChange($event:MatRadioChange){
 
 taskCheck1($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task1Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(1);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2419,6 +2352,7 @@ taskCheck1($event:MatCheckboxChange){
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').updateValueAndValidity();
   } else {
+    this.task1Checked = false;
    
     const index = this.taskValidationArray.indexOf(1);
       if (index > -1) {
@@ -2443,6 +2377,8 @@ taskCheck1($event:MatCheckboxChange){
 
 taskCheck2($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task2Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(2);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2457,6 +2393,7 @@ taskCheck2($event:MatCheckboxChange){
     this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').updateValueAndValidity();
   } else {
+    this.task2Checked = false;
     const index = this.taskValidationArray.indexOf(2);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2478,6 +2415,8 @@ taskCheck2($event:MatCheckboxChange){
 
 taskCheck3($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task3Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(3);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2493,6 +2432,7 @@ taskCheck3($event:MatCheckboxChange){
     this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').updateValueAndValidity();
   } else {
+    this.task3Checked = false;
     const index = this.taskValidationArray.indexOf(3);
       if (index > -1) {
         this.taskValidationArray.splice(index, 1);
@@ -2514,6 +2454,8 @@ taskCheck3($event:MatCheckboxChange){
 
 taskCheck4($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task4Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(4);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2528,6 +2470,7 @@ taskCheck4($event:MatCheckboxChange){
     this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').updateValueAndValidity();
   } else {
+    this.task4Checked = false;
     const index = this.taskValidationArray.indexOf(4);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2549,6 +2492,8 @@ taskCheck4($event:MatCheckboxChange){
 
 taskCheck5($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task5Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(5);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2563,6 +2508,7 @@ taskCheck5($event:MatCheckboxChange){
     this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').updateValueAndValidity();
   } else {
+    this.task5Checked = false;
     const index = this.taskValidationArray.indexOf(5);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2584,6 +2530,8 @@ taskCheck5($event:MatCheckboxChange){
 
 taskCheck6($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task6Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(6);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2598,6 +2546,7 @@ taskCheck6($event:MatCheckboxChange){
     this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').updateValueAndValidity();
   } else {
+    this.task6Checked = false;
     const index = this.taskValidationArray.indexOf(6);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2619,6 +2568,8 @@ taskCheck6($event:MatCheckboxChange){
 
 taskCheck7($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task7Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(7);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2633,6 +2584,7 @@ taskCheck7($event:MatCheckboxChange){
     this.fourthFormGroup.controls.minergaGroup.get('minerga_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.minergaGroup.get('minerga_date').updateValueAndValidity();
   } else {
+    this.task7Checked = false;
     const index = this.taskValidationArray.indexOf(7);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2654,6 +2606,8 @@ taskCheck7($event:MatCheckboxChange){
 
 taskCheck8($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task8Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(8);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2668,6 +2622,7 @@ taskCheck8($event:MatCheckboxChange){
     this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').setValidators(Validators.required);
     this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').updateValueAndValidity();
   } else {
+    this.task8Checked = false;
     const index = this.taskValidationArray.indexOf(8);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2689,6 +2644,8 @@ taskCheck8($event:MatCheckboxChange){
 
 taskCheck9($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task9Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(9);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2703,6 +2660,7 @@ taskCheck9($event:MatCheckboxChange){
     this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').setValidators(Validators.required);
     this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').updateValueAndValidity();
   } else {
+    this.task9Checked = false;
     const index = this.taskValidationArray.indexOf(9);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2724,6 +2682,8 @@ taskCheck9($event:MatCheckboxChange){
 
 taskCheck10($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task10Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(10);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2738,6 +2698,7 @@ taskCheck10($event:MatCheckboxChange){
     this.fourthFormGroup.controls.educationFormGroup.get('education_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.educationFormGroup.get('education_date').updateValueAndValidity();
   } else {
+    this.task10Checked = false;
     const index = this.taskValidationArray.indexOf(10);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2759,6 +2720,8 @@ taskCheck10($event:MatCheckboxChange){
 
 taskCheck11($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task11Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(11);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2773,6 +2736,7 @@ taskCheck11($event:MatCheckboxChange){
     this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').updateValueAndValidity();
   } else {
+    this.task11Checked = false;
     const index = this.taskValidationArray.indexOf(11);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2794,6 +2758,8 @@ taskCheck11($event:MatCheckboxChange){
 
 taskCheck12($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task12Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(12);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2808,6 +2774,7 @@ taskCheck12($event:MatCheckboxChange){
     this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').updateValueAndValidity();
   } else {
+    this.task12Checked = false;
     const index = this.taskValidationArray.indexOf(12);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2829,6 +2796,8 @@ taskCheck12($event:MatCheckboxChange){
 
 taskCheck13($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task13Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(13);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2843,6 +2812,7 @@ taskCheck13($event:MatCheckboxChange){
     this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').updateValueAndValidity();
   } else {
+    this.task13Checked = false;
     const index = this.taskValidationArray.indexOf(13);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2864,6 +2834,8 @@ taskCheck13($event:MatCheckboxChange){
 
 taskCheck14($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task14Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(14);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2878,6 +2850,7 @@ taskCheck14($event:MatCheckboxChange){
     this.fourthFormGroup.controls.legalFormGroup.get('legal_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.legalFormGroup.get('legal_date').updateValueAndValidity();
   } else {
+    this.task14Checked = false;
     const index = this.taskValidationArray.indexOf(14);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2899,6 +2872,8 @@ taskCheck14($event:MatCheckboxChange){
 
 taskCheck15($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task15Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(15);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2913,6 +2888,7 @@ taskCheck15($event:MatCheckboxChange){
     this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').updateValueAndValidity();
   } else {
+    this.task15Checked = false;
     const index = this.taskValidationArray.indexOf(15);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2934,6 +2910,8 @@ taskCheck15($event:MatCheckboxChange){
 
 taskCheck16($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task16Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(16);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2948,6 +2926,7 @@ taskCheck16($event:MatCheckboxChange){
     this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').updateValueAndValidity();
   } else {
+    this.task16Checked = false;
     const index = this.taskValidationArray.indexOf(16);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -2969,6 +2948,8 @@ taskCheck16($event:MatCheckboxChange){
 
 taskCheck17($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task17Checked = true;
+    this.noneChecked = false;
     this.taskValidationArray.push(17);
     this.none_visible = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
@@ -2983,6 +2964,7 @@ taskCheck17($event:MatCheckboxChange){
     this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').updateValueAndValidity();
   } else {
+    this.task17Checked = false;
     const index = this.taskValidationArray.indexOf(17);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -3004,8 +2986,10 @@ taskCheck17($event:MatCheckboxChange){
 
 taskCheck18($event:MatCheckboxChange){
   if ($event.checked == true) {
+    this.task18Checked = true;
     this.taskValidationArray.push(18);
     this.none_visible = false;
+    this.noneChecked = false;
     this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').setValue(false);
     this.fourthFormGroup.controls.noneAboveFormGroup.get('none_reason').setValue('');
     this.fourthFormGroup.controls.noneAboveFormGroup.get('none_reason').clearValidators();
@@ -3018,6 +3002,7 @@ taskCheck18($event:MatCheckboxChange){
     this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').updateValueAndValidity();
   } else {
+    this.task18Checked = false;
     const index = this.taskValidationArray.indexOf(18);
     if (index > -1) {
       this.taskValidationArray.splice(index, 1);
@@ -3075,13 +3060,13 @@ taskCheck19($event:MatCheckboxChange){
 
   reniewUUID($event:MatRadioChange){
     if ($event.value ==='Yes') {
-     
+     this.reniewUUIDYesSelected = true;
      this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_remark').setValidators(Validators.required);
      this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_remark').updateValueAndValidity();
      this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_follow_up').setValidators(Validators.required);
      this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_follow_up').updateValueAndValidity();
     } else {
-     
+      this.reniewUUIDYesSelected = false;
       this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_remark').setValue('');
       this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_remark').clearValidators();
       this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_remark').updateValueAndValidity();
@@ -3095,13 +3080,13 @@ taskCheck19($event:MatCheckboxChange){
 
   needBenefit($event:MatRadioChange){
     if ($event.value ==='Yes') {
-     
+     this.needBenefitYesSelected = true;
      this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_remark').setValidators(Validators.required);
      this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_remark').updateValueAndValidity();
      this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_follow_up').setValidators(Validators.required);
      this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_follow_up').updateValueAndValidity();
     } else {
-     
+      this.needBenefitYesSelected = false;
       this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_remark').setValue('');
       this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_remark').clearValidators();
       this.fourthFormGroup.controls.benefitFormGroup.get('dis_benefit_remark').updateValueAndValidity();
@@ -3127,15 +3112,16 @@ taskCheck19($event:MatCheckboxChange){
     }
   
     }
+
     medicationHelpChange($event:MatRadioChange){
    
       if ($event.value ==='Yes') {
-       
+       this.medHelpYesSelected = true;
        this.fifthFormGroup.controls.medicationHelpFormGroup.get('medication_help_yes').setValidators(Validators.required);
        this.fifthFormGroup.controls.medicationHelpFormGroup.get('medication_help_yes').updateValueAndValidity();
       } else {
         
-       
+        this.medHelpYesSelected = false;
         this.fifthFormGroup.controls.medicationHelpFormGroup.get('medication_help_yes').setValue('');
         this.fifthFormGroup.controls.medicationHelpFormGroup.get('medication_help_yes').clearValidators();
         this.fifthFormGroup.controls.medicationHelpFormGroup.get('medication_help_yes').updateValueAndValidity();
@@ -3217,6 +3203,34 @@ taskCheck19($event:MatCheckboxChange){
     }).catch((err) => {
         console.log('Error occured : ', err);
     });
+    }
+    onFileChange(event){
+
+      this.fileContent = event.target.files;
+      this.filePath = this.fileContent;
+      for (var i = 0; i < event.target.files.length; i++){
+      this.selectedFile[this.x++] = <File>event.target.files[i];
+    }
+    
+    }
+    
+    addFieldValue() {
+    
+    
+      const fileName = this.filePath[0].name;
+           
+      if (this.fileContent != null) {
+        this.newAttribute.filePath = this.filePath;
+        this.newAttribute.fileName = fileName;
+        this.fieldArray.push(this.newAttribute);
+     
+        this.newAttribute = {};
+      }
+     
+    }
+    
+    deleteFieldValue(index) {
+    this.fieldArray.splice(index, 1);
     }
 }
 

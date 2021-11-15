@@ -18,6 +18,7 @@ import {MatStepper} from '@angular/material/stepper';
 import {  MatIconModule } from  '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatSliderModule} from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -39,6 +40,7 @@ import {MatSliderModule} from '@angular/material/slider';
     MatIconModule,
     MatMenuModule,
     MatSliderModule,
+    MatProgressSpinnerModule
     
     
   ],

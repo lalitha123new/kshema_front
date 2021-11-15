@@ -31,16 +31,22 @@ interface med_options{
 export class PhoneCallPage implements OnInit {
  
 
-  constructor(private router: Router,private dialogModel: MatDialog,public modalController : ModalController,
-    private patientService: PatientService,private loadingCtrl: LoadingController, public alertController: AlertController,
+  constructor(
+    private router: Router,
+    private dialogModel: MatDialog,
+    public modalController : ModalController,
+    private patientService: PatientService,
+    private loadingCtrl: LoadingController,
+    private alertController: AlertController,
     private offlineManager : OfflineManagerService) { }
-  isValue = 4;
-  others_selected = false;
-  med_refill_others =  false;
-  phoneCallForm : any;
-  sw_id1;
-  sw_id;
-  user_name;
+
+    isValue = 4;
+    others_selected = false;
+    med_refill_others =  false;
+    phoneCallForm : any;
+    sw_id1;
+    sw_id;
+    user_name;
 
   patient_id;
   patient_uuid;
@@ -100,10 +106,17 @@ export class PhoneCallPage implements OnInit {
   medFormGroup:any;
   caregiverFormGroup:any;
   othersFormGroup:any;
+  caregiverYesClicked:Boolean = false;
+  otherPersonYesClicked:Boolean = false;
+  medHelpYesClicked:Boolean = false;
+  medDisplay = true;
+  medicine_refill_date;
+  isDisabled = false;
 
   ngOnInit() {
+
     this.phoneCallForm = new FormGroup({
-      missed_visit_date: new FormControl(this.phoneObj.missed_visit_date,[Validators.required]),
+      missed_visit_date: new FormControl(this.phoneObj.missed_visit_date,[]),
       follow_up_date: new FormControl(this.phoneObj.follow_up_date,[Validators.required]),
       patient: new FormControl(this.phoneObj.patient,[Validators.required]),
       caregiverFormGroup:new FormGroup({
@@ -127,10 +140,10 @@ export class PhoneCallPage implements OnInit {
       next_visit_place: new FormControl(this.phoneObj.next_visit_place,[]),
       next_visit_place_other: new FormControl(this.phoneObj.next_visit_place_other,[]),
       next_visit_date:  new FormControl(this.phoneObj.next_visit_date,[Validators.required]),
-      medicine_plan:new FormControl(this.phoneObj.medicine_plan,[]),
+      medicine_plan:new FormControl(this.phoneObj.medicine_plan,[Validators.required]),
       medicine_plan_other_date:new FormControl(this.phoneObj.medicine_plan_other_date,[]),
       medicine_plan_other_remark:new FormControl(this.phoneObj.medicine_plan_other_remark,[]),
-      medicine_plan_remark:new FormControl(this.phoneObj.medicine_plan_remark,[]),
+      medicine_plan_remark:new FormControl(this.phoneObj.medicine_plan_remark,[Validators.required]),
      
      
   })
@@ -138,12 +151,12 @@ export class PhoneCallPage implements OnInit {
 
   checkMedChange1($event:MatRadioChange){
     if ($event.value ==='Yes') {
-
+      this.medHelpYesClicked = true;
       this.phoneCallForm.controls.medFormGroup.get('med_supervised_yes').setValidators(Validators.required);
       this.phoneCallForm.controls.medFormGroup.get('med_supervised_yes').updateValueAndValidity();
      
       } else {
-      
+        this.medHelpYesClicked = false;
       this.phoneCallForm.controls.medFormGroup.get('med_supervised_yes').setValue('');
       this.phoneCallForm.controls.medFormGroup.get('med_supervised_yes').clearValidators();
       this.phoneCallForm.controls.medFormGroup.get('med_supervised_yes').updateValueAndValidity();
@@ -154,12 +167,12 @@ export class PhoneCallPage implements OnInit {
   }
   caregiverClicked($event:MatRadioChange){
     if ($event.value ==='Yes') {
-
+      this.caregiverYesClicked = true;
       this.phoneCallForm.controls.caregiverFormGroup.get('caregiver_relation').setValidators(Validators.required);
       this.phoneCallForm.controls.caregiverFormGroup.get('caregiver_relation').updateValueAndValidity();
      
       } else {
-      
+        this.caregiverYesClicked = false;
       this.phoneCallForm.controls.caregiverFormGroup.get('caregiver_relation').setValue('');
       this.phoneCallForm.controls.caregiverFormGroup.get('caregiver_relation').clearValidators();
       this.phoneCallForm.controls.caregiverFormGroup.get('caregiver_relation').updateValueAndValidity();
@@ -170,12 +183,12 @@ export class PhoneCallPage implements OnInit {
   }
   othersClicked($event:MatRadioChange){
     if ($event.value ==='Yes') {
-
+    this.otherPersonYesClicked = true;
       this.phoneCallForm.controls.othersFormGroup.get('others_relation').setValidators(Validators.required);
       this.phoneCallForm.controls.othersFormGroup.get('others_relation').updateValueAndValidity();
      
       } else {
-      
+        this.otherPersonYesClicked = false;
       this.phoneCallForm.controls.othersFormGroup.get('others_relation').setValue('');
       this.phoneCallForm.controls.othersFormGroup.get('others_relation').clearValidators();
       this.phoneCallForm.controls.othersFormGroup.get('others_relation').updateValueAndValidity();
@@ -189,16 +202,55 @@ export class PhoneCallPage implements OnInit {
   }
   
 ionViewWillEnter() {
+  this.rate1 = "Unable to rate";
+  this.rate2 = "Unable to rate";
+  this.phoneObj.symptom_rate='';
+  this.phoneObj.compliance_rate='';
+  this.isDisabled = false;
   this.med_plan = "";
   this.user_name = sessionStorage.getItem("user_name");
   this.sw_id1 = sessionStorage.getItem("sw_id");
   this.sw_id = parseInt(this.sw_id1);
   this.patient_id =  sessionStorage.getItem('patient_id');
   this.patient_uuid = sessionStorage.getItem('patient_uuid');
-  this.phoneCallForm.get('follow_up_date').setValue(new Date());
+  
   this.getPatient();
   this.getPreviousVisitDetails();
   this.getMedTask();
+  this.phoneCallForm = new FormGroup({
+    missed_visit_date: new FormControl(this.phoneObj.missed_visit_date,[]),
+    follow_up_date: new FormControl(this.phoneObj.follow_up_date,[Validators.required]),
+    patient: new FormControl(this.phoneObj.patient,[Validators.required]),
+    caregiverFormGroup:new FormGroup({
+    caregiver: new FormControl(this.phoneObj.patient,[Validators.required]),
+    caregiver_relation: new FormControl(this.phoneObj.caregiver_relation,[]),
+    }),
+    othersFormGroup:new FormGroup({
+    others: new FormControl(this.phoneObj.others,[Validators.required]),
+    others_relation: new FormControl(this.phoneObj.others_relation,[]),
+    }),
+    medFormGroup:new FormGroup({
+    med_supervised: new FormControl(this.phoneObj.med_supervised,[Validators.required]),
+    med_supervised_yes: new FormControl(this.phoneObj.med_supervised_yes,[]),
+    }),
+    compliance_rate: new FormControl(this.phoneObj.compliance_rate,[]),
+    comp_reason:new FormControl(this.phoneObj.comp_reason,[]),
+    symptom_rate: new FormControl(this.phoneObj.symptom_rate,[]),
+    test_reason:new FormControl(this.phoneObj.test_reason,[]),
+    reason_missed_visit: new FormControl(this.phoneObj.reason_missed_visit,[]),
+    plan_support_visit: new FormControl(this.phoneObj.plan_support_visit,[Validators.required]),
+    next_visit_place: new FormControl(this.phoneObj.next_visit_place,[]),
+    next_visit_place_other: new FormControl(this.phoneObj.next_visit_place_other,[]),
+    next_visit_date:  new FormControl(this.phoneObj.next_visit_date,[Validators.required]),
+    medicine_plan:new FormControl(this.phoneObj.medicine_plan,[Validators.required]),
+    medicine_plan_other_date:new FormControl(this.phoneObj.medicine_plan_other_date,[]),
+    medicine_plan_other_remark:new FormControl(this.phoneObj.medicine_plan_other_remark,[]),
+    medicine_plan_remark:new FormControl(this.phoneObj.medicine_plan_remark,[Validators.required]),
+   
+   
+})
+this.phoneCallForm.get('follow_up_date').setValue(new Date());
+  
  
 }
 
@@ -251,11 +303,12 @@ async getPatient(){
 
 }
 
+
 //to get the missed phc consultation date
 async getPreviousVisitDetails(){
   
   let prev_visit_array_first :any;
-  let test = await this.patientService.getPreviousVisit(this.patient_uuid).then(result2 => {
+  let test = await this.patientService.getPreviousVisitPhone(this.patient_uuid).then(result2 => {
    
     prev_visit_array_first=result2;
 
@@ -272,7 +325,6 @@ async getPreviousVisitDetails(){
       }
 
       
-     
       if(array2.next_visit_place == "PHC"){
    
         let missed_phc_date1 = new Date(array2.follow_up_date_new);
@@ -308,11 +360,19 @@ async getMedTask(){
 
  });
 
-    if(med_array_first[0]){
-    this.med_tasks_uuid = med_array_first[0].tasks_uuid;
+ this.med_tasks_uuid = med_array_first[0].tasks_uuid;
+ 
+// if(med_array_first[0].status == "pending"){
+  if(med_array_first[0].status != ""){
+  this.medDisplay = true;
+  this.medicine_refill_date = new Date(med_array_first[0].task_due_date);
+  this.phoneCallForm.get('medicine_plan_other_date').setValue(this.medicine_refill_date);
   
-   
-    }
+
+}else{
+  this.medDisplay = false;
+  this.medicine_refill_date = "";
+}
  
 }
 
@@ -360,10 +420,8 @@ toggle1(x) {
  
  }
  onKey1(event) {
+ 
   const inputValue = event.target.value;
-  // if(inputValue){
-  // this.compRate= true;
-  // }
   if(inputValue.length > 1){
     this.compRate= true;
     }else{
@@ -371,10 +429,8 @@ toggle1(x) {
     }
 }
  onKey2(event) {
+  
   const inputValue = event.target.value;
-  // if(inputValue){
-  // this.rateSymptom = true;
-  // }
   if(inputValue.length > 1){
     this.rateSymptom = true;
     }else{
@@ -387,11 +443,9 @@ toggle1(x) {
     this.med_plan = "Others"
    this.med_task_array = [];
     this.med_refill_others = true;
-    this.phoneCallForm.get('medicine_plan_other_date').setValidators(Validators.required);
+   // this.phoneCallForm.get('medicine_plan_other_date').setValidators(Validators.required);
     this.phoneCallForm.get('medicine_plan_other_remark').setValidators(Validators.required);
     this.medObj = {
-      // check1:"",
-      // option:45,
       task_remark:"medicine refill",
       task_date:"",
       task_status:"pending",
@@ -404,13 +458,11 @@ toggle1(x) {
     this.phoneCallForm.get('medicine_plan_other_date').clearValidators();
     this.phoneCallForm.get('medicine_plan_other_remark').clearValidators();
     this.phoneCallForm.get('medicine_plan_other_remark').setValue('');
-    this.phoneCallForm.get('medicine_plan_other_date').setValue('');
+   // this.phoneCallForm.get('medicine_plan_other_date').setValue('');
     this.medObj = {
-      // check1:"",
-      // option:45,
       task_remark:"medicine refill",
-      task_date:"",
-      task_status:"Completed",
+      task_date:this.medicine_refill_date,
+      task_status:"pending",
       tasks_uuid: this.med_tasks_uuid
     }
   }else{
@@ -419,14 +471,12 @@ toggle1(x) {
     this.phoneCallForm.get('medicine_plan_other_date').clearValidators();
     this.phoneCallForm.get('medicine_plan_other_remark').clearValidators();
     this.phoneCallForm.get('medicine_plan_other_remark').setValue('');
-    this.phoneCallForm.get('medicine_plan_other_date').setValue('');
+    //this.phoneCallForm.get('medicine_plan_other_date').setValue('');
     this.med_task_array = [];
     this.medObj = {
-      // check1:"",
-      // option:45,
       task_remark:"medicine refill",
-      task_date:"",
-      task_status:"Completed",
+      task_date:this.medicine_refill_date,
+      task_status:"pending",
       tasks_uuid: this.med_tasks_uuid
     }
   }
@@ -437,6 +487,7 @@ previous(){
   
   this.router.navigate(['patient-details']);
 }
+
 pitch_comp(event: any) {
   
   this.phoneObj.compliance_rate = event.value;
@@ -453,7 +504,7 @@ pitch_symptom(event: any){
 }
 
    submit_phone_call(phoneCallForm){
-   
+    this.isDisabled = true;
     let next_visit = "";
     if(this.place_array.length<1){
       next_visit = "Phone";
@@ -492,14 +543,13 @@ pitch_symptom(event: any){
      }
    
     if(this.phoneCallForm.get('medicine_plan_other_date').value != ""){
-      // let next_date = this.phoneCallForm.get('medicine_plan_other_date').value;
-      // let date = ("0" + next_date.getDate()).slice(-2);
-      // let month = ("0" + (next_date.getMonth() + 1)).slice(-2);
-      // let year =next_date.getFullYear();
-      // this.dateToday = date + "-" + month + "-" + year;
-      // let medicine_plan_other_date1 = this.dateToday;
-      // this.medObj.task_date = medicine_plan_other_date1;
-      this.medObj.task_date = this.phoneCallForm.get('medicine_plan_other_date').value;;
+      
+      this.medObj.task_date = this.phoneCallForm.get('medicine_plan_other_date').value;
+    }else{
+      //for completed medicine refill task there is no next due date, so in the dashboard under completed tasks,
+      //medicine refill task due date shows a date by default(like 01-01-1970)
+      //this.medObj.task_date =new Date();
+      this.medObj.task_date = this.medicine_refill_date;
     }
      
     this.med_task_array.push(this.medObj);
@@ -545,8 +595,7 @@ pitch_symptom(event: any){
                 cssClass: 'alertButton2',
                 handler: () => {
   
-             this.offlineManager.checkForEvents().subscribe();
-            // this.router.navigate(['patient-details']);
+             //this.offlineManager.checkForEvents().subscribe();
             this.displayLoader();
             setTimeout(()=>{
              this.dismissLoader();

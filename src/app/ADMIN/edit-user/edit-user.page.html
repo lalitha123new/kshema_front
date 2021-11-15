@@ -9,6 +9,13 @@
 
      
       <app-admin-header></app-admin-header>
+
+      <div class="overlay-spinner" *ngIf="showSpinner">
+        <div class="center-spinner">
+      <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+      </div>
+      </div>
+
       <ion-row>
         <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"  style="height:100%;">
           
@@ -31,20 +38,18 @@
               <ion-row>
 
                 <ion-col>
-                   <!-- <ion-item> -->
-                  <!-- <ion-input type="text" name="first_name"   placeholder="First Name" ></ion-input> -->
                   <mat-form-field style="display: block;" appearance="outline">
                     <input matInput nameOnly name="first_name" formControlName="first_name" placeholder="First Name"  maxlength="75">
                   </mat-form-field>
-                <!-- </ion-item> -->
+               
               </ion-col>
 
                 <ion-col>
-                  <!-- <ion-item> -->
+                 
                     <mat-form-field style="display: block;" appearance="outline">
                       <input matInput nameOnly name="last_name" formControlName="last_name" placeholder="Last Name"  maxlength="75">
                     </mat-form-field>
-                  <!-- </ion-item> -->
+                  
                 </ion-col>
 
               </ion-row>
@@ -64,20 +69,12 @@
               </ion-col>
               </ion-row>
 
-              <!-- <ion-row>
-                <ion-col>
-                  <mat-form-field style="display: block;" appearance="outline">
-                    <input matInput  name="address" formControlName="address" placeholder="Enter Address"  maxlength="75">
-                  </mat-form-field>
-                      
-              </ion-col>
-              </ion-row> -->
 
               <ion-row [hidden]="editSuper">
                 <ion-col>
                  
                     <mat-form-field style="width:95%;"  appearance="outline">
-                      <mat-label>Taluk</mat-label>
+                      <mat-label>Taluka</mat-label>
                       <mat-select name="taluk" formControlName="taluk" class="arrow_class">
                         <mat-option *ngFor="let taluk1 of taluk_array" [value]="taluk1.taluka_master_id">
                           {{taluk1.taluka_name}}
@@ -106,14 +103,7 @@
               </ion-col>
               </ion-row>
 
-              <!-- <ion-row>
-                <ion-col>
-                  <mat-form-field style="display: block;" appearance="outline">
-                    <input matInput nameOnly type="password" name="confirm_password" formControlName="confirm_password" placeholder="Confirm Password"  maxlength="75">
-                  </mat-form-field>
-                   
-              </ion-col>
-              </ion-row> -->
+              
               <ion-row [hidden]="!editSuper">
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                   <ion-text><b>Talukas assigned: </b>{{arr1}}</ion-text>
@@ -132,7 +122,7 @@
               </ion-col>
 
                 <ion-col style="text-align: left;">
-                <ion-button class="background button_text_normal"  type="submit" [disabled]="editUserForm.invalid"  (click)="editUser(editUserForm)">Save</ion-button>
+                <ion-button class="background button_text_normal"  type="submit" [disabled]="editUserForm.invalid || isDisabled"  (click)="editUser(editUserForm)">Save</ion-button>
                 </ion-col>
              
             </ion-row>

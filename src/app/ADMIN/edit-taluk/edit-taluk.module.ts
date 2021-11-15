@@ -21,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminHeaderComponentModule } from 'src/app/admin-header.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { AdminHeaderComponentModule } from 'src/app/admin-header.module';
     MatInputModule,
     MatMenuModule,
     MatSnackBarModule,
-    AdminHeaderComponentModule
+    AdminHeaderComponentModule,
+    MatProgressSpinnerModule
   ],
   declarations: [EditTalukPage],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

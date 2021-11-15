@@ -15,17 +15,17 @@
         </ion-col>
         <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
-            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" [hidden]="!psw">
                 cached
                 </span>
             </ion-col>
            
-            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;"  class="custom_background_color1">
               <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
             </ion-col>
-            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
+            <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"  class="custom_background_color1"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
               <mat-menu class="mt-2" #menu="matMenu">
                 <a mat-menu-item>
@@ -40,7 +40,12 @@
       </ion-col>
       </ion-row>
 
-  
+      <div class="overlay-spinner" *ngIf="showSpinner">
+        <div class="center-spinner">
+      <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+      </div>
+      </div>
+
         <ion-row class="ion-padding-top">
     
       <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
@@ -130,8 +135,8 @@
              </ion-row>
                 <ion-row class="ion-padding-top">
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="text-align:center;">
-                    <button  mat-button [matBadge]="phc_count" matBadgePosition="after" matBadgeColor="warn" class="custom_button_size custom_button_display1"  (click)="pageRedirect(1)">Clinic Consulation</button>
-                    <button mat-button [matBadge]="home_count" matBadgePosition="after" matBadgeColor="warn"  mat-button class="custom_button_size custom_button_display1"  (click)="pageRedirect(2)">Home Consulation</button>
+                    <button  mat-button [matBadge]="phc_count" matBadgePosition="after" matBadgeColor="warn" class="custom_button_size custom_button_display1"  (click)="pageRedirect(1)">Clinic Consultation</button>
+                    <button mat-button [matBadge]="home_count" matBadgePosition="after" matBadgeColor="warn"  mat-button class="custom_button_size custom_button_display1"  (click)="pageRedirect(2)">Home Consultation</button>
                   <button mat-button mat-button [matBadge]="phone_count" matBadgePosition="after" matBadgeColor="warn" class="custom_button_size custom_button_display1"   (click)="pageRedirect(3)">Phone Call</button>
                 </ion-col>
                 </ion-row>
@@ -169,7 +174,7 @@
             
                   <table mat-table [dataSource]="dataSource_dashboard1" matSort   class="mat-elevation-z0 notes_box1">
                 
-                    <!-- Position Column -->
+                   
                     <ng-container matColumnDef="name">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>Sender </th>
                       <td mat-cell *matCellDef="let element" class="cell1" style="width:15%;"> {{element.name}} </td>
@@ -183,43 +188,34 @@
       
                     <ng-container matColumnDef="date">
                       <th mat-header-cell *matHeaderCellDef>Date </th>
-                      <td mat-cell *matCellDef="let element" class="cell2" style="width:15%;"> {{element.date}} </td>
+                      <td mat-cell *matCellDef="let element" class="cell2" style="width:30%;"> {{element.date | date: 'medium'}} </td>
                     </ng-container>
       
-                    <ng-container matColumnDef="time">
-                      <th mat-header-cell *matHeaderCellDef>Time</th>
-                      <td mat-cell *matCellDef="let element" class="cell2" style="width:15%;">{{element.time}}</td>
-                    </ng-container>
-                  
-                    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" class="pointer-class"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;"></tr>
 
                     
                   </table>
                   <div style="text-align: center;">
                   <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-                    <textarea matInput  placeholder="Reply" [(ngModel)]="notes1" maxlength="75" style="height:20px;"></textarea>
+                    <textarea matInput  placeholder="Reply" [(ngModel)]="notes1" maxlength="500" style="height:20px;"></textarea>
                   </mat-form-field>
-                  <!-- <ion-icon name="caret-forward-circle-outline" class="forward_arrow"></ion-icon> -->
                  
-                  <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="sendNotes()">play_circle_filled</span>
+                 
+                  <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" type="submit" (click)="sendNotes()"  >play_circle_filled</span>
                   
 
                 </div>
                  
-                  <!-- <mat-paginator [pageSizeOptions]="[10, 20,25]" showFirstLastButtons></mat-paginator> -->
-              </div>  
+                
+              </div> 
              
-              <ion-row style="text-align: center;margin-top:5%;">
-                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="text-align:center;">
-                  <button  mat-button class="back_button"  (click)="hideNotes()">Back</button>
-                </ion-col>
-              </ion-row>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
            
           </ion-row>
+
+        
 
           <ion-row class="ion-padding-top" [hidden]="psw">
             <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
@@ -235,11 +231,11 @@
   
               <div style="text-align: center; padding-top:10px;padding-bottom:10px;background-color:#F4F4F4;" [hidden]="!firstNote">
                 <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-                  <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="75" style="height:20px;"></textarea>
+                  <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="500" style="height:20px;"></textarea>
                 </mat-form-field>
                
                
-                <button><span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="startNoteSupervisor()">play_circle_filled</span></button>
+                <button><span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" type="submit" (click)="startNoteSupervisor()">play_circle_filled</span></button>
                 
   
               </div>
@@ -262,7 +258,7 @@
       
                     <ng-container matColumnDef="date">
                       <th mat-header-cell *matHeaderCellDef>Date </th>
-                      <td mat-cell *matCellDef="let element" class="cell2" style="width:15%;"> {{element.date}} </td>
+                      <td mat-cell *matCellDef="let element" class="cell2" style="width:15%;"> {{element.date | date:'medium'}} </td>
                     </ng-container>
       
                     <ng-container matColumnDef="time">
@@ -271,17 +267,17 @@
                     </ng-container>
                   
                     <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" [routerLink]="'/send-message'" class="pointer-class"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;"></tr>
   
                     
                   </table>
                   <div style="text-align: center;">
                   <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-                    <textarea matInput  placeholder="Reply" [(ngModel)]="replyNote" maxlength="75" style="height:20px;" ></textarea>
+                    <textarea matInput  placeholder="Reply" [(ngModel)]="replyNote" maxlength="500" style="height:20px;" ></textarea>
                   </mat-form-field>
                  
                  
-                  <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="replyNoteSupervisor()">play_circle_filled</span>
+                  <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" type="submit" (click)="replyNoteSupervisor()">play_circle_filled</span>
                   
   
                 </div>
@@ -295,7 +291,127 @@
             <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
   
           </ion-row>
+           <!--for psw -->
+          <!-- <ion-row class="ion-padding-top ion-padding-bottom" [hidden]="!(psw && notes)">
+            <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12" class="ion-text-left"></ion-col>
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+              <ion-title class="font_family_class label_class2">Upload Images/Notes</ion-title>
+            </ion-col>
+            <ion-col size-xl="3" size-lg="3" size-md="1" size-xs="12" class="ion-text-left"></ion-col>
+           
+          </ion-row> -->
+          
+           <ion-row class="ion-padding-bottom" [hidden]="!(psw && notes)">
+           
+            <ion-col size-xl="3" size-lg="3" size-md="3" size-xs="12" class="ion-text-left"></ion-col>
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="12">
+           
+          <table>
+            <tbody>
+                <tr *ngFor="let field of fieldArray; let i = index">
+                    <td>
+                        <input [disabled]="true" class="form-control" type="text" [(ngModel)]="field.fileName" name="{{field.fileName}}" readonly />
+                    </td>
+                    <td>
+                      
+                        <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="deleteFieldValue(i)">delete</span>
+                            
+                  
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- <div class="file-field">
+                            <div class="float-right" style="width:100%">
+                                <div class="custom-file">
+                                    <input  type="file" id="adFile1" (change)="onFileChange($event)" class="custom-file-input">
+                                    <label class="custom-file-label" for="adFile">Choose file</label>
+                                    <div class="show_input">{{adFile}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td> -->
+                      <!-- <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="addFieldValue()">add_circle</span>-->
+                        <!-- <ion-button (click)="pickFile()" color="dark" expand="fulll">Pick File</ion-button>   -->
+                  
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+     <div>{{returnpath}}</div>
+        </ion-col>
+        <ion-col size-xl="3" size-lg="3" size-md="3" size-xs="12" class="ion-text-left"></ion-col>
+      
+      </ion-row>
+      <ion-row style="text-align: center;margin-top:5%;" [hidden]="!(psw && notes)">
+        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="text-align:center;">
+          <button  mat-button class="back_button"  (click)="hideNotes()">Back</button>
+        </ion-col>
+      </ion-row>
+        <!--end for psw -->
 
+
+          <!--for supervisor -->
+          <!-- <ion-row class="ion-padding-top ion-padding-bottom" [hidden]="psw">
+            <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12" class="ion-text-left"></ion-col>
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+              <ion-title class="font_family_class label_class2">Upload Images/Notes1</ion-title>
+            </ion-col>
+            <ion-col size-xl="3" size-lg="3" size-md="1" size-xs="12" class="ion-text-left"></ion-col>
+           
+          </ion-row> -->
+         
+      <ion-row class="ion-padding-bottom" [hidden]="psw">
+           
+        <ion-col size-xl="3" size-lg="3" size-md="3" size-xs="12" class="ion-text-left"></ion-col>
+        <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="12">
+       
+      <table>
+        <thead  style="text-align: center;">
+          <tr>
+              <th style="width: 50%" class="label_class3">File Upload</th>
+              <th style="width: 50%" class="label_class3">Action</th>
+          </tr>
+      </thead>
+        <tbody style="text-align: center;">
+            <tr *ngFor="let field of fieldArray; let i = index">
+                <td>
+                    <input [disabled]="true" class="form-control" type="text" [(ngModel)]="field.fileName" name="{{field.fileName}}" readonly />
+                </td>
+                <td>
+                  
+                    <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="deleteFieldValue(i)">delete</span>
+                        
+              
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="file-field">
+                        <div class="float-right" style="width:100%">
+                            <div class="custom-file">
+                                <input  type="file" id="adFile1" (change)="onFileChange($event)" class="custom-file-input">
+                                <!-- <label class="custom-file-label" for="adFile">Choose file</label> -->
+                                <!-- <div class="show_input">{{adFile}}</div> -->
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                  <span class="material-icons purple pointer-class" style="font-size: 30px;vertical-align: middle;" (click)="addFieldValue()">add_circle</span>
+                        
+              
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+ 
+    </ion-col>
+    <ion-col size-xl="3" size-lg="3" size-md="3" size-xs="12" class="ion-text-left"></ion-col>
+  
+  </ion-row>
+         <!--end for supervisor -->
     </ion-grid>
   </ion-content>
 

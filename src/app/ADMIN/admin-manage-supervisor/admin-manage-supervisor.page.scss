@@ -16,7 +16,6 @@
   .mat-row,
   .mat-header-row {
     display: table-row;
-   //background-color: #F4F4F4;
    border-radius: 12px;
    height:60px;
    
@@ -107,3 +106,16 @@ opacity: 0.89;
       --border: 1px solid #813D7E;
     
      }  
+     ::ng-deep.mat-progress-spinner circle, .mat-spinner circle {
+      stroke: #813D7E;
+    
+      }
+      .overlay-spinner {
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.286);
+        z-index: 10;
+        top: 0;
+        left: 0;
+        position: fixed;
+    }

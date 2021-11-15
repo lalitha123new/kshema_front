@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
     ,private loadingCtrl: LoadingController,private patientService: PatientService, private networkService : NetworkService
     ,private offlineManager : OfflineManagerService,private network: Network,) { }
 
-    isValue: number = 1; 
+    defaultValue: number = 3; 
     form:FormGroup;
     checkStatus = false;
     sw_id = "1";
@@ -59,20 +59,20 @@ export class LoginPage implements OnInit {
 
   toggle1(x) { 
     if(x == 1){
-      this.isValue = 1;
+      this.defaultValue = 1;
     }else if(x==2){
-      this.isValue = 2;
+      this.defaultValue = 2;
     }else{
-      this.isValue = 3;
+      this.defaultValue = 3;
     }
    }
 
   toggle2() { 
-  this.isValue = 2;
+  this.defaultValue = 2;
  }
 
   toggle3() {
-   this.isValue = 3; 
+   this.defaultValue = 3; 
   }
 
 
@@ -230,8 +230,6 @@ getMetaDataPsw(user_id,role,user_name,psw){
   let res1PSW = res1.group_data;
   let res1Info= res1.social_worker;
   let res1Super = res1.supervisor;
- 
- 
 
  sessionStorage.setItem("users_id",res1User.users_id);
  sessionStorage.setItem("name",JSON.stringify(res1User.user_name));
@@ -239,7 +237,6 @@ getMetaDataPsw(user_id,role,user_name,psw){
  sessionStorage.setItem("taluka_id",res1PSW.taluka_id);
  sessionStorage.setItem("sw_id",res1PSW.social_worker_id);
  sessionStorage.setItem("supervisor_id",res1Super.users_id);
-// sessionStorage.setItem("supervisor_user_id",res1Super.users_id);
  sessionStorage.setItem("user_name",res1Info.first_name);
  let retSelect:any;
     
@@ -250,38 +247,30 @@ getMetaDataPsw(user_id,role,user_name,psw){
      if(retSelect.values.length < 1){
       
       this.dataExists = false;
-     
-      this.offlineManager.reverseSync(res1PSW.group_data_id);
+      this.displayLoader();
+      this.patientService.addUser(res1User.users_id,user_name,psw,res1PSW.group_data_id,res1PSW.social_worker_id,res1Super.users_id,res1Info.first_name,res1PSW.taluka_id).then(() => {
+      this.reverseSync(res1PSW.group_data_id);
+      this.form.reset();
+    },err => {
+      });
       
      }else{
       this.dataExists = true;
-      let result =this.offlineManager.fetchServerNotes();
-     }
-  
+      this.displayLoader();
       this.patientService.addUser(res1User.users_id,user_name,psw,res1PSW.group_data_id,res1PSW.social_worker_id,res1Super.users_id,res1Info.first_name,res1PSW.taluka_id).then(() => {
-       this.displayLoader();
-       if(this.dataExists){
-        setTimeout(()=>{
-          this.dismissLoader();
-         
-           this.router.navigate(['/dashboard']); 
-         }, 2000);
-       }else{
-        setTimeout(()=>{
-         
-          this.dismissLoader();
-         
-           this.router.navigate(['/dashboard']); 
-         }, 20000);
-       }
-        
-        
-        
-        this.form.reset();
-      },err => {
-      
+        let result =this.offlineManager.fetchServerNotes();
        
-        });
+         setTimeout(()=>{
+           this.dismissLoader();
+           this.router.navigate(['/dashboard']); 
+          }, 5000);
+
+         this.form.reset();
+       },err => {
+
+         });
+     
+     }
   },
   error  => {
  
@@ -377,4 +366,36 @@ getMetaDataSupervisor1(user_id,role){
     alert("Server error");
   });
 }
+
+reverseSync(group_data_id){
+  this.serverService.getAllPatientsToDevice(group_data_id)
+  .subscribe(
+  data  => {
+
+    //data to be saved to device db from server
+    if(data){
+      let patientObj : any;
+      let clinical_visits :any
+      let tasks1 :any;
+      let notes1 :any;
+      let udid_info1 :any;
+      patientObj = data[0].patientObj;
+      clinical_visits = data[0].clinical_visits;
+      tasks1 = data[0].tasks;
+      notes1 = data[0].notes;
+      
+      udid_info1 = data[0].udid_info;
+      this.patientService.reverseSync(patientObj,clinical_visits,tasks1,notes1,udid_info1).then((res1) => {
+        this.dismissLoader();
+        this.router.navigate(['/dashboard']);
+      })
+  }
+  },error=>{
+    //no data to save to device db
+    this.dismissLoader();
+    this.router.navigate(['/dashboard']);
+  });
+
+}
+
 }

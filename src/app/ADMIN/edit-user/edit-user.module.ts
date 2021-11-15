@@ -23,6 +23,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdminHeaderComponentModule } from 'src/app/admin-header.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -42,7 +43,9 @@ import { AdminHeaderComponentModule } from 'src/app/admin-header.module';
     MatMenuModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    AdminHeaderComponentModule
+    AdminHeaderComponentModule,
+    MatProgressSpinnerModule
+
   ],
   declarations: [EditUserPage],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

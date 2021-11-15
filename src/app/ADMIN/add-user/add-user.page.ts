@@ -69,7 +69,7 @@ export class AddUserPage implements OnInit {
     get user1(): any {
       return sessionStorage.getItem('user');
     }
-    //user =  sessionStorage.getItem('user');
+
     user;
 
 
@@ -80,7 +80,6 @@ export class AddUserPage implements OnInit {
         last_name: new FormControl('',[Validators.required]),
         phone: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
-        //address: new FormControl('',[Validators.required]),
         taluk: new FormControl('',[]),
         username: new FormControl('',[Validators.required]),
         password: new FormControl('',[Validators.required]),
@@ -96,7 +95,6 @@ export class AddUserPage implements OnInit {
         last_name: new FormControl('',[Validators.required]),
         phone: new FormControl('',[Validators.required]),
         email: new FormControl('',[Validators.required]),
-        //address: new FormControl('',[Validators.required]),
         taluk: new FormControl('',[]),
         username: new FormControl('',[Validators.required]),
         password: new FormControl('',[Validators.required]),
@@ -118,9 +116,7 @@ export class AddUserPage implements OnInit {
 
 
     getAllTaluks(){
-      this.serverService.getAlltalukas()
-      .subscribe(
-      data  => {
+      this.serverService.getAlltalukas().subscribe(data  => {
        
         this.taluk_array = data;
        
@@ -313,9 +309,7 @@ export class AddUserPage implements OnInit {
   
   addSupervisor(userData){
 
-    this.serverService.createUser1(userData)
-    .subscribe(
-    data  => {
+    this.serverService.createUser1(userData).subscribe(data  => {
       
     this.router.navigate(['admin-dashboard']);
     
@@ -330,9 +324,7 @@ export class AddUserPage implements OnInit {
 
   addPSW(userData){
   
-    this.serverService.createUser2(userData,this.selectedTaluka_id)
-    .subscribe(
-    data  => {
+    this.serverService.createUser2(userData,this.selectedTaluka_id).subscribe(data  => {
       
     this.router.navigate(['admin-dashboard']);
    

@@ -16,7 +16,9 @@ export class NewpassPage implements OnInit {
     private serverService: ServerService) { }
     passwordForm:FormGroup;
     email_old ="";
+
   ngOnInit() {
+
     var url_path=this.router.url;
     var arr=url_path.split("?");
     var arr1=arr[1].split("=");
@@ -34,10 +36,12 @@ export class NewpassPage implements OnInit {
   }
   
   ionViewWillEnter() {
+
     this.passwordForm.get('email').setValue(this.email_old);
   }
 
 newPassword(passwordForm){
+  
 if(passwordForm.value.password == passwordForm.value.confirm_pass){
   this.serverService.newPassword(passwordForm.value.password,passwordForm.value.email).subscribe(data  => {
     this.snackBar.open('Successfully reset password', 'x', {

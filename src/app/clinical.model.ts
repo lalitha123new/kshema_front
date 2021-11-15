@@ -1,6 +1,6 @@
 import { PatientLocation } from './location.model';
 
-//patient_id,social_worker_id,visit_date,visit_type,visit_details,followup_date,prv_visit_id
+
 export class Clinical {
   constructor(
     public clinical_visits_id:number,

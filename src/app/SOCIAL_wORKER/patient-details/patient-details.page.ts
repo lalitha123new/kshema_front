@@ -14,6 +14,11 @@ import { AlertController } from '@ionic/angular';
 import { OfflineManagerService } from '../../services/offline-manager.service';
 import { ServerService } from 'src/app/services/server.service';
 import { UUID } from 'angular2-uuid';
+import { FilePath } from '@ionic-native/file-path/ngx';
+import { MatSnackBar } from "@angular/material/snack-bar";
+
+
+
 @Component({
   selector: 'app-patient-details',
   templateUrl: './patient-details.page.html',
@@ -23,8 +28,8 @@ export class PatientDetailsPage implements OnInit {
   
   constructor(private _location: Location,private router: Router,private patientService: PatientService,
     private loadingCtrl: LoadingController,
-    public alertController: AlertController,private offlineManager : OfflineManagerService,
-    private serverService: ServerService) { }
+    private alertController: AlertController,private offlineManager : OfflineManagerService,
+    private serverService: ServerService,private filePath1:FilePath,private snackBar: MatSnackBar) { }
   
   isValue: number = 1; 
   isShown: boolean = false ;
@@ -57,7 +62,7 @@ export class PatientDetailsPage implements OnInit {
   public welfare_count: number;
   public udid_count: number;
 
-  //supercode
+  //supervisor code
   super_id1;
   super_id;
   firstNote = true;
@@ -74,7 +79,8 @@ export class PatientDetailsPage implements OnInit {
   buttons = true;
   notes_array_first1:any;
   
-  displayedColumns_dashboard1: string[] = ['name',  'message', 'date','time'];
+  
+  displayedColumns_dashboard1: string[] = ['name',  'message', 'date'];
   
   dataSource_dashboard1 = new MatTableDataSource<PeriodicElement_dashboard1>(ELEMENT_DATA_dashboard1);
   group_data;
@@ -84,11 +90,25 @@ export class PatientDetailsPage implements OnInit {
   sender_user_id;
   receiver_user_id;
   psw_array:any;
+  showSpinner = false;
+  public fieldArray: Array<any> = [];
+  public newAttribute: any = {};
+  selectedFile: File[] = [];
+  //selectedFile = [];
+  selectedFile1: any;
+  x = 0;
+  fileContent:any;
+  filePath:any;
+  returnpath:string = ""
+  fileArray = [];
+  
+  
   ngOnInit() {
     
   }
 
 ionViewWillEnter() {
+    this.showSpinner = true;
     this. sw_id2 = 0;
     this.phc_count=0;
     this.home_count=0;
@@ -156,7 +176,7 @@ async getPatient(){
 
    });
  
-
+  this.showSpinner = false;
   this.kshema_id = patient_array_first[0].kshema_id;
   this.name = patient_array_first[0].name;
   this.demo = JSON.parse(patient_array_first[0].demographic_info);
@@ -208,7 +228,7 @@ async getCount(){
 
    });
  
- 
+   
     this.phc_count = count_array_first[0].phc_count;
     if(count_array_first[0].home_count > 0){
     this.home_count = count_array_first[0].home_count;
@@ -241,9 +261,13 @@ async getCount(){
         notes_array[i].name = "supervisor";
       } 
       notes_array[i].message  =  count_array_first[0].notes_data[i].notes_message;
-      date_array = count_array_first[0].notes_data[i].created_at.split(" ");
-      notes_array[i].date  = date_array[0];
-      notes_array[i].time  = date_array[1];
+      // date_array = count_array_first[0].notes_data[i].created_at.split(" ");
+      // notes_array[i].date  = date_array[0];
+      // notes_array[i].time  = date_array[1];
+      
+      notes_array[i].date = new Date(count_array_first[0].notes_data[i].created_at);
+     
+      
       this.dataSource_dashboard1.data = notes_array;
     }
   }
@@ -278,7 +302,7 @@ async getPatientServer(){
  });
   
   
-   
+    this.showSpinner = false;
     this.patient_array = patient_array_first;
    
     this.kshema_id = this.patient_array[0].kshema_id;
@@ -360,12 +384,14 @@ data  => {
       }
     
       
-      date_array = this.patient_notes_array[i].createdAt.split(" ");
-      this.patient_notes_array[i].date = [date_array[0]];
-      this.patient_notes_array[i].time = [date_array[1]];
+      // date_array = this.patient_notes_array[i].createdAt.split(" ");
+      // this.patient_notes_array[i].date = [date_array[0]];
+      // this.patient_notes_array[i].time = [date_array[1]];
+      this.patient_notes_array[i].date =  new Date(this.patient_notes_array[i].createdAt);
       this.patient_notes_array[i].message =  this.patient_notes_array[i].notes_message;
-    
+      console.log(this.patient_notes_array[i].createdAt)
     }
+   
     this.dataSource_dashboard1.data = this.patient_notes_array;
 
   });
@@ -373,9 +399,9 @@ data  => {
 
 sendNotes(){
  
- 
+ if(this.notes1 != undefined){
   
-    this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id).then(() => {
+    this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id,this.fileArray).then(() => {
        
       this.alertController.create({
         header: '',
@@ -391,8 +417,7 @@ sendNotes(){
             cssClass: 'alertButton2',
             handler: () => {
               this.notes1 = "";
-              this.offlineManager.checkForEvents().subscribe();
-             // this.router.navigate(['dashboard']);
+             // this.offlineManager.checkForEvents().subscribe();
              this.displayLoader();
              setTimeout(()=>{
               this.dismissLoader();
@@ -417,7 +442,11 @@ sendNotes(){
        
       });
 
-
+    }else{
+      this.snackBar.open('Please enter notes', 'x', {
+        duration: 10000,
+      });
+    }
 }
 
 
@@ -458,6 +487,7 @@ home(){
   
   logout(){
     this.router.navigate(['']);
+  
   }
 
 redirectTo(x){
@@ -511,8 +541,8 @@ hideNotes(){
 }
 
 startNoteSupervisor(){
-
-   this.recipient_user_id = 0;
+if(this.notes1 != undefined){
+  this.recipient_user_id = 0;
   const notes_uuid =  UUID.UUID();
   var date = new Date();
   
@@ -541,19 +571,31 @@ startNoteSupervisor(){
   }
  
   notesObj.notes_message = this.notes1;
-  this.serverService.addNotes(notesObj)
-  .subscribe(
-  data  => {
+  this.serverService.addNotes(notesObj).subscribe(data  => {
     this.notes1 = "";
     this.replyNote = "";
+    
+    if(this.selectedFile.length > 0){
+    this.onUpload(notes_uuid,1);
+    }else{
+      this.router.navigate(['supervisor-dashboard']);
+    }
  
-    this.router.navigate(['supervisor-dashboard']);
+    
   })
+}else{
+  
+    this.snackBar.open('Please enter notes', 'x', {
+      duration: 10000,
+    });
+  
+}
  
 }
 
 replyNoteSupervisor(){
-
+ 
+if(this.replyNote != ""){
   let recipient_user_id1;
   const notes_uuid =  UUID.UUID();
   var date = new Date();
@@ -566,9 +608,7 @@ replyNoteSupervisor(){
       ("00" + date.getSeconds()).slice(-2);
     
       let notesObj:any;
-      
-       
-        recipient_user_id1 = this.sw_id2;
+      recipient_user_id1 = this.sw_id2;
       
     
      
@@ -586,14 +626,21 @@ replyNoteSupervisor(){
   }
  
   notesObj.notes_message = this.replyNote;
-  this.serverService.addNotes(notesObj)
-  .subscribe(
-  data  => {
+  this.serverService.addNotes(notesObj).subscribe(data  => {
     this.notes1 = "";
     this.replyNote = "";
- 
+   
+    if(this.selectedFile.length > 0){
+    this.onUpload(notes_uuid,1);
+    }else{
     this.router.navigate(['supervisor-dashboard']);
+    }
   })
+}else{
+  this.snackBar.open('Please enter notes', 'x', {
+    duration: 10000,
+  });
+}
  
 }
 
@@ -618,17 +665,100 @@ dismissLoader(){
 });
 }
 
+onFileChange(event){
+
+  this.fileContent = event.target.files[0];
+    this.filePath = this.fileContent;
+    console.log( this.filePath.name)
+    for (var i = 0; i < event.target.files.length; i++)
+    this.selectedFile[this.x++] =  <File>event.target.files[i];
+
+
+
+}
+
+//to be checked - select image from device and save the path in device db
+// pickFile(){
+
+//     this.fileChooser.open().then((fileuri)=>{
+  
+//     this.filePath1.resolveNativePath(fileuri).then(async (resolvednativepath)=>{
+//       this.returnpath = resolvednativepath;
+//        const fileData:any = await this.file.resolveLocalFilesystemUrl(this.returnpath)
+//   .then((fileEntry: any) => {
+  
+//     return new Promise((resolve, reject) => {
+//         fileEntry.file(
+//             meta =>
+//                  resolve(
+//                   {
+//                     nativeURL: fileEntry.nativeURL,
+//                     fileNameFromPath: this .returnpath.substring(this.returnpath.lastIndexOf('/') + 1),
+//                     ...meta,
+              
+//                 }
+//                 ),
+              
+//             error => reject(error)
+//         );
+//     });
+// });
+
+// console.log("FILE200"+JSON.stringify(fileData))
+
+// this.selectedFile[this.x++] = <File>fileData;
+// console.log("FILE UPLOAD"+this.selectedFile)
+// this.fileArray.push(this.returnpath,this.selectedFile)
+
+
+
+
+
+//     })
+
+//   })
+  
+ 
+// }
+
+addFieldValue() {
+
+  const fileName =  this.filePath.name;
+  if (this.fileContent != null) {
+    this.newAttribute.filePath = this.filePath;
+    this.newAttribute.fileName = fileName;
+    this.fieldArray.push(this.newAttribute);
+    this.newAttribute = {};
+  }
+ console.log(JSON.stringify(this.fieldArray))
+
+}
+
+deleteFieldValue(index) {
+this.fieldArray.splice(index, 1);
+}
+onUpload(notes_uuid,checkImagesrc) {
+
+  this.serverService.sendImages(this.selectedFile,notes_uuid, checkImagesrc)
+    .subscribe(success => {
+      this.router.navigate(['supervisor-dashboard']);
+     
+    },error=>{
+      this.router.navigate(['supervisor-dashboard']);
+    });
+  this.x = 0;
+}
 }
 
 export interface PeriodicElement_dashboard1 {
   name: string;
   message: string;
   date: string;
-  time:string;
+  // time:string;
   
 }
 
 const ELEMENT_DATA_dashboard1: PeriodicElement_dashboard1[] = [
-  { name: '',message:' ',date:'',time:''},
+  { name: '',message:' ',date:''},
  
 ];

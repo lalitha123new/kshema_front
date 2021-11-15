@@ -9,7 +9,6 @@ import { NetworkService, ConnectionStatus } from 'src/app/services/network.servi
 import { OfflineManagerService } from '../../services/offline-manager.service';
 
 
-
 interface gender_optons {
   value: string;
   viewValue: string;
@@ -55,7 +54,11 @@ export class EditPatientPage implements OnInit {
  status;
  taluk_array:any;
  district_array:any;
+ showSpinner = false;
+ isDisabled = false;
+
 ngOnInit() {
+
   this.editFormGroup = this._formBuilder.group({
     name: new FormControl('', [Validators.required]),
     gender:new FormControl('', [Validators.required]),
@@ -75,6 +78,22 @@ ngOnInit() {
 
 
 ionViewWillEnter() {
+  this.isDisabled = false;
+  this.showSpinner = true;
+  this.editFormGroup = this._formBuilder.group({
+    name: new FormControl('', [Validators.required]),
+    gender:new FormControl('', [Validators.required]),
+    dob : new FormControl('', [Validators.required]),
+    phone : new FormControl('', [Validators.required]),
+    caregiver_name: new FormControl('', []),
+    caregiver_phone: new FormControl('', []),
+    address1: new FormControl('', [Validators.required]),
+    method_reach: new FormControl('', []),
+    district_selected : new FormControl('', Validators.required),
+    taluk_selected: new FormControl('', Validators.required),
+    contact_patient: new FormControl('',[]),
+    //psw_incharge: new FormControl(this.patObject.psw_incharge, Validators.required),
+  });
   this.networkService.initializeNetworkEvents();
   this.user_name = sessionStorage.getItem("user_name");
   this.patient_id =  sessionStorage.getItem('patient_id');
@@ -113,12 +132,12 @@ async getTaluks(){
   
    });
   
-  
+  this.showSpinner = false;
   this.kshema_id = pat_array_first[0].kshema_id;
   this.name = pat_array_first[0].name;
   this.demo = JSON.parse(pat_array_first[0].demographic_info);
 
-  if(this.demo.gender == 1){
+    if(this.demo.gender == 1){
     this.gender1 = "M";
     }else if(this.demo.gender == 2){
     this.gender1 = "F";
@@ -194,8 +213,9 @@ onChangeSlideToggle(event){
 }
 
 editPatient(){
+  this.isDisabled = true;
   if( this.active == true){
-this.status = "active";
+    this.status = "active";
   }else{
     this.status = "inactive";
   }
@@ -233,8 +253,7 @@ this.status = "active";
             cssClass: 'alertButton2',
             handler: () => {
               
-              this.offlineManager.checkForEvents().subscribe();
-              // this.router.navigate(['patient-details']);
+              // this.offlineManager.checkForEvents().subscribe();
               this.displayLoader();
               setTimeout(()=>{
                this.dismissLoader();
@@ -253,7 +272,7 @@ this.status = "active";
         
       },err => {
         console.log("No Internet Connection! Data added to the Request List");
-        //loadingEl.dismiss();
+      
        
       });
  
@@ -287,9 +306,7 @@ district: district_optons[] = [
 ];
 
 taluk: taluk_optons[] = [
-  // {value: 16, viewValue: 'Test'},
-  // {value: 17, viewValue: ' Kurugodu'},
-  // {value: 18, viewValue: 'Athani'},
+  
   {value: 1, viewValue: 'Gangavathi'},
   {value: 2, viewValue: 'Gauribidanur'},
   {value: 3, viewValue: 'Madhugiri'},
@@ -300,8 +317,9 @@ taluk: taluk_optons[] = [
   {value: 8, viewValue: 'Chikodi'},
   {value: 9, viewValue: 'Basavakalyan'},
   {value: 10, viewValue: 'Jamkhandi'},
-  // {value: 29, viewValue: 'Nimhans '}
+ 
 ];
+
 displayLoader(){
   this.loadingCtrl.create({
     message: 'Loading. Please wait...'
@@ -309,6 +327,7 @@ displayLoader(){
     response.present();
 });
 }
+
 dismissLoader(){
   this.loadingCtrl.dismiss().then((response) => {
     console.log('Loader closed!', response);
@@ -316,4 +335,5 @@ dismissLoader(){
     console.log('Error occured : ', err);
 });
 }
+
 }

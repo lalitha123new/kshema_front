@@ -20,6 +20,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import { PatientInfoHeaderComponentModule } from 'src/app/patient-header.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -42,7 +44,11 @@ import { PatientInfoHeaderComponentModule } from 'src/app/patient-header.module'
     MatExpansionModule,
     MatTableModule,
     MatBadgeModule,
-    PatientInfoHeaderComponentModule
+    PatientInfoHeaderComponentModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
+    
+    
     
    
   ],

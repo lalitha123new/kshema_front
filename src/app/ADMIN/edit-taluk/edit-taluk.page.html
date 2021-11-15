@@ -9,6 +9,12 @@
 
     
       <app-admin-header></app-admin-header>
+
+      <div class="overlay-spinner" *ngIf="showSpinner">
+        <div class="center-spinner">
+      <mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+      </div>
+      </div>
       
       <ion-row>
         <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"  style="height:100%;">
@@ -22,7 +28,7 @@
         <ion-row>
         <ion-col>
 
-              <ion-title>Edit <span>Taluk</span></ion-title>
+              <ion-title>Edit <span>Taluka</span></ion-title>
 
         <ion-card>
         <ion-card-content>
@@ -42,7 +48,7 @@
               <ion-row>
                 <ion-col>
                     <mat-form-field style="display: block;" appearance="outline">
-                      <input matInput nameOnly name="taluk" formControlName="taluk" placeholder="Taluk"  maxlength="75">
+                      <input matInput nameOnly name="taluk" formControlName="taluk" placeholder="Taluka"  maxlength="75">
                     </mat-form-field>
                 </ion-col>
               </ion-row>
@@ -72,7 +78,7 @@
               </ion-col>
 
                 <ion-col  style="text-align: left;">
-                <ion-button class="background button_text_normal"  type="submit" [disabled]="editTalukform1.invalid" (click)="editTaluk(editTalukform1)">Create</ion-button>
+                <ion-button class="background button_text_normal"  type="submit" [disabled]="editTalukform1.invalid || isDisabled" (click)="editTaluk(editTalukform1)">Save</ion-button>
                 </ion-col>
              
             </ion-row>

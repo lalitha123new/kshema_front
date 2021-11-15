@@ -23,6 +23,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import { PatientInfoHeaderComponentModule } from 'src/app/patient-header.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatExpansionModule } from '@angular/material/expansion'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+    
 
 @NgModule({
   imports: [
@@ -44,7 +48,10 @@ import { PatientInfoHeaderComponentModule } from 'src/app/patient-header.module'
     MatButtonToggleModule,
     MatTabsModule,
     MatTableModule,
-    PatientInfoHeaderComponentModule
+    PatientInfoHeaderComponentModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatSnackBarModule
    
 
   ],

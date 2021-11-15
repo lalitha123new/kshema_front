@@ -15,7 +15,7 @@
         </ion-col>
         <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
-            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
               <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
                 cached
@@ -40,8 +40,6 @@
       </ion-col>
       </ion-row>
    
-
-
         <ion-row class="ion-padding-top">
 
       <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
@@ -109,17 +107,33 @@
       </ion-row>
 
 
-        <ion-row class="ion-padding-top">
+        <ion-row class="ion-padding-top" >
           <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12" class="ion-padding-top"> 
-            <ion-title class="label_class1 ion-padding-top"><span class="ion-text-wrap">Clinic Consulation</span></ion-title> 
+            <ion-title class="label_class1 ion-padding-top"><span class="ion-text-wrap">Clinic Consultation</span></ion-title> 
           </ion-col>
-            <ion-col size-xl="9" size-lg="9" size-md="12" size-xs="12" class="ion-padding-top right">
+            <ion-col size-xl="9" size-lg="9" size-md="12" size-xs="12" class="ion-padding-top right" class="landscape">
               <button mat-button  class="button_text_normal custom_button_size custom_button_display2" [routerLink]="'/welfare'">Welfare Module</button>
               <button mat-button class="button_text_normal custom_button_size custom_button_display2" [routerLink]="'/udid'">UDID Form</button>
               <!-- <ion-button  class="button_text_normal custom_button_size"  [ngClass]="{'toggleSelected': isValue == 6, 'toggleDefault': isValue != 6 }">Rehab Measures</ion-button> -->
               <button mat-button class="button_text_normal custom_button_size custom_button_display2" [routerLink]="'/assessment-needs'">Assessment of Needs</button>
           </ion-col>
-        </ion-row>
+          </ion-row>
+
+          <ion-row class="portrait">
+
+            
+                <ion-col >
+                  <button mat-button  class="button_text_normal   custom_button_size3 custom_button_display3" [routerLink]="'/welfare'">Welfare Module</button>
+            
+                
+             
+                  <button mat-button class="button_text_normal   custom_button_size3 custom_button_display3" [routerLink]="'/udid'">UDID Form</button>
+           
+               
+                  <button mat-button class="button_text_normal  custom_button_size3 custom_button_display3" [routerLink]="'/assessment-needs'">Assessment of Needs</button>
+                </ion-col>
+             
+          </ion-row>
      
 
       <ion-row>
@@ -145,14 +159,14 @@
                          
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row class="ion-padding-top">
 
            
              
-                  <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12">
-                    <ion-title class="label_class2">How symptomatic is the patient?</ion-title>
+                  <ion-col size-xl="5" size-lg="5" size-md="12" size-xs="12" class="ion-padding-top">
+                    <ion-title class="label_class2">How symptomatic is the patient?<span class="red">*</span></ion-title>
                   </ion-col>
-                  <ion-col size-xl="3" size-lg="3" size-md="8" size-xs="8">
+                  <ion-col size-xl="3" size-lg="3" size-md="8" size-xs="8" class="ion-padding-top">
                     <mat-slider
                     thumbLabel
                     [displayWith]=""
@@ -160,7 +174,7 @@
                     min="0"
                     max="100" (input)="phc_pitch_symptom($event)" name="phc_symptom_rate" formControlName="phc_symptom_rate"></mat-slider>
                   </ion-col>
-                  <ion-col size-xl="2" size-lg="2" size-md="4" size-xs="4">
+                  <ion-col size-xl="2" size-lg="2" size-md="4" size-xs="4" class="ion-padding-top">
                     <ion-title class="label_class8"><span class="wrap-mat-check-label">{{rate2}}</span></ion-title>
                   </ion-col>
               
@@ -298,7 +312,7 @@
                       </ion-col>
 
                       <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
-                        <ion-row>
+                        <!-- <ion-row>
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                             <ion-title class="label_class5" style="padding-right:10px;">Poor occupational functioning</ion-title>
                           </ion-col>
@@ -313,12 +327,31 @@
                             
                             </mat-button-toggle-group>
                           </ion-col>
+                        </ion-row> -->
+                        <ion-row>
+                          <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                          <ion-title class="label_class5" style="padding-right:10px;">Sleep disturbance </ion-title>
+                        </ion-col>
                         </ion-row>
+        
+                        <ion-row>
+                            <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                              <mat-button-toggle-group #group7="matButtonToggleGroup" name="sleep_rate" formControlName="sleep_rate" aria-label="Font Style">
+                                  
+                                <mat-button-toggle value="1" (click)="sleepClicked()">1</mat-button-toggle>
+                                <mat-button-toggle value="2" (click)="sleepClicked()">2</mat-button-toggle>
+                                <mat-button-toggle value="3" (click)="sleepClicked()">3</mat-button-toggle>
+                                <mat-button-toggle value="4" (click)="sleepClicked()">4</mat-button-toggle>
+                                <mat-button-toggle value="5" (click)="sleepClicked()">5</mat-button-toggle>
+                              
+                              </mat-button-toggle-group>
+                            </ion-col>
+                      </ion-row>
                       
                       </ion-col>
                 </ion-row>
     
-                <ion-row>
+                <!-- <ion-row>
                   <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
                   <ion-title class="label_class5" style="padding-right:10px;">Sleep disturbance </ion-title>
                 </ion-col>
@@ -336,7 +369,36 @@
                       
                       </mat-button-toggle-group>
                     </ion-col>
-              </ion-row>
+              </ion-row> -->
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                     <ion-title class="label_class5" style="padding-right:10px;">Difficulty in work or education (working for wage or income / family occupation / household work/ caregiving or difficulty in studying in case of students) </ion-title>
+                   </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                    <ion-title class="label_class5">1- No difficulties due to symptoms 3- Difficulties interfering at least 50% of the time 5- Not able to work or study as before</ion-title>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                    <ion-col  size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                     <mat-button-toggle-group #group5="matButtonToggleGroup" aria-label="Font Style" name="work" formControlName="work">
+                                 
+                       <mat-button-toggle value="1" (click)="workClicked()">1</mat-button-toggle>
+                       <mat-button-toggle value="2" (click)="workClicked()">2</mat-button-toggle>
+                       <mat-button-toggle value="3" (click)="workClicked()">3</mat-button-toggle>
+                       <mat-button-toggle value="4" (click)="workClicked()">4</mat-button-toggle>
+                       <mat-button-toggle value="5" (click)="workClicked()">5</mat-button-toggle>
+                     
+                     </mat-button-toggle-group>
+                      </ion-col>
+                  </ion-row>
+
+                 </ion-col>
+               </ion-row>
     
                 <ion-row>
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
@@ -467,7 +529,9 @@
                   <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
                     <ion-title class="label_class3"> 
                       <mat-form-field style="display: block;" appearance="outline" [hidden]="!symp_reason_visible">    
-                        <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="test_reason" formControlName="test_reason" class="place_holder_text" (keyup)="onKey1($event)">
+                        <!-- <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="test_reason" formControlName="test_reason" class="place_holder_text" (keyup)="onKey1($event)"> -->
+                        <textarea class="place_holder_text"  placeholder="Enter the reason why no testing was done" maxlength="75" name="test_reason" formControlName="test_reason" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500" (keyup)="onKey1($event)"></textarea>
+                
                       </mat-form-field>
                     </ion-title>
                   </ion-col>
@@ -489,7 +553,7 @@
                       <div formGroupName="tobaccoFormGroup">
                         <ion-row>
                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-                          <mat-label size="small" style="margin-left:16px;">Tobacco</mat-label>
+                          <mat-label class="label_class6" style="margin-left:16px;">Tobacco<span class="red">*</span></mat-label>
                           <mat-radio-group  name="tobacco" formControlName="tobacco" class="label_class6">
                             <div *ngFor="let arr of tobaccooptionsArray" style="display:inline-block">
                               <mat-radio-button [value]="arr.viewValue"  [name]="arr.value" (change)="checkTobChange1($event)">{{arr.viewValue}}</mat-radio-button>
@@ -500,7 +564,7 @@
                               <div>
                                 <ion-row>
                                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                                    <ion-title class="label_class7">Reported in the previous consulation: <span class="label_class8">{{amount1}}</span></ion-title>
+                                    <ion-title class="label_class7">Reported in the previous consulation: <span class="label_class8 wrap-mat-check-label">{{amount1}}</span></ion-title>
                                     </ion-col>
                                     </ion-row>
                                     </div>
@@ -515,7 +579,7 @@
                         
                         <mat-form-field style="display: block;" appearance="outline">
                           <!-- <input matInput  placeholder="Amount of use" maxlength="75"  name="tobacco_amount" formControlName="tobacco_amount"> -->
-                          <mat-label class="place_holder_text">Amount of use</mat-label>
+                          <mat-label class="place_holder_text">Amount of use<span class="red" *ngIf="tobaccoYesClicked">*</span></mat-label>
                           <mat-select  formControlName="tobocco_amount" name="tobocco_amount">
                             <mat-option *ngFor="let amount1 of Amount" [value]="amount1.viewValue_amount">
                               {{amount1.viewValue_amount}}
@@ -528,7 +592,8 @@
                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                         
                     <mat-form-field style="display: block;" appearance="outline">
-                      <input matInput  placeholder="Remarks" maxlength="75" name="tobacco_remark" formControlName="tobacco_remark" class="place_holder_text">
+                      <mat-label>Remarks<span class="red" *ngIf="tobaccoYesClicked">*</span></mat-label>
+                      <input matInput maxlength="75" name="tobacco_remark" formControlName="tobacco_remark" class="place_holder_text">
                     </mat-form-field>
               </ion-col>
                   </ion-row>
@@ -544,7 +609,7 @@
                       <div formGroupName="alcoholFormGroup">
                         <ion-row>
                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-                          <mat-label class="label_class6" style="margin-left: 16px;;">Alcohol</mat-label>
+                          <mat-label class="label_class6" style="margin-left: 16px;;">Alcohol<span class="red">*</span></mat-label>
                           <mat-radio-group  name="alcohol" formControlName="alcohol">
                        
                             <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -556,7 +621,7 @@
                             <div>
                               <ion-row>
                                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                                  <ion-title class="label_class7">Reported in the previous consulation: <span class="label_class8">{{amount2}}</span></ion-title>
+                                  <ion-title class="label_class7">Reported in the previous consulation: <span class="label_class8 wrap-mat-check-label">{{amount2}}</span></ion-title>
                                   </ion-col>
                                   </ion-row>
                                   </div>
@@ -569,7 +634,7 @@
                             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                               <mat-form-field style="display: block;" appearance="outline">
                                 <!-- <input matInput  placeholder="Amount of use" maxlength="75" name="alcohol_amount" formControlName="alcohol_amount"> -->
-                                <mat-label class="place_holder_text">Amount of use</mat-label>
+                                <mat-label class="place_holder_text">Amount of use<span class="red" *ngIf="alcoholYesClicked">*</span></mat-label>
                                 <mat-select  formControlName="alcohol_amount" name="alcohol_amount">
                                   <mat-option *ngFor="let amount1 of Amount" [value]="amount1.viewValue_amount">
                                     {{amount1.viewValue_amount}}
@@ -579,7 +644,8 @@
                             </ion-col>
                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <input matInput  placeholder="Remarks" maxlength="75" name="alcohol_remark" formControlName="alcohol_remark" class="place_holder_text">
+                            <mat-label>Temarks<span class="red" *ngIf="alcoholYesClicked">*</span></mat-label>
+                            <input matInput maxlength="75" name="alcohol_remark" formControlName="alcohol_remark" class="place_holder_text">
                           </mat-form-field>
                         </ion-col>
                         </ion-row>
@@ -595,7 +661,7 @@
                       <div formGroupName="otherFormGroup">
                         <ion-row>
                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-                          <mat-label class="label_class6" style="margin-left: 16px;;">Others</mat-label>
+                          <mat-label class="label_class6" style="margin-left: 16px;;">Others<span class="red">*</span></mat-label>
                           <mat-radio-group  name="others" formControlName="others">
                        
                             <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -607,7 +673,7 @@
                             <div>
                               <ion-row>
                                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                                  <ion-title class="label_class7">Reported in the previous consulation: <span class="label_class8">{{amount3}}</span></ion-title>
+                                  <ion-title class="label_class7">Reported in the previous consulation: <span class="label_class8 wrap-mat-check-label">{{amount3}}</span></ion-title>
                                   </ion-col>
                                   </ion-row>
                                   </div>
@@ -621,7 +687,7 @@
                             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                               <mat-form-field style="display: block;" appearance="outline">
                                 <!-- <input matInput  placeholder="Amount of use" maxlength="75" name="others_amount" formControlName="others_amount"> -->
-                                <mat-label class="place_holder_text">Amount of use</mat-label>
+                                <mat-label class="place_holder_text">Amount of use<span class="red" *ngIf="otherSubYesClicked">*</span></mat-label>
                           <mat-select  formControlName="other_amount" name="other_amount">
                             <mat-option *ngFor="let amount1 of Amount" [value]="amount1.viewValue_amount">
                               {{amount1.viewValue_amount}}
@@ -631,7 +697,8 @@
                             </ion-col>
                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <input matInput  placeholder="Other Substance Used" maxlength="75" name="others_remark" formControlName="others_remark" class="place_holder_text">
+                            <mat-label>Other Substance Used<span class="red" *ngIf="otherSubYesClicked">*</span></mat-label>
+                            <input matInput  maxlength="75" name="others_remark" formControlName="others_remark" class="place_holder_text">
                           </mat-form-field>
                         </ion-col>
                         </ion-row>
@@ -655,12 +722,12 @@
             <mat-step [stepControl]="secondFormGroup" label="Step2">
               <form [formGroup]="secondFormGroup">
     
-                <ion-card class="ion-padding ion-card">
-                  <ion-row>
-                    <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
-                      <ion-title class="label_class3"><span class="wrap-mat-check-label">Compliance Rate from 0 to 100% (based on most credible report)</span></ion-title>
+                <ion-card class="ion-padding ion-card ion-padding-top">
+                  <ion-row class="ion-padding-top">
+                    <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12" class="ion-padding-top">
+                      <ion-title class="label_class3"><span class="wrap-mat-check-label">Compliance Rate from 0 to 100% (based on most credible report)</span><span class="red">*</span></ion-title>
                     </ion-col>
-                    <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12">
+                    <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-padding-top">
                      <mat-slider
                      thumbLabel
                      [displayWith]=""
@@ -676,7 +743,9 @@
                     <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
                       <ion-title class="label_class3"> 
                         <mat-form-field style="display: block;" appearance="outline" [hidden]="!comp_reason_visible">    
-                          <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="comp_reason" formControlName="comp_reason" class="place_holder_text" (keyup)="onKey2($event)">
+                          <!-- <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="comp_reason" formControlName="comp_reason" class="place_holder_text" (keyup)="onKey2($event)"> -->
+                          <textarea class="place_holder_text"  placeholder="Enter the reason why no testing was done" maxlength="75" name="comp_reason" formControlName="comp_reason" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500" (keyup)="onKey2($event)"></textarea>
+                
                         </mat-form-field>
                       </ion-title>
                     </ion-col>
@@ -689,7 +758,7 @@
                       <div formGroupName="MedFormGroup">
                         <ion-row>
                           <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
-                          <mat-label class="label_class3" style="margin-left: 16px;;">Is someone helping the person take medicines?</mat-label>
+                          <mat-label class="label_class3" style="margin-left: 16px;;">Is someone helping the person take medicines?<span class="red">*</span></mat-label>
                           <mat-radio-group name="med_supervised" formControlName="med_supervised">
                        
                             <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -700,6 +769,7 @@
 
                           <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
                             <mat-form-field style="display: block; padding-top:0px;" appearance="outline">
+                              <mat-label>If yes, who supervises?<span class="red" *ngIf="medHelpYesClicked">*</span></mat-label>
                               <input matInput  placeholder="If yes, who supervises?" maxlength="75" name="med_supervisor" formControlName="med_supervisor" class="place_holder_text">
                             </mat-form-field>
                           </ion-col>
@@ -720,7 +790,7 @@
               <ion-card class="ion-card">
                 <ion-row class="ion-padding">
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                    <ion-title class="label_class3">Rate adverse effects of medication on a scale of 1 - 5</ion-title>
+                    <ion-title class="label_class3">Rate adverse effects of medication on a scale of 1 - 5<span class="red">*</span></ion-title>
                   </ion-col>
                 </ion-row>
                 <ion-row>
@@ -749,11 +819,11 @@
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <mat-button-toggle-group #group10="matButtonToggleGroup" aria-label="Font Style" name="sedation_rate" formControlName="sedation_rate">
                                     
-                          <mat-button-toggle value="1">1</mat-button-toggle>
-                          <mat-button-toggle value="2">2</mat-button-toggle>
-                          <mat-button-toggle value="3">3</mat-button-toggle>
-                          <mat-button-toggle value="4">4</mat-button-toggle>
-                          <mat-button-toggle value="5">5</mat-button-toggle>
+                          <mat-button-toggle value="1" (click)="sedationClicked()">1</mat-button-toggle>
+                          <mat-button-toggle value="2" (click)="sedationClicked()">2</mat-button-toggle>
+                          <mat-button-toggle value="3" (click)="sedationClicked()">3</mat-button-toggle>
+                          <mat-button-toggle value="4" (click)="sedationClicked()">4</mat-button-toggle>
+                          <mat-button-toggle value="5" (click)="sedationClicked()">5</mat-button-toggle>
                         
                         </mat-button-toggle-group>
                       </ion-col>
@@ -769,11 +839,11 @@
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <mat-button-toggle-group #group11="matButtonToggleGroup" aria-label="Font Style" name="stiffness_rate" formControlName="stiffness_rate">
                                     
-                          <mat-button-toggle value="1">1</mat-button-toggle>
-                          <mat-button-toggle value="2">2</mat-button-toggle>
-                          <mat-button-toggle value="3">3</mat-button-toggle>
-                          <mat-button-toggle value="4">4</mat-button-toggle>
-                          <mat-button-toggle value="5">5</mat-button-toggle>
+                          <mat-button-toggle value="1" (click)="stiffnessClicked()">1</mat-button-toggle>
+                          <mat-button-toggle value="2" (click)="stiffnessClicked()">2</mat-button-toggle>
+                          <mat-button-toggle value="3" (click)="stiffnessClicked()">3</mat-button-toggle>
+                          <mat-button-toggle value="4" (click)="stiffnessClicked()">4</mat-button-toggle>
+                          <mat-button-toggle value="5" (click)="stiffnessClicked()">5</mat-button-toggle>
                         
                         </mat-button-toggle-group>
                       </ion-col>
@@ -792,11 +862,11 @@
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <mat-button-toggle-group #group12="matButtonToggleGroup" aria-label="Font Style" name="tiredness_rate" formControlName="tiredness_rate">
                                       
-                        <mat-button-toggle value="1">1</mat-button-toggle>
-                        <mat-button-toggle value="2">2</mat-button-toggle>
-                        <mat-button-toggle value="3">3</mat-button-toggle>
-                        <mat-button-toggle value="4">4</mat-button-toggle>
-                        <mat-button-toggle value="5">5</mat-button-toggle>
+                        <mat-button-toggle value="1" (click)="tirednessClicked()">1</mat-button-toggle>
+                        <mat-button-toggle value="2" (click)="tirednessClicked()">2</mat-button-toggle>
+                        <mat-button-toggle value="3" (click)="tirednessClicked()">3</mat-button-toggle>
+                        <mat-button-toggle value="4" (click)="tirednessClicked()">4</mat-button-toggle>
+                        <mat-button-toggle value="5" (click)="tirednessClicked()">5</mat-button-toggle>
                       
                       </mat-button-toggle-group>
                     </ion-col>
@@ -812,11 +882,11 @@
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <mat-button-toggle-group #group13="matButtonToggleGroup" aria-label="Font Style" name="weight_gain_rate" formControlName="weight_gain_rate">
                                       
-                        <mat-button-toggle value="1">1</mat-button-toggle>
-                        <mat-button-toggle value="2">2</mat-button-toggle>
-                        <mat-button-toggle value="3">3</mat-button-toggle>
-                        <mat-button-toggle value="4">4</mat-button-toggle>
-                        <mat-button-toggle value="5">5</mat-button-toggle>
+                        <mat-button-toggle value="1" (click)="weightClicked()">1</mat-button-toggle>
+                        <mat-button-toggle value="2" (click)="weightClicked()">2</mat-button-toggle>
+                        <mat-button-toggle value="3" (click)="weightClicked()">3</mat-button-toggle>
+                        <mat-button-toggle value="4" (click)="weightClicked()">4</mat-button-toggle>
+                        <mat-button-toggle value="5" (click)="weightClicked()">5</mat-button-toggle>
                       
                       </mat-button-toggle-group>
                     </ion-col>
@@ -835,11 +905,11 @@
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <mat-button-toggle-group #group14="matButtonToggleGroup" aria-label="Font Style" name="mens_rate" formControlName="mens_rate">
                                           
-                        <mat-button-toggle value="1">1</mat-button-toggle>
-                        <mat-button-toggle value="2">2</mat-button-toggle>
-                        <mat-button-toggle value="3">3</mat-button-toggle>
-                        <mat-button-toggle value="4">4</mat-button-toggle>
-                        <mat-button-toggle value="5">5</mat-button-toggle>
+                        <mat-button-toggle value="1" (click)="irregularClicked()">1</mat-button-toggle>
+                        <mat-button-toggle value="2" (click)="irregularClicked()">2</mat-button-toggle>
+                        <mat-button-toggle value="3" (click)="irregularClicked()">3</mat-button-toggle>
+                        <mat-button-toggle value="4" (click)="irregularClicked()">4</mat-button-toggle>
+                        <mat-button-toggle value="5" (click)="irregularClicked()">5</mat-button-toggle>
                       
                       </mat-button-toggle-group>
                     </ion-col>
@@ -855,11 +925,11 @@
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <mat-button-toggle-group #group15="matButtonToggleGroup" aria-label="Font Style" name="sex_dysfunction_rate" formControlName="sex_dysfunction_rate">
                                           
-                        <mat-button-toggle value="1">1</mat-button-toggle>
-                        <mat-button-toggle value="2">2</mat-button-toggle>
-                        <mat-button-toggle value="3">3</mat-button-toggle>
-                        <mat-button-toggle value="4">4</mat-button-toggle>
-                        <mat-button-toggle value="5">5</mat-button-toggle>
+                        <mat-button-toggle value="1" (click)="dysfunctionClicked()">1</mat-button-toggle>
+                        <mat-button-toggle value="2" (click)="dysfunctionClicked()">2</mat-button-toggle>
+                        <mat-button-toggle value="3" (click)="dysfunctionClicked()">3</mat-button-toggle>
+                        <mat-button-toggle value="4" (click)="dysfunctionClicked()">4</mat-button-toggle>
+                        <mat-button-toggle value="5" (click)="dysfunctionClicked()">5</mat-button-toggle>
                       
                       </mat-button-toggle-group>
                     </ion-col>
@@ -993,6 +1063,19 @@
           </div>
           </ion-col>
           </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+              <ion-title class="label_class3"> 
+                <mat-form-field style="display: block;" appearance="outline" [hidden]="!adverse_reason_visible">    
+                  <!-- <input matInput  placeholder="Enter the reason why no testing was done" maxlength="75"  name="no_rate_reason" formControlName="no_rate_reason" class="place_holder_text" (keyup)="onKey1($event)"> -->
+                  <textarea class="place_holder_text"  placeholder="Enter the reason why no testing was done" maxlength="75"  name="no_rate_reason" formControlName="no_rate_reason" rows="3" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5 maxlength="500" (keyup)="onKey3($event)"></textarea>
+                
+                </mat-form-field>
+              </ion-title>
+            </ion-col>
+            <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left">
+              </ion-col>
+              </ion-row>
               </ion-card>
 
               <ion-card class="ion-card">
@@ -1002,7 +1085,7 @@
                 <div formGroupName="docFormGroup">
                   <ion-row>
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                    <mat-label class="label_class3" style="margin-left: 16px;;">Discussion with doctor</mat-label>
+                    <mat-label class="label_class3" style="margin-left: 16px;;">Discussion with doctor<span class="red">*</span></mat-label>
                     <mat-radio-group  name="discuss_doctor" formControlName="discuss_doctor">
                 
                       <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -1017,7 +1100,8 @@
                     <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <mat-form-field style="display: block;" appearance="outline">
-                          <textarea matInput  placeholder="Details" maxlength="75" name="discuss_doctor_details" formControlName="discuss_doctor_details" class="place_holder_text"></textarea>
+                          <mat-label>Details<span class="red" *ngIf="discussYesClicked">*</span></mat-label>
+                          <textarea matInput  maxlength="75" name="discuss_doctor_details" formControlName="discuss_doctor_details" class="place_holder_text"></textarea>
                         </mat-form-field>
                       </ion-col>
                   
@@ -1037,7 +1121,7 @@
                 <div formGroupName='medicationFormGroup'>
                   <ion-row>
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                    <mat-label class="label_class3" style="margin-left: 16px;;">Medication</mat-label>
+                    <mat-label class="label_class3" style="margin-left: 16px;;">Medication<span class="red">*</span></mat-label>
                     <mat-radio-group  name="medication" formControlName="medication">
                 
                       <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -1052,7 +1136,8 @@
                     <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <mat-form-field style="display: block;" appearance="outline">
-                          <textarea matInput  placeholder="Details" maxlength="75" name="presc_medicine" formControlName="presc_medicine" class="place_holder_text"></textarea>
+                          <mat-label>Details<span class="red" *ngIf="medicationYesClicked">*</span></mat-label>
+                          <textarea matInput  maxlength="75" name="presc_medicine" formControlName="presc_medicine" class="place_holder_text"></textarea>
                         </mat-form-field>
                       </ion-col>
                   
@@ -1066,7 +1151,7 @@
             </ion-row>
             <ion-row>
              <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
-                <ion-title class="label_class3med" style="vertical-align: bottom;">Medicine Refill Date</ion-title>
+                <ion-title class="label_class3med" style="vertical-align: bottom;">Medicine Refill Date<span class="red">*</span></ion-title>
               </ion-col>
              
               <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
@@ -1097,7 +1182,7 @@
                   <div formGroupName='counsellingFormGroup'>
                     <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                      <mat-label class="label_class3" style="margin-left: 16px;;">Counselling</mat-label>
+                      <mat-label class="label_class3" style="margin-left: 16px;;">Counselling<span class="red">*</span></mat-label>
                       <mat-radio-group  name="counselling" formControlName="counselling">
                   
                         <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -1109,13 +1194,14 @@
                       
                       </ion-row>
                       <ion-row>
-                        <h6 class="font_family_class incharge_class rate_label ion-padding-right ion-padding-left" style="margin-right:15px;margin-left:15px;">This refers to any kind of Counselling, including about sexual education, marriage, continuing education, seeking employment etc. done in addition to psychological interventions.</h6>
+                        <h6 class="font_family_class incharge_class rate_label ion-padding-right ion-padding-left" style="margin-right:15px;margin-left:15px;">This refers to any kind of Counselling, including about sex education, marriage, continuing education, seeking employment etc. done in addition to psychological interventions.</h6>
                       </ion-row>
               
                       <ion-row>
                         <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                           <mat-form-field style="display: block;" appearance="outline">
-                            <textarea matInput  placeholder="Details" maxlength="75" name="counselling_med" formControlName="counselling_med" class="place_holder_text"></textarea>
+                            <mat-label>Details<span class="red" *ngIf="counsellingYesClicked">*</span></mat-label>
+                            <textarea matInput maxlength="75" name="counselling_med" formControlName="counselling_med" class="place_holder_text"></textarea>
                           </mat-form-field>
                         </ion-col>
                     
@@ -1136,7 +1222,7 @@
               <div  formGroupName='referralFormGroup'>
                 <ion-row>
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                  <mat-label class="label_class3" style="margin-left: 16px;;">Referral</mat-label>
+                  <mat-label class="label_class3" style="margin-left: 16px;;">Referral<span class="red">*</span></mat-label>
                   <mat-radio-group  name="referral" formControlName="referral">
               
                     <div *ngFor="let arr1 of tobaccooptionsArray" style="display:inline-block">
@@ -1151,7 +1237,8 @@
                   <ion-row>
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <mat-form-field style="display: block;" appearance="outline">
-                        <textarea matInput  placeholder="Details" maxlength="75"  name="referral_med" formControlName="referral_med" class="place_holder_text"></textarea>
+                        <mat-label>Details<span class="red" *ngIf="referralYesClicked">*</span></mat-label>
+                        <textarea matInput  maxlength="75"  name="referral_med" formControlName="referral_med" class="place_holder_text"></textarea>
                       </mat-form-field>
                     </ion-col>
                 
@@ -1181,7 +1268,7 @@
                   <ion-row>
                     
                     <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
-                      <ion-title class="label_class6"><span class="wrap-mat-check-label">Psychoeducation Session(including any printed material, online information, or videos)</span></ion-title>
+                      <ion-title class="label_class6"><span class="wrap-mat-check-label">Psychoeducation Session(including any printed material, online information, or videos)</span><span class="red">*</span></ion-title>
                     </ion-col>
                     
                   <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
@@ -1198,7 +1285,8 @@
                     <ion-row>
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <mat-form-field style="display: block;" appearance="outline">
-                        <input matInput   placeholder="If yes, Remarks" maxlength="75" name="psychoeducation_yes" formControlName="psychoeducation_yes" class="place_holder_text">
+                        <mat-label>If yes, Remarks<span class="red" *ngIf="psychoYesClicked">*</span></mat-label>
+                        <input matInput maxlength="75" name="psychoeducation_yes" formControlName="psychoeducation_yes" class="place_holder_text">
                       </mat-form-field>
                 </ion-col> 
                 </ion-row>
@@ -1208,7 +1296,7 @@
                     <div formGroupName='psychoInterFormGroup'>
                       <ion-row>
                       <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
-                        <ion-title class="label_class6">Psychological Interventions</ion-title>
+                        <ion-title class="label_class6">Psychological Interventions<span class="red">*</span></ion-title>
                       </ion-col>
   
                       <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6">
@@ -1224,6 +1312,7 @@
                       <ion-row>
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <mat-form-field style="display: block;" appearance="outline">
+                          <mat-label>If yes, Remarks<span class="red" *ngIf="psychoInterYesClicked">*</span></mat-label>
                           <input matInput   placeholder="If yes, Remarks"  name="psychointervension_yes" formControlName="psychointervension_yes" class="place_holder_text">
                         </mat-form-field>
                   </ion-col> 
@@ -1242,7 +1331,7 @@
                     <ion-row>
                     
                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-                            <ion-title class="label_class6">Participants</ion-title>
+                            <ion-title class="label_class6">Participants<span class="red">*</span></ion-title>
                             </ion-col>
                             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                               <!-- <div>
@@ -1263,7 +1352,8 @@
                
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                     <mat-form-field style="display: block;" appearance="outline">
-                      <input matInput   placeholder="Details of Participants" maxlength="75" class="place_holder_text" name="participant_details" formControlName="participant_details">
+                      <mat-label>Details of Participants<span class="red">*</span></mat-label>
+                      <input matInput maxlength="75" class="place_holder_text" name="participant_details" formControlName="participant_details">
                     </mat-form-field>
                   </ion-col>
                
@@ -1278,7 +1368,7 @@
                <ion-row>
                 
                 <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
-                  <ion-title class="font_family_class label_class2"><span class="wrap-mat-check-label">Obtained consent for follow-up</span></ion-title>
+                  <ion-title class="font_family_class label_class2"><span class="wrap-mat-check-label">Obtained consent for follow-up</span><span class="red">*</span></ion-title>
               </ion-col>
             
                 <ion-col size-xl="8" size-lg="8" size-md="12" size-xs="12">
@@ -1361,7 +1451,7 @@
                
                 <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12" class="custom_align_class">
                     <mat-form-field appearance="outline" style="width:100%;">
-                      <mat-label class="place_holder_text">Follow-up date</mat-label>
+                      <mat-label class="place_holder_text">Follow-up date<span class="red">*</span></mat-label>
                       <input matInput [matDatepicker]="picker671"  readonly name="follow_up_date" formControlName="follow_up_date">
                       <mat-datepicker-toggle matSuffix [for]="picker671"></mat-datepicker-toggle>
                       <mat-datepicker #picker671></mat-datepicker>
@@ -1381,7 +1471,7 @@
             
                 <div class="button_align_class">
                   <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform: none !important">Previous</span></ion-button>
-                   <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)"  [disabled]="!(secondFormGroup.valid)"><span style="text-transform: none !important">Save & Next</span></ion-button>  
+                   <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)"  [disabled]="!(secondFormGroup.valid && adverseValid)"><span style="text-transform: none !important">Save & Next</span></ion-button>  
                    <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep2(secondFormGroup)"  ><span style="text-transform: none !important">Save & Next</span></ion-button>   -->
                
                   </div>
@@ -1413,7 +1503,7 @@
                           <ion-title class="label_class10">Remarks: {{check1_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check1_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check1_date | date}}</ion-title>
                           </ion-row>
   
                           <ion-row>
@@ -1458,7 +1548,7 @@
                           <ion-title class="label_class10">Remarks: {{check2_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check2_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check2_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1501,7 +1591,7 @@
                           <ion-title class="label_class10">Remarks: {{check3_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check3_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check3_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1545,7 +1635,7 @@
                           <ion-title class="label_class10">Remarks: {{check4_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check4_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check4_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1588,7 +1678,7 @@
                           <ion-title class="label_class10">Remarks: {{check5_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check5_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check5_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1632,7 +1722,7 @@
                           <ion-title class="label_class10">Remarks: {{check6_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check6_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check6_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1670,13 +1760,13 @@
                     <ion-row [hidden]="!optionCheck7">
                       <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-left">
                         <ion-row>
-                          <ion-title class="label_class10">Help them to participate in the MINREGA scheme?</ion-title>
+                          <ion-title class="label_class10"><span class="wrap-mat-check-label">Help them to participate in the MINERGA scheme?</span></ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
                           <ion-title class="label_class10">Remarks: {{check7_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by:{{check7_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by:{{check7_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1720,7 +1810,7 @@
                           <ion-title class="label_class10">Remarks: {{check8_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check8_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check8_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1758,13 +1848,13 @@
                     <ion-row [hidden]="!optionCheck9">
                       <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-left">
                         <ion-row>
-                          <ion-title class="label_class10">Help them participate in local social/ cultural events?</ion-title>
+                          <ion-title class="label_class10"><span class="wrap-mat-check-label">Help them participate in local social/ cultural events?</span></ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
                           <ion-title class="label_class10">Remarks: {{check9_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check9_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check9_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1808,7 +1898,7 @@
                           <ion-title class="label_class10">Remarks: {{check10_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check10_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check10_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1852,7 +1942,7 @@
                           <ion-title class="label_class10">Remarks: {{check11_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check11_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check11_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1890,13 +1980,13 @@
                     <ion-row [hidden]="!optionCheck12">
                       <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-left">
                         <ion-row>
-                          <ion-title class="label_class10">Help in applying for insurance or claiming insurance benefits?</ion-title>
+                          <ion-title class="label_class10"><span class="wrap-mat-check-label">Help in applying for insurance or claiming insurance benefits?</span></ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
                           <ion-title class="label_class10">Remarks: {{check12_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check12_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check12_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1940,7 +2030,7 @@
                           <ion-title class="label_class10">Remarks: {{check13_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check13_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check13_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -1978,13 +2068,13 @@
                     <ion-row [hidden]="!optionCheck14">
                       <ion-col size-xl="7" size-lg="7" size-md="12" size-xs="12" class="ion-text-left">
                         <ion-row>
-                          <ion-title class="label_class10">Help apply for legal services including guardianship</ion-title>
+                          <ion-title class="label_class10"><span class="wrap-mat-check-label">Help apply for legal services including guardianship</span></ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
                           <ion-title class="label_class10">Remarks: {{check14_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check14_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check14_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -2028,7 +2118,7 @@
                           <ion-title class="label_class10">Remarks: {{check15_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check15_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check15_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -2072,7 +2162,7 @@
                           <ion-title class="label_class10">Remarks: {{check16_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check16_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check16_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -2116,7 +2206,7 @@
                           <ion-title class="label_class10">Remarks: {{check17_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check17_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check17_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -2160,7 +2250,7 @@
                           <ion-title class="label_class10">Remarks: {{check18_remark}}</ion-title>
                         </ion-row>
                         <ion-row class="ion-padding-top">
-                          <ion-title class="label_class10">follow-up by: {{check18_date}}</ion-title>
+                          <ion-title class="label_class10">Follow-up by: {{check18_date | date}}</ion-title>
                           </ion-row>
                           <ion-row>
                             <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -2204,7 +2294,7 @@
                             <ion-title class="label_class10">Remarks: {{check19_remark}}</ion-title>
                           </ion-row>
                           <ion-row class="ion-padding-top">
-                            <ion-title class="label_class10">follow-up by: {{check19_date}}</ion-title>
+                            <ion-title class="label_class10">Follow-up by: {{check19_date | date}}</ion-title>
                             </ion-row>
                             <ion-row>
                               <ion-col  size-xl="7" size-lg="7" size-md="12" size-xs="12" style="padding-right: 0px;">
@@ -2269,12 +2359,13 @@
                               <ion-row>
                                 <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                   <mat-form-field appearance="outline" style="width:100%;">
-                                    <input matInput  placeholder="Remarks" maxlength="75" name="local_resource_yes" formControlName="local_resource_yes" class="place_holder_text">
+                                    <mat-label>Remarks<span class="red" *ngIf="task1Clicked">*</span></mat-label>
+                                    <input matInput   maxlength="75" name="local_resource_yes" formControlName="local_resource_yes" class="place_holder_text">
                                   </mat-form-field>
                                 </ion-col>
                                 <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;" >
                                   <mat-form-field appearance="outline" style="width:100%;">
-                                    <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                    <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task1Clicked">*</span></mat-label>
                                     <input matInput [matDatepicker]="picker51" readonly name="local_resource_date" formControlName="local_resource_date">
                                     <mat-datepicker-toggle matSuffix [for]="picker51"></mat-datepicker-toggle>
                                     <mat-datepicker #picker51></mat-datepicker>
@@ -2302,12 +2393,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks"  maxlength="75" name="different_needs_yes" formControlName="different_needs_yes" class="place_holder_text">
+                                          <mat-label>Remarks<span class="red" *ngIf="task2Clicked">*</span></mat-label>
+                                          <input matInput  maxlength="75" name="different_needs_yes" formControlName="different_needs_yes" class="place_holder_text">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                         <mat-form-field appearance="outline"  style="width:100%;">
-                                          <mat-label>Follow-up By</mat-label>
+                                          <mat-label>Follow-up By<span class="red" *ngIf="task2Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker80" readonly name="different_needs_date" formControlName="different_needs_date" class="place_holder_text">
                                           <mat-datepicker-toggle matSuffix [for]="picker80"></mat-datepicker-toggle>
                                           <mat-datepicker #picker80></mat-datepicker>
@@ -2344,12 +2436,13 @@
                                       <ion-row>
                                         <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                           <mat-form-field style="width:100%;" appearance="outline">
-                                            <input matInput placeholder=" Remarks" maxlength="75" name="local_industries_yes" formControlName="local_industries_yes" class="place_holder_text">
+                                            <mat-label>Remarks<span class="red" *ngIf="task3Clicked">*</span></mat-label>
+                                            <input matInput maxlength="75" name="local_industries_yes" formControlName="local_industries_yes" class="place_holder_text">
                                           </mat-form-field>
                                         </ion-col>
                                         <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style=padding-left:0px;>
                                           <mat-form-field appearance="outline" style="width:100%;">
-                                            <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                            <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task3Clicked">*</span></mat-label>
                                             <input matInput [matDatepicker]="picker52" readonly name="local_industries_date" formControlName="local_industries_date">
                                             <mat-datepicker-toggle matSuffix [for]="picker52"></mat-datepicker-toggle>
                                             <mat-datepicker #picker52></mat-datepicker>
@@ -2375,12 +2468,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder=" Remarks" maxlength="75"  name="skill_dev_yes" formControlName="skill_dev_yes" class="place_holder_text">
+                                          <mat-label>Remarks<span class="red" *ngIf="task4Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"  name="skill_dev_yes" formControlName="skill_dev_yes" class="place_holder_text">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task4Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker59" readonly name="skill_dev_date" formControlName="skill_dev_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker59"></mat-datepicker-toggle>
                                           <mat-datepicker #picker59></mat-datepicker>
@@ -2406,12 +2500,13 @@
                                       <ion-row>
                                         <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                           <mat-form-field style="width:100%;" appearance="outline">
-                                            <input matInput placeholder="Remarks" maxlength="75" name="self_employ_yes" formControlName="self_employ_yes" class="place_holder_text">
+                                            <mat-label>Remarks<span class="red" *ngIf="task5Clicked">*</span></mat-label>
+                                            <input matInput  maxlength="75" name="self_employ_yes" formControlName="self_employ_yes" class="place_holder_text">
                                           </mat-form-field>
                                         </ion-col>
                                         <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                           <mat-form-field appearance="outline" style="width:100%;">
-                                            <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                            <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task5Clicked">*</span></mat-label>
                                             <input matInput [matDatepicker]="picker53" readonly name="self_employ_date" formControlName="self_employ_date">
                                             <mat-datepicker-toggle matSuffix [for]="picker53"></mat-datepicker-toggle>
                                             <mat-datepicker #picker53></mat-datepicker>
@@ -2438,12 +2533,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width: 100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75" name="income_generation_yes" formControlName="income_generation_yes" class="place_holder_text">
+                                          <mat-label>Remarks<span class="red" *ngIf="task6Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75" name="income_generation_yes" formControlName="income_generation_yes" class="place_holder_text">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" class="padding-left:0px;">
                                         <mat-form-field appearance="outline"  style="width: 100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task6Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker58"  readonly name="income_generation_date" formControlName="income_generation_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker58"></mat-datepicker-toggle>
                                           <mat-datepicker #picker58></mat-datepicker>
@@ -2461,19 +2557,20 @@
                                    
                                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
                                    
-                                    <mat-checkbox name="check7" formControlName="check7"  class="font_family_class label_class3" (change)="taskCheck7($event)">Help them to participate in the MINREGA scheme?</mat-checkbox>
+                                    <mat-checkbox name="check7" formControlName="check7"  class="font_family_class label_class3" (change)="taskCheck7($event)"><span class="wrap-mat-check-label">Help them to participate in the MINERGA scheme?</span></mat-checkbox>
                                   </ion-col>
     
                                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"  name="minerga_yes" formControlName="minerga_yes" class="place_holder_text">
+                                          <mat-label>Remarks<span class="red" *ngIf="task7Clicked">*</span></mat-label>
+                                          <input matInput  maxlength="75"  name="minerga_yes" formControlName="minerga_yes" class="place_holder_text">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task7Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker56"  readonly name="minerga_date" formControlName="minerga_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker56"></mat-datepicker-toggle>
                                           <mat-datepicker #picker56></mat-datepicker>
@@ -2499,12 +2596,13 @@
                                       <ion-row>
                                         <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                           <mat-form-field style="width:100%;" appearance="outline">
-                                            <input matInput placeholder="Remarks" maxlength="75" name="daycare" formControlName="daycare" class="place_holder_text">
+                                            <mat-label>Remarks<span class="red" *ngIf="task8Clicked">*</span></mat-label>
+                                            <input matInput  maxlength="75" name="daycare" formControlName="daycare" class="place_holder_text">
                                           </mat-form-field>
                                         </ion-col>
                                         <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                           <mat-form-field appearance="outline" style="width:100%;">
-                                            <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                            <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task8Clicked">*</span></mat-label>
                                             <input matInput [matDatepicker]="picker54"  readonly name="daycare_yes" formControlName="daycare_yes">
                                             <mat-datepicker-toggle matSuffix [for]="picker54"></mat-datepicker-toggle>
                                             <mat-datepicker #picker54></mat-datepicker>
@@ -2524,19 +2622,20 @@
                                    
                                     <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-text-left ion-padding-top">
                                       <!-- <ion-title size="small">Help them participate in local social/ cultural events?</ion-title> -->
-                                      <mat-checkbox name="check9" formControlName="check9"   class="font_family_class label_class3"  (change)="taskCheck9($event)">Help them participate in local social/ cultural events?</mat-checkbox>
+                                      <mat-checkbox name="check9" formControlName="check9"   class="font_family_class label_class3"  (change)="taskCheck9($event)"><span class="wrap-mat-check-label">Help them participate in local social/ cultural events?</span></mat-checkbox>
                                     </ion-col>
     
                                     <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
                                       <ion-row>
                                         <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                           <mat-form-field style="width:100%;" appearance="outline">
-                                            <input matInput placeholder="Remarks" maxlength="75" name="cultural_event" formControlName="cultural_event" class="place_holder_text">
+                                            <mat-label>Remarks<span class="red" *ngIf="task9Clicked">*</span></mat-label>
+                                            <input matInput  maxlength="75" name="cultural_event" formControlName="cultural_event" class="place_holder_text">
                                           </mat-form-field>
                                         </ion-col>
                                         <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                           <mat-form-field appearance="outline" style="width:100%;">
-                                            <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                            <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task9Clicked">*</span></mat-label>
                                             <input matInput [matDatepicker]="picker55"  readonly name="cultural_event_yes" formControlName="cultural_event_yes">
                                             <mat-datepicker-toggle matSuffix [for]="picker55"></mat-datepicker-toggle>
                                             <mat-datepicker #picker55></mat-datepicker>
@@ -2563,12 +2662,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"  name="education_yes" formControlName="education_yes" class="place_holder_text">
+                                          <mat-label>Remarks<span class="red" *ngIf="task10Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"  name="education_yes" formControlName="education_yes" class="place_holder_text">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task10Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker57"  readonly name="education_date" formControlName="education_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker57"></mat-datepicker-toggle>
                                           <mat-datepicker #picker57></mat-datepicker>
@@ -2601,12 +2701,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"   name="id_proof_yes" formControlName="id_proof_yes" class="place_holder_text">
+                                          <mat-label>Remarks<span class="red" *ngIf="task11Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"   name="id_proof_yes" formControlName="id_proof_yes" class="place_holder_text">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task11Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker60"  readonly name="id_proof_date" formControlName="id_proof_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker60"></mat-datepicker-toggle>
                                           <mat-datepicker #picker60></mat-datepicker>
@@ -2626,19 +2727,20 @@
                                    
                                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top"> 
                                     <!-- <ion-title size="small">Help in applying for insurance or claiming insurance benefits?</ion-title> -->
-                                    <mat-checkbox name="check12" formControlName="check12"  class="font_family_class label_class3" (change)="taskCheck12($event)">Help in applying for insurance or claiming insurance benefits?</mat-checkbox>
+                                    <mat-checkbox name="check12" formControlName="check12"  class="font_family_class label_class3" (change)="taskCheck12($event)"><span class="wrap-mat-check-label">Help in applying for insurance or claiming insurance benefits?</span></mat-checkbox>
                                   </ion-col>
     
                                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="ins_claim_yes" formControlName="ins_claim_yes">
+                                          <mat-label>Remarks<span class="red" *ngIf="task12Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"  class="place_holder_text" name="ins_claim_yes" formControlName="ins_claim_yes">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task12Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker61"  readonly name="ins_claim_date" formControlName="ins_claim_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker61"></mat-datepicker-toggle>
                                           <mat-datepicker #picker61></mat-datepicker>
@@ -2662,12 +2764,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="physician_yes" formControlName="physician_yes" >
+                                          <mat-label>Remarks<span class="red" *ngIf="task13Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"  class="place_holder_text" name="physician_yes" formControlName="physician_yes" >
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task13Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker63"  readonly name="physician_date" formControlName="physician_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker63"></mat-datepicker-toggle>
                                           <mat-datepicker #picker63></mat-datepicker>
@@ -2685,19 +2788,20 @@
                                    
                                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="ion-padding-top">
                                    
-                                    <mat-checkbox name="check14" formControlName="check14"   class="font_family_class label_class3" (change)="taskCheck14($event)">Help apply for legal services including guardianship</mat-checkbox>
+                                    <mat-checkbox name="check14" formControlName="check14"   class="font_family_class label_class3" (change)="taskCheck14($event)"><span class="wrap-mat-check-label">Help apply for legal services including guardianship</span></mat-checkbox>
                                   </ion-col>
     
                                   <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class="custom_align_class">
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="legal_yes" formControlName="legal_yes">
+                                          <mat-label>Remarks<span class="red" *ngIf="task14Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"  class="place_holder_text" name="legal_yes" formControlName="legal_yes">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task14Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker64"  readonly name="legal_date" formControlName="legal_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker64"></mat-datepicker-toggle>
                                           <mat-datepicker #picker64></mat-datepicker>
@@ -2720,12 +2824,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
-                                          <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="liase_yes" formControlName="liase_yes">
+                                          <mat-label>Remarks<span class="red" *ngIf="task15Clicked">*</span></mat-label>
+                                          <input matInput maxlength="75"  class="place_holder_text" name="liase_yes" formControlName="liase_yes">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left:0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task15Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker65"  readonly name="liase_date" formControlName="liase_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker65"></mat-datepicker-toggle>
                                           <mat-datepicker #picker65></mat-datepicker>
@@ -2749,12 +2854,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
+                                          <mat-label>Remarks<span class="red" *ngIf="task16Clicked">*</span></mat-label>
                                           <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="consult_legal_yes" formControlName="consult_legal_yes">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task16Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker66"  readonly name="consult_legal_date" formControlName="consult_legal_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker66"></mat-datepicker-toggle>
                                           <mat-datepicker #picker66></mat-datepicker>
@@ -2779,12 +2885,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
+                                          <mat-label>Remarks<span class="red" *ngIf="task17Clicked">*</span></mat-label>
                                           <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="bank_account_yes" formControlName="bank_account_yes">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task17Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker67"  readonly name="bank_account_date" formControlName="bank_account_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker67"></mat-datepicker-toggle>
                                           <mat-datepicker #picker67></mat-datepicker>
@@ -2808,12 +2915,13 @@
                                     <ion-row>
                                       <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline">
+                                          <mat-label>Remarks<span class="red" *ngIf="task18Clicked">*</span></mat-label>
                                           <input matInput placeholder="Remarks" maxlength="75"  class="place_holder_text" name="offer_help_yes" formControlName="offer_help_yes">
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
                                         <mat-form-field appearance="outline" style="width:100%;">
-                                          <mat-label class="place_holder_text">Follow-up By</mat-label>
+                                          <mat-label class="place_holder_text">Follow-up By<span class="red" *ngIf="task18Clicked">*</span></mat-label>
                                           <input matInput [matDatepicker]="picker68"  readonly name="offer_help_date" formControlName="offer_help_date">
                                           <mat-datepicker-toggle matSuffix [for]="picker68"></mat-datepicker-toggle>
                                           <mat-datepicker #picker68></mat-datepicker>
@@ -2836,7 +2944,8 @@
                                     <ion-row>
                                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-right:0px;">
                                         <mat-form-field style="width:100%;" appearance="outline" [hidden]="!none_visible" >
-                                          <input matInput placeholder="Reason"  name="none_reason" formControlName="none_reason" maxlength="75"  class="place_holder_text" >
+                                          <mat-label>Reason<span class="red" *ngIf="noneChecked">*</span></mat-label>
+                                          <input matInput  name="none_reason" formControlName="none_reason" maxlength="75"  class="place_holder_text" >
                                         </mat-form-field>
                                       </ion-col>
                                       <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding-left: 0px;">
@@ -2853,7 +2962,7 @@
                                 <ion-title class="label_class3">Next review of rehab measures</ion-title></ion-col>
                                 <ion-col size-xl="6" size-lg="6" size-md="6" size-xs="6" style="padding-left: 0px;">
                                   <mat-form-field appearance="outline" style="width:100%;">
-                                    <mat-label class="place_holder_text">Date</mat-label>
+                                    <mat-label class="place_holder_text">Date<span class="red" *ngIf="noneChecked">*</span></mat-label>
                                     <input matInput [matDatepicker]="picker668"  readonly name="review_date" formControlName="review_date">
                                     <mat-datepicker-toggle matSuffix [for]="picker668"></mat-datepicker-toggle>
                                     <mat-datepicker #picker668></mat-datepicker>
@@ -2898,7 +3007,7 @@
               <div class="button_align_class">
                 <ion-button  class="button_text_normal" class="default_bg" (click)="previous()"><span style="text-transform: none !important">Previous</span></ion-button>
                 <!-- <ion-button  class="button_text_normal" class="background"  (click)="submitStep5(fifthFormGroup)" [disabled]="!fifthFormGroup.valid">Save & Preview</ion-button> -->
-                <ion-button  class="button_text_normal background" (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid"><span style="text-transform: none !important">Submit</span></ion-button>
+                <ion-button  class="button_text_normal background" type="submit" (click)="submitStep3(thirdFormGroup)" [disabled]="!thirdFormGroup.valid || isDisabled"><span style="text-transform: none !important">Submit</span></ion-button>
 
               </div>
               </form>

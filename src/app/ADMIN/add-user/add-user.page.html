@@ -77,7 +77,7 @@
                 <ion-col>
                  
                     <mat-form-field style="width:95%;"  appearance="outline" >
-                      <mat-label>Taluk</mat-label>
+                      <mat-label>Taluka</mat-label>
                       <mat-select name="taluk" formControlName="taluk" class="arrow_class" (selectionChange)="selectedTaluka($event.value)">
                         <mat-option *ngFor="let taluk1 of taluk_array" [value]="taluk1.taluka_master_id">
                           {{taluk1.taluka_name}}

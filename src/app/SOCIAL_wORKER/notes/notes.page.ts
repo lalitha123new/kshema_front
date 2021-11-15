@@ -23,6 +23,7 @@ import { LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { ServerService } from 'src/app/services/server.service';
 import { UUID } from 'angular2-uuid';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-notes',
@@ -46,14 +47,15 @@ export class NotesPage implements OnInit {
     private router: Router,private patientService: PatientService,
     private networkService : NetworkService,
     private offlineManager : OfflineManagerService,
-    public alertController: AlertController,private loadingCtrl: LoadingController,private serverService: ServerService) { }
+    public alertController: AlertController,private loadingCtrl: LoadingController,
+    private serverService: ServerService,public snackBar: MatSnackBar) { }
     sw_id1;
     sw_id;
     supervisor_id1;
     supervisor_id;
     user_name;
 
-    //supercode
+    //supervisor code
     super_id1;
     super_id;
     group_data_id1;
@@ -71,11 +73,14 @@ export class NotesPage implements OnInit {
     sender_user_id;
     receiver_user_id;
     psw_array:any;
-
+    showSpinner = false;
+    super_notes_array_first = [];
   ngOnInit() {
   }
 
   ionViewWillEnter() {
+    this.super_notes_array_first = [];
+    this.showSpinner = true;
     this.newNote1 = false;
     this.newNote = false;
     this.role = sessionStorage.getItem("role")
@@ -101,7 +106,8 @@ export class NotesPage implements OnInit {
       this.group_data_id = 0;
       this.getGroupDataServer(this.supervisor_id);
       this.getAllPatientsServer(this.group_data_id);
-      this.getAllPSWs();
+      this.getAllTalukasPswsTalukasupervisors();
+      //this.getAllPSWs();
       // this.getAllNotesServer();
       
     }
@@ -109,6 +115,16 @@ export class NotesPage implements OnInit {
    
   }
 
+   getAllTalukasPswsTalukasupervisors(){
+    let taluk_array_first :any;
+     this.serverService.getAllTalukasPswsTalukasupervisors().toPromise().then(result3 => {
+     
+      taluk_array_first=result3;
+      this.psw_array = taluk_array_first[0].social_worker;
+
+   });
+ 
+  }
    //to get all psws
  async getAllPSWs(){
   let psw_array_first :any;
@@ -122,6 +138,7 @@ export class NotesPage implements OnInit {
 
  
 }
+
   async getPatients(){
     let patients_array_first :any;
     let test = await this.patientService.fetchPatients().then(result1 => {
@@ -139,17 +156,17 @@ export class NotesPage implements OnInit {
     let new_array = [];
     this.dataSource.data = [];
     let notes_uuid_array = [];
-    let super_notes_array_first :any;
+    
     let test = await this.patientService.fetchSuperNotes(this.sender_user_id).then(result2 => {
      
-      super_notes_array_first=result2;
+      this.super_notes_array_first=result2;
       
 
    });
-        
+        this.showSpinner = false;
         notes_array = [];
 
-        notes_array = super_notes_array_first;
+        notes_array = this.super_notes_array_first;
        
         let resultArray1 :any;
         resultArray1 = this.patientArray;
@@ -157,30 +174,30 @@ export class NotesPage implements OnInit {
      
         //filter all patients array to get the demographic details of patients ids in the today clinical data array
       for(var arr in resultArray1){
-        for(var filter in super_notes_array_first){
-            if(resultArray1[arr].patient_uuid == super_notes_array_first[filter].patient_uuid){
+        for(var filter in this.super_notes_array_first){
+            if(resultArray1[arr].patient_uuid == this.super_notes_array_first[filter].patient_uuid){
               new_array.push(resultArray1[arr]);
-              super_notes_array_first[filter].name = resultArray1[arr].name;
+              this.super_notes_array_first[filter].name = resultArray1[arr].name;
               
               }
         }
       }
+   
+      for(var k=0;k<this.super_notes_array_first.length;k++){
     
-      for(var k=0;k<super_notes_array_first.length;k++){
-     
-        super_notes_array_first[k].date = super_notes_array_first[k].created_at;
-        this.dataSource.data = super_notes_array_first;
+        this.super_notes_array_first[k].date = new Date(this.super_notes_array_first[k].created_at);
+        
         this.dataSource.paginator = this.paginator;
-        if(super_notes_array_first[k].read_flag == 1){
-        notes_uuid_array.push(super_notes_array_first[k].notes_uuid);
+      
+        if(this.super_notes_array_first[k].read_flag == 1){
+        notes_uuid_array.push(this.super_notes_array_first[k].notes_uuid);
+       
         }
      
        
       }
-      
-      // for(var m=0;m<notes_uuid_array.length;m++){
-      // this.updateNotesStatus(notes_uuid_array[m])
-      // }
+      //this.super_notes_array_first =  this.super_notes_array_first.reverse();
+      this.dataSource.data = this.super_notes_array_first.reverse();
   
   }
 
@@ -243,17 +260,9 @@ export class NotesPage implements OnInit {
 
   async getAllNotesServer(){
   
-    //let allnotes_array_first :any;
-    //   let test = await this.serverService.getAllNOtifications(this.supervisor_id).toPromise().then(result3 => {
-      
-    //     allnotes_array_first=result3;
-      
 
-    // });
-
-    let test = await this.serverService.getAllNOtifications(this.sender_user_id)
-    .subscribe(
-    data  => {
+    let test = await this.serverService.getAllNOtifications(this.sender_user_id).subscribe(data  => {
+      this.showSpinner = false;
     let date_array = [];
     let new_array = [];
     let notes_uuid_array = [];
@@ -276,13 +285,15 @@ export class NotesPage implements OnInit {
       }
   
       for(var i = 0;i<this.patientArray.length;i++){
-        this.patientArray[i].date = this.patientArray[i].createdAt;
+        this.patientArray[i].date = new Date(this.patientArray[i].createdAt);
        
         if(this.patientArray[i].read_flag == 1){
           notes_uuid_array.push(this.patientArray[i].notes_uuid);
           }
       
       }
+      //latest first order
+      this.patientArray = this.patientArray.reverse();
       this.dataSource.data = this.patientArray;
     
       this.dataSource.paginator = this.paginator;
@@ -340,9 +351,11 @@ export class NotesPage implements OnInit {
   }
 
   sendNotes(){
+  
+    if(this.notes1 != undefined){
   if(this.role == "psw"){
-   
-      this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id).then(() => {
+   if(this.patient_uuid != undefined){
+      this.patientService.addNewNotes(this.patient_uuid,this.notes1,this.sender_user_id,this.supervisor_id,null).then(() => {
         this.alertController.create({
           header: '',
           cssClass: 'my-custom-alert',
@@ -356,8 +369,7 @@ export class NotesPage implements OnInit {
               text: 'OK',
               cssClass: 'alertButton2',
               handler: () => {
-                this.offlineManager.checkForEvents().subscribe();
-                //this.router.navigate(['dashboard']);
+                //this.offlineManager.checkForEvents().subscribe();
                 this.displayLoader();
                 setTimeout(()=>{
                  this.dismissLoader();
@@ -376,8 +388,14 @@ export class NotesPage implements OnInit {
           console.log("No Internet Connection! Data added to the Request List");
     }
   });
+}else{
+  this.snackBar.open('Please select patient', 'x', {
+    duration: 10000,
+  });
+}
     
   }else{
+    if(this.patient_uuid != undefined){
     const today = new Date();
     const notes_uuid =  UUID.UUID();
     var date = new Date();
@@ -405,11 +423,10 @@ export class NotesPage implements OnInit {
       .then(loadingEl => {
         loadingEl.present();
   
-        this.serverService.addNotes(notesObj) .subscribe(
-          data  => {
+        this.serverService.addNotes(notesObj) .subscribe(data  => {
             this.notes1 = "";
         loadingEl.dismiss();
-        //window.location.reload();
+       
         this.router.navigate(['supervisor-dashboard']);
 
         },err => {
@@ -419,7 +436,17 @@ export class NotesPage implements OnInit {
         loadingEl.dismiss();
                   
         });
+      }else{
+        this.snackBar.open('Please select patient', 'x', {
+          duration: 10000,
+        });
+      }
   }
+}else{
+  this.snackBar.open('Please enter notes', 'x', {
+    duration: 10000,
+  });
+}
 
 
 
@@ -435,6 +462,7 @@ export class NotesPage implements OnInit {
 
   logout(){
     this.router.navigate(['']);
+  
   }
   displayLoader(){
     this.loadingCtrl.create({
@@ -450,6 +478,8 @@ export class NotesPage implements OnInit {
       console.log('Error occured : ', err);
   });
   } 
+ 
+ 
 }
 
 export interface PeriodicElement {

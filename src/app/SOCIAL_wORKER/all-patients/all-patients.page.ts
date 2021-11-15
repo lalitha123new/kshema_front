@@ -9,6 +9,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { ServerService } from 'src/app/services/server.service';
 
 
+
 @Component({
   selector: 'app-all-patients',
   templateUrl: './all-patients.page.html',
@@ -22,8 +23,12 @@ export class AllPatientsPage implements OnInit {
   
   dataSource_dashboard1 = new MatTableDataSource<PeriodicElement_dashboard1>(ELEMENT_DATA_dashboard1);
 
-  constructor(private _formBuilder: FormBuilder,private _location: Location,
-    private router: Router,private patientService: PatientService,private serverService: ServerService) { }
+  constructor(private _formBuilder: FormBuilder,
+    private _location: Location,
+    private router: Router,
+    private patientService: PatientService,
+    private serverService: ServerService) { }
+
   data;
   data_res1 = [];
   data_res2 = [];
@@ -47,7 +52,7 @@ export class AllPatientsPage implements OnInit {
   show = false;
   user_name;
 
-  //supercode
+  //supervisor code
   allPatients_array:any;
   super_id1;
   super_id;
@@ -59,8 +64,10 @@ export class AllPatientsPage implements OnInit {
   hide_col = true;
   add_pat = true;
   new_array = [];
-group_data;
-group_data1;
+  group_data;
+  group_data1;
+  showSpinner = false;
+
   
   ngOnInit() {   
   }
@@ -79,11 +86,13 @@ group_data1;
    
 
     if(this.role == "psw"){
+      this.showSpinner= true;
       this.add_pat = true;
       this.hide_col = true;
       this.getPatients();
       this.getAllVisit();
     }else{
+      this.showSpinner= true;
       this.add_pat = false;
       this.hide_col = false;
       this.group_data = sessionStorage.getItem("group_data");
@@ -123,9 +132,14 @@ group_data1;
       let resultArray1 :any;
       resultArray1 = this.data_res1;
     
+    
+    
     for(var arr in resultArray1){
+     
       for(var filter in this.data_res3){
           if(resultArray1[arr].patient_uuid == this.data_res3[filter].patient_uuid){
+            resultArray1[arr].task = this.data_res3[filter].visit_type;
+            resultArray1[arr].followup_date = this.data_res3[filter].followup_date;
             this.filtered_today_visit.push(resultArray1[arr]);
             }
       }
@@ -133,15 +147,8 @@ group_data1;
 
     for(var k = 0; k<this.filtered_today_visit.length;k++){
 
-      let date = ("0" + this.data_res3[k].followup_date.getDate()).slice(-2);
-      let month = ("0" + (this.data_res3[k].followup_date.getMonth() + 1)).slice(-2);
-      let year =this.data_res3[k].followup_date.getFullYear();
-      this.data_res3[k].followup_date2 = date + "-" + month + "-" + year;
-      this.filtered_today_visit[k].due_date =  this.data_res3[k].followup_date2;
-
-      //let consent_arr = (JSON.parse(this.filtered_today_visit[k].consent_arr));
-      this.filtered_today_visit[k].task = this.data_res3[k].visit_type;
-      console.log("CHECK REV"+this.filtered_today_visit[k])
+      this.filtered_today_visit[k].due_date =  new Date(this.filtered_today_visit[k].followup_date);
+     
       let demo1= (JSON.parse(this.filtered_today_visit[k].demographic_info));
      
        const birthDate = new Date(demo1.dob);
@@ -162,13 +169,15 @@ group_data1;
       }else{
       this.filtered_today_visit[k].gender = "O";
       }
+
+   
       this.filtered_today_visit[k].mobile = demo1.phone;
       this.filtered_today_visit[k].address = demo1.address1;
       this.dataSource_dashboard1.data = this.filtered_today_visit;
       this.dataSource_dashboard1.paginator = this.paginator;
       
     }
-   
+    this.showSpinner= false;
   }
 
   
@@ -195,6 +204,7 @@ group_data1;
  
   
   this.psw_array = taluk_array_first[0].social_worker;
+  
   this.getPatientsServer();
   
   }
@@ -208,7 +218,7 @@ group_data1;
       patients_array_first=result1;
 
    });
-  
+   this.showSpinner= false;
    this.new_array = patients_array_first;
   
    for(var m=0;m<this.new_array.length;m++){
@@ -232,12 +242,8 @@ group_data1;
         this.allPatients_array[k].patient_uuid = this.allPatients_array[k].patientObj.patient_uuid;
         this.allPatients_array[k].group_data_id = this.allPatients_array[k].patientObj.group_data_id;
         this.allPatients_array[k].task =  this.allPatients_array[k].clinical_visits.visit_type;
-        this.allPatients_array[k].due_date1 =  new Date(this.allPatients_array[k].clinical_visits.followup_date);
+        this.allPatients_array[k].due_date =  new Date(this.allPatients_array[k].clinical_visits.followup_date);
       
-        let date = ("0" + this.allPatients_array[k].due_date1.getDate()).slice(-2);
-        let month = ("0" + (this.allPatients_array[k].due_date1.getMonth() + 1)).slice(-2);
-        let year =this.allPatients_array[k].due_date1.getFullYear();
-        this.allPatients_array[k].due_date = date + "-" + month + "-" + year;
         let demo1= (this.allPatients_array[k].patientObj);
       
         let demo2 = JSON.parse(demo1.demographic_info);
@@ -262,11 +268,9 @@ group_data1;
           this.allPatients_array[k].gender = "O";
           }
           this.allPatients_array[k].mobile = demo2.phone;
-         // this.allPatients_array[k].address = demo2.address1;
+        
         
           for(var j=0;j<this.group_data_array.length;j++){
-           
-            
            
             if(this.allPatients_array[k].group_data == this.group_data_array[j].group_data_id){
             
@@ -291,10 +295,10 @@ group_data1;
         }
   
   }
+
   applyFilter(filterValue: string) {
     this.dataSource_dashboard1.filter= filterValue.trim().toLowerCase();
   }
-
 
    onCancel(ev) { 
     // Reset the field
@@ -304,6 +308,7 @@ group_data1;
 
   logout(){
     this.router.navigate(['']);
+   
   }
  
   home(){
@@ -323,6 +328,7 @@ group_data1;
   add_patient(){
     this.router.navigate(['addpatient']);
   }
+  
  
 }
 

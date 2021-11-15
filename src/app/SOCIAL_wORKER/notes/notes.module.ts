@@ -23,6 +23,8 @@ import {  MatIconModule } from  '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -42,7 +44,9 @@ import { MatSliderModule } from '@angular/material/slider';
     ReactiveFormsModule,
     MatIconModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   declarations: [NotesPage],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

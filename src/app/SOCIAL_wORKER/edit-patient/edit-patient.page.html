@@ -15,7 +15,7 @@
         </ion-col>
         <ion-col size-xl="10" size-lg="10" size-md="10" size-xs="10" class="custom_background_color1">
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
-            <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
+            <ion-col size-xl="8" size-lg="8" size-md="5" size-xs="5"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
               <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
                 cached
@@ -39,7 +39,7 @@
           </ion-row>
       </ion-col>
       </ion-row>
-     
+    
      <ion-row>
       <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
        
@@ -105,8 +105,15 @@
 
 </ion-row>
 
+<div class="overlay-spinner" *ngIf="showSpinner">
+  <div class="center-spinner">
+<mat-spinner  style="margin:0 auto;" diameter="70" class="accent"></mat-spinner>
+</div>
+
+</div>
+
        <ion-row class="ion-padding-top">
-         <ion-title style="text-align: center;">Edit patient</ion-title>
+         <ion-title style="text-align: center;">Edit Patient</ion-title>
 
          <form [formGroup]="editFormGroup">
 
@@ -114,13 +121,14 @@
           <ion-row class="ion-padding-top">
             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <ion-row>
-                <ion-title class="label_class font_family_class">Basic details</ion-title>
+                <ion-title class="label_class font_family_class">Basic Details</ion-title>
               
               </ion-row>
 
               <ion-row>
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <mat-form-field style="display: block;" appearance="outline">
+                <mat-label>Patient name<span class="red">*</span></mat-label>
                 <input matInput nameOnly name="name" formControlName="name"  maxlength="75" class="place_holder_text">
               </mat-form-field>
             </ion-col>
@@ -130,7 +138,7 @@
               <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
                 <mat-form-field  appearance="outline" class="mat_custom_block_class">
                   <mat-label class="place_holder_text">
-                    Gender</mat-label>
+                    Gender<span class="red">*</span></mat-label>
                   <mat-select name="gender" formControlName="gender">
                   
                     <mat-option *ngFor="let gender1 of gender" [value]="gender1.value">
@@ -142,7 +150,7 @@
 
             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <mat-form-field appearance="outline" class="mat_custom_block_class">
-                <mat-label class="place_holder_text">Date of Birth</mat-label>
+                <mat-label class="place_holder_text">Date of Birth<span class="red">*</span></mat-label>
                 <input matInput name="dob" formControlName="dob" [max]="" (focus)="picker.open()" [matDatepicker]="picker" readonly>
                 <mat-datepicker-toggle matSuffix  [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -153,7 +161,8 @@
             <ion-row>
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <mat-form-field style="display: block;" appearance="outline">
-                <input matInput  minlength="10" maxlength="10" name="phone" formControlName="phone" placeholder="Patient Phone Number" class="place_holder_text">
+                <mat-label>Patient phone number<span class="red">*</span></mat-label>
+                <input matInput  minlength="10" maxlength="10" name="phone" formControlName="phone" class="place_holder_text">
               </mat-form-field>
             </ion-col>
             </ion-row>
@@ -161,6 +170,7 @@
             <ion-row>
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <mat-form-field style="display: block;" appearance="outline">
+
                 <input matInput   name="caregiver_name" formControlName="caregiver_name" placeholder="Care Giver Name" maxlength="75" class="place_holder_text">
               </mat-form-field>
             </ion-col>
@@ -192,7 +202,8 @@
               <ion-row>
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
                 <mat-form-field style="display: block;" appearance="outline">
-                  <input matInput   maxlength="75" name="address1" formControlName="address1" placeholder="Address Line 1"  class="place_holder_text">
+                  <mat-label>Address Line 1<span class="red">*</span></mat-label>
+                  <input matInput   maxlength="75" name="address1" formControlName="address1" class="place_holder_text">
                 </mat-form-field>
               </ion-col>
               </ion-row>
@@ -209,7 +220,7 @@
                 <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
                   <mat-form-field appearance="outline" class="mat_custom_block_class">
                     <mat-label  class="place_holder_text">
-                      District</mat-label>
+                      District<span class="red">*</span></mat-label>
                     <mat-select name="district_selected" formControlName="district_selected">
                       <mat-option *ngFor="let district1 of district" [value]="district1.value">
                         {{district1.viewValue}}
@@ -221,7 +232,7 @@
               <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
                 <mat-form-field  appearance="outline" class="mat_custom_block_class">
                   <mat-label  class="place_holder_text">
-                    Taluk</mat-label>
+                    Taluka<span class="red">*</span></mat-label>
                   <mat-select name="taluk_selected" formControlName="taluk_selected">
                     <mat-option *ngFor="let taluk1 of taluk" [value]="taluk1.value">
                       {{taluk1.viewValue}}
@@ -242,7 +253,7 @@
 
               <ion-row>
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                  <ion-title  class="place_holder_text">Taluk level PSW in-charge: <span class="incharge_class font_family_class">Ankita K M</span></ion-title>
+                  <ion-title  class="place_holder_text">Taluka level PSW in-charge: <span class="incharge_class font_family_class">Ankita K M</span></ion-title>
               </ion-col>
               </ion-row>
 
@@ -256,7 +267,7 @@
           <div class="button_align_class">
               <ion-button class="default_bg" (click)="previous()"><span style="text-transform:none!important;">Cancel</span></ion-button>
               <!-- <ion-button  class="button_text_normal" class="background" (click)="submitStep1(firstFormGroup)" [disabled]="!firstFormGroup.valid">Save & Next</ion-button> -->
-              <ion-button class="background" (click)="editPatient()"  [disabled]="!editFormGroup.valid"><span style="text-transform:none!important;">Save</span></ion-button>
+              <ion-button class="background" (click)="editPatient()"  [disabled]="!editFormGroup.valid || isDisabled"  type="submit"><span style="text-transform:none!important;">Save</span></ion-button>
           </div>
 
         </form>

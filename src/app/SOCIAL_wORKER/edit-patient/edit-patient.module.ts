@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {  MatIconModule } from  '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -40,6 +41,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatIconModule,
     MatMenuModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule
     
   ],
   declarations: [EditPatientPage],
