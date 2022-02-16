@@ -7,6 +7,7 @@ import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { PatientService } from 'src/app/services/patient.service';
 import { ServerService } from 'src/app/services/server.service';
+import { JSDocCommentStmt } from '@angular/compiler';
 
 
 
@@ -111,6 +112,8 @@ export class AllPatientsPage implements OnInit {
       patients_array_first=result1;
 
    });
+
+  
       this.data_res1 = patients_array_first;
      
 
@@ -135,9 +138,13 @@ export class AllPatientsPage implements OnInit {
     
     
     for(var arr in resultArray1){
+      
      
       for(var filter in this.data_res3){
+
           if(resultArray1[arr].patient_uuid == this.data_res3[filter].patient_uuid){
+
+            
             resultArray1[arr].task = this.data_res3[filter].visit_type;
             resultArray1[arr].followup_date = this.data_res3[filter].followup_date;
             this.filtered_today_visit.push(resultArray1[arr]);
@@ -170,7 +177,15 @@ export class AllPatientsPage implements OnInit {
       this.filtered_today_visit[k].gender = "O";
       }
 
-   
+   if(this.filtered_today_visit[k].task == 1){
+    this.filtered_today_visit[k].task = "PHC";
+   }else if(this.filtered_today_visit[k].task == 2){
+    this.filtered_today_visit[k].task = "Taluk Hospital";
+   }else if(this.filtered_today_visit[k].task == 3){
+    this.filtered_today_visit[k].task = "District Hospital";
+   }else{
+    this.filtered_today_visit[k].task =  this.filtered_today_visit[k].task;
+   }
       this.filtered_today_visit[k].mobile = demo1.phone;
       this.filtered_today_visit[k].address = demo1.address1;
       this.dataSource_dashboard1.data = this.filtered_today_visit;
@@ -241,7 +256,23 @@ export class AllPatientsPage implements OnInit {
         this.allPatients_array[k].name = this.allPatients_array[k].patientObj.name;
         this.allPatients_array[k].patient_uuid = this.allPatients_array[k].patientObj.patient_uuid;
         this.allPatients_array[k].group_data_id = this.allPatients_array[k].patientObj.group_data_id;
-        this.allPatients_array[k].task =  this.allPatients_array[k].clinical_visits.visit_type;
+        // if(this.allPatients_array[k].clinical_visits.visit_type == ""){
+        //   this.allPatients_array[k].task =  "Others";
+        // }else{
+        // this.allPatients_array[k].task =  this.allPatients_array[k].clinical_visits.visit_type;
+        // }
+       
+        if(this.allPatients_array[k].clinical_visits.visit_type == 1){
+          this.allPatients_array[k].task = "PHC";
+         }else if(this.allPatients_array[k].clinical_visits.visit_type == 2){
+          this.allPatients_array[k].task = "Taluk Hospital";
+         }else if(this.allPatients_array[k].clinical_visits.visit_type == 3){
+          this.allPatients_array[k].task = "District Hospital";
+         }else if(this.allPatients_array[k].clinical_visits.visit_type == 4){
+            this.allPatients_array[k].task =  "Others";
+          }else{
+            this.allPatients_array[k].task =  this.allPatients_array[k].clinical_visits.visit_type;
+            }
         this.allPatients_array[k].due_date =  new Date(this.allPatients_array[k].clinical_visits.followup_date);
       
         let demo1= (this.allPatients_array[k].patientObj);
@@ -285,6 +316,13 @@ export class AllPatientsPage implements OnInit {
               this.allPatients_array[k].mobile = this.psw_array[n].first_name
             }
           }
+            //newly addd - to remove duplicate records based on patient_uuid 
+          this.allPatients_array = this.allPatients_array.reduce((accumalator, current) => {
+          if(!accumalator.some(item => item.patientObj.patient_uuid === current.patientObj.patient_uuid)) {
+            accumalator.push(current);
+          }
+          return accumalator;
+        },[]);
          
 
       this.dataSource_dashboard1.data = this.allPatients_array;
@@ -319,8 +357,11 @@ export class AllPatientsPage implements OnInit {
     }
   }
 
-  patientDetails(m,n){
+  patientDetails(m,n,o){
     sessionStorage.setItem("patient_uuid",n);
+    if(this.role == "supervisor"){
+    sessionStorage.setItem("psw_incharge",o);
+    }
     this.router.navigate(['patient-details']);
   
   }

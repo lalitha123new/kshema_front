@@ -132,6 +132,7 @@ export class AssessmentNeedsPage implements OnInit {
 
 
   ionViewWillEnter() {
+    this.user_name = sessionStorage.getItem("user_name");
     this.isDisabled = false;
     for(var i=0;i<this.tobaccooptionsArray1.length;i++){
       this.tobaccooptionsArray1[i].checked = false;
@@ -241,7 +242,12 @@ export class AssessmentNeedsPage implements OnInit {
         }else{
         this.asha = this.demo.contact_patient;
         }
-        this.psw_incharge = "test psw";
+        //this.psw_incharge = "test psw";
+        if(this.demo.taluka_psw_incharge){
+          this.psw_incharge = this.demo.taluka_psw_incharge;
+          }else{
+            this.psw_incharge = this.user_name;
+          }
     
     let assessData = JSON.parse(res[0].needs_assessment);
     
@@ -614,7 +620,8 @@ redirectTo(x){
 
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

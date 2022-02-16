@@ -126,7 +126,7 @@ async getAllTalukasPswsTalukasupervisors(){
   this.group_array = taluk_array_first[0].group_data;
   this.supervisor_array1 = taluk_array_first[0].supervisor;
 
-
+console.log(this.taluka_id)
    for(var m =0;m<this.group_array.length;m++){
      if(this.taluka_id == this.group_array[m].taluka_id){
        this.supervisorId = this.group_array[m].supervisor_id;

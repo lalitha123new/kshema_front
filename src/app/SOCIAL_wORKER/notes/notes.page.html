@@ -3,7 +3,7 @@
  
   <ion-content >
 
-    <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;" class="container3">
+    <ion-grid  style="height: 100%;padding-top:0px;padding-right: 0px;background-color: #fff;" class="container3">
 
       <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
         <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" >
@@ -19,14 +19,14 @@
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"></ion-col>
             <ion-col  size-xl="4" size-lg="4" size-md="4" size-xs="4" style="padding:0px;"><ion-searchbar class="custom_background_color2" placeholder="Search Patient" style="width:100%;" (ionInput)="applyFilter($event.target.value)" ></ion-searchbar></ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;text-align: center;"></ion-col>
-            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons" style="font-size:30px;vertical-align: middle;margin-top:15px;">
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;"><span class="material-icons" style="font-size:30px;vertical-align: middle;margin-top:15px;"  [ngStyle]="{'color':'black'}">
               speaker_notes </span></ion-col>
               <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-                <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" *ngIf="psw">
+                <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle;" *ngIf="psw"  [ngStyle]="{'color':'black'}">
                   cached
                   </span>
               </ion-col>
-            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"><mat-icon (click)="home()" style="font-size: 30px;" class="pointer-class">home </mat-icon></ion-col>
+            <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="padding:0px;"><mat-icon (click)="home()" style="font-size: 30px;" class="pointer-class"  [ngStyle]="{'color':'black'}">home </mat-icon></ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
               <mat-menu class="mt-2" #menu="matMenu">
@@ -111,7 +111,7 @@
       </div>
       <div class="ion-padding-top">
           <mat-form-field style="width:70%;display:inline-block;" appearance="outline" class="white">
-            <textarea matInput  placeholder="Enter Your Message" [(ngModel)]="notes1" maxlength="500" style="height:20px;"></textarea>
+            <textarea matInput  placeholder="Enter Your Message" [(ngModel)]="notes1" maxlength="500" style="height:20px;color:black"></textarea>
           </mat-form-field>
          
        
@@ -189,7 +189,7 @@
     </div>
     <div class="ion-padding-top">
         <mat-form-field style="width:70%;display:inline-block;" appearance="outline" class="white">
-          <textarea matInput  placeholder="Enter Your Message" [(ngModel)]="notes1" maxlength="500" style="height:20px;"></textarea>
+          <textarea matInput  placeholder="Enter Your Message" [(ngModel)]="notes1" maxlength="500" style="height:20px;color:black"></textarea>
         </mat-form-field>
        
      

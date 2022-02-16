@@ -11,7 +11,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { NetworkService, ConnectionStatus } from 'src/app/services/network.service';
 import { OfflineManagerService } from 'src/app/services/offline-manager.service';
-
+import { LoadingController } from '@ionic/angular';
 import { ServerService } from 'src/app/services/server.service';
 
 interface taluk_optons{
@@ -42,7 +42,10 @@ export class DashboardPage implements OnInit {
   dataSource_dashboard3 = new MatTableDataSource<PeriodicElement_dashboard3>(ELEMENT_DATA_dashboard3);
   dataSource_dashboard4 = new MatTableDataSource<PeriodicElement_dashboard4>(ELEMENT_DATA_dashboard4);
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('paginator1') paginator1: MatPaginator;
+  @ViewChild('paginator2') paginator2: MatPaginator;
+  @ViewChild('paginator3') paginator3: MatPaginator;
+  @ViewChild('paginator4') paginator4: MatPaginator;
 
   user_name;
   //arrays for saving the data from query 
@@ -71,11 +74,12 @@ export class DashboardPage implements OnInit {
   age = 0;
   gender;
   total_patients = 0;
+  sync_count =0;
   //button number and checkbox number
   buttonNumber: number = 1; 
   checkboxNumber : number = 1;
   checkModel1 = true;
-  checkModel2 = false;
+  checkModel2 = true;
 
   
   constructor(private _formBuilder: FormBuilder,
@@ -84,6 +88,7 @@ export class DashboardPage implements OnInit {
     private patientService: PatientService,
     private networkService : NetworkService,
     private offlineManager : OfflineManagerService,
+    private loadingCtrl: LoadingController,
     private serverService: ServerService) { 
 
   }
@@ -232,7 +237,7 @@ export class DashboardPage implements OnInit {
       
       }
       let today_date = new Date();
-    today_date.setHours(0,0,0,0);
+      today_date.setHours(0,0,0,0);
   
       this.today_visit_total = today_visit_array_first[0].today_visit_data.length;
       this.today_task_total = today_visit_array_first[0].today_task;
@@ -248,6 +253,7 @@ export class DashboardPage implements OnInit {
       this.today_task_completed1 = (this.today_task_completed/this.today_task_total)*100;
       this.notes_count = today_visit_array_first[0].note_count;
       this.total_patients = today_visit_array_first[0].total_patients;
+      this.sync_count =  today_visit_array_first[0].syncCount;
       
       for(var m=0;m<this.data_res3.length;m++){
     
@@ -316,13 +322,13 @@ export class DashboardPage implements OnInit {
       this.today_final_array.push(this.data_res3[k]);
    
       this.dataSource_dashboard1.data = this.today_final_array;
-      this.dataSource_dashboard1.paginator = this.paginator;
+      this.dataSource_dashboard1.paginator = this.paginator1;
      
       
     }
   }
 }
-    
+      this.getTodayTask();
   }
 
   toggleButton(x){
@@ -590,7 +596,7 @@ export class DashboardPage implements OnInit {
       this.overdue = false;
       this.complete = false;
       this.incomplete = false;
-      this.checkModel2 = false;
+      this.checkModel2 = true;
       this.checkModel1 = true;
       this.router.navigate(['all-patients']);
     }
@@ -598,6 +604,7 @@ export class DashboardPage implements OnInit {
 
   //get today consultation - active patients only based on button click
   getTodayVisitOld(){
+    this.showSpinner = true;
    
   
     this.data_res3 = [];
@@ -659,17 +666,18 @@ export class DashboardPage implements OnInit {
       this.today_final_array.push(this.data_res3[k]);
    
       this.dataSource_dashboard1.data = this.today_final_array;
-      this.dataSource_dashboard1.paginator = this.paginator;
+      this.dataSource_dashboard1.paginator = this.paginator1;
      
     }
     }
    
-   
+    this.showSpinner = false;
     });
   }
 
 //get today task data - active patients upon button click - only one recent date task/patient
   getTodayTask(){
+    this.showSpinner = true;
     
     this.data_res4 = [];
     this.filtered_today_task = [];
@@ -777,19 +785,20 @@ this.data_res4 = filterArray;
      
      
       this.dataSource_dashboard1.data = this.today_final_array;
-      this.dataSource_dashboard1.paginator = this.paginator;
+      this.dataSource_dashboard1.paginator = this.paginator1;
       
      
     }
 
     }
-   
+    this.showSpinner = false;
     });
 
   }
  
   //get upcoming consultation -active patients data based on button click
   getUpcomingVisit(){
+    this.showSpinner = true;
  
         let today = new Date();
         this.data_res2 = [];
@@ -855,17 +864,20 @@ this.data_res4 = filterArray;
          
           this.upcoming_final_array.push(this.data_res2[k]);
           this.dataSource_dashboard2.data = this.upcoming_final_array;
-          this.dataSource_dashboard2.paginator = this.paginator;
+          this.dataSource_dashboard2.paginator = this.paginator2;
          
         }
       }
+      this. showSpinner = false;
        
         });
+       
        
   }  
 
    //get upcoming consultation - active patients data based on button click - only one recent date task/patient
  getUpcomingTask(){
+  this.showSpinner = true;
         this.data_res5 = [];
         this.filtered_upcoming_task = [];
         let sort_array2a = [];
@@ -980,10 +992,11 @@ this.data_res4 = filterArray;
       this.data_res5[k].rem_no = new_array_up[k];
       this.upcoming_final_array.push(this.data_res5[k]);
       this.dataSource_dashboard2.data = this.upcoming_final_array;
-      this.dataSource_dashboard2.paginator = this.paginator;
+      this.dataSource_dashboard2.paginator = this.paginator2;
       
     }
   }
+  this.showSpinner = false;
         });
        
 
@@ -991,6 +1004,7 @@ this.data_res4 = filterArray;
 
  //get overdue consultation - active patients data based on button click
  getOverdueVisit(){
+  this.showSpinner = true;
         this.data_res5a = [];
         this.filtered_overdue_visit = [];
         let sort_array3 = [];
@@ -1047,9 +1061,10 @@ this.data_res4 = filterArray;
           this.data_res5a[k].address = demo1.address1;
           this.overdue_final_array.push( this.data_res5a[k]);
           this.dataSource_dashboard3.data = this.overdue_final_array;
-          this.dataSource_dashboard3.paginator = this.paginator;
+          this.dataSource_dashboard3.paginator = this.paginator3;
         }
         }
+        this.showSpinner = false;
         });
 
   
@@ -1058,7 +1073,7 @@ this.data_res4 = filterArray;
  //get overdue task - active patients data based on button click  - only one recent date task/patient
  getOverdueTask(){
   
-
+        this.showSpinner = true;
         this.data_res6 = [];
         this.filtered_overdue_task = [];
         let sort_array3a = [];
@@ -1180,18 +1195,19 @@ this.data_res4 = filterArray;
   
     this.overdue_final_array.push( this.data_res6[k]);
     this.dataSource_dashboard3.data = this.overdue_final_array;
-    this.dataSource_dashboard3.paginator = this.paginator;
+    this.dataSource_dashboard3.paginator = this.paginator3;
    
   
   }
 }
+this.showSpinner = false;
 })
 
 }
 
 //get completed task - active patients data based on button click  - only one recent date task/patient
 getCompletedTask(){
-
+  this.showSpinner = true;
   this.data_res10 = [];
   this.filtered_completed_task = [];
   let sort_array4a = [];
@@ -1307,10 +1323,11 @@ this.data_res10[k].rem_no = new_array_comp[k];
 this.complete_final_array.push( this.data_res10[k]);
 
 this.dataSource_dashboard4.data = this.complete_final_array;
-this.dataSource_dashboard4.paginator = this.paginator;
+this.dataSource_dashboard4.paginator = this.paginator4;
 //}
   }
 }
+this.showSpinner = false;
 })
 
 }
@@ -1351,7 +1368,7 @@ patientDetails(m,n){
  this.overdue = false;
  this.complete = false;
  this.incomplete = false;
- this.checkModel2 = false;
+ this.checkModel2 = true;
  this.checkModel1 = true;
  sessionStorage.setItem("patient_uuid",n);
  this.router.navigate(['patient-details']);
@@ -1370,8 +1387,35 @@ displayNotes(){
 
 //sync data from storage table in device to the server db
 sync(){
-  this.offlineManager.checkForEvents().subscribe();
+
+   //this.offlineManager.checkForEvents().subscribe();
+   this.networkService.onNetworkChange().subscribe((status: ConnectionStatus) => {
+    if (status == ConnectionStatus.Online) {
+      //when the app initializes and if its online, sync data if exists in the request(storage) table
+      this.offlineManager.checkForEvents().subscribe();
+    }else{
+      alert("offline")
+    }
+  });
+
 }
+  displayLoader(){
+    this.loadingCtrl.create({
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
+  }).then((response) => {
+      response.present();
+  });
+  }
+  dismissLoader(){
+    this.loadingCtrl.dismiss().then((response) => {
+      console.log('Loader closed!', response);
+  }).catch((err) => {
+      console.log('Error occured : ', err);
+  });
+  }
+  
+
 
 
 taluk: taluk_optons[] = [

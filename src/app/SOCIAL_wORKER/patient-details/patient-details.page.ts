@@ -210,7 +210,11 @@ async getPatient(){
     }else{
     this.asha = this.demo.contact_patient;
     }
-    this.psw_incharge = "test psw";
+    if(this.demo.taluka_psw_incharge){
+      this.psw_incharge = this.demo.taluka_psw_incharge;
+      }else{
+        this.psw_incharge = this.user_name;
+      }
 
 
 }
@@ -332,7 +336,14 @@ async getPatientServer(){
     this.address = this.demo1.address1;
     this.care_giver = this.demo1.caregiver_name;
     this.care_giver_mobile = this.demo1.caregiver_phone;
+  
     this.asha = this.demo1.contact_patient;
+    if(!this.demo1.taluka_psw_incharge){
+      this.psw_incharge = sessionStorage.getItem("psw_incharge");
+   
+    }else{
+      this.psw_incharge = this.demo1.taluka_psw_incharge;
+    }
    for(var j=0;j<this.group_data_array.length;j++){
     if(this.patient_array[0].group_data_id == this.group_data_array[j].group_data_id){
     
@@ -652,7 +663,8 @@ viewReplyNotes(){
 
 displayLoader(){
   this.loadingCtrl.create({
-    message: 'Loading. Please wait...'
+    message: 'Loading. Please wait...',
+    cssClass: 'alert_bg'
 }).then((response) => {
     response.present();
 });

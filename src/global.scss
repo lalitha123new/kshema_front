@@ -390,6 +390,7 @@ border:1px solid  #813d7e;
 
 .my-custom-alert{ 
  
+  --background: #fff;
   --min-width: 40%;
   --min-height: 40%;
   
@@ -441,6 +442,15 @@ text-align: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
+}
+
+.alert_bg{
+  --background: #fff;
+  color:black
+}
+.alert_black_bg{
+  --background: black;
+  color:white;
 }
 
 .notes_box{

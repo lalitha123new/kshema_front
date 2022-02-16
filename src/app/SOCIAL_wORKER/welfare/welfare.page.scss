@@ -37,8 +37,8 @@
   border: 2px solid black;
 }
 .equal_height{
-padding-bottom: 0%;
-margin-bottom: 0%;
+// padding-bottom: 0%;
+// margin-bottom: 0%;
 }
 
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
@@ -358,10 +358,7 @@ pointer-events: none !important;
   ::ng-deep .mat-input-wrapper{
     border: 2px solid black;
   }
-  .equal_height{
-  padding-bottom: 1%;
-  margin-bottom: -1%;
-  }
+  
     
   ::ng-deep .arrow_class .mat-select-arrow {
     color: white;
@@ -392,10 +389,7 @@ color: #242424;
   ::ng-deep .mat-input-wrapper{
     border: 2px solid black;
   }
-  .equal_height{
-  padding-bottom: 1%;
-  margin-bottom: -1%;
-  }
+  
     
   ::ng-deep .arrow_class .mat-select-arrow {
     color: white;

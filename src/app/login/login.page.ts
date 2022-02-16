@@ -321,13 +321,16 @@ logForm3(){
     }
   }
 }
+
 displayLoader(){
   this.loadingCtrl.create({
-    message: 'Loading. Please wait...'
+    message: 'Loading. Please wait...',
+    cssClass: 'alert_bg'
 }).then((response) => {
     response.present();
 });
 }
+
 dismissLoader(){
   this.loadingCtrl.dismiss().then((response) => {
     console.log('Loader closed!', response);

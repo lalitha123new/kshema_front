@@ -214,11 +214,6 @@ export class HomeVisitPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.rate1 = "Unable to rate";
-    this.rate2 = "Unable to rate";
-    this.homeVisitObj.symptom='';
-    this.homeVisitObj.home_compliance_rate='';
-    this.isDisabled = false;
     this.firstFormGroup = this._formBuilder.group({
       missed_visit_date: new FormControl(this.homeVisitObj.missed_visit_date,[]),
       last_phone_date: new FormControl(this.homeVisitObj.last_phone_date,[]),
@@ -279,6 +274,13 @@ export class HomeVisitPage implements OnInit {
      
     })
     this.user_name = sessionStorage.getItem("user_name");
+    this.rate1 = "Unable to rate";
+    this.rate2 = "Unable to rate";
+    this.homeVisitObj.symptom='';
+    this.homeVisitObj.home_compliance_rate='';
+    this.isDisabled = false;
+   
+    this.user_name = sessionStorage.getItem("user_name");
     this.sw_id1 = sessionStorage.getItem("sw_id");
     this.sw_id = parseInt(this.sw_id1);
     this.patient_id =  sessionStorage.getItem('patient_id');
@@ -333,10 +335,16 @@ export class HomeVisitPage implements OnInit {
       }else{
       this.asha = this.demo.contact_patient;
       }
-      this.psw_incharge = "test psw";
+      //this.psw_incharge = "test psw";
+      if(this.demo.taluka_psw_incharge){
+      this.psw_incharge = this.demo.taluka_psw_incharge;
+      }else{
+        this.psw_incharge = this.user_name;
+      }
   
   
   }
+  
   async getPreviousVisitDetails(){
     let notes_array;
     let date_array = [];
@@ -353,7 +361,8 @@ export class HomeVisitPage implements OnInit {
     
         
         let check_type =JSON.parse(history_array_first[0].history_data[i].visit_details);
-      
+        
+       
         if (!('clinicalData' in check_type) && !('step1Data' in check_type)){
         
           history_array_first[0].history_data[i].visit_type = "Phone";
@@ -375,13 +384,15 @@ export class HomeVisitPage implements OnInit {
       
         let mat_data = JSON.parse(phc_data.clinicalData);
       
-          if(typeof phc_data.consentObj1 !='object'){
-          
-         let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
+        if(typeof phc_data.consentObj1 !='object'){
+       
+        //let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
+        
+        if(phc_data.consentObj1.next_visit_place == "PHC" ){
+        let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
          this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
-          
-        let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
-      
+            
+        }
        
         let array2 = JSON.parse(phc_data.clinicalData);
        
@@ -431,8 +442,16 @@ export class HomeVisitPage implements OnInit {
           
           }else{
            
+            // let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
+            // this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
+            //commented recently
+             if(check_type.consentObj1.phc == 1){
             let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
             this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
+           }
+           else{
+            this.firstFormGroup.get('missed_visit_date').setValue('');
+           }
              
             let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
           
@@ -447,12 +466,25 @@ export class HomeVisitPage implements OnInit {
       }
 
       }else if(history_array_first[0].history_data[i].visit_type == "Phone"){
-        
+       
+        let next = JSON.parse(history_array_first[0].history_data[i].visit_details);
+  
+       if(next.next_visit_place == 2){
+      
+        let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
+        this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
+       }
+       
         let phone_date =new Date(history_array_first[0].history_data[i].created_at);
         this.firstFormGroup.get('last_phone_date').setValue(phone_date);
        
 
       }else if(history_array_first[0].history_data[i].visit_type == "Home"){
+        let next = JSON.parse(history_array_first[0].history_data[i].visit_details);
+       if(next.step3Obj.next_visit_place == 2){
+        let follow_date =new Date(history_array_first[0].history_data[i].followup_date);
+        this.firstFormGroup.get('missed_visit_date').setValue(follow_date);
+       }
        
         let phc_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
        
@@ -560,27 +592,37 @@ export class HomeVisitPage implements OnInit {
       this.isValue = 1;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.thirdFormGroup.get('next_visit_place_other').clearValidators();
+      this.thirdFormGroup.get('next_visit_place_other').setValue('');
     }else if(x==2){
       this.place_array = [];
       this.isValue = 2;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.thirdFormGroup.get('next_visit_place_other').clearValidators();
+      this.thirdFormGroup.get('next_visit_place_other').setValue('');
       
     }else if(x==3){
       this.place_array = [];
       this.isValue = 3;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.thirdFormGroup.get('next_visit_place_other').clearValidators();
+      this.thirdFormGroup.get('next_visit_place_other').setValue('');
     }else if(x==4){
       this.place_array = [];
       this.isValue = 4;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.thirdFormGroup.get('next_visit_place_other').clearValidators();
+      this.thirdFormGroup.get('next_visit_place_other').setValue('');
     }else{
       this.place_array = [];
       this.isValue = 5;
       this.place_array.push(this.isValue);
       this.others_selected =  true;
+      this.thirdFormGroup.get('next_visit_place_other').setValidators(Validators.required);
+      
     }
    
    }
@@ -1097,7 +1139,8 @@ if(this.firstFormGroup.get('home_visit_date').value){
 
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

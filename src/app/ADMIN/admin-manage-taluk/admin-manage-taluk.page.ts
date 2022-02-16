@@ -78,8 +78,9 @@ export class AdminManageTalukPage implements OnInit {
      for(var m =0;m<this.group_array.length;m++){
        
      if( taluk_array_first[0].taluka_master[i].taluka_master_id == this.group_array[m].taluka_id ){
+     
        if(this.group_array[m].supervisor_id != 0){
-     taluk_array_first[0].taluka_master[i].supervisors = 1;
+      taluk_array_first[0].taluka_master[i].supervisors = 1;
        }else{
         taluk_array_first[0].taluka_master[i].supervisors = 0;
        }

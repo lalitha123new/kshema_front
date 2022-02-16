@@ -44,16 +44,12 @@ export class AppComponent {
       
       this.networkService.onNetworkChange().subscribe((status: ConnectionStatus) => {
         if (status == ConnectionStatus.Online) {
-        
-           //when the app initializes and if its online, sync data if exists in the request(storage) table
+          //when the app initializes and if its online, sync data if exists in the request(storage) table
           this.offlineManager.checkForEvents().subscribe();
+         
           let role = sessionStorage.getItem("role");
   
-          if(role == "psw"){
-            console.log("psw")
-          //fetch notes from server at a time interval if online, and psw login
-          //this.offlineManager.fetchServerNotes();
-          }
+
         }
       });
       
@@ -62,12 +58,9 @@ export class AppComponent {
     setInterval(() =>{
      
       //update the network status every 20min.
-      // this.networkService.initializeNetworkEvents1();
-      //this.offlineManager.fetchServerNotes();
-      console.log("network check")
+       this.networkService.initializeNetworkEvents1();
      
-      
-    },400000); // time in milliseconds
+    },600000); // time in milliseconds -
 
   }
 

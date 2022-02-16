@@ -9,6 +9,7 @@ import { NetworkService, ConnectionStatus } from 'src/app/services/network.servi
 import { OfflineManagerService } from '../../services/offline-manager.service';
 
 
+
 interface gender_optons {
   value: string;
   viewValue: string;
@@ -78,6 +79,7 @@ ngOnInit() {
 
 
 ionViewWillEnter() {
+  this.user_name = sessionStorage.getItem("user_name");
   this.isDisabled = false;
   this.showSpinner = true;
   this.editFormGroup = this._formBuilder.group({
@@ -167,7 +169,12 @@ async getTaluks(){
     this.asha = this.demo.contact_patient;
     }
 
-    this.psw_incharge = "test psw";
+    //this.psw_incharge = "test psw";
+    if(this.demo.taluka_psw_incharge){
+      this.psw_incharge = this.demo.taluka_psw_incharge;
+      }else{
+        this.psw_incharge = this.user_name;
+      }
     this.editFormGroup.get('name').setValue(pat_array_first[0].name);
     this.demo = JSON.parse(pat_array_first[0].demographic_info);
     this.editFormGroup.get('gender').setValue(this.demo.gender);
@@ -322,7 +329,8 @@ taluk: taluk_optons[] = [
 
 displayLoader(){
   this.loadingCtrl.create({
-    message: 'Loading. Please wait...'
+    message: 'Loading. Please wait...',
+    cssClass: 'alert_bg'
 }).then((response) => {
     response.present();
 });
@@ -335,5 +343,27 @@ dismissLoader(){
     console.log('Error occured : ', err);
 });
 }
+
+textOnlyValidation(event: any){
+  //const pattern = /[0-9.,]/;
+  const pattern = /[^a-zA-Z/. -]/;
+  let inputChar = String.fromCharCode(event.charCode);
+
+  if (pattern.test(inputChar)) {
+    // invalid character, prevent input
+    event.preventDefault();
+  }
+}
+  textOnlyValidationCare(event: any){
+    //const pattern = /[0-9.,]/;
+    const pattern = /[^a-zA-Z/. -]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
 
 }

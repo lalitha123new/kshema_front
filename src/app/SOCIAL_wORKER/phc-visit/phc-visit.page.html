@@ -17,13 +17,13 @@
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
             <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [ngStyle]="{'color':'black'}">
                 cached
                 </span>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
-              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;"  [ngStyle]="{'color':'black'}">home </mat-icon>
             </ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
@@ -1137,7 +1137,7 @@
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <mat-form-field style="display: block;" appearance="outline">
                           <mat-label>Details<span class="red" *ngIf="medicationYesClicked">*</span></mat-label>
-                          <textarea matInput  maxlength="75" name="presc_medicine" formControlName="presc_medicine" class="place_holder_text"></textarea>
+                          <textarea matInput  maxlength="150" name="presc_medicine" formControlName="presc_medicine" class="place_holder_text"></textarea>
                         </mat-form-field>
                       </ion-col>
                   
@@ -1151,7 +1151,7 @@
             </ion-row>
             <ion-row>
              <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
-                <ion-title class="label_class3med" style="vertical-align: bottom;">Medicine Refill Date<span class="red">*</span></ion-title>
+                <ion-title class="label_class3med" style="vertical-align: bottom;">Next Medicine Refill Date<span class="red">*</span></ion-title>
               </ion-col>
              
               <ion-col size-xl="3" size-lg="3" size-md="12" size-xs="12">
@@ -1428,7 +1428,7 @@
                         
                       </ion-col>
                       <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
-                        <button  mat-button formControName="next_visit_place" class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 3, 'default_border': isValue != 3 }" (click)="toggle1(3)">Mano Chaithanya</button>
+                        <button  mat-button formControName="next_visit_place" class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 3, 'default_border': isValue != 3 }" (click)="toggle1(3)">Manochaithanya</button>
                       </ion-col>
                       <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                         <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 4, 'default_border': isValue != 4 }" (click)="toggle1(4)">Phone Call</button>
@@ -1436,6 +1436,7 @@
                       <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                          <button mat-button formControName="next_visit_place" class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 5, 'default_border': isValue != 5 }" (click)="toggle1(5)" *ngIf="!others_selected">Others</button>
                         <mat-form-field  appearance="outline" *ngIf="others_selected" style="width:100%;margin:0px;padding-top:0px;">
+                          <mat-label class="wrap-mat-check-label">Enter place for next visit<span class="red" *ngIf="others_selected">*</span></mat-label>
                           <input matInput  placeholder="Enter place for next visit" name="next_visit_place_other" formControlName="next_visit_place_other" maxlength="75">
                         </mat-form-field>
                      

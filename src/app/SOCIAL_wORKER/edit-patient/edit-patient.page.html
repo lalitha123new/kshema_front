@@ -17,13 +17,13 @@
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
             <ion-col size-xl="8" size-lg="8" size-md="5" size-xs="5"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [ngStyle]="{'color':'black'}">
                 cached
                 </span>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
-              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;"  [ngStyle]="{'color':'black'}">home </mat-icon>
             </ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
@@ -62,7 +62,7 @@
 
   <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
     <ion-row>
-      <ion-title class="font_family_class label_class1">KSHEMA ID</ion-title>
+      <ion-title class="font_family_class label_class1a">KSHEMA ID</ion-title>
     </ion-row>
     <ion-row>
       <ion-title  class="custom_text_class_header1 font_family_class label_class3a">{{kshema_id}}</ion-title>
@@ -129,7 +129,7 @@
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <mat-form-field style="display: block;" appearance="outline">
                 <mat-label>Patient name<span class="red">*</span></mat-label>
-                <input matInput nameOnly name="name" formControlName="name"  maxlength="75" class="place_holder_text">
+                <input matInput nameOnly name="name" formControlName="name"  maxlength="75" class="place_holder_text" (keypress)="textOnlyValidation($event)">
               </mat-form-field>
             </ion-col>
             </ion-row>
@@ -171,7 +171,7 @@
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
               <mat-form-field style="display: block;" appearance="outline">
 
-                <input matInput   name="caregiver_name" formControlName="caregiver_name" placeholder="Care Giver Name" maxlength="75" class="place_holder_text">
+                <input matInput   name="caregiver_name" formControlName="caregiver_name" placeholder="Care Giver Name" maxlength="75" class="place_holder_text" (keypress)="textOnlyValidationCare($event)">
               </mat-form-field>
             </ion-col>
             </ion-row>
@@ -253,7 +253,7 @@
 
               <ion-row>
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                  <ion-title  class="place_holder_text">Taluka level PSW in-charge: <span class="incharge_class font_family_class">Ankita K M</span></ion-title>
+                  <ion-title  class="place_holder_text">Taluka level PSW in-charge: <span class="incharge_class font_family_class">{{user_name}}</span></ion-title>
               </ion-col>
               </ion-row>
 

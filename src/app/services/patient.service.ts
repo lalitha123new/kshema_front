@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Patient } from '../patient.model';
 import { Clinical } from '../clinical.model';
 import { ClinicalNew } from '../clinical_new.model';
+import { ClinicalSync } from '../clinical_sync.model';
 import { Task } from '../task.model';
 import { Login } from '../login.model';
 import { UDID } from '../udid.model';
@@ -42,6 +43,7 @@ export class PatientService {
   private _patient1 = new BehaviorSubject<Patient[]>([]);
   private clinical1 = new BehaviorSubject<Clinical[]>([]);
   private clinical1_new = new BehaviorSubject<ClinicalNew[]>([]);
+  private clinical1_sync = new BehaviorSubject<ClinicalSync[]>([]);
   private clinical2 = new BehaviorSubject<Clinical[]>([]);
   private clinical3 = new BehaviorSubject<Clinical[]>([]);
   private clinical4 = new BehaviorSubject<Clinical[]>([]);
@@ -111,7 +113,7 @@ export class PatientService {
     }
 
      // to save the patient data in table in local db
-    async addPatient(name,demo,uuid,assess,consent,clinical,taskData,follow_up_date,sw_id,group_data_id,medObj){
+    async addPatient(name,demo,uuid,assess,consent,clinical,taskData,follow_up_date,sw_id,group_data_id,medObj,next_visit){
    
    
       let patient_uuid = UUID.UUID();
@@ -146,7 +148,7 @@ export class PatientService {
       }
     
     //method to save clinical data
-    await this.offlineManager.sqlQuery("addClinical",{clinical_visits_uuid:clinical_visits_uuid,patient_uuid:patient_uuid,social_worker_id:sw_id,visit_date:today,visit_type:"PHC",visit_details:clinical,followup_date:follow_up_date,
+    await this.offlineManager.sqlQuery("addClinical",{clinical_visits_uuid:clinical_visits_uuid,patient_uuid:patient_uuid,social_worker_id:sw_id,visit_date:today,visit_type:next_visit,visit_details:clinical,followup_date:follow_up_date,
     prv_visit_uuid:''});
 
     }
@@ -267,9 +269,8 @@ export class PatientService {
     });
   
       for (let i = 0; i < retSelect1.length; i++) {
-       
       clinical_data.push(
-        new ClinicalNew(
+        new ClinicalSync(
           retSelect1[0].today_visit_data.values,
           retSelect1[0].upcoming_visit,
           retSelect1[0].overdue_visit,
@@ -278,14 +279,15 @@ export class PatientService {
           retSelect1[0].overdue_task,
           retSelect1[0].task_completed,
           retSelect1[0].note_count,
-          retSelect1[0].total_patients
+          retSelect1[0].total_patients,
+          retSelect1[0].syncCount
           
           
           
         )
       );
       }
-    this.clinical1_new.next(clinical_data);
+    this.clinical1_sync.next(clinical_data);
     return clinical_data;
 
   }

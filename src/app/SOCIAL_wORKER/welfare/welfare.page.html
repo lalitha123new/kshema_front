@@ -1,9 +1,9 @@
-<ion-app >
+<ion-app>
 
  
-  <ion-content>
+  <ion-content style="background: #fff;">
 
-    <ion-grid  style="height: 100%;padding-top:0px;padding-bottom:0px;" class="container2">
+    <ion-grid  style="height: 100%;padding-top:0px;padding-bottom:0px;background-color: #fff;" class="container2">
 
       <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
         <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
@@ -18,13 +18,13 @@
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
             <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [ngStyle]="{'color':'black'}">
                 cached
                 </span>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
-              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;"  [ngStyle]="{'color':'black'}">home </mat-icon>
             </ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
@@ -42,7 +42,7 @@
       </ion-row>
      
 
-        <ion-row class="ion-padding-top">
+        <ion-row class="ion-padding-top" style="background: #FFFFFF;">
 
           <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col>
           <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12"  text-center style="height:100%;" class="equal_height">

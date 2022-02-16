@@ -546,6 +546,7 @@ isDisabled = false;
 
 
   ionViewWillEnter() {
+    this.user_name = sessionStorage.getItem("user_name");
     this.isDisabled = false;
     this.showSpinner = true;
     this.rehabFormGroup = this._formBuilder.group({
@@ -929,7 +930,11 @@ async getPatient(){
     }else{
     this.asha = this.demo.contact_patient;
     }
-    this.psw_incharge = "test psw";
+    if(this.demo.taluka_psw_incharge){
+      this.psw_incharge = this.demo.taluka_psw_incharge;
+    }else{
+        this.psw_incharge = this.user_name;
+    }
 
 }
 
@@ -1880,6 +1885,8 @@ async getTasks(){
         }
       }
       if(tasks_array_first[i].task_type == 11){
+       
+       
         this.check11_uuid = tasks_array_first[i].tasks_uuid;
         this.check11_status = tasks_array_first[i].status;
         this.optionCheck11 = true;
@@ -2017,7 +2024,7 @@ async getTasks(){
         }
       }
       if(tasks_array_first[i].task_type == 19){
-      
+     
         this.check19_uuid = tasks_array_first[i].tasks_uuid;
         this.check19_status = tasks_array_first[i].status;
         this.optionCheck19 = true;
@@ -3182,7 +3189,8 @@ async getTasks(){
   ]
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

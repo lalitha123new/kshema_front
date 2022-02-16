@@ -466,7 +466,8 @@ export class NotesPage implements OnInit {
   }
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

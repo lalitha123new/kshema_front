@@ -198,7 +198,7 @@ export class AddpatientPage implements OnInit {
   phc_array:any;
   district_array:any;
   follow_place_other = false;
-  noneChecked = false;
+  noneChecked:Boolean = false;
   taskValidationArray = [];
   rateSymptom = false;
   compRate = false;
@@ -380,6 +380,7 @@ export class AddpatientPage implements OnInit {
   task16Checked:Boolean = false;
   task17Checked:Boolean = false;
   task18Checked:Boolean = false;
+  task19Checked:Boolean = false;
   reniewUUIDYesSelected:Boolean = false;
   needBenefitYesSelected:Boolean = false;
   
@@ -1142,6 +1143,7 @@ selectedTaluk(event: MatSelectChange){
       phone:this.firstFormGroup.get('phone').value,
       taluk_selected:this.firstFormGroup.get('taluk_selected').value,
       contact_patient: this.firstFormGroup.get('contact_patient').value,
+      taluka_psw_incharge:this.user_name
 
     }
     sessionStorage.setItem("name", this.firstFormGroup.get('name').value);
@@ -1680,10 +1682,14 @@ selectedTaluk(event: MatSelectChange){
       }
       fourthArray.push(fourthObj18);
     }
+    console.log(fourthArray)
+    console.log(this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').value)
     if(!this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').value){
       this.fourthFormGroup.removeControl('noneAboveFormGroup');
     }else{
+      console.log(this.fourthFormGroup.get('review_date').value)
       let follow_up_date1 =this.fourthFormGroup.get('review_date').value;
+      console.log(this.fourthFormGroup.get('review_date').value)
       
 
       fourthObj19 = {
@@ -1695,7 +1701,7 @@ selectedTaluk(event: MatSelectChange){
       }
       fourthArray.push(fourthObj19);
     }
-
+console.log(fourthArray)
     
     if(this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew').value == "Yes"){
       let follow_up_date1 =this.fourthFormGroup.controls.renewUUIdFormGroup.get('uuid_renew_follow_up').value;
@@ -1848,7 +1854,22 @@ selectedTaluk(event: MatSelectChange){
 
  
   
+ let next_visit :any;
+ if(!this.fifthFormGroup.get('phc_other').value){
+  next_visit = this.fifthFormGroup.get('phc').value;
+  if(this.fifthFormGroup.get('phc').value == 1){
+    next_visit =  "PHC";
+
+  }else if(this.fifthFormGroup.get('phc').value == 2){
+    next_visit =  "Taluk Hospital";
+  }else if(this.fifthFormGroup.get('phc').value == 3){
+    next_visit =  "District Hospital";
+  }
+ }else{
+  next_visit = this.fifthFormGroup.get('phc_other').value;
  
+ }
+
   this.consentData = this.consent_array;
  
   let follow_up_date = this.fifthFormGroup.get('follow_up_date').value;
@@ -1867,7 +1888,7 @@ selectedTaluk(event: MatSelectChange){
   let mergedObj = {clinicalData,consentObj1};
   let med_date = JSON.stringify(medObj);
 
-        this.patientService.addPatient(name,demographicData,uuidData,assessData,consentObj,mergedObj,taskData,follow_up_date,this.sw_id,this.group_data_id,medObj).then(() => {
+        this.patientService.addPatient(name,demographicData,uuidData,assessData,consentObj,mergedObj,taskData,follow_up_date,this.sw_id,this.group_data_id,medObj,next_visit).then(() => {
            
          
           this.alertController.create({
@@ -1914,17 +1935,20 @@ previous(){
 
 previous4(){
   if(this.fourthFormGroup.controls.localResourceFormGroup){
+  
   this.patObject.check1 = this.fourthFormGroup.controls.localResourceFormGroup.get('check1').value,
   this.patObject.local_resource_yes = this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_yes').value,
   this.patObject.local_resource_date = this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').value
   }
   if(this.fourthFormGroup.controls.differentNeedsFormGroup){
+   
     this.patObject.check2 = this.fourthFormGroup.controls.differentNeedsFormGroup.get('check2').value,
     this.patObject.different_needs_yes =this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_yes').value,
     this.patObject.different_needs_date = this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').value
   }
 
   if(this.fourthFormGroup.controls.localFormGroup){
+   
     this.patObject.check3 = this.fourthFormGroup.controls.localFormGroup.get('check3').value,
     this.patObject.local_industries_yes = this.fourthFormGroup.controls.localFormGroup.get('local_industries_yes').value,
     this.patObject.local_industries_date = this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').value
@@ -1942,7 +1966,7 @@ previous4(){
   if(this.fourthFormGroup.controls.incomeGroup){
     this.patObject.check6 = this.fourthFormGroup.controls.incomeGroup.get('check6').value,
     this.patObject.income_generation_yes =this.fourthFormGroup.controls.incomeGroup.get('income_generation_yes').value,
-    this.patObject.income_generation_date= this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').valu
+    this.patObject.income_generation_date= this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').value
   }
   if(this.fourthFormGroup.controls.minergaGroup){
     this.patObject.check7 = this.fourthFormGroup.controls.minergaGroup.get('check7').value,
@@ -2012,6 +2036,7 @@ previous4(){
     this.patObject.check19 = this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').value,
     this.patObject.none_reason = this.fourthFormGroup.controls.noneAboveFormGroup.get('none_reason').value,
     this.patObject.review_date = this.fourthFormGroup.get('review_date').value
+  
 
   }
  
@@ -2153,6 +2178,7 @@ previous4(){
     dis_benefit_remark:new FormControl(this.patObject.dis_benefit_remark),
     dis_benefit_follow_up:new FormControl(this.patObject.dis_benefit_follow_up),
   }),
+  review_date:new FormControl(this.patObject.review_date,[]),
  
   })
   console.log(this.patObject.uuid)
@@ -2336,6 +2362,7 @@ checkOtherHelpChange($event:MatRadioChange){
 
 taskCheck1($event:MatCheckboxChange){
   if ($event.checked == true) {
+   
     this.task1Checked = true;
     this.noneChecked = false;
     this.taskValidationArray.push(1);
@@ -2352,6 +2379,7 @@ taskCheck1($event:MatCheckboxChange){
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').setValidators(Validators.required);
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').updateValueAndValidity();
   } else {
+   
     this.task1Checked = false;
    
     const index = this.taskValidationArray.indexOf(1);
@@ -2370,6 +2398,9 @@ taskCheck1($event:MatCheckboxChange){
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').setValue('');
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').clearValidators();
     this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').updateValueAndValidity();
+    this.patObject.check1 = this.fourthFormGroup.controls.localResourceFormGroup.get('check1').value,
+    this.patObject.local_resource_yes = this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_yes').value,
+    this.patObject.local_resource_date = this.fourthFormGroup.controls.localResourceFormGroup.get('local_resource_date').value
     
   }
 
@@ -2408,7 +2439,9 @@ taskCheck2($event:MatCheckboxChange){
     this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').setValue('');
     this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').clearValidators();
     this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').updateValueAndValidity();
-    
+    this.patObject.check2 = this.fourthFormGroup.controls.differentNeedsFormGroup.get('check2').value,
+    this.patObject.different_needs_yes =this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_yes').value,
+    this.patObject.different_needs_date = this.fourthFormGroup.controls.differentNeedsFormGroup.get('different_needs_date').value
   }
 
 }
@@ -2447,6 +2480,9 @@ taskCheck3($event:MatCheckboxChange){
     this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').setValue('');
     this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').clearValidators();
     this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').updateValueAndValidity();
+    this.patObject.check3 = this.fourthFormGroup.controls.localFormGroup.get('check3').value,
+    this.patObject.local_industries_yes = this.fourthFormGroup.controls.localFormGroup.get('local_industries_yes').value,
+    this.patObject.local_industries_date = this.fourthFormGroup.controls.localFormGroup.get('local_industries_date').value
     
   }
 
@@ -2485,6 +2521,9 @@ taskCheck4($event:MatCheckboxChange){
     this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').setValue('');
     this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').clearValidators();
     this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').updateValueAndValidity();
+    this.patObject.check4 = this.fourthFormGroup.controls.skillDevFormGroup.get('check4').value,
+    this.patObject.skill_dev_yes = this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_yes').value,
+    this.patObject.skill_dev_date = this.fourthFormGroup.controls.skillDevFormGroup.get('skill_dev_date').value
     
   }
 
@@ -2523,6 +2562,9 @@ taskCheck5($event:MatCheckboxChange){
     this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').setValue('');
     this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').clearValidators();
     this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').updateValueAndValidity();
+    this.patObject.check5 = this.fourthFormGroup.controls.selfEmployFormGroup.get('check5').value,
+    this.patObject.self_employ_yes  =this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_yes').value,
+    this.patObject.self_employ_date = this.fourthFormGroup.controls.selfEmployFormGroup.get('self_employ_date').value
     
   }
 
@@ -2561,6 +2603,9 @@ taskCheck6($event:MatCheckboxChange){
     this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').setValue('');
     this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').clearValidators();
     this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').updateValueAndValidity();
+    this.patObject.check6 = this.fourthFormGroup.controls.incomeGroup.get('check6').value,
+    this.patObject.income_generation_yes =this.fourthFormGroup.controls.incomeGroup.get('income_generation_yes').value,
+    this.patObject.income_generation_date= this.fourthFormGroup.controls.incomeGroup.get('income_generation_date').value
     
   }
 
@@ -2599,6 +2644,9 @@ taskCheck7($event:MatCheckboxChange){
     this.fourthFormGroup.controls.minergaGroup.get('minerga_date').setValue('');
     this.fourthFormGroup.controls.minergaGroup.get('minerga_date').clearValidators();
     this.fourthFormGroup.controls.minergaGroup.get('minerga_date').updateValueAndValidity();
+    this.patObject.check7 = this.fourthFormGroup.controls.minergaGroup.get('check7').value,
+    this.patObject.minerga_yes  = this.fourthFormGroup.controls.minergaGroup.get('minerga_yes').value,
+    this.patObject.minerga_date = this.fourthFormGroup.controls.minergaGroup.get('minerga_date').value
     
   }
 
@@ -2637,6 +2685,9 @@ taskCheck8($event:MatCheckboxChange){
     this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').setValue('');
     this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').clearValidators();
     this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').updateValueAndValidity();
+    this.patObject.check8 = this.fourthFormGroup.controls.daycareFormGroup.get('check8').value,
+    this.patObject.daycare = this.fourthFormGroup.controls.daycareFormGroup.get('daycare').value,
+    this.patObject.daycare_yes = this.fourthFormGroup.controls.daycareFormGroup.get('daycare_yes').value
     
   }
 
@@ -2675,6 +2726,9 @@ taskCheck9($event:MatCheckboxChange){
     this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').setValue('');
     this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').clearValidators();
     this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').updateValueAndValidity();
+    this.patObject.check9 = this.fourthFormGroup.controls.cultutalEventFormGroup.get('check9').value,
+    this.patObject.cultural_event = this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event').value,
+    this.patObject.cultural_event_yes = this.fourthFormGroup.controls.cultutalEventFormGroup.get('cultural_event_yes').value
     
   }
 
@@ -2713,6 +2767,9 @@ taskCheck10($event:MatCheckboxChange){
     this.fourthFormGroup.controls.educationFormGroup.get('education_date').setValue('');
     this.fourthFormGroup.controls.educationFormGroup.get('education_date').clearValidators();
     this.fourthFormGroup.controls.educationFormGroup.get('education_date').updateValueAndValidity();
+    this.patObject.check10 = this.fourthFormGroup.controls.educationFormGroup.get('check10').value,
+    this.patObject.education_yes =this.fourthFormGroup.controls.educationFormGroup.get('education_yes').value,
+    this.patObject.education_date = this.fourthFormGroup.controls.educationFormGroup.get('education_date').value
     
   }
 
@@ -2751,6 +2808,9 @@ taskCheck11($event:MatCheckboxChange){
     this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').setValue('');
     this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').clearValidators();
     this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').updateValueAndValidity();
+    this.patObject.check11 = this.fourthFormGroup.controls.idProofFormGroup.get('check11').value,
+    this.patObject.id_proof_yes = this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_yes').value,
+    this.patObject.id_proof_date = this.fourthFormGroup.controls.idProofFormGroup.get('id_proof_date').value
     
   }
 
@@ -2789,6 +2849,9 @@ taskCheck12($event:MatCheckboxChange){
     this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').setValue('');
     this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').clearValidators();
     this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').updateValueAndValidity();
+    this.patObject.check12 = this.fourthFormGroup.controls.insClaimFormGroup.get('check12').value,
+    this.patObject.ins_claim_yes  = this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_yes').value,
+    this.patObject.ins_claim_date = this.fourthFormGroup.controls.insClaimFormGroup.get('ins_claim_date').value
     
   }
 
@@ -2827,6 +2890,9 @@ taskCheck13($event:MatCheckboxChange){
     this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').setValue('');
     this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').clearValidators();
     this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').updateValueAndValidity();
+    this.patObject.check13 = this.fourthFormGroup.controls.physicianFormGroup.get('check13').value,
+    this.patObject.physician_yes = this.fourthFormGroup.controls.physicianFormGroup.get('physician_yes').value,
+    this.patObject.physician_date = this.fourthFormGroup.controls.physicianFormGroup.get('physician_date').value
     
   }
 
@@ -2865,6 +2931,9 @@ taskCheck14($event:MatCheckboxChange){
     this.fourthFormGroup.controls.legalFormGroup.get('legal_date').setValue('');
     this.fourthFormGroup.controls.legalFormGroup.get('legal_date').clearValidators();
     this.fourthFormGroup.controls.legalFormGroup.get('legal_date').updateValueAndValidity();
+    this.patObject.check14 = this.fourthFormGroup.controls.legalFormGroup.get('check14').value,
+    this.patObject.legal_yes = this.fourthFormGroup.controls.legalFormGroup.get('legal_yes').value,
+    this.patObject.legal_date = this.fourthFormGroup.controls.legalFormGroup.get('legal_date').value
     
   }
 
@@ -2903,6 +2972,9 @@ taskCheck15($event:MatCheckboxChange){
     this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').setValue('');
     this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').clearValidators();
     this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').updateValueAndValidity();
+    this.patObject.check15 = this.fourthFormGroup.controls.liaiseFormGroup.get('check15').value,
+    this.patObject.liase_yes  =this.fourthFormGroup.controls.liaiseFormGroup.get('liase_yes').value,
+    this.patObject.liase_date = this.fourthFormGroup.controls.liaiseFormGroup.get('liase_date').value
     
   }
 
@@ -2941,6 +3013,9 @@ taskCheck16($event:MatCheckboxChange){
     this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').setValue('');
     this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').clearValidators();
     this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').updateValueAndValidity();
+    this.patObject.check16 = this.fourthFormGroup.controls.consultLegalFormGroup.get('check16').value,
+    this.patObject.consult_legal_yes = this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_yes').value,
+    this.patObject.consult_legal_date = this.fourthFormGroup.controls.consultLegalFormGroup.get('consult_legal_date').value
     
   }
 
@@ -2979,6 +3054,9 @@ taskCheck17($event:MatCheckboxChange){
     this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').setValue('');
     this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').clearValidators();
     this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').updateValueAndValidity();
+    this.patObject.check17 = this.fourthFormGroup.controls.bankAccountFormGroup.get('check17').value,
+    this.patObject.bank_account_yes  = this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_yes').value,
+    this.patObject.bank_account_date = this.fourthFormGroup.controls.bankAccountFormGroup.get('bank_account_date').value
     
   }
 
@@ -3017,6 +3095,9 @@ taskCheck18($event:MatCheckboxChange){
     this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').setValue('');
     this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').clearValidators();
     this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').updateValueAndValidity();
+    this.patObject.check18 = this.fourthFormGroup.controls.offerHelpFormGroup.get('check18').value,
+    this.patObject.offer_help_yes = this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_yes').value,
+    this.patObject.offer_help_date = this.fourthFormGroup.controls.offerHelpFormGroup.get('offer_help_date').value
     
   }
 
@@ -3039,6 +3120,9 @@ taskCheck19($event:MatCheckboxChange){
     this.fourthFormGroup.get('review_date').setValue('');
     this.fourthFormGroup.get('review_date').clearValidators();
     this.fourthFormGroup.get('review_date').updateValueAndValidity();
+    this.patObject.check19 = this.fourthFormGroup.controls.noneAboveFormGroup.get('check19').value,
+    this.patObject.none_reason = this.fourthFormGroup.controls.noneAboveFormGroup.get('none_reason').value,
+    this.patObject.review_date = this.fourthFormGroup.get('review_date').value
     
   }
 
@@ -3192,7 +3276,8 @@ taskCheck19($event:MatCheckboxChange){
 
     displayLoader(){
       this.loadingCtrl.create({
-        message: 'Loading. Please wait...'
+        message: 'Loading. Please wait...',
+        cssClass: 'alert_bg'
     }).then((response) => {
         response.present();
     });
@@ -3231,6 +3316,28 @@ taskCheck19($event:MatCheckboxChange){
     
     deleteFieldValue(index) {
     this.fieldArray.splice(index, 1);
+    }
+
+    textOnlyValidation(event: any){
+      //const pattern = /[0-9.,]/;
+      const pattern = /[^a-zA-Z/. -]/;
+      let inputChar = String.fromCharCode(event.charCode);
+  
+      if (pattern.test(inputChar)) {
+        // invalid character, prevent input
+        event.preventDefault();
+      }
+    }
+
+    textOnlyValidationCare(event: any){
+      //const pattern = /[0-9.,]/;
+      const pattern = /[^a-zA-Z/. -]/;
+      let inputChar = String.fromCharCode(event.charCode);
+  
+      if (pattern.test(inputChar)) {
+        // invalid character, prevent input
+        event.preventDefault();
+      }
     }
 }
 

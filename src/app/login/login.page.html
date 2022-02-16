@@ -1,13 +1,13 @@
 <ion-app>
 
  
-  <ion-content>
+  <ion-content style="background-color: #FFFFFF;">
 
-    <ion-grid  style="height: 100%" class=" login_forgot_container">
+    <ion-grid  style="height: 100%;  background-color: #FFFFFF;" class=" login_forgot_container">
 
-      <ion-row class="no-padding"  style="height: 100%;">
+      <ion-row class="no-padding"  style="height: 100%;background: #FFFFFF;">
    
-        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class=" ion-text-center no-padding">
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12" class=" ion-text-center no-padding" style="background-color: #FFFFFF;">
           <div class="centered"> 
             <img src="assets/icon/govt_logo.svg" class="custom_img_class ion-padding-bottom">
             <h1 class="custom_color_heading custom_size1 header_font">KSHEMA</h1>
@@ -16,9 +16,9 @@
          
         </ion-col>
 
-        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12"   class="part2" >
+        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12"   class="part2" style="background-color: #FFFFFF;">
          
-          <ion-row >
+          <ion-row style="background: #FFFFFF;">
             
             <ion-col size-xl="1" size-lg="1" size-md="12" size-xs="12"></ion-col> 
             <ion-col  size-xl="10" size-lg="10" size-md="12" size-xs="12">
@@ -26,7 +26,7 @@
                 <h1 class="text_purple sub_header_font2 common_font"><b>Welcome,</b></h1>
               </ion-row>
               <ion-row>
-                <h1 color=black class="sub_header_font3 common_font">Log in to Portal</h1>
+                <h1 style="color:black" class="sub_header_font3 common_font">Log in to Portal</h1>
               </ion-row>
               <ion-row >
                 <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': defaultValue == 1, 'toggleWhite': defaultValue != 1 }" (click)="toggle1(1)">Admin</button>
@@ -34,7 +34,7 @@
                 <button mat-raised-button class="button_text_normal  common_font button_size" [ngClass]="{'background': defaultValue == 3, 'toggleWhite': defaultValue != 3 }" (click)="toggle1(3)">Social Worker</button>
                   
               </ion-row>
-              <ion-row class="ion-padding-top">
+              <ion-row class="ion-padding-top" style="background: #FFFFFF;">
                 <form [formGroup]="form"  novalidate (ngSubmit)="logForm()"  style="width:100%;">
          
                   <mat-form-field style="width:90%;margin-left:0px;" appearance="outline">

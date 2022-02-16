@@ -172,6 +172,14 @@ font-size: 20px;
 line-height: 27px;
 color: #242424;
 }
+.label_class1a{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: rgba(0, 0, 0, 0.53);
+  opacity: 0.89;
+  }
 .label_class1b{
 font-style: normal;
 font-weight: 600;
@@ -244,5 +252,19 @@ text-align:center;
     left: 0;
     position: fixed;
 }
+.custom_button_display3{
+  background: rgba(129, 61, 126, 0.2);
+  margin-right:10px;
+  font-family: 'Open Sans',sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+  color: #8D8D8D;
+  background: rgba(129, 61, 126, 0.2);
+  border-radius: 4px;
+   
+ }
 
 

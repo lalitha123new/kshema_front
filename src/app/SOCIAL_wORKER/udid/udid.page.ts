@@ -202,7 +202,7 @@ export class UdidPage implements OnInit {
 
 
   ionViewWillEnter() {
-    
+    this.user_name = sessionStorage.getItem("user_name");
     this.isDisabled = false;
     this.firstFormGroup = this._formBuilder.group({
       udid_details_first:  new FormControl(this.udidObj.udid_details_first,[Validators.required]),
@@ -315,7 +315,11 @@ export class UdidPage implements OnInit {
       }else{
       this.asha = this.demo.contact_patient;
       }
-      this.psw_incharge = "test psw";
+      if(this.demo.taluka_psw_incharge){
+        this.psw_incharge = this.demo.taluka_psw_incharge;
+      }else{
+          this.psw_incharge = this.user_name;
+      }
   
  
   }
@@ -992,7 +996,8 @@ redirectTo(x){
 
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

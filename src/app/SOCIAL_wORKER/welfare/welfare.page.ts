@@ -347,6 +347,7 @@ redirect(i){
 }
 
 ionViewWillEnter() {
+  this.user_name = sessionStorage.getItem("user_name");
   this.isDisabled = false;
   this.showSpinner = true;
   this.firstFormGroup = this._formBuilder.group({
@@ -586,7 +587,11 @@ async getPatient(patient_uuid){
     }else{
     this.asha = this.demo.contact_patient;
     }
-    this.psw_incharge = "test psw";
+    if(this.demo.taluka_psw_incharge){
+      this.psw_incharge = this.demo.taluka_psw_incharge;
+    }else{
+        this.psw_incharge = this.user_name;
+    }
 
 
 }
@@ -2666,7 +2671,8 @@ let result2 = await this.patientService.addWelfareTask(this.patient_uuid,fourthA
 
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

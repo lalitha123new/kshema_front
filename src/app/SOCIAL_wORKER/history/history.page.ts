@@ -4,13 +4,14 @@ import {FormBuilder,FormControl,FormGroupDirective,NgForm, FormGroup, Validators
 import { PatientService } from 'src/app/services/patient.service';
 import { LoadingController } from '@ionic/angular';
 import {MatTableDataSource} from '@angular/material/table';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatTabGroup,MatTabChangeEvent } from '@angular/material/tabs';
 import { OfflineManagerService } from '../../services/offline-manager.service';
 import { AlertController } from '@ionic/angular';
 import { ServerService } from 'src/app/services/server.service';
 import { UUID } from 'angular2-uuid';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 
 @Component({
@@ -96,6 +97,21 @@ export class HistoryPage implements OnInit {
     next_visit_other = "";
     fileArray = [];
     isDisabled = false;
+
+    udid;
+    udid_valid;
+    udid_yes = false;
+    udid_renew;
+    renew_remark;
+    renew_date;
+    benefit;
+    benefit_remark;
+    benefit_date;
+    renew_yes =  false;
+    benefit_yes = false;
+    tab1_yes = false;
+   
+    
   
 
   ngOnInit() {
@@ -103,6 +119,7 @@ export class HistoryPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    
     this.isDisabled = false;
     this.imageArray = [];
     this.showSpinner = true;
@@ -125,6 +142,18 @@ export class HistoryPage implements OnInit {
     this.sender_user_id = sessionStorage.getItem("users_id")
     this.patient_notes_array = [];
     this.notes_array_local;
+    this.udid;
+    this.udid_valid;
+    this.udid_yes = false;
+    this.udid_renew;
+    this.renew_remark;
+    this.renew_date;
+    this.benefit;
+    this.benefit_remark;
+    this.benefit_date;
+    this.renew_yes = false;
+    this.benefit_yes = false;
+    this.tab1_yes = false;
 
     if(this.role == "psw"){
       this.show_edit = true;
@@ -134,9 +163,10 @@ export class HistoryPage implements OnInit {
       this.show_edit = false;
       this.group_data = sessionStorage.getItem("group_data");
       this.group_data1 =  JSON.parse( this.group_data);
+      this.getAllPSWs();
       this.getGroupDataServer(this.supervisor_id);
       this.getVisitHistoryServer();
-      this.getAllPSWs();
+     
     }
    
   }
@@ -199,8 +229,30 @@ export class HistoryPage implements OnInit {
       }else{
       this.asha = this.demo.contact_patient;
       }
-      this.psw_incharge = "test psw";
-  
+      //this.psw_incharge = "test psw";
+      if(this.demo.taluka_psw_incharge){
+        this.psw_incharge = this.demo.taluka_psw_incharge;
+        }else{
+          this.psw_incharge = this.user_name;
+        }
+        let udid = JSON.parse(patient_array_first[0].uuid_info);
+        this.udid = udid.uuid;
+        if(this.udid == "Yes"){
+          this.udid_yes = true;
+        }
+        this.udid_valid = udid.uuid_valid;
+        this.udid_renew = udid.uuid_renew;
+        if(this.udid_renew == "Yes"){
+        this.renew_yes = true;
+        this.renew_remark = udid.uuid_renew_remark;
+        this.renew_date = new Date(udid.uuid_renew_follow_up);
+        }
+        this.benefit = udid.dis_benefit;
+        if(this.benefit == "Yes"){
+          this.benefit_yes = true;
+        this.benefit_remark = udid.dis_benefit_remark;
+        this.benefit_date = new Date(udid.dis_benefit_follow_up);
+        }
  
   }
 
@@ -282,6 +334,7 @@ let med_task_date;this.any;
           let created_date1 = date + "-" + month + "-" + year;
 
             history_array_first[0].history_data[i].visit_type1 = "Phone "+created_date1;
+           
         }else if(('step1Data' in check_type)){
           history_array_first[0].history_data[i].visit_type = "Home";
          let created_date = new Date(history_array_first[0].history_data[i].created_at);
@@ -294,9 +347,9 @@ let med_task_date;this.any;
          history_array_first[0].history_data[i].visit_type1 = "Home "+created_date1;
          history_array_first[0].history_data[i].visit_type = "Home";
          }else{
-          history_array_first[0].history_data[i].visit_type =  "PHC"
+          history_array_first[0].history_data[i].visit_type =  "PHC";
          }
-
+        
       if(history_array_first[0].history_data[i].visit_type == "PHC" || history_array_first[0].history_data[i].visit_type=="Manochaithanya"){
         
         let created_date = new Date(history_array_first[0].history_data[i].created_at);
@@ -345,7 +398,7 @@ let med_task_date;this.any;
         this.prefTabs[i].other = this.prefTabs.mat_data.other;
         this.prefTabs[i].others = this.prefTabs.mat_data.others;
         if ('tobacco_yes' in this.prefTabs.mat_data){
-       
+      
           this.prefTabs[i].tobacco_yes = this.prefTabs.mat_data.tobacco_yes;
           this.prefTabs[i].tobocco_amount = this.prefTabs.mat_data.tobocco_amount;
           
@@ -523,21 +576,39 @@ let med_task_date;this.any;
          
           this.prefTabs[i].next_date =new Date(history_array_first[0].history_data[i].followup_date);
           this.prefTabs[i].phc_follow_up_date = date + "-" + month + "-" + year;
+       
+          if(this.prefTabs.consent_data.phc == 1){
           this.prefTabs[i].next_visit_place2 = 2;
+          }else if(this.prefTabs.consent_data.phc == 2){
+            this.prefTabs[i].next_visit_place2 = 5;
+            this.nextvisitOther =  true;
+            this.prefTabs[i].next_visit_other = "Taluk Hospital";
+          }else if(this.prefTabs.consent_data.phc == 3){
+            this.prefTabs[i].next_visit_place2 = 5;
+            this.nextvisitOther =  true;
+            this.prefTabs[i].next_visit_other = "District Hospital";
+          }else if(this.prefTabs.consent_data.phc == 4){
+            this.prefTabs[i].next_visit_place2 = 5;
+            this.nextvisitOther =  true;
+            this.prefTabs[i].next_visit_other = this.prefTabs.consent_data.phc_other;
+          }
           }
 
       }
 
       }else if(history_array_first[0].history_data[i].visit_type == "Phone"){
        
-        this.prefTabs.phone_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
-       
+      this.prefTabs.phone_data = JSON.parse(history_array_first[0].history_data[i].visit_details);
+       if(this.prefTabs.phone_data.missed_visit_date){
         let created_date_phone1 = new Date(this.prefTabs.phone_data.missed_visit_date);
         let date1 = ("0" + created_date_phone1.getDate()).slice(-2);
         let month1 = ("0" + (created_date_phone1.getMonth() + 1)).slice(-2);
         let year1 =created_date_phone1.getFullYear();
         let created_date2 = date1 + "-" + month1 + "-" + year1;
         this.prefTabs[i].missed_phone = created_date_phone1;
+       }else{
+        this.prefTabs[i].missed_phone = ""
+       }
 
         
         let created_date_phone2 = new Date(this.prefTabs.phone_data.follow_up_date);
@@ -559,9 +630,10 @@ let med_task_date;this.any;
         this.prefTabs[i].test_reason = this.prefTabs.phone_data.test_reason;
         this.prefTabs[i].reason_missed_visit = this.prefTabs.phone_data.reason_missed_visit;
         this.prefTabs[i].plan_support_visit = this.prefTabs.phone_data.plan_support_visit;
+        
         this.prefTabs[i].next_visit_place = this.prefTabs.phone_data.next_visit_place;
-        if(this.prefTabs[i].next_visit_place == "5"){
-          this.nextvisitOther =  true;
+         if(this.prefTabs[i].next_visit_place == "5"){
+        this.nextvisitOther =  true;
         this.prefTabs[i].next_visit_other = this.prefTabs.phone_data.next_visit_place_other;
         }
        
@@ -671,6 +743,7 @@ let med_task_date;this.any;
      
    
   }
+
   //get the patient demographic details from server db 
   async getPatientServer(){
     let patient_array_first :any;
@@ -705,12 +778,39 @@ let med_task_date;this.any;
           age--;
          
         }
-        this.age = age;
+      this.age = age;
       this.mobile = this.demo1.phone;
       this.address = this.demo1.address1;
       this.care_giver = this.demo1.caregiver_name;
       this.care_giver_mobile = this.demo1.caregiver_phone;
       this.asha = this.demo1.contact_patient;
+      
+      let udid = JSON.parse(this.patient_array[0].uuid_info);
+      this.udid = udid.uuid;
+      if(this.udid == "Yes"){
+        this.udid_yes = true;
+      }
+      this.udid_valid = udid.uuid_valid;
+      this.udid_renew = udid.uuid_renew;
+      if(this.udid_renew == "Yes"){
+      this.renew_yes = true;
+      this.renew_remark = udid.uuid_renew_remark;
+      this.renew_date = new Date(udid.uuid_renew_follow_up);
+      }
+      this.benefit = udid.dis_benefit;
+      if(this.benefit == "Yes"){
+        this.benefit_yes = true;
+      this.benefit_remark = udid.dis_benefit_remark;
+      this.benefit_date = new Date(udid.dis_benefit_follow_up);
+      }
+     
+    
+      if(!this.demo1.taluka_psw_incharge){
+        this.psw_incharge = sessionStorage.getItem("psw_incharge");
+     
+      }else{
+        this.psw_incharge = this.demo1.taluka_psw_incharge;
+      }
      
       for(var k=0;k<this.group_data_array.length;k++){
         if(this.patient_array[0].group_data_id == this.group_data_array[k].group_data_id){
@@ -718,11 +818,14 @@ let med_task_date;this.any;
         }
       }
 
+    
       for(var k=0;k<this.psw_array.length;k++){
         if( this.sw_id2 == this.psw_array[k].social_worker_id){
           this.receiver_user_id = this.psw_array[k].users_id;
         }
       }
+     
+    
    
   }
 
@@ -737,12 +840,19 @@ let med_task_date;this.any;
       let res:any;
       let res1:any;
       res = history_array_first;
-   
+    //newly addd - to remove duplicate records based on patient_uuid 
+    res = res.reduce((accumalator, current) => {
+      if(!accumalator.some(item => item.clinical_visits.clinical_visits_uuid === current.clinical_visits.clinical_visits_uuid)) {
+        accumalator.push(current);
+      }
+      return accumalator;
+    },[]);
     
       for(var i = 0;i <res.length;i++){
   
         this.prefTabs = res;
         this.tabGroup.selectedIndex = 0;
+        
 
         let visits = res[i].clinical_visits;
         if(res[0].tasks != null){
@@ -758,7 +868,8 @@ let med_task_date;this.any;
             res[i].visit_type = "Phone";
            
            
-            let created_date = new Date(visits.createdAt);
+            //let created_date = new Date(visits.createdAt);
+            let created_date = new Date(visits.visit_date);
         let date = ("0" + created_date.getDate()).slice(-2);
         let month = ("0" + (created_date.getMonth() + 1)).slice(-2);
         let year =created_date.getFullYear();
@@ -767,7 +878,8 @@ let med_task_date;this.any;
         }else if(('step1Data' in check_type)){
           res[i].visit_type = "Home";
          
-          let created_date = new Date(visits.createdAt);
+          //let created_date = new Date(visits.createdAt);
+          let created_date = new Date(visits.visit_date);
         let date = ("0" + created_date.getDate()).slice(-2);
         let month = ("0" + (created_date.getMonth() + 1)).slice(-2);
         let year =created_date.getFullYear();
@@ -780,7 +892,8 @@ let med_task_date;this.any;
     
       if(res[i].visit_type == "PHC"){
      
-        let created_date = new Date(visits.createdAt);
+        //let created_date = new Date(visits.createdAt);
+        let created_date = new Date(visits.visit_date);
         let date = ("0" + created_date.getDate()).slice(-2);
         let month = ("0" + (created_date.getMonth() + 1)).slice(-2);
         let year =created_date.getFullYear();
@@ -934,14 +1047,20 @@ let med_task_date;this.any;
         
           if(this.prefTabs.consent_data.next_visit_place == "PHC"){
             this.prefTabs[i].next_visit_place2 = 2;
+            this.nextvisitOther =  false;
            }else if(this.prefTabs.consent_data.next_visit_place == "Home"){
             this.prefTabs[i].next_visit_place2 = 1;
+            this.nextvisitOther =  false;
            }else if(this.prefTabs.consent_data.next_visit_place == "Manochaithanya"){
             this.prefTabs[i].next_visit_place2 = 3;
+            this.nextvisitOther =  false;
            }else if(this.prefTabs.consent_data.next_visit_place == "Phone"){
             this.prefTabs[i].next_visit_place2 = 4;
+            this.nextvisitOther =  false;
            }else{
             this.prefTabs[i].next_visit_place2 = 5;
+            this.nextvisitOther =  true;
+            this.prefTabs[i].next_visit_other = this.prefTabs.consent_data.next_visit_place;
            }
           
           }else{
@@ -991,7 +1110,24 @@ let med_task_date;this.any;
           let month = ("0" + (this.prefTabs[i].next_date.getMonth() + 1)).slice(-2);
           let year =this.prefTabs[i].next_date.getFullYear();
           this.prefTabs[i].phc_follow_up_date =  date + "-" + month + "-" + year;
-          this.prefTabs[i].next_visit_place2 = 2;
+          // this.prefTabs[i].next_visit_place2 = 2;
+         
+          if(this.prefTabs.consent_data.phc == 1){
+            this.prefTabs[i].next_visit_place2 = 2;
+            this.nextvisitOther =  false;
+            }else if(this.prefTabs.consent_data.phc == 2){
+              this.prefTabs[i].next_visit_place2 = 5;
+              this.nextvisitOther =  true;
+              this.prefTabs[i].next_visit_other = "Taluk Hospital";
+            }else if(this.prefTabs.consent_data.phc == 3){
+              this.prefTabs[i].next_visit_place2 = 5;
+              this.nextvisitOther =  true;
+              this.prefTabs[i].next_visit_other = "District Hospital";
+            }else if(this.prefTabs.consent_data.phc == 4){
+              this.prefTabs[i].next_visit_place2 = 5;
+              this.nextvisitOther =  true;
+              this.prefTabs[i].next_visit_other = this.prefTabs.consent_data.phc_other;
+            }
         
        
           }
@@ -1002,7 +1138,11 @@ let med_task_date;this.any;
       else if(res[i].visit_type == "Phone"){
     
         this.prefTabs.phone_data = JSON.parse(visits.visit_details);
+        if(this.prefTabs.phone_data.missed_visit_date){
         this.prefTabs[i].missed_phone =new Date(this.prefTabs.phone_data.missed_visit_date);
+        }else{
+          this.prefTabs[i].missed_phone ="";
+        }
         this.prefTabs[i].phone_follow_date = new Date(this.prefTabs.phone_data.missed_visit_date);
         this.prefTabs[i].patient_contacted = this.prefTabs.phone_data.patient;
         this.prefTabs[i].caregiver_contacted = this.prefTabs.phone_data.caregiver;
@@ -1016,6 +1156,11 @@ let med_task_date;this.any;
         this.prefTabs[i].reason_missed_visit = this.prefTabs.phone_data.reason_missed_visit;
         this.prefTabs[i].plan_support_visit = this.prefTabs.phone_data.plan_support_visit;
         this.prefTabs[i].next_visit_place = this.prefTabs.phone_data.next_visit_place;
+        if(this.prefTabs[i].next_visit_place == 5){ 
+          this.nextvisitOther = true;
+          this.prefTabs[i].next_visit_other = this.prefTabs.phone_data.next_visit_place_other;
+          
+        }
         this.prefTabs[i].test_reason = this.prefTabs.phone_data.test_reason;
         this.prefTabs[i].comp_reason = this.prefTabs.phone_data.comp_reason;
        
@@ -1057,10 +1202,14 @@ let med_task_date;this.any;
         
         this.prefTabs[i].last_phone_date = created_date_phone;
         let home_date:any;
+        
         if(typeof this.prefTabs.mat_data1.home_visit_date !='string'){
-         home_date = new Date(this.prefTabs.mat_data1.home_visit_date)
+       
+          home_date = new Date(this.prefTabs.mat_data1.home_visit_date)
         }else{
-          home_date =  "";
+         
+          //home_date = "";
+          home_date = this.prefTabs.mat_data1.home_visit_date;
         }
      
         this.prefTabs[i].home_visit_date = home_date;
@@ -1100,6 +1249,11 @@ let med_task_date;this.any;
         this.prefTabs[i].next_visit_plan1 = this.prefTabs.mat_data3.next_visit_plan;
     
         this.prefTabs[i].next_visit_place1 = this.prefTabs.mat_data3.next_visit_place;
+        if(this.prefTabs[i].next_visit_place1 == 5){ 
+          this.nextvisitOther = true;
+          this.prefTabs[i].next_visit_other = this.prefTabs.mat_data3.next_visit_place_other;
+          
+        }
         this.prefTabs[i].next_follow = new Date(visits.followup_date);
         if(this.prefTabs.mat_data3.med_plan){
           
@@ -1170,6 +1324,7 @@ let med_task_date;this.any;
   
   
   }
+
   writeNotes1(x){
     
     if(this.notes1 != undefined){ 
@@ -1423,11 +1578,13 @@ let med_task_date;this.any;
   
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });
   }
+  
   dismissLoader(){
     this.loadingCtrl.dismiss().then((response) => {
       console.log('Loader closed!', response);
@@ -1435,6 +1592,15 @@ let med_task_date;this.any;
       console.log('Error occured : ', err);
   });
   }
+
+  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+   
+    if(tabChangeEvent.index == 0){
+      this.tab1_yes = true;
+    }else{
+      this.tab1_yes = false;
+    }
+}
 
  
 }

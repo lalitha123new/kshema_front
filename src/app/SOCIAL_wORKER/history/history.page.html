@@ -18,13 +18,13 @@
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
             <ion-col size-xl="8" size-lg="8" size-md="4" size-xs="4"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="2" size-xs="2" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [hidden]="!show_edit">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [hidden]="!show_edit"  [ngStyle]="{'color':'black'}">
                 cached
                 </span>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="2" size-xs="2"  style="text-align: center;">
-              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;"  [ngStyle]="{'color':'black'}">home </mat-icon>
             </ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="1" size-xs="1" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
@@ -62,7 +62,7 @@
         
           <ion-col size-xl="4" size-lg="4" size-md="4" size-xs="4">
             <ion-row>
-              <ion-title class="font_family_class label_class1">KSHEMA ID</ion-title>
+              <ion-title class="font_family_class label_class1a">KSHEMA ID</ion-title>
             </ion-row>
             <ion-row>
               <ion-title  class="custom_text_class_header1 font_family_class label_class3b">{{kshema_id}}</ion-title>
@@ -138,7 +138,7 @@
               </button>
             </div>
             <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-              <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="500" style="height:20px;"></textarea>
+              <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="500" style="height:20px;color:black"></textarea>
             </mat-form-field>
            
            
@@ -180,7 +180,7 @@
               </table>
               <div style="text-align: center;">
               <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-                <textarea matInput  [(ngModel)]="notes1" placeholder="Reply" maxlength="500" style="height:20px;"></textarea>
+                <textarea matInput  [(ngModel)]="notes1" placeholder="Reply" maxlength="500" style="height:20px;color:black"></textarea>
               </mat-form-field>
              
              
@@ -190,7 +190,7 @@
             </div>
             <div style="text-align: center;" [hidden]="!(supervisor_notes)">
               <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-                <textarea matInput  placeholder="Reply" maxlength="500" style="height:20px;" [(ngModel)]="replyNote"></textarea>
+                <textarea matInput  placeholder="Reply" maxlength="500" style="height:20px;color:black" [(ngModel)]="replyNote"></textarea>
               </mat-form-field>
               <!-- <ion-icon name="caret-forward-circle-outline" class="forward_arrow"></ion-icon> -->
              
@@ -233,7 +233,7 @@
               </button>
             </div>
             <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-              <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="500" style="height:20px;"></textarea>
+              <textarea matInput  placeholder="Enter your message" [(ngModel)]="notes1" maxlength="500" style="height:20px;color:black"></textarea>
             </mat-form-field>
            
            
@@ -279,7 +279,7 @@
              
             <div style="text-align: center;" [hidden]="!(allNotes1)">
               <mat-form-field style="width:60%;display:inline-block;" appearance="outline" class="white">
-                <textarea matInput  placeholder="Reply" maxlength="500" style="height:20px;" [(ngModel)]="replyNote"></textarea>
+                <textarea matInput  placeholder="Reply" maxlength="500" style="height:20px;color:black" [(ngModel)]="replyNote"></textarea>
               </mat-form-field>
               <!-- <ion-icon name="caret-forward-circle-outline" class="forward_arrow"></ion-icon> -->
              
@@ -327,7 +327,7 @@
         <ion-col size-xl="10" size-lg="10"  size-md="10" size-xs="10" >
 
          
-     <mat-tab-group class="ion-padding-top" mat-stretch-tabs>
+     <mat-tab-group class="ion-padding-top" mat-stretch-tabs (selectedTabChange)="tabChanged($event)">
 
     <mat-tab *ngFor="let tab of prefTabs; let index = index" >
       <ng-template mat-tab-label >
@@ -669,7 +669,7 @@
 
           <ion-card class="ion-card">
 
-            <ion-row>
+            <ion-row class="ion-padding-top">
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">     
               <ion-title class="font_family_class label_class2 rate_label">Substance Use</ion-title>
           </ion-col>
@@ -1050,7 +1050,7 @@
                 </ion-col>
                    
              </ion-row>
-             <ion-row>
+             <ion-row  class="ion-padding-bottom">
                <ion-col>
                 <ion-title class="label_class3">Reason why no testing was done:{{tab.no_rate_reason}}</ion-title>
                </ion-col>
@@ -1059,7 +1059,7 @@
       
               <ion-card class="ion-card">
 
-                <ion-row>
+                <ion-row  class="ion-padding-top">
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                     <ion-title class="label_class3">Diagnosis:{{tab.diag}}</ion-title>
                   </ion-col>
@@ -1100,7 +1100,7 @@
 
                 <ion-card class="ion-card">
 
-                  <ion-row>
+                  <ion-row  class="ion-padding-top">
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                       <div>
                         <ion-row>
@@ -1147,8 +1147,8 @@
 
                   <ion-row class="ion-padding-top ion-padding-bottom">
                     <ion-col>
-                      <ion-title class="label_class3" [hidden]="!medDisplay">Medicine refill date:{{medicine_refill_date | date}}</ion-title>
-                      <ion-title class="label_class3" [hidden]="medDisplay">Medicine refill date:{{medicine_refill_date}}</ion-title>
+                      <ion-title class="label_class3" [hidden]="!medDisplay">Next medicine refill date:{{medicine_refill_date | date}}</ion-title>
+                      <ion-title class="label_class3" [hidden]="medDisplay">Next medicine refill date:{{medicine_refill_date}}</ion-title>
                     </ion-col>
                   </ion-row>
                 </ion-card>
@@ -1156,7 +1156,7 @@
 
                   <ion-card class="ion-card">
 
-                    <ion-row>
+                    <ion-row class="ion-padding-top ion-padding-bottom">
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <div>
                           <ion-row>
@@ -1196,7 +1196,7 @@
 
                   <ion-card class="ion-card">
 
-                    <ion-row>
+                    <ion-row class="ion-padding-top ion-padding-bottom">
                       <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
                         <div>
                           <ion-row>
@@ -1231,9 +1231,115 @@
                   
                   </ion-card>
 
+                  <ion-card class="ion-card ion-padding-top ion-padding-bottom" *ngIf="tab1_yes">
+
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
+                        <ion-title class="font_family_class label_class2">UDID Information</ion-title>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>  
+                      <ion-title  class="font_family_class label_class3">Does the person have a UDID?</ion-title>
+                    
+                    </ion-row>
+
+                    <ion-row>
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-radio-group aria-label="Select an option" >
+                          <div style="display:inline-block">
+                            <mat-radio-button  class="font_family_class label_class3" [value]="1" [checked]="udid == 'Yes'" [disabled]="true">Yes</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="2" [checked]="udid == 'No'" [disabled]="true">No</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="3" [checked]="udid == 'In progress'" [disabled]="true">In progress</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="4" [checked]="udid == 'Yes, but has lost the UDID information'" [disabled]="true">Yes, but has lost the UDID information</mat-radio-button>
+                           </div>
+                        </mat-radio-group>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row *ngIf="udid_yes">  
+                    <ion-title  class="font_family_class label_class3">Is the UDID valid?</ion-title>
+                    </ion-row>
+
+                    <ion-row *ngIf="udid_yes">
+                      <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                        <mat-radio-group aria-label="Select an option" >
+                          <div style="display:inline-block">
+                            <mat-radio-button  class="font_family_class label_class3" [value]="1" [checked]="udid_valid == 'Current and valid'" [disabled]="true">Current and valid</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="2" [checked]="udid_valid == 'Needs Renewal'" [disabled]="true">Needs Renewal</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="3" [checked]="udid_valid == 'Needs reassessment from medical board'" [disabled]="true">Needs reassessment from medical board</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="4" [checked]="udid_valid == 'Not applicable'" [disabled]="true">Not applicable</mat-radio-button>
+                            <mat-radio-button  class="font_family_class label_class3" [value]="5" [checked]="udid_valid == 'Do not know'" [disabled]="true">Do not know</mat-radio-button>
+                           </div>
+                        </mat-radio-group>
+                      </ion-col>
+                   
+                   
+                    </ion-row>
+
+                    <ion-row>  
+                      <ion-title  class="font_family_class label_class3">Do they want help to get or renew a UDID?</ion-title>
+                    
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                          <mat-radio-group aria-label="Select an option" >
+                            <div style="display:inline-block">
+                              <mat-radio-button  class="font_family_class label_class3" [value]="1" [checked]="udid_renew == 'Yes'" [disabled]="true">Yes</mat-radio-button>
+                              <mat-radio-button  class="font_family_class label_class3" [value]="2" [checked]="udid_renew == 'No'" [disabled]="true">No</mat-radio-button>
+                               </div>
+                          </mat-radio-group>
+                        </ion-col>
+                     
+                     
+                    </ion-row>
+
+                    <ion-row *ngIf="renew_yes">
+                        <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                         <ion-title class="font_family_class label_class3">Remarks: {{renew_remark}}</ion-title>
+                        </ion-col>
+                        
+                         <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                          <ion-title class="font_family_class label_class3">Follow-up date: {{renew_date | date}}</ion-title>
+                         </ion-col>
+                     </ion-row>
+
+
+                    <ion-row>  
+                        <ion-title  class="font_family_class label_class3">Does the family need any disability related benefits?</ion-title>
+                      
+                    </ion-row>
+
+                    <ion-row>
+                          <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
+                            <mat-radio-group aria-label="Select an option" >
+                              <div style="display:inline-block">
+                                <mat-radio-button  class="font_family_class label_class3" [value]="1" [checked]="benefit == 'Yes'" [disabled]="true">Yes</mat-radio-button>
+                                <mat-radio-button  class="font_family_class label_class3" [value]="2" [checked]="benefit == 'No'" [disabled]="true">No</mat-radio-button>
+                                 </div>
+                            </mat-radio-group>
+                          </ion-col>
+                       
+                       
+                    </ion-row>
+
+                    <ion-row *ngIf="benefit_yes">
+                          <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                           <ion-title class="font_family_class label_class3">Remarks: {{benefit_remark}}</ion-title>
+                          </ion-col>
+                          
+                           <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
+                            <ion-title class="font_family_class label_class3">Follow-up date: {{benefit_date | date}}</ion-title>
+                           </ion-col>
+                    </ion-row>
+
+                  </ion-card>
+
+
                       <ion-card class="ion-card">
 
-                        <ion-row>
+                        <ion-row class="ion-padding-top">
                           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" class="ion-text-left">
                           <ion-title class="font_family_class label_class2">Psychoeducation Session</ion-title>
                           </ion-col>
@@ -1371,7 +1477,7 @@
                               
                             </ion-col>
                             <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
-                              <button  mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 3, 'default_border': tab.next_visit_place2 != 3 }" [disabled]="true">Mano Chaithanya</button>
+                              <button  mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 3, 'default_border': tab.next_visit_place2 != 3 }" [disabled]="true">Manochaithanya</button>
                             </ion-col>
                             <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                               <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place2 == 4, 'default_border': tab.next_visit_place2 != 4 }" [disabled]="true">Phone Call</button>
@@ -1391,7 +1497,7 @@
                         <ion-row *ngIf="nextvisitOther">
                           <ion-title class="label_class3">Next visit other:{{tab.next_visit_other}}</ion-title>
                         </ion-row>
-                      <ion-row>
+                      <ion-row class="ion-padding-bottom">
       
                         <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12">
                         <ion-title class="label_class2">Date</ion-title>
@@ -1570,7 +1676,7 @@
                       <ion-title class="label_class3">{{tab.symptom_rate}}</ion-title>
                       </ion-col>
                    </ion-row>
-                   <ion-row>
+                   <ion-row class="ion-padding-bottom">
                     <ion-col>
                       <ion-title class="label_class3">Reason why no testing was done:{{tab.test_reason}}</ion-title>
                     </ion-col>
@@ -1585,7 +1691,7 @@
 
           <ion-card class="ion-card">
 
-            <ion-row>
+            <ion-row class="ion-padding-top">
               <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                 <ion-row>
                 <ion-title class="label_class3">Reason for missed visit</ion-title>
@@ -1609,8 +1715,8 @@
             
             <ion-row>
               <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-                <ion-title class="label_class3" [hidden]="!medDisplay">Medicine refill date:{{medicine_refill_date | date}}</ion-title>
-                <ion-title class="label_class3" [hidden]="medDisplay">Medicine refill date:{{medicine_refill_date}}</ion-title>
+                <ion-title class="label_class3" [hidden]="!medDisplay">Next medicine refill date:{{medicine_refill_date | date}}</ion-title>
+                <ion-title class="label_class3" [hidden]="medDisplay">Next medicine refill date:{{medicine_refill_date}}</ion-title>
               </ion-col>
               <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                 <ion-title class="label_class3">Medicine refill plan:{{tab.med_plan}}</ion-title>
@@ -1649,7 +1755,7 @@
                   
                 </ion-col>
                 <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
-                  <button  mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 3, 'default_border': tab.next_visit_place != 3 }" [disabled]="true">Mano Chaithanya</button>
+                  <button  mat-button  class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 3, 'default_border': tab.next_visit_place != 3 }" [disabled]="true">Manochaithanya</button>
                 </ion-col>
                 <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                   <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place == 4, 'default_border': tab.next_visit_place != 4 }" [disabled]="true">Phone Call</button>
@@ -1670,7 +1776,7 @@
               <ion-title class="label_class3">Next visit other:{{tab.next_visit_other}}</ion-title>
             </ion-row>
       
-          <ion-row>
+          <ion-row class="ion-padding-bottom">
             <ion-col size-xl="10" size-lg="10" size-md="12" size-xs="12">
               <ion-row>
       
@@ -2079,7 +2185,7 @@
                
          </ion-row>
          
-        <ion-row>
+        <ion-row class="ion-padding-bottom">
           <ion-col>
             <ion-title class="label_class3">Reason why testing was done:{{tab.test_reason}}</ion-title>
           </ion-col>
@@ -2088,7 +2194,7 @@
 
        <ion-card class="ion-card">
                 
-        <ion-row>
+        <ion-row class="ion-padding-top">
           <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">     
           <ion-title class="label_class3">Substance Use</ion-title>
        </ion-col>
@@ -2214,7 +2320,7 @@
               </ion-row>
 
            
-              <ion-row>
+              <ion-row class="ion-padding-bottom">
                 <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
                   <!-- <mat-label class="place_holder_text">Amount of use</mat-label> -->
           
@@ -2316,7 +2422,7 @@
           </ion-row> -->
           <ion-row>
             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-              <ion-title class="label_class3">Medicine refill date:{{medicine_refill_date | date}}</ion-title>
+              <ion-title class="label_class3">Next medicine refill date:{{medicine_refill_date | date}}</ion-title>
             </ion-col>
             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
               <ion-title class="label_class3">Medicine refill plan:{{tab.med_plan}}</ion-title>
@@ -2355,7 +2461,7 @@
                   
                 </ion-col>
                 <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
-                  <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 3, 'default_border': tab.next_visit_place1 != 3 }" [disabled]="true">Mano Chaithanya</button>
+                  <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 3, 'default_border': tab.next_visit_place1 != 3 }" [disabled]="true">Manochaithanya</button>
                 </ion-col>
                 <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                   <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': tab.next_visit_place1 == 4, 'default_border': tab.next_visit_place1 != 4 }" [disabled]="true">Phone Call</button>
@@ -2376,7 +2482,7 @@
             <ion-title class="label_class3">Next visit other:{{tab.next_visit_other}}</ion-title>
           </ion-row>
 
-          <ion-row>
+          <ion-row class="ion-padding-bottom">
             <ion-col  size-xl="2" size-lg="2" size-md="2" size-xs="2">
               <ion-title class="label_class2">Date</ion-title>
 

@@ -18,13 +18,13 @@
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
             <ion-col size-xl="8" size-lg="8" size-md="8" size-xs="8"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle">
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [ngStyle]="{'color':'black'}">
                 cached
                 </span>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
-              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;"  [ngStyle]="{'color':'black'}">home </mat-icon>
             </ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
@@ -94,7 +94,7 @@
                
                   <mat-form-field style="display: block;" appearance="outline" >
                     <mat-label class="place_holder_text">Patient Name<span class="red">*</span></mat-label>
-                  <input matInput  name="name" formControlName="name"   maxlength="75" class="place_holder_text ">
+                  <input matInput name="name" formControlName="name"   maxlength="75" class="place_holder_text" (keypress)="textOnlyValidation($event)">
                 
                  </mat-form-field>
               </ion-col>
@@ -136,7 +136,7 @@
               <ion-row>
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
                 <mat-form-field style="display: block;" appearance="outline">
-                  <input matInput   name="caregiver_name" formControlName="caregiver_name" placeholder="Care Giver Name" maxlength="75" class="place_holder_text">
+                  <input matInput   name="caregiver_name" formControlName="caregiver_name" placeholder="Care Giver Name" maxlength="75" class="place_holder_text" (keypress)="textOnlyValidationCare($event)">
                 </mat-form-field>
               </ion-col>
               </ion-row>
@@ -172,7 +172,7 @@
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12" style="padding-top:0px;padding-bottom:0px;">
                   <mat-form-field style="display: block;" appearance="outline">
                     <mat-label class="place_holder_text">Method of Reaching House</mat-label>
-                    <input matInput  maxlength="75" name="method_reach" formControlName="method_reach"  class="place_holder_text">
+                    <input matInput   maxlength="75" name="method_reach" formControlName="method_reach"  class="place_holder_text">
                   </mat-form-field>
                 </ion-col>
                 </ion-row>
@@ -214,7 +214,7 @@
 
                 <ion-row>
                   <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12">
-                    <ion-title  class="place_holder_text">Taluka level PSW in-charge: <span class="incharge_class font_family_class">Ankita K M</span></ion-title>
+                    <ion-title  class="place_holder_text">Taluka level PSW in-charge: <span class="incharge_class font_family_class">{{user_name}}</span></ion-title>
                   <!-- <mat-form-field style="display: block;" appearance="outline">
                     <input matInput maxlength="75"  name="psw_incharge" formControlName="psw_incharge" placeholder="Taluk level PSW in-charge" >
                   </mat-form-field> -->
@@ -1952,7 +1952,7 @@
               <ion-col size-xl="12" size-lg="12" size-md="12" size-xs="12"  class="ion-text-left">
                   <mat-form-field style="display: block;" appearance="outline">
                     <mat-label>If yes, Prescription Details with Dosage<span class="red" *ngIf="medYesSelected">*</span></mat-label>
-                    <input matInput   formControlName="meditation_yes" name="meditation_yes" maxlength="75" class="place_holder_text">
+                    <input matInput   formControlName="meditation_yes" name="meditation_yes" maxlength="150" class="place_holder_text">
                    
                   </mat-form-field>
               </ion-col>
@@ -1995,13 +1995,13 @@
           
           <ion-row>
             <ion-col size-xl="6" size-lg="6" size-md="12" size-xs="12">
-               <ion-title class="font_family_class label_class2" style="vertical-align: bottom;">Medicine Refill Date<span class="red">*</span></ion-title>
+               <ion-title class="font_family_class label_class2" style="vertical-align: bottom;">Next Medicine Refill Date<span class="red">*</span></ion-title>
              </ion-col>
             
             
            <ion-col size-xl="4" size-lg="4" size-md="12" size-xs="12">
             <mat-form-field appearance="outline" class="mat_custom_block_class">
-              <mat-label class="place_holder_text">Medicine refill date</mat-label>
+              <mat-label class="place_holder_text">Next medicine refill date</mat-label>
               <input matInput [matDatepicker]="picker1234" name="med_refill_date" formControlName="med_refill_date"   readonly>
               <mat-datepicker-toggle matSuffix [for]="picker1234"></mat-datepicker-toggle>
               <mat-datepicker #picker1234></mat-datepicker>

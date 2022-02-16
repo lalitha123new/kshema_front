@@ -202,6 +202,7 @@ export class PhoneCallPage implements OnInit {
   }
   
 ionViewWillEnter() {
+  this.user_name = sessionStorage.getItem("user_name");
   this.rate1 = "Unable to rate";
   this.rate2 = "Unable to rate";
   this.phoneObj.symptom_rate='';
@@ -298,7 +299,11 @@ async getPatient(){
     }else{
     this.asha = this.demo.contact_patient;
     }
-    this.psw_incharge = "test psw";
+    if(this.demo.taluka_psw_incharge){
+      this.psw_incharge = this.demo.taluka_psw_incharge;
+    }else{
+        this.psw_incharge = this.user_name;
+    }
 
 
 }
@@ -346,8 +351,16 @@ async getPreviousVisitDetails(){
           this.missed_phc_date = date + "-" + month + "-" + year;
           this.phoneCallForm.get('missed_visit_date').setValue(missed_phc_date1);
     }
+  }else{
+  
+    let missed_phc_date1 = new Date(prev_visit_array_first[0].followup_date);
+      let date = ("0" + missed_phc_date1.getDate()).slice(-2);
+      let month = ("0" + (missed_phc_date1.getMonth() + 1)).slice(-2);
+      let year =missed_phc_date1.getFullYear();
+      this.missed_phc_date = date + "-" + month + "-" + year;
+      this.phoneCallForm.get('missed_visit_date').setValue(missed_phc_date1);
   }
-    //for displaying any previous phone date
+  
     
 }
 
@@ -395,27 +408,36 @@ toggle1(x) {
     this.isValue = 1;
     this.place_array.push(this.isValue);
     this.others_selected =  false;
+    this.phoneCallForm.get('next_visit_place_other').clearValidators();
+    this.phoneCallForm.get('next_visit_place_other').setValue('');
   }else if(x==2){
     this.place_array = [];
     this.isValue = 2;
     this.place_array.push(this.isValue);
     this.others_selected =  false;
+    this.phoneCallForm.get('next_visit_place_other').clearValidators();
+    this.phoneCallForm.get('next_visit_place_other').setValue('');
     
   }else if(x==3){
     this.place_array = [];
     this.isValue = 3;
     this.place_array.push(this.isValue);
     this.others_selected =  false;
+    this.phoneCallForm.get('next_visit_place_other').clearValidators();
+    this.phoneCallForm.get('next_visit_place_other').setValue('');
   }else if(x==4){
     this.place_array = [];
     this.isValue = 4;
     this.place_array.push(this.isValue);
     this.others_selected =  false;
+    this.phoneCallForm.get('next_visit_place_other').clearValidators();
+    this.phoneCallForm.get('next_visit_place_other').setValue('');
   }else{
     this.place_array = [];
     this.isValue = 5;
     this.place_array.push(this.isValue);
     this.others_selected =  true;
+    this.phoneCallForm.get('next_visit_place_other').setValidators(Validators.required);
   }
  
  }
@@ -637,7 +659,8 @@ pitch_symptom(event: any){
   ]
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

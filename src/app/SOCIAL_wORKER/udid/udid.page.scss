@@ -36,10 +36,7 @@
 ::ng-deep .mat-input-wrapper{
   border: 2px solid black;
 }
-.equal_height{
-padding-bottom: 0%;
-margin-bottom: 0%;
-}
+
 
   ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
     opacity: 0.03 !important;
@@ -169,10 +166,7 @@ border: 1px solid rgba(0,0,0,.26);
 ::ng-deep .mat-input-wrapper{
   border: 2px solid black;
 }
-.equal_height{
-padding-bottom: 1%;
-margin-bottom: -1%;
-}
+
   
 ::ng-deep .arrow_class .mat-select-arrow {
   color: white;
@@ -236,10 +230,7 @@ text-align:center;
 ::ng-deep .mat-input-wrapper{
   border: 2px solid black;
 }
-.equal_height{
-padding-bottom: 1%;
-margin-bottom: -1%;
-}
+
   
 ::ng-deep .arrow_class .mat-select-arrow {
   color: white;
@@ -319,4 +310,8 @@ color: #813D7E;
     top: 0;
     left: 0;
     position: fixed;
+}
+
+.ion-card{
+  background-color: #fff;
 }

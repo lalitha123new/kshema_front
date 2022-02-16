@@ -49,7 +49,7 @@ export class SupervisorDashboardPage implements OnInit {
   isValue: number = 1; 
   isValueCheck : number = 1;
   checkModel1 = true;
-  checkModel2 = false;
+  checkModel2 = true;
   
   showCompleted = 30;
   showCompletedTask = 5;
@@ -120,8 +120,8 @@ export class SupervisorDashboardPage implements OnInit {
 
   ionViewWillEnter() {
     this. showSpinner = true;
-   this.sw_total = 0;
-   this.group_data_array = [];
+    this.sw_total = 0;
+    this.group_data_array = [];
     this.group_data = sessionStorage.getItem("group_data");
     this.group_data1 =  JSON.parse( this.group_data);
     this.today_visit_completed = 0;
@@ -159,7 +159,7 @@ export class SupervisorDashboardPage implements OnInit {
     this.today_visit_completed = 0; 
     this.today_task_completed = 0;
     this.getTodayTaskNumber();
-    this.getTodayCompletedTaskNumber();
+    //this.getTodayCompletedTaskNumber();
     this.getUpcomingVisitNumber();
     this.getUpcomingTaskNumber();
 
@@ -167,8 +167,9 @@ export class SupervisorDashboardPage implements OnInit {
     this.overdue_visit = 0;
     this.getOverVisitNumber();
     this.overdue_task = 0;
-    this.getOverTaskNumber();
+    // this.getOverTaskNumber();
     this.getNotificationCount();
+    this.getTodayTask();
    
    
     
@@ -253,6 +254,12 @@ export class SupervisorDashboardPage implements OnInit {
     data  => {
       
       all_patients =  data;
+      all_patients = all_patients.reduce((accumalator, current) => {
+        if(!accumalator.some(item => item.patientObj.patient_uuid === current.patientObj.patient_uuid)) {
+          accumalator.push(current);
+        }
+        return accumalator;
+      },[]);
       
       for(var m=0;m<all_patients.length;m++){
         for(var n=0;n<this.group_data1.length;n++){
@@ -556,7 +563,7 @@ export class SupervisorDashboardPage implements OnInit {
       this.overdue = false;
       this.complete = false;
       this.incomplete = false;
-      this.checkModel2 = false;
+      this.checkModel2 = true;
       this.checkModel1 = true;
       this.router.navigate(['all-patients']);
     }
@@ -564,6 +571,7 @@ export class SupervisorDashboardPage implements OnInit {
   
   //get today's consultation data
   async getTodayVisit(){
+    this. showSpinner = true;
     let today_visit_array_first :any;
     this.data_res3 = [];
   let test = await this.serverService.getTodayVisitsServerDb(this.group_data_id).toPromise().then(result5 => {
@@ -599,7 +607,11 @@ export class SupervisorDashboardPage implements OnInit {
        if(this.data_res3[k].patientObj.status != "inactive"){
           this.data_res3[k].name = this.data_res3[k].patientObj.name;
           this.data_res3[k].patient_uuid = this.data_res3[k].patientObj.patient_uuid;
+          if(this.data_res3[k].clinical_visits.visit_type == ""){
+            this.data_res3[k].task = "Others";
+          }else{
           this.data_res3[k].task =  this.data_res3[k].clinical_visits.visit_type;
+          }
         
           this.data_res3[k].due_date =  new Date(this.data_res3[k].clinical_visits.followup_date);
         
@@ -671,6 +683,7 @@ export class SupervisorDashboardPage implements OnInit {
          
           this.dataSource_dashboard1.data = this.today_final_array;
           this.dataSource_dashboard1.paginator = this.paginator;
+          this. showSpinner = false;
         
         }
        }
@@ -682,15 +695,17 @@ export class SupervisorDashboardPage implements OnInit {
   //get today's task data - display only one task per patient and display the number of remaining tasks
   //upon button click
   getTodayTask(){
+    this.showSpinner = true;
+   
     let count_arr :any;
     this.data_res4 = [];
     let array2:any;
     this.serverService.getTodayTasksServerDb(this.group_data_id) .subscribe(
       data2  => {
-       
+     
         let res2 = [];
         this.patientArray = data2;
-        console.log(data2)
+       
         //res2 = data2;
         array2 = data2;
 
@@ -864,8 +879,12 @@ export class SupervisorDashboardPage implements OnInit {
       //}
           
        }
+       this. showSpinner = false;
 
-      });
+      },error => {
+        this. showSpinner = false;
+         
+        });
   }
 
   //get the today's tasks task number to display in the card when page is loaded
@@ -897,6 +916,8 @@ export class SupervisorDashboardPage implements OnInit {
         const count = overdue_task1.filter((obj) => obj.patientObj.status === 'active').length;
         
         this.today_task_total = count;
+        this.getTodayCompletedTaskNumber();
+      
           //}
         }
     })
@@ -905,6 +926,7 @@ export class SupervisorDashboardPage implements OnInit {
 
   //get upcoming consultation data upon button click
   getUpcomingVisit(){
+    this. showSpinner = true;
     this.data_res2 = [];
     let array1:any;
     this.serverService.getUpcomingVisitsServerDb(this.group_data_id) .subscribe(
@@ -930,7 +952,11 @@ export class SupervisorDashboardPage implements OnInit {
           if(this.data_res2[k].patientObj.status != "inactive"){
           this.data_res2[k].name = this.data_res2[k].patientObj.name;
           this.data_res2[k].patient_uuid = this.data_res2[k].patientObj.patient_uuid;
+          if(this.data_res2[k].clinical_visits.visit_type == ""){
+            this.data_res2[k].task = "Others";
+          }else{
           this.data_res2[k].task =  this.data_res2[k].clinical_visits.visit_type;
+          }
           this.data_res2[k].due_date =  new Date(this.data_res2[k].clinical_visits.followup_date);
           // let date = ("0" + this.data_res2[k].due_date1.getDate()).slice(-2);
           // let month = ("0" + (this.data_res2[k].due_date1.getMonth() + 1)).slice(-2);
@@ -986,10 +1012,15 @@ export class SupervisorDashboardPage implements OnInit {
           this.upcoming_final_array.push( this.data_res2[k]);
           this.dataSource_dashboard2.data = this.upcoming_final_array;
           this.dataSource_dashboard2.paginator = this.paginator;
+          this. showSpinner = false;
         
           }
           }
-      })
+      },error => {
+        this. showSpinner = false;
+         
+        })
+      
 
   }
 
@@ -1005,11 +1036,15 @@ export class SupervisorDashboardPage implements OnInit {
         this.upcoming_visit = count;
     
   
-    })
+    },error => {
+      this. showSpinner = false;
+       
+      })
   }
 
   //get upcoming task data upon button click
   getUpcomingTask(){
+    this.showSpinner = true;
     this.data_res5 = [];
     let upcoming_array= [];
      this.upcoming_tasks_array = [];
@@ -1184,7 +1219,11 @@ export class SupervisorDashboardPage implements OnInit {
           }
        // }
         }
-      })
+        this.showSpinner = false;
+      },error => {
+        this. showSpinner = false;
+         
+        })
   }
 
   //get upcoming task number to display in the card when page is loaded
@@ -1197,12 +1236,16 @@ export class SupervisorDashboardPage implements OnInit {
       this.upcoming_total =this.upcoming_total + this.upcoming_task;
     
   
-    })
+    },error => {
+      this. showSpinner = false;
+       
+      })
 
   }
 
   //get overdue consultation data upon button click
   getOverdueVisit(){
+    this. showSpinner = true;
     this.data_res5a = [];
     let array1:any;
     this.serverService.getUpOverdueVisitsServerDb(this.group_data_id) .subscribe(
@@ -1229,7 +1272,11 @@ export class SupervisorDashboardPage implements OnInit {
           if(this.data_res5a[k].patientObj.status != "inactive"){
           this.data_res5a[k].name = this.data_res5a[k].patientObj.name;
           this.data_res5a[k].patient_uuid = this.data_res5a[k].patientObj.patient_uuid;
+          if(this.data_res5a[k].clinical_visits.visit_type == ""){
+            this.data_res5a[k].task = "Others";
+          }else{
           this.data_res5a[k].task =  this.data_res5a[k].clinical_visits.visit_type;
+          }
           this.data_res5a[k].due_date =  new Date(this.data_res5a[k].clinical_visits.followup_date);
         
           // let date = ("0" + this.data_res5a[k].due_date1.getDate()).slice(-2);
@@ -1285,10 +1332,14 @@ export class SupervisorDashboardPage implements OnInit {
         this.overdue_final_array.push( this.data_res5a[k]);
         this.dataSource_dashboard3.data = this.overdue_final_array;
         this.dataSource_dashboard3.paginator = this.paginator;
+        this. showSpinner = false;
          
         }
           }
-      })
+      },error => {
+        this. showSpinner = false;
+         
+        })
   }
 
   //get overdue consultation number to display in the card when page is loaded
@@ -1320,11 +1371,16 @@ export class SupervisorDashboardPage implements OnInit {
         
        
         this.overdue_visit =  over_visit.length;
-      });
+        this.getOverTaskNumber();
+      },error => {
+        this. showSpinner = false;
+         
+        });
   }
 
   //get overdue tasks data upon button click
   getOverdueTask(){
+    this.showSpinner = true;
     this.data_res6 = [];
     let overdue_array  = [];
     this.overdue_tasks_array = [];
@@ -1506,7 +1562,11 @@ export class SupervisorDashboardPage implements OnInit {
      // }
         }
         }
-      });
+        this.showSpinner = false;
+      },error => {
+        this. showSpinner = false;
+         
+        });
   }
 
   //get overdue task number to display in the card when page is loaded
@@ -1545,14 +1605,18 @@ export class SupervisorDashboardPage implements OnInit {
           }
        // }
         }
-        
+       
         this.overdue_total = this.overdue_total + this.overdue_task;
         
-      });
+      },error => {
+        this. showSpinner = false;
+         
+        });
   }
 
   //get completed task data 
   getCompletedTask(){
+    this. showSpinner = true;
     this.data_res10 = [];
     let tasks_array:any;
     let array2:any;
@@ -1679,10 +1743,14 @@ export class SupervisorDashboardPage implements OnInit {
         this.complete_final_array.push( this.data_res10[k]);
         this.dataSource_dashboard4.data = this.complete_final_array;
         this.dataSource_dashboard4.paginator = this.paginator;
+        this. showSpinner = false;
         //}
         
         }
-      });
+      },error => {
+        this. showSpinner = false;
+         
+        });
 
   }
 
@@ -1690,12 +1758,29 @@ export class SupervisorDashboardPage implements OnInit {
     this.today_task_completed1 = 0;
     this.task_number_array = [];
     this.today_task_completed = 0;
+    let completed_array= [];
     this.serverService.getTodayCompletedTasksServerDb(this.group_data_id) .subscribe(
       data20  => {
         
+        
+         
         this.task_number_array = data20;
-        this.today_task_completed = this.task_number_array.length;
+        for(var m=0;m<this.task_number_array.length;m++){
+          for(var n=0;n<this.group_data1.length;n++){
+           if(this.task_number_array[m].patientObj.group_data_id == this.group_data1[n]){
+           
+            this.task_number_array[m].patientObj.group_data =this.task_number_array[m].patientObj.group_data_id;
+            if(this.task_number_array[m].patientObj.group_data != null){
+             
+              completed_array.push(this.task_number_array[m]);
+            }
+            
+          }
+           }
+         }
+        this.today_task_completed = completed_array.length;
         this.today_task_completed1 = (this.today_task_completed/this.today_task_total)*100;
+       
        
 
       });
@@ -1712,7 +1797,7 @@ export class SupervisorDashboardPage implements OnInit {
       this.overdue = false;
       this.complete = false;
       this.incomplete = false;
-      this.checkModel2 = false;
+      this.checkModel2 = true;
       this.checkModel1 = true;
   
   

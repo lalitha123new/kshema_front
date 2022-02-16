@@ -761,11 +761,12 @@ export class PhcVisitPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.rate1 = "Unable to rate";
+  this.user_name = sessionStorage.getItem("user_name");
+  this.rate1 = "Unable to rate";
   this.rate2 = "Unable to rate";
   this.phcVisitObj.phc_symptom_rate='';
   this.phcVisitObj.phc_compliance_rate='';
-    this.isDisabled = false;
+  this.isDisabled = false;
     this.firstFormGroup = this._formBuilder.group({
       who_came_with: new FormControl(this.phcVisitObj.who_came_with,[]), 
       phc_symptom_rate: new FormControl(this.phcVisitObj.phc_symptom_rate,[]),
@@ -1227,7 +1228,11 @@ export class PhcVisitPage implements OnInit {
       }else{
       this.asha = this.demo.contact_patient;
       }
-      this.psw_incharge = "test psw";
+      if(this.demo.taluka_psw_incharge){
+        this.psw_incharge = this.demo.taluka_psw_incharge;
+      }else{
+          this.psw_incharge = this.user_name;
+      }
   
  
   }
@@ -1621,27 +1626,37 @@ onKey3(event) {
       this.isValue = 1;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.secondFormGroup.get('next_visit_place_other').clearValidators();
+      this.secondFormGroup.get('next_visit_place_other').setValue('');
     }else if(x==2){
       this.place_array = [];
       this.isValue = 2;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.secondFormGroup.get('next_visit_place_other').clearValidators();
+      this.secondFormGroup.get('next_visit_place_other').setValue('');
       
     }else if(x==3){
       this.place_array = [];
       this.isValue = 3;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.secondFormGroup.get('next_visit_place_other').clearValidators();
+      this.secondFormGroup.get('next_visit_place_other').setValue('');
     }else if(x==4){
       this.place_array = [];
       this.isValue = 4;
       this.place_array.push(this.isValue);
       this.others_selected =  false;
+      this.secondFormGroup.get('next_visit_place_other').clearValidators();
+      this.secondFormGroup.get('next_visit_place_other').setValue('');
     }else{
       this.place_array = [];
       this.isValue = 5;
       this.place_array.push(this.isValue);
       this.others_selected =  true;
+      this.secondFormGroup.get('next_visit_place_other').setValidators(Validators.required);
+      
     }
    
    }
@@ -4318,7 +4333,8 @@ async getPreviousVisitDetails(){
   ]
   displayLoader(){
     this.loadingCtrl.create({
-      message: 'Loading. Please wait...'
+      message: 'Loading. Please wait...',
+      cssClass: 'alert_bg'
   }).then((response) => {
       response.present();
   });

@@ -558,6 +558,12 @@ export class TaskHistoryPage implements OnInit {
         this.care_giver = this.demo1.caregiver_name;
         this.care_giver_mobile = this.demo1.caregiver_phone;
         this.asha = this.demo1.contact_patient;
+        if(!this.demo1.taluka_psw_incharge){
+          this.psw_incharge = sessionStorage.getItem("psw_incharge");
+       
+        }else{
+          this.psw_incharge = this.demo1.taluka_psw_incharge;
+        }
         let assessData = JSON.parse(patient_array_first[0].needs_assessment);
         
         this.assess_details1 = assessData.add_help;

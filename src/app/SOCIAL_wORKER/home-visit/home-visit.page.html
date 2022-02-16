@@ -1,9 +1,9 @@
 <ion-app >
 
  
-  <ion-content>
+  <ion-content style="background-color: #fff;">
 
-    <ion-grid  style="height: 100%;padding-top: 0px;padding-right: 0px;" class="container2">
+    <ion-grid  style="height: 100%;padding-top: 0px;padding-right: 0px;background-color: #fff;" class="container2">
 
       <ion-row class="ion-padding-left" style="padding-top:0px;padding-bottom:0px;">
         <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2">
@@ -18,13 +18,13 @@
           <ion-row style="padding-top:0px;padding-bottom:0px;" justify-content-center align-items-center>
             <ion-col size-xl="8" size-lg="8" size-md="6" size-xs="6"></ion-col>
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1" style="text-align: center;">
-              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle" >
+              <span class="material-icons pointer-class"  style="font-size:30px;vertical-align: middle"  [ngStyle]="{'color':'black'}">
                 cached
                 </span>
             </ion-col>
            
             <ion-col size-xl="1" size-lg="1" size-md="1" size-xs="1"  style="text-align: center;">
-              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;">home </mat-icon>
+              <mat-icon class="pointer-class" (click)="home()" style="font-size: 30px;"  [ngStyle]="{'color':'black'}">home </mat-icon>
             </ion-col>
             <ion-col size-xl="2" size-lg="2" size-md="2" size-xs="2" style="padding:0px;"><ion-button class="button_text_normal custom_background_color2 custom_border_radius" [matMenuTriggerFor]="menu"><ion-icon name="person"></ion-icon><span style="text-transform:none!important;">{{user_name}}</span>
               <mat-icon class="arrow_down">keyboard_arrow_down</mat-icon></ion-button>
@@ -963,7 +963,7 @@
                      </ion-col>
                     <ion-col  size-xl="6" size-lg="6" size-md="12" size-xs="12">
                       <mat-form-field appearance="outline" class="mat_custom_block_class">
-                        <mat-label class="place_holder_text">Date</mat-label>
+                        <mat-label class="place_holder_text">Next Medicine Refill Date</mat-label>
                         <input matInput  [max]=""   [matDatepicker]="picker790" readonly formControlName="medicine_plan_other_date" name="medicine_plan_other_date">
                         <mat-datepicker-toggle matSuffix  [for]="picker790"></mat-datepicker-toggle>
                         <mat-datepicker #picker790></mat-datepicker>
@@ -992,7 +992,7 @@
                           
                         </ion-col>
                         <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
-                          <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 3, 'default_border': isValue != 3 }" (click)="toggle1(3)">Mano Chaithanya</button>
+                          <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 3, 'default_border': isValue != 3 }" (click)="toggle1(3)">Manochaithanya</button>
                         </ion-col>
                         <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                           <button  mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 4, 'default_border': isValue != 4 }" (click)="toggle1(4)">Phone Call</button>
@@ -1000,6 +1000,7 @@
                         <ion-col size-xl="2" size-lg="2" size-md="12" size-xs="12" class="ion-text-left">
                             <button mat-button class="button_text_normal custom_button_size1 custom_button_display3" [ngClass]="{'selected_border': isValue == 5, 'default_border': isValue != 5 }" (click)="toggle1(5)" *ngIf="!others_selected">Others</button>
                           <mat-form-field  appearance="outline" *ngIf="others_selected" style="width:100%;margin:0px;padding-top:0px;">
+                            <mat-label class="wrap-mat-check-label">Enter place for next visit<span class="red" *ngIf="others_selected">*</span></mat-label>
                             <input matInput name="next_visit_place_other" formControlName="next_visit_place_other" placeholder="Enter place for next visit" maxlength="75">
                           </mat-form-field>
                         
