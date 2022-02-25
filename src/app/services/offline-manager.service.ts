@@ -17,6 +17,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { File } from '@ionic-native/file/ngx';
 const {Filesystem} = Plugins;
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { LoadingController } from '@ionic/angular';
 
  
 const STORAGE_REQ_KEY = 'storedreq';
@@ -43,7 +44,8 @@ export class OfflineManagerService {
   constructor( private platform: Platform,private storage: Storage, private http: HttpClient, private toastController: ToastController,
     private serverService: ServerService, private networkService : NetworkService,private network: Network,
     private file:File,private transfer:FileTransfer,
-    private androidPermissions: AndroidPermissions,private router: Router) { }
+    private androidPermissions: AndroidPermissions,private router: Router,
+    private loadingCtrl: LoadingController) { }
     public baseUrl= 'http://13.126.225.131:8080/kshema';
      
     newpatientData = {
@@ -198,7 +200,14 @@ url:string=""
          this.sendRequests(storedObj);
           
         } else {
-          console.log('no local events to sync');
+         // console.log('no local events to sync');
+         let toast = this.toastController.create({
+          message: `No data to synchronize!`,
+          cssClass: 'alert_black_bg',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.then(toast => toast.present());
           return of(false);
         }
       })
@@ -251,77 +260,83 @@ url:string=""
   }
   
  
-  //to update the server db with the local db data  after checking the request if there exists any data to sync(not the sqlite table data)
+  //synchronise to server db with the local db data  after checking the request if there exists any data to sync(not the sqlite table data)
   async sendRequests(operations: StoredRequest[]) {
 
+    let toast = this.toastController.create({
+      message: `Synchronization in progress.Please wait...!`,
+      cssClass: 'alert_black_bg',
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.then(toast => toast.present());
+
     let obs:StoredRequest[] = [];
-    //data from request
     obs=operations;
-      //get only 5 records from storage- testing
+    let failed_array = [];
+     
       for (var i =0;i<operations.length; i++) {
-         
-        // console.log("CHECKING OPERATIONS1"+JSON.stringify(operations[i]))
-  
-              //get data from local db for sync to server db using uuid of each data
-              if(operations[i].type == "patient"){
               
-                //get the data from local db
-                this.sqlQuery("getPatient",{patient_uuid:operations[i].id}).then(patientData => {
+              if(operations[i].type == "patient"){
                  
-                  
+                  let test = await this.sqlQuery("getPatient",{patient_uuid:operations[i].id}).then(async patientData => {
+                 
                   let id = obs.findIndex(x => x.type ==="patient" && x.id === patientData.patient_uuid);
                  
                   let patient_uuid = patientData.patient_uuid;
-                  let patient_uuid1 = patientData.patient_uuid;
              
-                 this.newpatientData = {
-                   "group_data_id":patientData.group_data_id,
-                   "patient_uuid":patientData.patient_uuid,
-                   "kshema_id":"0",
-                   "name":patientData.name,
-                   "demographic_info": patientData.demographic_info,
-                   "needs_assessment":patientData.needs_assessment,
-                   "consent_arr":patientData.consent_arr,
-                   "uuid_info":patientData.uuid_info,
-                   'status':patientData.status
-                 };
+                  this.newpatientData = {
+                    "group_data_id":patientData.group_data_id,
+                    "patient_uuid":patientData.patient_uuid,
+                    "kshema_id":"0",
+                    "name":patientData.name,
+                    "demographic_info": patientData.demographic_info,
+                    "needs_assessment":patientData.needs_assessment,
+                    "consent_arr":patientData.consent_arr,
+                    "uuid_info":patientData.uuid_info,
+                    'status':patientData.status
+                  };
           
                 
-                 //sync
-                 this.serverService.addPatientServerDb(this.newpatientData,obs[id].sw_id,obs[id].taluk_id).subscribe(
-                  success => {
+                 let testsync = await this.serverService.addPatientServerDb(this.newpatientData,obs[id].sw_id,obs[id].taluk_id).toPromise().then(
+                   result => {
                     
-                    if(success == true){
-                      
-                      const removedData=  obs.splice(id,1);
-                      let remainingRequests = obs;
-                      //delete this uuid's data  and save the remaining back in request 
-                      this.remainingData(remainingRequests);
-                      //get updated kshema_id from server and save in local db
+                    if(result == true){
+                     
+                      console.log("Success");
                       this.updateKshema(patient_uuid);
-                      
                      
                      }else{
-                   
-                    console.log("error")
+                      
+                      console.log("error");
+                      failed_array.push(obs.findIndex(x => x.type ==="patient" && x.id === patientData.patient_uuid));
+                 
                      }
                     
           
-                  },
-                  error => {
-                    console.log(error)
+                  },error => {
+                    
+                    console.log(error);
+                    failed_array.push(obs.findIndex(x => x.type ==="patient" && x.id === patientData.patient_uuid));
+                 
                    
                   }
                 );
                
+                },error => {
+                 
+                  console.log(error);
+                 
                 });
           
                  
               }else if(operations[i].type == "clinical_visits"){
-                //get data from local db
-                this.sqlQuery("getVisit",{clinical_visits_uuid:operations[i].id}).then(newVisitData => {
-                    let date_new  = new Date(newVisitData.followup_date);
-                    newVisitData.followup_date = new Date(date_new.getTime() + 1*24*60*60*1000);
+                
+                  let test = await this.sqlQuery("getVisit",{clinical_visits_uuid:operations[i].id}).then(async newVisitData => {
+                    
+                  let date_new  = new Date(newVisitData.followup_date);
+                  newVisitData.followup_date = new Date(date_new.getTime() + 1*24*60*60*1000);
+                 
                   this.newpatientVisitData = {
                     "clinical_visits_uuid":newVisitData.clinical_visits_uuid,
                     "patient_uuid":newVisitData.patient_uuid,
@@ -333,40 +348,41 @@ url:string=""
                     "prv_visit_uuid":newVisitData.prv_visit_uuid,
                   };
           
-                  //sync
-                  this.serverService.addNewVisitServerDb(this.newpatientVisitData).subscribe(success  => {
-                    if(success == true){
-                      let id = obs.findIndex(x => x.type ==="clinical_visits" && x.id === newVisitData.patient_uuid);
-                      const removedData=  obs.splice(id,1);
-                      let remainingRequests = obs;
-                       //delete this uuid's data  and save the remaining back in request 
-                      this.remainingData(remainingRequests);
+                  let testsync = await this.serverService.addNewVisitServerDb(this.newpatientVisitData).toPromise().then(
+                    result => {
+                    if(result == true){
                      
+                      console.log("Success");
+                    }else{
                      
-                     }else{
-                   
                       console.log("error");
+                      failed_array.push(obs.findIndex(x => x.type ==="clinical_visits" && x.id === newVisitData.patient_uuid));
                    
                      }
                    
-                  },
-                  error => {
-                    console.log(error)
+                  },error => {
+                    
+                    console.log(error);
+                    failed_array.push(obs.findIndex(x => x.type ==="clinical_visits" && x.id === newVisitData.patient_uuid));
                    
                   });
+                },error => {
+                 
+                  console.log(error);
+                  
                 });
           
               }else if(operations[i].type == "tasks"){
-             //get the data from local db
-                this.sqlQuery("getTask",{tasks_uuid:operations[i].id}).then(newTasksData => {
+            
+                let test = await this.sqlQuery("getTask",{tasks_uuid:operations[i].id}).then(async newTasksData => {
                  
                   if(newTasksData.task_due_date){
                     let date_new  = new Date(newTasksData.task_due_date);
-                    //newTasksData.task_due_date = new Date(newTasksData.task_due_date );
                     newTasksData.task_due_date = new Date(date_new.getTime() + 1*24*60*60*1000);
                   }else{
                     newTasksData.task_due_date = "";
                   }
+
                   this.newpatientTaskData = {
                     "tasks_uuid":newTasksData.tasks_uuid,
                     "patient_uuid":newTasksData.patient_uuid,
@@ -379,92 +395,76 @@ url:string=""
                     "origin_record_id":newTasksData.origin_record_id,
                   };
                 
-                   //sync
-                  this.serverService.addNewTaskServerDb(this.newpatientTaskData).subscribe(success  => {
-                    if(success == true){
-                      let id = obs.findIndex(x => x.type ==="tasks" && x.id === newTasksData.tasks_uuid);
-                      const removedData=  obs.splice(id,1);
-                      let remainingRequests = obs;
-                       //delete this uuid's data  and save the remaining back in request 
-                      this.remainingData(remainingRequests);
+                  
+                  let testsync = await this.serverService.addNewTaskServerDb(this.newpatientTaskData).toPromise().then(
+                    result => {
+                    if(result == true){
                      
+                      console.log("Success");
+                    }else{
                      
-                     }else{
-                   
-                      console.log("error")
-                   
+                      console.log("error");
+                      failed_array.push(obs.findIndex(x => x.type ==="tasks" && x.id === newTasksData.tasks_uuid));
+                    
                      }
                     
-                  },
-                  error => {
-                    console.log(error)
-                   
+                  },error => {
+                    
+                    console.log(error);
+                    failed_array.push(obs.findIndex(x => x.type ==="tasks" && x.id === newTasksData.tasks_uuid));
                   });
+                },error => {
+                  
+                  console.log(error);
                 });
               }else if(operations[i].type == "editpatient"){
-              
-                console.log("CHECKING OPERATIONS2"+JSON.stringify(operations[i]))
-              //get the data from local db
-                  await this.sqlQuery("getPatient",{patient_uuid:operations[i].id}).then( updatedPatientData => {
-                   
-                    this.newpatientData = {
-                    "group_data_id":updatedPatientData.group_data_id,
-                    "patient_uuid":updatedPatientData.patient_uuid,
-                    "kshema_id":updatedPatientData.kshema_id,
-                    "name":updatedPatientData.name,
-                    "demographic_info": updatedPatientData.demographic_info,
-                    "needs_assessment":updatedPatientData.needs_assessment,
-                    "consent_arr":updatedPatientData.consent_arr,
-                    "uuid_info":updatedPatientData.uuid_info,
-                    'status':updatedPatientData.status
-                  };
-  
-                  //sync
-                  this.serverService.EditedPatientDemoServerDb(this.newpatientData).subscribe(
-                  success => {
-                     
-                 if(success == true){
-                  let id = obs.findIndex(x => x.type ==="editpatient" && x.id === updatedPatientData.patient_uuid);
-                  const removedData=  obs.splice(id,1);
-                  let remainingRequests = obs;
-                   //delete this uuid's data  and save the remaining back in request 
-                  this.remainingData(remainingRequests)
-                  console.log("CHECKING OPERATIONS3"+JSON.stringify(operations[i]))
-                
-                
-                 }else{
-             
-                  console.log("error")
-             
                
-                 }
-                     
-                     
-                    },
-                    error => {
-                      console.log(error);
-                      
-                     
-                    });
+              let test = await this.sqlQuery("getPatient",{patient_uuid:operations[i].id}).then( async updatedPatientData => {
+             
+              this.newpatientData = {
+                "group_data_id":updatedPatientData.group_data_id,
+                "patient_uuid":updatedPatientData.patient_uuid,
+                "kshema_id":updatedPatientData.kshema_id,
+                "name":updatedPatientData.name,
+                "demographic_info": updatedPatientData.demographic_info,
+                "needs_assessment":updatedPatientData.needs_assessment,
+                "consent_arr":updatedPatientData.consent_arr,
+                "uuid_info":updatedPatientData.uuid_info,
+                'status':updatedPatientData.status
+              };
+
+              let testsync = await this.serverService.EditedPatientDemoServerDb(this.newpatientData).toPromise().then(result => {
+              
+              if(result == true){
+                
+                console.log("Success")
+              }else{
+                
+                console.log("error");
+              }
+              },error => {
+               
+                console.log(error);
+                failed_array.push(obs.findIndex(x => x.type ==="editpatient" && x.id === updatedPatientData.patient_uuid));
+              });
                   
-                 
-                });
+              },error => {
+                
+                console.log(error);
+              });
               
                
               }else if(operations[i].type == "updatetasks"){
-               
-              //get the data from local db
-                this.sqlQuery("getTask",{tasks_uuid:operations[i].id}).then(updatedTaskData => {
-                  let update_date1:any
-                 if(updatedTaskData.task_due_date){
+
+                let test = await this.sqlQuery("getTask",{tasks_uuid:operations[i].id}).then(async updatedTaskData => {
+                let update_date1:any;
+
+                if(updatedTaskData.task_due_date){
                    let date_new  = new Date(updatedTaskData.task_due_date);
                    update_date1 = new Date(date_new.getTime() + 1*24*60*60*1000);
-                 
-                  
-                 }else{
-                 
+                }else{
                   update_date1 = "";
-                 }
+                }
                
                   this.newpatientTaskData = {
                     "tasks_uuid":updatedTaskData.tasks_uuid,
@@ -478,44 +478,40 @@ url:string=""
                     "origin_record_id":updatedTaskData.origin_record_id,
                   };
                   
-                  //sync
-                  this.serverService.updateTaskStatusServerDb(this.newpatientTaskData).subscribe(success  => {
-                    if(success == true){
-                      let id = obs.findIndex(x => x.type ==="updatetasks" && x.id === updatedTaskData.tasks_uuid);
-                      const removedData=  obs.splice(id,1);
-                      let remainingRequests = obs;
-                       //delete this uuid's data  and save the remaining back in request 
-                      this.remainingData(remainingRequests);
+                  
+                  let testsync = await this.serverService.updateTaskStatusServerDb(this.newpatientTaskData).toPromise().then(
+                    result => {
+                    if(result == true){
                      
-                     
-                     
-                     }else{
-                      
-                      console.log("ERROR")
+                      console.log("Success");
+                    }else{
+                    
+                     console.log("ERROR");
                    
                      }
-                  },
-                  error => {
-                    console.log(error)
+                  },error => {
+                   
+                    console.log(error);
+                    failed_array.push(obs.findIndex(x => x.type ==="updatetasks" && x.id === updatedTaskData.tasks_uuid));
+                   
                    
                   });
+                },error => {
+                  
+                   console.log(error)
+                 
                 });
               }else if(operations[i].type == "notes"){
-              //get the data from local db
-                this.sqlQuery("getNotes",{notes_uuid:operations[i].id}).then(notesData => {
-                
-                  // let imageArray:any;
-                  // let selectedFile: File[] = [];
-                  // let x = 0;
-                  // selectedFile[x++] = notesData.images;
-                  // imageArray =  JSON.parse( notesData.images)
+               
+              let test = await this.sqlQuery("getNotes",{notes_uuid:operations[i].id}).then(async notesData => {
+               
                   var date = new Date();
                   let dateStr =
                      
-                      date.getFullYear() + "-"+("00" + (date.getMonth() + 1)).slice(-2) + "-" +("00" + date.getDate()).slice(-2) + " " +
-                      ("00" + date.getHours()).slice(-2) + ":" +
-                      ("00" + date.getMinutes()).slice(-2) + ":" +
-                      ("00" + date.getSeconds()).slice(-2);
+                  date.getFullYear() + "-"+("00" + (date.getMonth() + 1)).slice(-2) + "-" +("00" + date.getDate()).slice(-2) + " " +
+                  ("00" + date.getHours()).slice(-2) + ":" +
+                  ("00" + date.getMinutes()).slice(-2) + ":" +
+                  ("00" + date.getSeconds()).slice(-2);
               
                 let notesObj = {
                   "notes_uuid" :notesData.notes_uuid,
@@ -528,36 +524,32 @@ url:string=""
                   
                 
                 }
-              console.log("CHECK NOTES")
-                  //sync
-                  this.serverService.addNotes(notesObj).subscribe(success  => {
-                   
-                    if(success == true){
-                      let id = obs.findIndex(x => x.type ==="notes" && x.id === notesData.notes_uuid);
-                      const removedData=  obs.splice(id,1);
-                      let remainingRequests = obs;
-                       //delete this uuid's data  and save the remaining back in request 
-                      this.remainingData(remainingRequests);
+             
+                  let testsync = await this.serverService.addNotes(notesObj).toPromise().then(result => {
+                  
+                    if(result == true){
                      
+                      console.log("Success");
+                    }else{
                      
-                    // this.serverService.sendImages(imageArray[1],notesData.notes_uuid, 1)
-                    // .subscribe(res => {
-  
-                     //})
-                     
-                     }else{
-                    
-                     console.log("ERROR")
+                      failed_array.push(obs.findIndex(x => x.type ==="notes" && x.id === notesData.notes_uuid));
+                      console.log("ERROR")
                      }
-                  },
-                  error => {
-                    console.log(error)
+                  },error => {
+                    
+                    console.log(error);
+                    failed_array.push(obs.findIndex(x => x.type ==="notes" && x.id === notesData.notes_uuid));
+                     
                    
                   });
-                });
+                },error => {
+                  
+                  console.log(error);
+               
+              });
               }else if(operations[i].type == "udid_info"){
-              //get the data from local db
-                this.sqlQuery("getUDID",{udid_uuid:operations[i].id}).then(udidData => {
+              
+                let test = await this.sqlQuery("getUDID",{udid_uuid:operations[i].id}).then(async udidData => {
                 
                  let udidObj = {
                    "udid_info_id":0,
@@ -567,63 +559,80 @@ url:string=""
           
                 }
                 
-                //sync
-                  this.serverService.addUDID(udidObj).subscribe(success  => {
-                    if(success == true){
-                      let id = obs.findIndex(x => x.type ==="udid_info" && x.id === udidData.udid_uuid);
-                      const removedData=  obs.splice(id,1);
-                      let remainingRequests = obs;
-                      //delete this uuid's data  and save the remaining back in request 
-                      this.remainingData(remainingRequests);
+                
+                let testsync = await this.serverService.addUDID(udidObj).toPromise().then(
+                  result => {
+                    if(result == true){
                      
-                     }else{
+                      console.log("Success");
+                    }else{
+                     
+                      console.log("ERROR");
+                      failed_array.push(obs.findIndex(x => x.type ==="udid_info" && x.id === udidData.udid_uuid));
                     
-                      console.log("ERROR")
-                   
                      }
                    
-                  },
-                  error => {
-                    console.log(error)
+                  },error => {
+                    
+                    console.log(error);
+                    failed_array.push(obs.findIndex(x => x.type ==="udid_info" && x.id === udidData.udid_uuid));
+                    
                    
                   });
+                },error => {
+                  
+                  console.log(error);
+                 
                 });
               }
-             
-              
-      }
-    
-    
-          //iterate through the data from the request 
-         
+            
           
-        
+      }
+    let remainging_array = [];
+  
+    if(failed_array.length > 0){
       
-     
+     for(var k =0;k<failed_array.length;k++){
+      
+      remainging_array.push(obs[failed_array[k]]);
+     }
+   
+    }else{
+      console.log("No data to synchronize")
+    }
+   
+    this.remainingData(remainging_array)
+
   }
+
 
   //update the request after successful sync
   remainingData(data){
    
-   
     Plugins.Storage.remove({ key: 'storedreq' });
                
-                let toast = this.toastController.create({
-                  message: `Local data succesfully synced to API!`,
-                  cssClass: 'alert_black_bg',
-                  duration: 3000,
-                  position: 'bottom'
-                });
-                toast.then(toast => toast.present());
+                
                 if(data.length > 0){
-              
+                  let toast = this.toastController.create({
+                    message: `Could not complete synchronization!`,
+                    cssClass: 'alert_black_bg',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.then(toast => toast.present());
                   Plugins.Storage.remove({ key: 'storedreq'});
                   
                   return  Plugins.Storage.set({key: 'storedreq', value:  JSON.stringify(data)});
                  
                 }
                 else {
-                
+                  let toast = this.toastController.create({
+                    message: `Local data succesfully synchronized!`,
+                    cssClass: 'alert_black_bg',
+                    duration: 3000,
+                    position: 'bottom'
+                  });
+                  toast.then(toast => toast.present());
                   return Plugins.Storage.remove({ key: 'storedreq' });
                }
    }
@@ -957,7 +966,7 @@ async sqlQuery(op:string,data:any){
       let values: Array<any>  = [data.patient_uuid,data.kshema_id,data.group_data_id,data.name,data.demographic_info,data.consent_arr,data.needs_assessment,data.uuid_info,data.status,date];
       var retRun: any =await this._sqlite.run({statement:sqlcmd,values:values});
       this.storeRequest("patient",data.patient_uuid,date,district,taluk);
-      
+      return null;
       
     }
 
@@ -970,7 +979,7 @@ async sqlQuery(op:string,data:any){
       let values: Array<any>  = [data.tasks_uuid,data.patient_uuid,data.task_type,data.creation_date,data.task_due_date,data.task_details,data.status,data.update_date,data.prev_record_uuuid,data.origin_record_id,data.created_at];
       await this._sqlite.run({statement:sqlcmd,values:values});
       this.storeRequest("tasks",data.tasks_uuid,date,sw_id,taluk_id);
-      
+      return null;
       }
 
     
@@ -983,7 +992,7 @@ async sqlQuery(op:string,data:any){
       let values: Array<any>  = [data.clinical_visits_uuid,data.patient_uuid,data.social_worker_id,data.visit_date,data.visit_type,data.visit_details,data.followup_date,data.prv_visit_uuid,date];
       var retRun: any = await this._sqlite.run({statement:sqlcmd,values:values});
         this.storeRequest("clinical_visits",data.clinical_visits_uuid,date,sw_id,taluk_id);
-      
+      return null;
     }
 
 
@@ -996,7 +1005,7 @@ async sqlQuery(op:string,data:any){
       let values: Array<any>  = [data.clinical_visits_uuid,data.patient_uuid,data.social_worker_id,data.visit_date,data.visit_type,data.visit_details,data.followup_date,data.prv_visit_uuid,date];
       var retRun: any = await this._sqlite.run({statement:sqlcmd,values:values});
       this.storeRequest("clinical_visits",data.clinical_visits_uuid,date,sw_id,taluk_id);
-      
+      return null;
     }
 
     
@@ -1162,7 +1171,7 @@ async sqlQuery(op:string,data:any){
     let values: Array<any>  = [data.tasks_uuid,data.patient_uuid,data.task_type,data.creation_date,data.task_due_date,data.task_details,data.status,data.update_date,data.prev_record_uuuid,data.origin_record_id,data.created_at];
     await this._sqlite.run({statement:sqlcmd,values:values});
     this.storeRequest("tasks",data.tasks_uuid,date,sw_id,taluk_id);
-    
+    return null;
     }
 
   //get the tasks data for a patient
@@ -1279,7 +1288,7 @@ async sqlQuery(op:string,data:any){
     let values: Array<any>  = [data.task_due_date,data.task_details,data.status,data.update_date,data.tasks_uuid];
     await this._sqlite.run({statement:sqlcmd,values:values});
     this.storeRequest("updatetasks",data.tasks_uuid,timestamp,sw_id,taluk_id);
-    
+    return null;
   
   }
   
@@ -1380,7 +1389,7 @@ async sqlQuery(op:string,data:any){
     let values: Array<any>  = [data.udid_uuid,data.patient_uuid,data.udid_info_obj];
     var retRun: any = await this._sqlite.run({statement:sqlcmd,values:values});
     this.storeRequest("udid_info",data.udid_uuid,timestamp,sw_id,taluk_id);
-    
+    return null;
   }
 
   //sync udid data with server db
@@ -1472,7 +1481,7 @@ async sqlQuery(op:string,data:any){
     let values: Array<any>  = [data.task_due_date,data.tasks_uuid];
     var retRun: any = await this._sqlite.run({statement:sqlcmd,values:values});
     this.storeRequest("updatetasks",data.tasks_uuid,timestamp,sw_id,taluk_id);
-    
+    return null;
   
   }
   
@@ -1693,5 +1702,20 @@ async addDistricts(data){
   
 }
 
+displayLoader(){
+  this.loadingCtrl.create({
+    message: 'Synchronization in progress. Please wait...',
+    cssClass: 'alert_bg'
+}).then((response) => {
+    response.present();
+});
+}
+dismissLoader(){
+  this.loadingCtrl.dismiss().then((response) => {
+    console.log('Loader closed!', response);
+}).catch((err) => {
+    console.log('Error occured : ', err);
+});
+}
   
 }

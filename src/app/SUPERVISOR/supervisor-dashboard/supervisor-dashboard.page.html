@@ -282,7 +282,7 @@
               </ng-container>
             
             
-              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class hhh"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id,row.sw)" class="pointer-class hhh"></tr>
             </table>
 
             <table mat-table [dataSource]="dataSource_dashboard2" matSort [hidden]="!upcoming">
@@ -316,7 +316,7 @@
               </ng-container>
             
               <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
-              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id,row.sw)" class="pointer-class"></tr>
             </table>
 
             <table mat-table [dataSource]="dataSource_dashboard3" matSort [hidden]="!overdue">
@@ -348,7 +348,7 @@
               </ng-container>
             
              
-              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id,row.sw)" class="pointer-class"></tr>
             </table>
             <table mat-table [dataSource]="dataSource_dashboard4" matSort [hidden]="!complete">
           
@@ -379,7 +379,7 @@
               </ng-container>
             
               <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns_dashboard"></tr> -->
-              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id,row.sw)" class="pointer-class"></tr>
             </table>
           
             <table mat-table [dataSource]="dataSource_dashboard1" matSort [hidden]="!incomplete">
@@ -412,7 +412,7 @@
               </ng-container>
             
               
-              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id)" class="pointer-class"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns_dashboard1;" (click)="patientDetails(row.patient_uuid,row.group_data_id,row.sw)" class="pointer-class"></tr>
             </table>
           
             <mat-paginator [pageSizeOptions]="[5, 10, 20,100]"></mat-paginator>

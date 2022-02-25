@@ -331,6 +331,23 @@ export class DashboardPage implements OnInit {
       this.getTodayTask();
   }
 
+  
+  async getUpdatedSyncCount(){
+   
+    this.sync_count = 0;
+
+
+    let today_visit_array_first :any;
+    let test = await this.patientService.todaysPatients1(this.today_date).then(result1 => {
+     
+      today_visit_array_first=result1;
+
+   });
+    
+      this.showSpinner = false;
+      this.sync_count =  today_visit_array_first[0].syncCount;
+  }
+
   toggleButton(x){
     this.buttonNumber = x;
     this.displayFunction(this.buttonNumber);
@@ -1394,11 +1411,13 @@ sync(){
       //when the app initializes and if its online, sync data if exists in the request(storage) table
       this.offlineManager.checkForEvents().subscribe();
     }else{
-      alert("offline")
+      alert("No network");
     }
   });
 
 }
+
+
   displayLoader(){
     this.loadingCtrl.create({
       message: 'Loading. Please wait...',

@@ -38,7 +38,7 @@ export class ServerService{
         
     }
     //AWS NEW server url
-    public baseUrl= 'http://13.126.225.131:8080/kshema';
+    //public baseUrl= 'http://13.126.225.131:8080/kshema';
 
     //aws old server url
     //public baseUrl= 'http://13.232.143.181:8080/kshema';
@@ -47,7 +47,7 @@ export class ServerService{
     //public baseUrl= 'http://10.11.3.160:80/kshema';
 
     //nimhans new domain
-    //public baseUrl= 'https://kshema.nimhans.ac.in/kshema';
+    public baseUrl= 'https://kshema.nimhans.ac.in/kshema';
 
      //nimhans NPLAB server url
     //public baseUrl= 'http://10.11.3.140/kshema';

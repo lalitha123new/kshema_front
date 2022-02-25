@@ -1787,10 +1787,12 @@ export class SupervisorDashboardPage implements OnInit {
   }
 
  //redirect to the patient page
-  patientDetails(n,group_data_id){
+  patientDetails(n,group_data_id,o){
  
     sessionStorage.setItem("patient_uuid",n);
     sessionStorage.setItem("group_id",group_data_id);
+   
+    sessionStorage.setItem("psw_incharge",o);
     this.router.navigate(['patient-details']);
     this.today_action =  true;
       this.upcoming = false;

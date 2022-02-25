@@ -368,6 +368,25 @@ export class TaskHistoryPage implements OnInit {
     this.uploadNo = false;
     this.reminder1 = "";
     this.reminder2 = "";
+    this.optionCheck1 = false;
+    this.optionCheck2 = false;
+    this.optionCheck3 = false;
+    this.optionCheck4 = false;
+    this.optionCheck5 = false;
+    this.optionCheck6 = false;
+    this.optionCheck7 = false;
+    this.optionCheck8 = false;
+    this.optionCheck9 = false;
+    this.optionCheck10 = false;
+    this.optionCheck11= false;
+    this.optionCheck12 = false;
+    this.optionCheck13 = false;
+    this.optionCheck14 = false;
+    this.optionCheck15 = false;
+    this.optionCheck16 = false;
+    this.optionCheck17 = false;
+    this.optionCheck18 = false; 
+    this.optionCheck19 = false; 
    for(var i=0;i<this.tobaccooptionsArray2udid.length;i++){
      this.tobaccooptionsArray2udid[i].checked = false;
    }
@@ -788,7 +807,7 @@ export class TaskHistoryPage implements OnInit {
 
    });
  
- 
+   console.log(tasks_array_first)
    for(var i = 0; i<tasks_array_first.length;i++){
     
     if(tasks_array_first[i].task_type == 1){

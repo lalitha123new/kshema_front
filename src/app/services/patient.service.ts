@@ -136,20 +136,38 @@ export class PatientService {
       //method to save patient demo
       await this.offlineManager.sqlQuery("addPatient",{patient_uuid:patient_uuid,group_data_id:group_data_id,social_worker_id:sw_id,kshema_id:"2",name:name,demographic_info:demo,
         uuid_info:uuid,needs_assessment:assess,consent_arr:consent,status:"active"
+      }).then((result) => {
+               
+        console.log("success");
+        
       });
+
+
 
       //method to save tasks data
       for(var k = 0;k<taskArray.length;k++){
         
       const tasks_uuid =  UUID.UUID();
       await this.offlineManager.sqlQuery("addTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient_uuid,task_type:taskArray[k].option,creation_date:today,task_due_date:taskArray[k].date,
-      task_details:taskArray[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today});
+      task_details:taskArray[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}).then((result) => {
+               
+        console.log("success");
+        
+      });
+
+
      
       }
     
     //method to save clinical data
     await this.offlineManager.sqlQuery("addClinical",{clinical_visits_uuid:clinical_visits_uuid,patient_uuid:patient_uuid,social_worker_id:sw_id,visit_date:today,visit_type:next_visit,visit_details:clinical,followup_date:follow_up_date,
-    prv_visit_uuid:''});
+    prv_visit_uuid:''}).then((result) => {
+               
+      console.log("success");
+      
+    });
+
+
 
     }
     
@@ -757,7 +775,12 @@ export class PatientService {
         for(var k = 0;k<statusAyyay.length;k++){
          
           await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusAyyay[k].uuid,task_due_date:statusAyyay[k].task_date,
-          task_details:statusAyyay[k].task_remark,status:statusAyyay[k].task_status,update_date:today});
+          task_details:statusAyyay[k].task_remark,status:statusAyyay[k].task_status,update_date:today}).then((result) => {
+               
+            console.log("success");
+            
+          });
+
        
         }
       }
@@ -766,13 +789,25 @@ export class PatientService {
       for(var k = 0;k<taskArray.length;k++){
         const tasks_uuid =  UUID.UUID();
         await this.offlineManager.sqlQuery("addTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:taskArray[k].option,creation_date:today,task_due_date:taskArray[k].date,
-        task_details:taskArray[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today});
+        task_details:taskArray[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}).then((result) => {
+               
+          console.log("success");
+          
+        });
+
+
      
       }
     }
 
       await this.offlineManager.sqlQuery("addClinicalNew",{clinical_visits_uuid:clinical_visits_uuid,patient_uuid:patient,social_worker_id:sw_id,visit_date:today,visit_type:next_visit_place,visit_details:clinicaldetails,followup_date:next_due_date,
-        prv_visit_uuid:''});
+        prv_visit_uuid:''}).then((result) => {
+               
+          console.log("success");
+          
+        });
+
+;
 
     }
    
@@ -791,13 +826,24 @@ export class PatientService {
             
            
               await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusArray[k].tasks_uuid,task_due_date:statusArray[k].task_date,
-              task_details:statusArray[k].task_remark,status:statusArray[k].task_status,update_date:today});
+              task_details:statusArray[k].task_remark,status:statusArray[k].task_status,update_date:today}).then((result) => {
+               
+                console.log("success");
+                
+              });
+
            
             }
     
     }
     return this.offlineManager.sqlQuery("addClinicalNew",{clinical_visits_uuid:clinical_visits_uuid,patient_uuid:patient,social_worker_id:sw_id,visit_date:today,visit_type:next_visit,visit_details:clinicaldetails,followup_date:next_due_date,
-      prv_visit_uuid:''});
+      prv_visit_uuid:''}).then((result) => {
+               
+        console.log("success");
+        
+      });
+
+
   }
 
     //add new home visit data of a patient
@@ -813,13 +859,21 @@ export class PatientService {
             for(var k = 0;k<statusArray.length;k++){
              
               await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusArray[k].tasks_uuid,task_due_date:statusArray[k].task_date,
-              task_details:statusArray[k].task_remark,status:statusArray[k].task_status,update_date:today});
+              task_details:statusArray[k].task_remark,status:statusArray[k].task_status,update_date:today}).then((result) => {
+               
+                console.log("success");
+                
+              });
            
             }
     
     }
       return this.offlineManager.sqlQuery("addClinicalNew",{clinical_visits_uuid:clinical_visits_uuid,patient_uuid:patient,social_worker_id:sw_id,visit_date:today,visit_type:next_visit,visit_details:clinicaldetails,followup_date:next_due_date,
-      prv_visit_uuid:''});
+      prv_visit_uuid:''}).then((result) => {
+               
+        console.log("success");
+        
+      });
 
     }
    
@@ -837,7 +891,11 @@ export class PatientService {
         for(var k = 0;k<statusAyyay.length;k++){
          
           await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusAyyay[k].uuid,task_due_date:statusAyyay[k].task_date,
-          task_details:statusAyyay[k].task_remark,status:statusAyyay[k].task_status,update_date:today});
+          task_details:statusAyyay[k].task_remark,status:statusAyyay[k].task_status,update_date:today}).then((result) => {
+               
+            console.log("success");
+            
+          });
        
         }
       }
@@ -846,7 +904,11 @@ export class PatientService {
       for(var k = 0;k<task_array.length;k++){
         const tasks_uuid =  UUID.UUID();
         await   this.offlineManager.sqlQuery("addNewTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:task_array[k].option,creation_date:today,task_due_date:task_array[k].date,
-        task_details:task_array[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today});
+        task_details:task_array[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}).then((result) => {
+               
+          console.log("success");
+          
+        });
      
       }
     
@@ -875,8 +937,12 @@ export class PatientService {
          
           task_array[k].date = "";
         }
-        await   this.offlineManager.sqlQuery("addNewTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:task_array[k].option,creation_date:today,task_due_date:task_array[k].date,
-        task_details:task_array[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today});
+        let testresult = await   this.offlineManager.sqlQuery("addNewTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:task_array[k].option,creation_date:today,task_due_date:task_array[k].date,
+        task_details:task_array[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}).then((result) => {
+              
+          console.log("success");
+          
+        });
      
       }
     
@@ -901,8 +967,12 @@ export class PatientService {
               if(!(statusAyyay[k].date)){
                 statusAyyay[k].date = "";
               }
-              await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusAyyay[k].uuid,task_due_date:statusAyyay[k].date,
-              task_details:statusAyyay[k].task_details,status:statusAyyay[k].task_status,update_date:today});
+              let testresult = await this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:statusAyyay[k].uuid,task_due_date:statusAyyay[k].date,
+              task_details:statusAyyay[k].task_details,status:statusAyyay[k].task_status,update_date:today}).then((result) => {
+              
+                console.log("success");
+                
+              });
                
            
             }
@@ -916,8 +986,12 @@ export class PatientService {
                   if(!(task_array[k].date)){
                     task_array[k].date = "";
                   }
-                  await   this.offlineManager.sqlQuery("addNewTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:task_array[k].option,creation_date:today,task_due_date:task_array[k].date,
-                  task_details:task_array[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today});
+                  let testresult = await this.offlineManager.sqlQuery("addNewTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:task_array[k].option,creation_date:today,task_due_date:task_array[k].date,
+                  task_details:task_array[k].task_details,status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}).then((result) => {
+                    
+                    console.log("success");
+                    
+                  });;
               
                 }
               
@@ -1044,10 +1118,18 @@ export class PatientService {
             ("00" + date.getMinutes()).slice(-2) + ":" +
             ("00" + date.getSeconds()).slice(-2);
         await   this.offlineManager.sqlQuery("addNewTasks",{tasks_uuid:tasks_uuid,patient_uuid:patient,task_type:41,creation_date:today,task_due_date:date2,
-        task_details:"",status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}); 
+        task_details:"",status:'pending',update_date:'',prev_record_uuuid:'',origin_record_id:'',created_at:today}).then((result) => {
+               
+          console.log("success");
+          
+        }); 
       }else{
       if(date2 != ""){
-      await   this.offlineManager.sqlQuery("updateUUIDTaskStatus",{task_due_date:date2,tasks_uuid:tasks_uuid});
+      await   this.offlineManager.sqlQuery("updateUUIDTaskStatus",{task_due_date:date2,tasks_uuid:tasks_uuid}).then((result) => {
+               
+        console.log("success");
+        
+      });
       }else{
         let date1  = new Date();
         let date = ("0" + date1.getDate()).slice(-2);
@@ -1062,10 +1144,18 @@ export class PatientService {
           ("00" + date_today.getMinutes()).slice(-2) + ":" +
           ("00" + date_today.getSeconds()).slice(-2);
         await   this.offlineManager.sqlQuery("updateTaskStatus",{tasks_uuid:tasks_uuid,task_due_date:date2,
-          task_details:"",status:"Completed",update_date:today});
+          task_details:"",status:"Completed",update_date:today}).then((result) => {
+               
+            console.log("success");
+            
+          });
       }
     }
-      await this.offlineManager.sqlQuery("addUDID",{udid_uuid:udid_uuid,patient_uuid:patient,udid_info_obj:udid_data});
+      await this.offlineManager.sqlQuery("addUDID",{udid_uuid:udid_uuid,patient_uuid:patient,udid_info_obj:udid_data}).then((result) => {
+               
+      console.log("success");
+        
+      });
   
     }
 
